@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|Win32">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|Win32">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{9CE889E3-2FBC-3FCF-B2E2-4D0BACABCBDE}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>ALL_BUILD</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\CMakeLists.txt">
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/Users/mandy/source/repos/DegreeProject/cocos2d/cocos/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/mandy/source/repos/DegreeProject -BC:/Users/mandy/source/repos/DegreeProject/build_win --check-stamp-file C:/Users/mandy/source/repos/DegreeProject/build_win/engine/cocos/core/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\2d\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\3d\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\audio\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\base\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\editor-support\cocostudio\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\math\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\navmesh\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\network\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\physics\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\physics3d\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\platform\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\renderer\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\ui\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\extensions\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Users\mandy\source\repos\DegreeProject\build_win\engine\cocos\core\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/Users/mandy/source/repos/DegreeProject/cocos2d/cocos/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/mandy/source/repos/DegreeProject -BC:/Users/mandy/source/repos/DegreeProject/build_win --check-stamp-file C:/Users/mandy/source/repos/DegreeProject/build_win/engine/cocos/core/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\2d\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\3d\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\audio\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\base\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\editor-support\cocostudio\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\math\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\navmesh\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\network\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\physics\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\physics3d\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\platform\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\renderer\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\ui\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\extensions\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Users\mandy\source\repos\DegreeProject\build_win\engine\cocos\core\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule C:/Users/mandy/source/repos/DegreeProject/cocos2d/cocos/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/mandy/source/repos/DegreeProject -BC:/Users/mandy/source/repos/DegreeProject/build_win --check-stamp-file C:/Users/mandy/source/repos/DegreeProject/build_win/engine/cocos/core/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\2d\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\3d\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\audio\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\base\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\editor-support\cocostudio\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\math\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\navmesh\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\network\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\physics\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\physics3d\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\platform\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\renderer\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\ui\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\extensions\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\Users\mandy\source\repos\DegreeProject\build_win\engine\cocos\core\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule C:/Users/mandy/source/repos/DegreeProject/cocos2d/cocos/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/mandy/source/repos/DegreeProject -BC:/Users/mandy/source/repos/DegreeProject/build_win --check-stamp-file C:/Users/mandy/source/repos/DegreeProject/build_win/engine/cocos/core/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\2d\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\3d\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\audio\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\base\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\editor-support\cocostudio\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\math\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\navmesh\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\network\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\physics\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\physics3d\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\platform\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\renderer\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\ui\CMakeLists.txt;C:\Users\mandy\source\repos\DegreeProject\cocos2d\extensions\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\Users\mandy\source\repos\DegreeProject\build_win\engine\cocos\core\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:\Users\mandy\source\repos\DegreeProject\build_win\ZERO_CHECK.vcxproj">
+      <Project>{EB20B7AF-A806-3016-B938-DDE2CDF6C3BD}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\mandy\source\repos\DegreeProject\build_win\engine\cocos\core\cocos2d.vcxproj">
+      <Project>{067CA5E3-CCF5-35DE-9402-612C9A78358C}</Project>
+      <Name>cocos2d</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\mandy\source\repos\DegreeProject\build_win\engine\external\clipper\ext_clipper.vcxproj">
+      <Project>{4F982CBE-24F4-3E6E-B437-E5F0D437C772}</Project>
+      <Name>ext_clipper</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\mandy\source\repos\DegreeProject\build_win\engine\external\ConvertUTF\ext_convertUTF.vcxproj">
+      <Project>{CD255B2C-8ABF-307F-B3BD-6D3F81C74B0C}</Project>
+      <Name>ext_convertUTF</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\mandy\source\repos\DegreeProject\build_win\engine\external\edtaa3func\ext_edtaa3func.vcxproj">
+      <Project>{4B2D3B8A-BA75-36A8-B759-796842AA94AC}</Project>
+      <Name>ext_edtaa3func</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\mandy\source\repos\DegreeProject\build_win\engine\external\md5\ext_md5.vcxproj">
+      <Project>{0D777A24-40F6-38C7-89C9-FC9DB52A8804}</Project>
+      <Name>ext_md5</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\mandy\source\repos\DegreeProject\build_win\engine\external\poly2tri\ext_poly2tri.vcxproj">
+      <Project>{66E3D9C7-2FB0-3A42-B132-5D9059BA510D}</Project>
+      <Name>ext_poly2tri</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\mandy\source\repos\DegreeProject\build_win\engine\external\recast\ext_recast.vcxproj">
+      <Project>{0B6C0C58-7466-3A6E-A234-DB990AFC159E}</Project>
+      <Name>ext_recast</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\mandy\source\repos\DegreeProject\build_win\engine\external\tinyxml2\ext_tinyxml2.vcxproj">
+      <Project>{5FF8C8FB-C352-3CD1-BC18-108B4ACD91CE}</Project>
+      <Name>ext_tinyxml2</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\mandy\source\repos\DegreeProject\build_win\engine\external\unzip\ext_unzip.vcxproj">
+      <Project>{7CB95F29-9FC2-35EC-A789-92B582244FB2}</Project>
+      <Name>ext_unzip</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\mandy\source\repos\DegreeProject\build_win\engine\external\xxhash\ext_xxhash.vcxproj">
+      <Project>{B3FED224-10E0-33CC-86B7-9F28FA9E9374}</Project>
+      <Name>ext_xxhash</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\mandy\source\repos\DegreeProject\build_win\engine\external\xxtea\ext_xxtea.vcxproj">
+      <Project>{4785464C-20D0-3771-B255-4EFB4CC9C6D7}</Project>
+      <Name>ext_xxtea</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\mandy\source\repos\DegreeProject\build_win\engine\external\external.vcxproj">
+      <Project>{789DC5EA-969D-3DCA-A5B5-65F667F482C7}</Project>
+      <Name>external</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
