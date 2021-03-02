@@ -42,6 +42,7 @@ void MouseOverMenuItem::SetItemRect(Vec2& pos)
     itemRect= Rect(x, y, getContentSize().width, getContentSize().height);
 }
 
+
 void MouseOverMenuItem::onMouseMove(Event* event)
 {
     EventMouse* eventMouse = (EventMouse*)event;
@@ -52,11 +53,17 @@ void MouseOverMenuItem::onMouseMove(Event* event)
     if (itemRect.containsPoint(locationInNode))
     {
         selected();
-        if (onMouseOver)
+        if (onMouseOver && !isHovering)
+        {
+            isHovering = true;
             onMouseOver(this, event);
+        }
     }
     else
+    {
+        isHovering = false;
         unselected();
+    }
 }
 
 void MouseOverMenuItem::setMouseListener()

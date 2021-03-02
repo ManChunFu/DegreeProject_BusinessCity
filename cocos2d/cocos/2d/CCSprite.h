@@ -113,7 +113,7 @@ public:
      * @return An autoreleased sprite object.
      */
     static Sprite* create();
-
+    
     /**
      * Creates a sprite with an image filename.
      *

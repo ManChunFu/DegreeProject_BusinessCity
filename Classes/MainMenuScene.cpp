@@ -23,11 +23,10 @@
  ****************************************************************************/
 
 #include "MainMenuScene.h"
+#include "GameScene.h"
+#include "ui/UIButton.h"
 
-#include "cocostudio/SimpleAudioEngine.h"
-using namespace CocosDenshion;
 
-USING_NS_CC;
 
 Scene* MainMenuScene::createScene()
 {
@@ -47,43 +46,52 @@ bool MainMenuScene::init()
     //////////////////////////////
     // 1. super init first
     if ( !Scene::init() )
-    {
         return false;
-    }
 
-    auto visibleSize = Director::getInstance()->getVisibleSize();
+    visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
     /////////////////////////////
     
-    auto backgroundSprite = Sprite::create("Sprites/CityTopDownViewMediumWithLayer.png");
+    // Background image
+    auto backgroundSprite = Sprite::createWithSpriteFrameName("CityTopDownViewWithLayer.png");
     if (backgroundSprite == nullptr || backgroundSprite->getContentSize().width <= 0 || backgroundSprite->getContentSize().height <= 0)
         problemLoading("'Sprites/CityTopDownViewMediumWithLayer.png'");
     else
+    {
+        SetScale(backgroundSprite, 1);
+
         backgroundSprite->setPosition(Point(origin.x + (visibleSize.width / 2), origin.y + (visibleSize.height / 2)));
-   
+    }
     this->addChild(backgroundSprite, 0);
 
-
-    auto label = Label::createWithTTF("Bussiness City", "fonts/BROADW.TTF", 24);
+    // Title
+    auto label = Label::createWithTTF("Bussiness City", "fonts/BROADW.TTF", 56);
     label->setTextColor(Color4B::ORANGE);
     label->enableGlow(Color4B::BLACK);
     label->enableShadow(Color4B::BLACK);
     label->setPosition(Point(origin.x + visibleSize.width/2, origin.y + visibleSize.height - label->getContentSize().height));
     this->addChild(label, 1);
     
-    auto starNormal = Sprite::createWithSpriteFrameName("YellowStarNormal.png");
-    auto starSelected = Sprite::createWithSpriteFrameName("StarSelected.png");
-    auto closeItem = MouseOverMenuItem::create(starSelected, starNormal, NULL, CC_CALLBACK_1(MainMenuScene::menuCloseCallback, this));
+    // Buttons
+
+    auto buttonNormal = Sprite::createWithSpriteFrameName("ButtonBlueNormal.png");
+    auto buttonSelected = Sprite::createWithSpriteFrameName("ButtonBlueLit.png");
+    auto buttonDisabled = Sprite::createWithSpriteFrameName("ButtonBlueDisabled.png");
+    auto closeItem = MouseOverMenuItem::create(buttonNormal, buttonSelected, buttonDisabled, CC_CALLBACK_1(MainMenuScene::menuCloseCallback, this));
+    auto start = Label::createWithTTF("Start", "fonts/BROADW.TTF", 25);
+    start->setTextColor(Color4B(125, 100, 100, 255));
+    start->setPosition(Vec2(closeItem->getContentSize().width/2, closeItem->getContentSize().height/2));
+    closeItem->addChild(start, 2);
 
     closeItem->onMouseOver = CC_CALLBACK_2(MainMenuScene::onMouseOver, this);
 
     if (closeItem == nullptr || closeItem->getContentSize().width <= 0 || closeItem->getContentSize().height <= 0)
-        problemLoading("'Sprites/YellowStarNormal.png' and 'Sprites/StarSelected.png'");
+        problemLoading("'Sprites/ButtonBlueNormal.png' and 'Sprites/ButtonBlueLit.png'");
     else
     {
-        float x = label->getPositionX() + 120.f;
-        float y = label->getPositionY();
+        float x = label->getPositionX();
+        float y = label->getPositionY() -200.f;
         closeItem->setPosition(Vec2(x, y));
         closeItem->SetItemRect(Vec2(x, y));
     }
@@ -111,10 +119,10 @@ void MainMenuScene::menuCloseCallback(Ref* pSender)
     //Close the cocos2d-x game scene and quit the application
    //Director::getInstance()->end();
     StopAudio();
-    auto scene = MainMenuScene::createScene();
+    auto scene = GameScene::createScene();
 
     // run
-    Director::getInstance()->replaceScene(TransitionFade::create(1.f, scene, Color3B(0, 0, 0)));
+    Director::getInstance()->replaceScene(TransitionFade::create(2, scene));
     
     /*To navigate back to native iOS screen(if present) without quitting the application  ,do not use Director::getInstance()->end() as given above,instead trigger a custom event created in RootViewController.mm as below*/
 
@@ -132,6 +140,12 @@ void MainMenuScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
     }
 }
 
+
+void MainMenuScene::SetScale(Sprite* sprite, UINT8 scale)
+{
+    sprite->setScaleX((visibleSize.width / sprite->getContentSize().width) * scale);
+    sprite->setScaleY((visibleSize.height / sprite->getContentSize().height) * scale);
+}
 
 void MainMenuScene::onMouseOver(MouseOverMenuItem* overItem, Event* event)
 {

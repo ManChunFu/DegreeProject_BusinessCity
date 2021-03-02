@@ -71,15 +71,17 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // initialize director
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
+
+    
     if(!glview) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
-        glview = GLViewImpl::createWithRect("DegreeProject", cocos2d::Rect(0, 0, largeResolutionSize.width, largeResolutionSize.height));
+        glview = GLViewImpl::createWithRect("DegreeProject", cocos2d::Rect(0, 0, mediumResolutionSize.width, mediumResolutionSize.height));
 #else
         glview = GLViewImpl::create("DegreeProject");
 #endif
         director->setOpenGLView(glview);
     }
-
+   
     // turn on display FPS
     director->setDisplayStats(true);
 
@@ -109,7 +111,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // Load sprite sheet
     auto spritecache = SpriteFrameCache::getInstance();
-    spritecache->addSpriteFramesWithFile("Sprites/Star.plist");
+    spritecache->addSpriteFramesWithFile("Sprites/MainMenu.plist");
 
     // create a scene. it's an autorelease object
     auto scene = MainMenuScene::createScene();

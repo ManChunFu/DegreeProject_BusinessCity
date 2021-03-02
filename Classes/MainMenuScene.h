@@ -40,12 +40,15 @@ public:
     virtual bool init();
 
 private:
+    Size visibleSize = Size::ZERO;
+    Vec2 scaleFactor = Vec2::ONE;
+    void SetScale(Sprite* sprite, UINT8 scale);
+
     // a selector callback
+    void onMouseOver(MouseOverMenuItem* overItem, Event* event);
     void menuCloseCallback(cocos2d::Ref* pSender);
     void onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event);
-
-    void onMouseOver(MouseOverMenuItem* overItem, Event* event);
-
+    
     SimpleAudioEngine* audio;
     void StopAudio(bool deleteAudio = false);
 
