@@ -45,6 +45,9 @@ void MouseOverMenuItem::setItemRect(Vec2& pos)
 
 void MouseOverMenuItem::onMouseMove(Event* event)
 {
+	if (!this->isEnabled())
+		return;
+
 	EventMouse* eventMouse = (EventMouse*)event;
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 locationInNode = Point(Vec2(eventMouse->getCursorX(), eventMouse->getCursorY()));

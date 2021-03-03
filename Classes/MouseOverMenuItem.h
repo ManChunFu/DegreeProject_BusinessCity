@@ -17,7 +17,6 @@ public:
 
 	std::function<void(MouseOverMenuItem* overItem, Event* event)> onMouseOver;
 	void setItemRect(Vec2& pos);
-
 protected:
 	EventListenerMouse* mouseListener;
 

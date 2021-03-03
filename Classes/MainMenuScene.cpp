@@ -23,9 +23,9 @@
  ****************************************************************************/
 
 #include "MainMenuScene.h"
-#include "GameScene.h"
+#include <MouseOverMenuItem.h>
 #include "ui/UIWidget.h"
-
+#include <MainMenuPlayerSetting.h>
 
 
 Scene* MainMenuScene::createScene()
@@ -90,7 +90,7 @@ bool MainMenuScene::init()
 		return false;
 	}
 
-	Vector<MenuItem*> menuItems;
+	//Vector<MenuItem*> menuItems;
 	// start button text
 	startButtonItem->onMouseOver = CC_CALLBACK_2(MainMenuScene::onMouseOver, this);
 	Vec2 startButtonPos = Vec2(label->getPositionX(), label->getPositionY() - 200.f);
@@ -128,6 +128,7 @@ bool MainMenuScene::init()
 	menu->setPosition(Vec2::ZERO);
 	this->addChild(menu, 1);
 
+
 	// set key event
 	auto listener = EventListenerKeyboard::create();
 	listener->onKeyPressed = CC_CALLBACK_2(MainMenuScene::onKeyPressed, this);
@@ -137,24 +138,29 @@ bool MainMenuScene::init()
 	audio = SimpleAudioEngine::getInstance();
 	audio->playBackgroundMusic("Sounds/CuteBunnyHopLoopl.mp3", true);
 
+	playerSetting = new MainMenuPlayerSetting();
+
 	return true;
 }
 
-
 void MainMenuScene::menuStartCallback(Ref* pSender)
 {
-	StopAudio();
-	auto scene = GameScene::createScene();
-	Director::getInstance()->replaceScene(TransitionFade::create(2, scene));
+	isOpeningSubWindow = true;
+	for (auto item : menuItems)
+	{
+		item->setEnabled(false);
+	}
+	playerSetting->OpenSettingWindow(this);
+	//StopAudio();
+	//auto scene = GameScene::createScene();
+	//Director::getInstance()->replaceScene(TransitionFade::create(2, scene));
 }
 
 void MainMenuScene::menuCloseCallback(Ref* pSender)
 {
 	//Close the cocos2d-x game scene and quit the application
 	StopAudio(true);
-	
 	Director::getInstance()->end();
-
 
 	/*To navigate back to native iOS screen(if present) without quitting the application  ,do not use Director::getInstance()->end() as given above,instead trigger a custom event created in RootViewController.mm as below*/
 
@@ -162,11 +168,18 @@ void MainMenuScene::menuCloseCallback(Ref* pSender)
 	_eventDispatcher->dispatchEvent(&customEndEvent);*/
 }
 
-
 void MainMenuScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE)
-		menuCloseCallback(this);
+	{
+		if (!isOpeningSubWindow)
+			menuCloseCallback(this);
+		else
+		{
+			isOpeningSubWindow = false;
+			playerSetting->CloseSettingWindow(this);
+		}
+	}
 }
 
 void MainMenuScene::SetScale(Sprite* sprite, UINT8 scale)

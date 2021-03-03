@@ -26,11 +26,12 @@
 #define __MAINMENU_SCENE_H__
 
 #include "cocos2d.h"
-#include <MouseOverMenuItem.h>
 #include "cocostudio/SimpleAudioEngine.h"
-
 using namespace CocosDenshion;
 USING_NS_CC;
+
+class MouseOverMenuItem;
+class MainMenuPlayerSetting;
 
 class MainMenuScene : public cocos2d::Scene
 {
@@ -38,25 +39,27 @@ public:
     static cocos2d::Scene* createScene();
 
     virtual bool init();
+    Vector<MenuItem*> menuItems;
 
 private:
     Size visibleSize = Size::ZERO;
     Vec2 scaleFactor = Vec2::ONE;
     void SetScale(Sprite* sprite, UINT8 scale);
 
-
     // a selector callback
+    bool isOpeningSubWindow = false;
+    
     void onMouseOver(MouseOverMenuItem* overItem, Event* event);
     void menuStartCallback(Ref* pSender);
     void menuCloseCallback(Ref* pSender);
     void onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event);
-    
+    MainMenuPlayerSetting* playerSetting = nullptr;
+
     SimpleAudioEngine* audio;
     void StopAudio(bool deleteAudio = false);
 
     // implement the "static create()" method manually
     CREATE_FUNC(MainMenuScene);
-
 };
 
 #endif // __HELLOWORLD_SCENE_H__

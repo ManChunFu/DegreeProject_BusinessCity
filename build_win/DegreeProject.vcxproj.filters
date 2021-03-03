@@ -22,8 +22,8 @@
     <ClCompile Include="..\Classes\GameScene.cpp">
       <Filter>Source Files\Classes\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\MouseOverButtonHeader.cpp">
-      <Filter>Source Files\Classes</Filter>
+    <ClCompile Include="..\Classes\MainMenuPlayerSetting.cpp">
+      <Filter>Source Files\Classes\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -66,8 +66,8 @@
     <ClInclude Include="..\Classes\GameScene.h">
       <Filter>Source Files\Classes\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\MouseOverButtonHeader.h">
-      <Filter>Source Files\Classes</Filter>
+    <ClInclude Include="..\Classes\MainMenuPlayerSetting.h">
+      <Filter>Source Files\Classes\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
