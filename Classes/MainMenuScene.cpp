@@ -149,6 +149,7 @@ void MainMenuScene::menuStartCallback(Ref* pSender)
 	for (auto item : menuItems)
 	{
 		item->setEnabled(false);
+		item->setVisible(false);
 	}
 	playerSetting->OpenSettingWindow(this);
 	//StopAudio();

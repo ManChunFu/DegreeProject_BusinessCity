@@ -15,9 +15,9 @@
                 <key>spriteSourceSize</key>
                 <string>{100,46}</string>
                 <key>textureRect</key>
-                <string>{{1283,1},{100,46}}</string>
+                <string>{{1283,593},{100,46}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>ButtonBlueLit.png</key>
             <dict>
@@ -30,9 +30,9 @@
                 <key>spriteSourceSize</key>
                 <string>{100,46}</string>
                 <key>textureRect</key>
-                <string>{{1283,103},{100,46}}</string>
+                <string>{{1385,593},{100,46}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>ButtonBlueNormal.png</key>
             <dict>
@@ -45,9 +45,9 @@
                 <key>spriteSourceSize</key>
                 <string>{100,46}</string>
                 <key>textureRect</key>
-                <string>{{1283,205},{100,46}}</string>
+                <string>{{1487,593},{100,46}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>CityTopDownViewWithLayer.png</key>
             <dict>
@@ -64,6 +64,21 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
+            <key>UIPanelRecBlack80.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{392,590}</string>
+                <key>spriteSourceSize</key>
+                <string>{400,600}</string>
+                <key>textureRect</key>
+                <string>{{1283,1},{392,590}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -76,9 +91,9 @@
             <key>realTextureFileName</key>
             <string>MainMenu.png</string>
             <key>size</key>
-            <string>{1330,1122}</string>
+            <string>{1676,1122}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:988e86d74d1762342f73d60cfdbc9d1d:56ab5dc9de5880066177d7c37626d0d8:31bea43e736bbf933266798eeb07ad7a$</string>
+            <string>$TexturePacker:SmartUpdate:a1716dccdb4b3f707727884df148f48b:3fc6f5dd553b192704b1d04005a68634:31bea43e736bbf933266798eeb07ad7a$</string>
             <key>textureFileName</key>
             <string>MainMenu.png</string>
         </dict>

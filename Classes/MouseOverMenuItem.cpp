@@ -2,6 +2,7 @@
 
 MouseOverMenuItem::~MouseOverMenuItem()
 {
+	isHovering = false;
 	_eventDispatcher->removeEventListener(mouseListener);
 }
 
