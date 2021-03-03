@@ -44,9 +44,11 @@ private:
     Vec2 scaleFactor = Vec2::ONE;
     void SetScale(Sprite* sprite, UINT8 scale);
 
+
     // a selector callback
     void onMouseOver(MouseOverMenuItem* overItem, Event* event);
-    void menuCloseCallback(cocos2d::Ref* pSender);
+    void menuStartCallback(Ref* pSender);
+    void menuCloseCallback(Ref* pSender);
     void onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event);
     
     SimpleAudioEngine* audio;
