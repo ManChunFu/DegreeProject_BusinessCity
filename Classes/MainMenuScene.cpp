@@ -58,7 +58,7 @@ bool MainMenuScene::init()
 
 	/////////////////////////////
 
-	// Background image
+	// background image
 	auto backgroundSprite = Sprite::createWithSpriteFrameName("CityTopDownViewWithLayer.png");
 	if (backgroundSprite == nullptr || backgroundSprite->getContentSize().width <= 0 || backgroundSprite->getContentSize().height <= 0)
 	{
@@ -70,7 +70,7 @@ bool MainMenuScene::init()
 	backgroundSprite->setPosition(Point(origin.x + (visibleSize.width / 2), origin.y + (visibleSize.height / 2)));
 	this->addChild(backgroundSprite, 0);
 
-	// Title
+	// title
 	auto label = Label::createWithTTF("Bussiness City", "fonts/BROADW.TTF", 56);
 	label->setTextColor(Color4B::ORANGE);
 	label->enableGlow(Color4B::BLACK);
@@ -90,7 +90,8 @@ bool MainMenuScene::init()
 		return false;
 	}
 
-	// Set start button text
+	Vector<MenuItem*> menuItems;
+	// start button text
 	startButtonItem->onMouseOver = CC_CALLBACK_2(MainMenuScene::onMouseOver, this);
 	Vec2 startButtonPos = Vec2(label->getPositionX(), label->getPositionY() - 200.f);
 	startButtonItem->setPosition(startButtonPos);
@@ -101,6 +102,8 @@ bool MainMenuScene::init()
 	startText->setTextColor(Color4B(125, 100, 100, 255));
 	startText->setPosition(buttonMidPoint);
 	startButtonItem->addChild(startText, 2);
+
+	menuItems.pushBack(startButtonItem);
 
 	// quit button
 	auto quitNormalSprite = Sprite::createWithSpriteFrameName("ButtonBlueNormal.png");
@@ -118,22 +121,20 @@ bool MainMenuScene::init()
 	quitText->setPosition(buttonMidPoint);
 	quitButtonItem->addChild(quitText, 2);
 
+	menuItems.pushBack(quitButtonItem);
+
 	// create menu, it's an autorelease object
-	auto menuStart = Menu::create(startButtonItem, NULL);
-	menuStart->setPosition(Vec2::ZERO);
-	this->addChild(menuStart, 1);
+	auto menu = Menu::createWithArray(menuItems);
+	menu->setPosition(Vec2::ZERO);
+	this->addChild(menu, 1);
 
-	auto menuQuit = Menu::create(quitButtonItem, NULL);
-	menuQuit->setPosition(Vec2::ZERO);
-	this->addChild(menuQuit, 1);
-
+	// set key event
 	auto listener = EventListenerKeyboard::create();
 	listener->onKeyPressed = CC_CALLBACK_2(MainMenuScene::onKeyPressed, this);
-
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
+	// set music
 	audio = SimpleAudioEngine::getInstance();
-
 	audio->playBackgroundMusic("Sounds/CuteBunnyHopLoopl.mp3", true);
 
 	return true;
