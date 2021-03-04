@@ -4,16 +4,26 @@
 #include "ui/UITextField.h"
 
 USING_NS_CC;
+class MouseOverMenuItem;
+
+
 
 class MainMenuPlayerSetting 
 {
 public:
 	~MainMenuPlayerSetting();
+	
 	void OpenSettingWindow(Scene* scene);
-	void CloseSettingWindow(Scene* scene);
+	void closeSettingWindow(Scene* scene);
 	
 private:
+	Vector<MenuItem*> menuItems;
 	Sprite* playerSettingPanel = nullptr;
-	ui::TextField* textField;
+	ui::TextField* textField = nullptr;
 	bool hasCreated = false;
+	bool isSelected = false;
+	void createPlayerSettingWindow(Scene* scene);
+	void selectedCallback(Ref* pSender);
+	void onMouseOver(MouseOverMenuItem* overItem, Event* event);
+	
 };

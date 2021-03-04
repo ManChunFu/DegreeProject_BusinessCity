@@ -36,17 +36,24 @@ MouseOverMenuItem* MouseOverMenuItem::create(Node* normalSprite, Node* overSprit
 	return nullptr;
 }
 
-void MouseOverMenuItem::setItemRect(Vec2& pos)
+void MouseOverMenuItem::setItemRect(Vec2& pos, float scale)
 {
-	float x = pos.x - getContentSize().width / 2;
-	float y = pos.y - getContentSize().height / 2;
-	itemRect = Rect(x, y, getContentSize().width, getContentSize().height);
+	float x = pos.x - getContentSize().width * 0.5f * scale;
+	float y = pos.y - getContentSize().height * 0.5f * scale;
+	itemRect = Rect(x, y, getContentSize().width * scale, getContentSize().height * scale);
 }
 
+void MouseOverMenuItem::setSelected(bool value)
+{
+	isSelected = value;
+}
 
 void MouseOverMenuItem::onMouseMove(Event* event)
 {
 	if (!this->isEnabled())
+		return;
+
+	if (isSelected)
 		return;
 
 	EventMouse* eventMouse = (EventMouse*)event;

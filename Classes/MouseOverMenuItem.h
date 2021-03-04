@@ -16,13 +16,15 @@ public:
 	static MouseOverMenuItem* create(Node* normalSprite, Node* overSprite, Node* disabledSprite, const ccMenuCallback& callback);
 
 	std::function<void(MouseOverMenuItem* overItem, Event* event)> onMouseOver;
-	void setItemRect(Vec2& pos);
+	void setItemRect(Vec2& pos, float scale = 1.f);
+	void setSelected(bool value);
 protected:
 	EventListenerMouse* mouseListener;
 
 private :
 	Rect itemRect;
 	bool isHovering = false;
+	bool isSelected = false;
 	void onMouseMove(Event* event);
 	void setMouseListener();
 };

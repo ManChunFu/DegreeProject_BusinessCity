@@ -39,12 +39,12 @@ public:
     static cocos2d::Scene* createScene();
 
     virtual bool init();
-    Vector<MenuItem*> menuItems;
+    void setSpriteScale(Sprite* sprite, float scale);
 
 private:
     Size visibleSize = Size::ZERO;
     Vec2 scaleFactor = Vec2::ONE;
-    void SetScale(Sprite* sprite, UINT8 scale);
+    Vector<MenuItem*> menuItems;
 
     // a selector callback
     bool isOpeningSubWindow = false;

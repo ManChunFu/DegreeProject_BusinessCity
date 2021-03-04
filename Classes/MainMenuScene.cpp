@@ -66,7 +66,7 @@ bool MainMenuScene::init()
 		return false;
 	}
 
-	SetScale(backgroundSprite, 1);
+	setSpriteScale(backgroundSprite, 1);
 	backgroundSprite->setPosition(Point(origin.x + (visibleSize.width / 2), origin.y + (visibleSize.height / 2)));
 	this->addChild(backgroundSprite, 0);
 
@@ -90,7 +90,6 @@ bool MainMenuScene::init()
 		return false;
 	}
 
-	//Vector<MenuItem*> menuItems;
 	// start button text
 	startButtonItem->onMouseOver = CC_CALLBACK_2(MainMenuScene::onMouseOver, this);
 	Vec2 startButtonPos = Vec2(label->getPositionX(), label->getPositionY() - 200.f);
@@ -161,6 +160,7 @@ void MainMenuScene::menuCloseCallback(Ref* pSender)
 {
 	//Close the cocos2d-x game scene and quit the application
 	StopAudio(true);
+	playerSetting = nullptr;
 	Director::getInstance()->end();
 
 	/*To navigate back to native iOS screen(if present) without quitting the application  ,do not use Director::getInstance()->end() as given above,instead trigger a custom event created in RootViewController.mm as below*/
@@ -178,12 +178,17 @@ void MainMenuScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 		else
 		{
 			isOpeningSubWindow = false;
-			playerSetting->CloseSettingWindow(this);
+			playerSetting->closeSettingWindow(this);
+			for (auto item : menuItems)
+			{
+				item->setEnabled(true);
+				item->setVisible(true);
+			}
 		}
 	}
 }
 
-void MainMenuScene::SetScale(Sprite* sprite, UINT8 scale)
+void MainMenuScene::setSpriteScale(Sprite* sprite, float scale)
 {
 	sprite->setScaleX((visibleSize.width / sprite->getContentSize().width) * scale);
 	sprite->setScaleY((visibleSize.height / sprite->getContentSize().height) * scale);

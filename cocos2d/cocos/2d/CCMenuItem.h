@@ -45,7 +45,13 @@ class LabelAtlas;
 class Sprite;
 class SpriteFrame;
 #define kItemSize 32
-    
+
+struct characterData
+{
+    bool isSelected = false;
+    Label* selectedLabel = nullptr;
+};
+
 /**
  * @addtogroup _2d
  * @{
@@ -91,6 +97,7 @@ public:
      */
     virtual std::string getDescription() const override;
     
+    characterData character;
 CC_CONSTRUCTOR_ACCESS:
     /**
      * @js ctor
