@@ -47,8 +47,14 @@ class SpriteFrame;
 #define kItemSize 32
 
 /* Mandy's codes for Busssiness City game application*/
+enum class itemTypes
+{
+    CHARACTER = 0,
+    BUTTON = 1
+};
 struct itemData
 {
+    itemTypes type;
     bool isSelected = false;
     Label* selectedLabel = nullptr;
 };

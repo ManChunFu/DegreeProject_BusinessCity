@@ -49,6 +49,111 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
+            <key>Button_Blue_20_Alpha.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{100,46}</string>
+                <key>spriteSourceSize</key>
+                <string>{100,46}</string>
+                <key>textureRect</key>
+                <string>{{1589,593},{100,46}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>Button_Green_20_Alpha.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{100,46}</string>
+                <key>spriteSourceSize</key>
+                <string>{100,46}</string>
+                <key>textureRect</key>
+                <string>{{1283,641},{100,46}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>Button_Purple_20_Alpha.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{100,46}</string>
+                <key>spriteSourceSize</key>
+                <string>{100,46}</string>
+                <key>textureRect</key>
+                <string>{{1385,641},{100,46}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>Button_Red_50_Alpha.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{98,46}</string>
+                <key>spriteSourceSize</key>
+                <string>{100,46}</string>
+                <key>textureRect</key>
+                <string>{{1283,689},{98,46}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>Button_Red_50_Alpha_Disabled.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{98,46}</string>
+                <key>spriteSourceSize</key>
+                <string>{100,46}</string>
+                <key>textureRect</key>
+                <string>{{1383,689},{98,46}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>Button_Red_50_Alpha_Selected.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{98,46}</string>
+                <key>spriteSourceSize</key>
+                <string>{100,46}</string>
+                <key>textureRect</key>
+                <string>{{1483,689},{98,46}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>Button_Yellow_20_Alpha.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{100,46}</string>
+                <key>spriteSourceSize</key>
+                <string>{100,46}</string>
+                <key>textureRect</key>
+                <string>{{1487,641},{100,46}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
             <key>CityTopDownViewWithLayer.png</key>
             <dict>
                 <key>aliases</key>
@@ -93,7 +198,7 @@
             <key>size</key>
             <string>{1676,1122}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:a1716dccdb4b3f707727884df148f48b:3fc6f5dd553b192704b1d04005a68634:31bea43e736bbf933266798eeb07ad7a$</string>
+            <string>$TexturePacker:SmartUpdate:751ab688f9114add42b9b00afd0dfe7e:96edaecbabc170cbfb125db20358c90e:31bea43e736bbf933266798eeb07ad7a$</string>
             <key>textureFileName</key>
             <string>MainMenu.png</string>
         </dict>

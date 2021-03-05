@@ -89,9 +89,9 @@ bool MainMenuScene::init()
 		problemLoading("'ButtonBlueNormal.png' and 'ButtonBlueLit.png' and 'ButtonBlueDisabled.png'", ui::Widget::TextureResType::PLIST);
 		return false;
 	}
+	startButtonItem->onMouseOver = CC_CALLBACK_2(MainMenuScene::onMouseOver, this);
 
 	// start button text
-	startButtonItem->onMouseOver = CC_CALLBACK_2(MainMenuScene::onMouseOver, this);
 	Vec2 startButtonPos = Vec2(label->getPositionX(), label->getPositionY() - 200.f);
 	startButtonItem->setPosition(startButtonPos);
 	startButtonItem->setItemRect(startButtonPos);
@@ -135,7 +135,7 @@ bool MainMenuScene::init()
 
 	// set music
 	audio = SimpleAudioEngine::getInstance();
-	audio->playBackgroundMusic("Sounds/CuteBunnyHopLoopl.mp3", true);
+	audio->playBackgroundMusic("Sounds/market-song.mp3", true);
 
 	playerSetting = new MainMenuPlayerSetting();
 
@@ -145,15 +145,8 @@ bool MainMenuScene::init()
 void MainMenuScene::menuStartCallback(Ref* pSender)
 {
 	isOpeningSubWindow = true;
-	for (auto item : menuItems)
-	{
-		item->setEnabled(false);
-		item->setVisible(false);
-	}
+	setMenuItemVisible(false);
 	playerSetting->OpenSettingWindow(this);
-	//StopAudio();
-	//auto scene = GameScene::createScene();
-	//Director::getInstance()->replaceScene(TransitionFade::create(2, scene));
 }
 
 void MainMenuScene::menuCloseCallback(Ref* pSender)
@@ -178,12 +171,8 @@ void MainMenuScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 		else
 		{
 			isOpeningSubWindow = false;
-			playerSetting->closeSettingWindow(this);
-			for (auto item : menuItems)
-			{
-				item->setEnabled(true);
-				item->setVisible(true);
-			}
+			playerSetting->closeSettingWindow();
+			setMenuItemVisible(false);
 		}
 	}
 }
@@ -192,6 +181,15 @@ void MainMenuScene::setSpriteScale(Sprite* sprite, float scale)
 {
 	sprite->setScaleX((visibleSize.width / sprite->getContentSize().width) * scale);
 	sprite->setScaleY((visibleSize.height / sprite->getContentSize().height) * scale);
+}
+
+void MainMenuScene::setMenuItemVisible(bool value)
+{
+	for (auto item : menuItems)
+	{
+		item->setEnabled(value);
+		item->setVisible(value);
+	}
 }
 
 void MainMenuScene::onMouseOver(MouseOverMenuItem* overItem, Event* event)

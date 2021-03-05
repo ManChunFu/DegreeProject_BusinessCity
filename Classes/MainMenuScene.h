@@ -37,26 +37,26 @@ class MainMenuScene : public cocos2d::Scene
 {
 public:
     static cocos2d::Scene* createScene();
-
     virtual bool init();
+    
     void setSpriteScale(Sprite* sprite, float scale);
+    bool isOpeningSubWindow = false;
+    void setMenuItemVisible(bool value);
+    void StopAudio(bool deleteAudio = false);
 
 private:
     Size visibleSize = Size::ZERO;
     Vec2 scaleFactor = Vec2::ONE;
     Vector<MenuItem*> menuItems;
+    SimpleAudioEngine* audio;
 
     // a selector callback
-    bool isOpeningSubWindow = false;
     
     void onMouseOver(MouseOverMenuItem* overItem, Event* event);
     void menuStartCallback(Ref* pSender);
     void menuCloseCallback(Ref* pSender);
     void onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event);
     MainMenuPlayerSetting* playerSetting = nullptr;
-
-    SimpleAudioEngine* audio;
-    void StopAudio(bool deleteAudio = false);
 
     // implement the "static create()" method manually
     CREATE_FUNC(MainMenuScene);
