@@ -46,7 +46,8 @@ class Sprite;
 class SpriteFrame;
 #define kItemSize 32
 
-struct characterData
+/* Mandy's codes for Busssiness City game application*/
+struct itemData
 {
     bool isSelected = false;
     Label* selectedLabel = nullptr;
@@ -97,7 +98,9 @@ public:
      */
     virtual std::string getDescription() const override;
     
-    characterData character;
+    /* Mandy's codes for Busssiness City game application*/
+    itemData itemSelectedData;
+
 CC_CONSTRUCTOR_ACCESS:
     /**
      * @js ctor

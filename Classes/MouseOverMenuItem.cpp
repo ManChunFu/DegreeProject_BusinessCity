@@ -43,17 +43,9 @@ void MouseOverMenuItem::setItemRect(Vec2& pos, float scale)
 	itemRect = Rect(x, y, getContentSize().width * scale, getContentSize().height * scale);
 }
 
-void MouseOverMenuItem::setSelected(bool value)
-{
-	isSelected = value;
-}
-
 void MouseOverMenuItem::onMouseMove(Event* event)
 {
 	if (!this->isEnabled())
-		return;
-
-	if (isSelected)
 		return;
 
 	EventMouse* eventMouse = (EventMouse*)event;

@@ -17,7 +17,6 @@ public:
 
 	std::function<void(MouseOverMenuItem* overItem, Event* event)> onMouseOver;
 	void setItemRect(Vec2& pos, float scale = 1.f);
-	void setSelected(bool value);
 protected:
 	EventListenerMouse* mouseListener;
 

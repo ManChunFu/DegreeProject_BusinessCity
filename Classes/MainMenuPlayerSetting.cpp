@@ -18,7 +18,6 @@ MainMenuPlayerSetting::~MainMenuPlayerSetting()
 	textField = nullptr;
 
 	hasCreated = false;
-	isSelected = false;
 }
 
 void MainMenuPlayerSetting::OpenSettingWindow(Scene* scene)
@@ -167,33 +166,28 @@ void MainMenuPlayerSetting::selectedCallback(Ref* pSender)
 	{
 		if (item == pSender)
 		{
-			if (!isSelected)
+			if (item->itemSelectedData.isSelected)
 			{
-				isSelected = true;
-				if (item->character.isSelected)
-					item->character.selectedLabel->setVisible(true);
-				else
-				{
-					item->character.isSelected = true;
-					item->character.selectedLabel = Label::createWithTTF("SELECTED", "fonts/BROADW.TTF", 30.f);
-					item->character.selectedLabel->setTextColor(Color4B(255, 0, 0, 255));
-					item->character.selectedLabel->enableShadow(Color4B::WHITE);
-					item->character.selectedLabel->setPosition(item->getContentSize().width * 0.5f, item->getContentSize().height * 0.5f - 60.f);
-					item->character.selectedLabel->setRotation(-25.f);
-					item->addChild(item->character.selectedLabel, 1);
-					item->selected();
-				}
-			}
-			else
-			{
-				isSelected = false;
-				item->character.selectedLabel->setVisible(false);
+				item->itemSelectedData.isSelected = false;
+				item->itemSelectedData.selectedLabel->setVisible(false);
 				item->unselected();
 				for (auto item : menuItems)
 				{
 					item->setEnabled(true);
 				}
 				return;
+			}
+			else
+			{
+				// create label for first time
+				item->itemSelectedData.isSelected = true;
+				item->itemSelectedData.selectedLabel = Label::createWithTTF("SELECTED", "fonts/BROADW.TTF", 30.f);
+				item->itemSelectedData.selectedLabel->setTextColor(Color4B(255, 0, 0, 255));
+				item->itemSelectedData.selectedLabel->enableShadow(Color4B::WHITE);
+				item->itemSelectedData.selectedLabel->setPosition(item->getContentSize().width * 0.5f, item->getContentSize().height * 0.5f - 60.f);
+				item->itemSelectedData.selectedLabel->setRotation(-18.f);
+				item->addChild(item->itemSelectedData.selectedLabel, 1);
+				item->selected();
 			}
 		}
 		else
