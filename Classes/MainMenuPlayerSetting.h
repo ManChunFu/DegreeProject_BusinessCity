@@ -19,12 +19,15 @@ private:
 	Vector<MenuItem*> menuItems;
 	Sprite* playerSettingPanel = nullptr;
 	ui::TextField* textField = nullptr;
+	Sprite* invalidBorder = nullptr;
+
 	bool hasCreated = false;
 	void createPlayerSettingWindow();
 	void characterSelectedCallback(Ref* pSender);
 	void playButtonSelectedCallback(Ref* pSender);
 	void cancelButtonSelectedCallback(Ref* pSender);
 	void onMouseOver(MouseOverMenuItem* overItem, Event* event);
-	
+	bool validation();
+	void showInvalid();
 	void destroy();
 };

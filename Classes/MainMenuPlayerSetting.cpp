@@ -4,6 +4,7 @@
 #include "ui/UICheckBox.h"
 #include "MouseOverMenuItem.h"
 #include "GameScene.h"
+#include "InGameData.h"
 
 
 MainMenuPlayerSetting::~MainMenuPlayerSetting()
@@ -18,7 +19,9 @@ void MainMenuPlayerSetting::OpenSettingWindow(Scene* scene)
 		playerSettingPanel->setVisible(true);
 		for (auto item : menuItems)
 		{
-			item->setEnabled(true);
+			if (item->itemSelectedData.isSelected || item->itemSelectedData.type == itemTypes::BUTTON)
+				item->setEnabled(true);
+
 			item->setVisible(true);
 		}
 		return;
@@ -55,17 +58,20 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	auto panelMidPoint = Vec2(playerSettingPanel->getContentSize().width * 0.5f, playerSettingPanel->getContentSize().height * 0.5f);
 
 	// player name
-	textField = ui::TextField::create("ENTER YOUR NAME", "Arial", 30);
+	textField = ui::TextField::create("ENTER YOUR NAME", "fonts/Nirmala.ttf", 30);
 	textField->setColor(Color3B::WHITE);
 	textField->setMaxLengthEnabled(true);
 	textField->setMaxLength(24);
 	textField->setPosition(Vec2(panelMidPoint.x, panelMidPoint.y + 240.f));
-	textField->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) { textField->setCursorEnabled(true); });
+	textField->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
+		textField->setCursorEnabled(true);
+		if (invalidBorder)
+			invalidBorder->setVisible(false); });
 	playerSettingPanel->addChild(textField, 1);
 
 	// option label
-	auto optionLabel = Label::createWithTTF("CHOOSE YOUR PLAYER", "fonts/BROADW.TTF", 20);
-	optionLabel->setTextColor(Color4B(255, 0, 50, 255));
+	auto optionLabel = Label::createWithTTF("CHOOSE YOUR PLAYER", "fonts/Nirmala.ttf", 20);
+	optionLabel->setTextColor(colorType.HotPink);
 	optionLabel->setPosition(panelMidPoint.x, panelMidPoint.y + 160.f);
 	playerSettingPanel->addChild(optionLabel, 1);
 
@@ -74,6 +80,7 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	auto woman1SelectedSprite = Sprite::createWithSpriteFrameName("Woman1_200_Tran_Lit.png");
 	auto woman1DisabledSprite = Sprite::createWithSpriteFrameName("Woman1_200_Tran_Disabled.png");
 	auto woman1Item = MouseOverMenuItem::create(woman1NormalSprite, woman1SelectedSprite, woman1DisabledSprite, CC_CALLBACK_1(MainMenuPlayerSetting::characterSelectedCallback, this));
+	woman1Item->itemSelectedData.type = itemTypes::WOMAN1;
 	woman1Item->onMouseOver = CC_CALLBACK_2(MainMenuPlayerSetting::onMouseOver, this);
 	Vec2 woman1Pos = Vec2(sceneMidPoint.x - 100.f, sceneMidPoint.y + 60.f);
 	woman1Item->setScale(0.4f);
@@ -81,12 +88,14 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	woman1Item->setItemRect(woman1Pos, 0.4f);
 
 	menuItems.pushBack(woman1Item);
+	characterSpriteMap.insert(std::pair<itemTypes, std::string>(woman1Item->itemSelectedData.type, "Woman1_200_Tran.png"));
 
 	// woman2
 	auto woman2NormalSprite = Sprite::createWithSpriteFrameName("Woman2_200_Tran.png");
 	auto woman2SelectedSprite = Sprite::createWithSpriteFrameName("Woman2_200_Tran_Lit.png");
 	auto woman2DisabledSprite = Sprite::createWithSpriteFrameName("Woman2_200_Tran_Disabled.png");
 	auto woman2Item = MouseOverMenuItem::create(woman2NormalSprite, woman2SelectedSprite, woman2DisabledSprite, CC_CALLBACK_1(MainMenuPlayerSetting::characterSelectedCallback, this));
+	woman2Item->itemSelectedData.type = itemTypes::WOMAN2;
 	woman2Item->onMouseOver = CC_CALLBACK_2(MainMenuPlayerSetting::onMouseOver, this);
 	Vec2 woman2Pos = Vec2(sceneMidPoint.x, sceneMidPoint.y + 60.f);
 	woman2Item->setScale(0.4f);
@@ -94,12 +103,14 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	woman2Item->setItemRect(woman2Pos, 0.4f);
 
 	menuItems.pushBack(woman2Item);
+	characterSpriteMap.insert(std::pair<itemTypes, std::string>(woman2Item->itemSelectedData.type, "Woman2_200_Tran.png"));
 
 	// woman3
 	auto woman3NormalSprite = Sprite::createWithSpriteFrameName("Woman3_200_Tran.png");
 	auto woman3SelectedSprite = Sprite::createWithSpriteFrameName("Woman3_200_Tran_Lit.png");
 	auto woman3DisabledSprite = Sprite::createWithSpriteFrameName("Woman3_200_Tran_Disabled.png");
 	auto woman3Item = MouseOverMenuItem::create(woman3NormalSprite, woman3SelectedSprite, woman3DisabledSprite, CC_CALLBACK_1(MainMenuPlayerSetting::characterSelectedCallback, this));
+	woman3Item->itemSelectedData.type = itemTypes::WOMAN3;
 	woman3Item->onMouseOver = CC_CALLBACK_2(MainMenuPlayerSetting::onMouseOver, this);
 	Vec2 woman3Pos = Vec2(sceneMidPoint.x + 100.f, sceneMidPoint.y + 60.f);
 	woman3Item->setScale(0.4f);
@@ -107,12 +118,14 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	woman3Item->setItemRect(woman3Pos, 0.4f);
 
 	menuItems.pushBack(woman3Item);
+	characterSpriteMap.insert(std::pair<itemTypes, std::string>(woman3Item->itemSelectedData.type, "Woman3_200_Tran.png"));
 
 	// man1
 	auto man1NormalSprite = Sprite::createWithSpriteFrameName("Man1_200_Tran.png");
 	auto man1_SelectedSprite = Sprite::createWithSpriteFrameName("Man1_200_Tran_Lit.png");
 	auto man1DisabledSprite = Sprite::createWithSpriteFrameName("Man1_200_Tran_Disabled.png");
 	auto man1Item = MouseOverMenuItem::create(man1NormalSprite, man1_SelectedSprite, man1DisabledSprite, CC_CALLBACK_1(MainMenuPlayerSetting::characterSelectedCallback, this));
+	man1Item->itemSelectedData.type = itemTypes::MAN1;
 	man1Item->onMouseOver = CC_CALLBACK_2(MainMenuPlayerSetting::onMouseOver, this);
 	Vec2 man1Pos = Vec2(sceneMidPoint.x - 100.f, sceneMidPoint.y -40.f);
 	man1Item->setScale(0.4f);
@@ -120,12 +133,14 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	man1Item->setItemRect(man1Pos, 0.4f);
 
 	menuItems.pushBack(man1Item);
+	characterSpriteMap.insert(std::pair<itemTypes, std::string>(man1Item->itemSelectedData.type, "Man1_200_Tran.png"));
 
 	// man2
 	auto man2NormalSprite = Sprite::createWithSpriteFrameName("Man2_200_Tran.png");
 	auto man2SelectedSprite = Sprite::createWithSpriteFrameName("Man2_200_Tran_Lit.png");
 	auto man2DisabledSprite = Sprite::createWithSpriteFrameName("Man2_200_Tran_Disabled.png");
 	auto man2Item = MouseOverMenuItem::create(man2NormalSprite, man2SelectedSprite, man2DisabledSprite, CC_CALLBACK_1(MainMenuPlayerSetting::characterSelectedCallback, this));
+	man2Item->itemSelectedData.type = itemTypes::MAN2;
 	man2Item->onMouseOver = CC_CALLBACK_2(MainMenuPlayerSetting::onMouseOver, this);
 	Vec2 man2Pos = Vec2(sceneMidPoint.x, sceneMidPoint.y -40.f);
 	man2Item->setScale(0.4f);
@@ -133,12 +148,14 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	man2Item->setItemRect(man2Pos, 0.4f);
 
 	menuItems.pushBack(man2Item);
+	characterSpriteMap.insert(std::pair<itemTypes, std::string>(man2Item->itemSelectedData.type, "Man2_200_Tran.png"));
 
 	// man3
 	auto man3NormalSprite = Sprite::createWithSpriteFrameName("Man3_200_Tran.png");
 	auto man3SelectedSprite = Sprite::createWithSpriteFrameName("Man3_200_Tran_Lit.png");
 	auto man3DisabledSprite = Sprite::createWithSpriteFrameName("Man3_200_Tran_Disabled.png");
 	auto man3Item = MouseOverMenuItem::create(man3NormalSprite, man3SelectedSprite, man3DisabledSprite, CC_CALLBACK_1(MainMenuPlayerSetting::characterSelectedCallback, this));
+	man3Item->itemSelectedData.type = itemTypes::MAN3;
 	man3Item->onMouseOver = CC_CALLBACK_2(MainMenuPlayerSetting::onMouseOver, this);
 	Vec2 man3Pos = Vec2(sceneMidPoint.x + 100.f, sceneMidPoint.y -40.f);
 	man3Item->setScale(0.4f);
@@ -146,6 +163,7 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	man3Item->setItemRect(man3Pos, 0.4f);
 
 	menuItems.pushBack(man3Item);
+	characterSpriteMap.insert(std::pair<itemTypes, std::string>(man3Item->itemSelectedData.type, "Man3_200_Tran.png"));
 
 	// play button
 	auto playNormalSprite = Sprite::createWithSpriteFrameName("Button_Purple_20_Alpha.png");
@@ -162,7 +180,7 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	auto buttonMidPoint = Vec2(playItem->getContentSize().width * 0.5f, playItem->getContentSize().height * 0.5f);
 
 	// play label
-	auto playText = Label::createWithTTF("PLAY", "fonts/BROADW.TTF", 20);
+	auto playText = Label::createWithTTF("PLAY", "fonts/Nirmala.ttf", 20);
 	playText->setTextColor(Color4B::WHITE);
 	playText->setPosition(buttonMidPoint);
 	playItem->addChild(playText, 1);
@@ -182,7 +200,7 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	cancelItem->setItemRect(cancelPos, 0.8f);
 
 	// play label
-	auto cancelText = Label::createWithTTF("CANCEL", "fonts/BROADW.TTF", 20);
+	auto cancelText = Label::createWithTTF("CANCEL", "fonts/Nirmala.ttf", 20);
 	cancelText->setTextColor(Color4B::WHITE);
 	cancelText->setPosition(buttonMidPoint);
 	cancelItem->addChild(cancelText, 1);
@@ -217,10 +235,10 @@ void MainMenuPlayerSetting::characterSelectedCallback(Ref* pSender)
 			{
 				// create label for first time
 				item->itemSelectedData.isSelected = true;
-				item->itemSelectedData.selectedLabel = Label::createWithTTF("SELECTED", "fonts/BROADW.TTF", 40.f);
-				item->itemSelectedData.selectedLabel->setTextColor(Color4B(255, 0, 50, 255));
-				item->itemSelectedData.selectedLabel->enableShadow(Color4B::WHITE);
-				item->itemSelectedData.selectedLabel->enableGlow(Color4B::GREEN);
+				item->itemSelectedData.selectedLabel = Label::createWithTTF("SELECTED", "fonts/NirmalaB.ttf", 40.f);
+				item->itemSelectedData.selectedLabel->setTextColor(colorType.HotPink);
+				item->itemSelectedData.selectedLabel->enableShadow(Color4B::BLACK);
+				item->itemSelectedData.selectedLabel->enableGlow(colorType.LightSteelBlue);
 				item->itemSelectedData.selectedLabel->setPosition(item->getContentSize().width * 0.5f, item->getContentSize().height * 0.5f - 60.f);
 				item->itemSelectedData.selectedLabel->setRotation(-15.f);
 				item->addChild(item->itemSelectedData.selectedLabel, 1);
@@ -230,7 +248,7 @@ void MainMenuPlayerSetting::characterSelectedCallback(Ref* pSender)
 		else
 		{
 			if (item->itemSelectedData.type == itemTypes::BUTTON)
-				return;
+				continue;
 
 			item->setEnabled(false);
 		}
@@ -239,12 +257,12 @@ void MainMenuPlayerSetting::characterSelectedCallback(Ref* pSender)
 
 void MainMenuPlayerSetting::playButtonSelectedCallback(Ref* pSender)
 {
-	for (auto item : menuItems)
+	if (!validation())
 	{
-		if (item->itemSelectedData.isSelected)
-		{
-		}
+		showInvalid();
+		return;
 	}
+
 	mainMenu->StopAudio();
 	auto scene = GameScene::createScene();
 	Director::getInstance()->replaceScene(TransitionFade::create(2, scene));
@@ -259,6 +277,42 @@ void MainMenuPlayerSetting::cancelButtonSelectedCallback(Ref* pSender)
 
 void MainMenuPlayerSetting::onMouseOver(MouseOverMenuItem* overItem, Event* event)
 {
+}
+
+bool MainMenuPlayerSetting::validation()
+{
+	if (textField->getString() == "")
+		return false;
+
+	playerName = textField->getString();
+
+	for (auto item : menuItems)
+	{
+		if (item->itemSelectedData.isSelected)
+		{
+			playerCharacter = item->itemSelectedData.type;
+			return true;
+		}
+	}
+
+	auto randNo = random(0, 6);
+	playerCharacter = menuItems.at(randNo)->itemSelectedData.type;
+	return true;
+}
+
+void MainMenuPlayerSetting::showInvalid()
+{
+	if (invalidBorder)
+	{
+		invalidBorder->setVisible(true);
+		return;
+	}
+
+	auto textMidPoint = textField->getAutoRenderSize() * 0.5f;
+	invalidBorder = Sprite::createWithSpriteFrameName("Border_Red.png");
+	invalidBorder->setScaleX(1.5f);
+	invalidBorder->setPosition(textMidPoint);
+	textField->addChild(invalidBorder, 1);
 }
 
 void MainMenuPlayerSetting::destroy()
@@ -278,6 +332,8 @@ void MainMenuPlayerSetting::destroy()
 	delete textField;
 	textField = nullptr;
 
+	delete invalidBorder;
+	invalidBorder;
 	hasCreated = false;
 }
 

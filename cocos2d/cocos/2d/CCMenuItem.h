@@ -49,8 +49,9 @@ class SpriteFrame;
 /* Mandy's codes for Busssiness City game application*/
 enum class itemTypes
 {
-    CHARACTER = 0,
-    BUTTON = 1
+    WOMAN1, WOMAN2, WOMAN3,
+    MAN1, MAN2, MAN3,
+    BUTTON
 };
 struct itemData
 {
