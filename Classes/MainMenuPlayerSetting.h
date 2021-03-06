@@ -20,9 +20,9 @@ private:
 	Sprite* playerSettingPanel = nullptr;
 	ui::TextField* textField = nullptr;
 	Sprite* invalidBorder = nullptr;
-
-	bool hasCreated = false;
+	bool hasSelected = false;
 	void createPlayerSettingWindow();
+	//void onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event);
 	void characterSelectedCallback(Ref* pSender);
 	void playButtonSelectedCallback(Ref* pSender);
 	void cancelButtonSelectedCallback(Ref* pSender);

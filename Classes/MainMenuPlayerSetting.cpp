@@ -14,23 +14,32 @@ MainMenuPlayerSetting::~MainMenuPlayerSetting()
 
 void MainMenuPlayerSetting::OpenSettingWindow(Scene* scene)
 {
-	if (hasCreated)
+	if (!playerSettingPanel)
 	{
-		playerSettingPanel->setVisible(true);
+		mainMenu = dynamic_cast<MainMenuScene*>(scene);
+
+		if (mainMenu)
+			createPlayerSettingWindow();
+		return;
+	}
+
+	playerSettingPanel->setVisible(true);
+	if (hasSelected)
+	{
 		for (auto item : menuItems)
 		{
+			item->setVisible(true);
 			if (item->itemSelectedData.isSelected || item->itemSelectedData.type == itemTypes::BUTTON)
 				item->setEnabled(true);
-
-			item->setVisible(true);
 		}
 		return;
 	}
 
-	mainMenu = dynamic_cast<MainMenuScene*>(scene);
-
-	if (mainMenu)
-		createPlayerSettingWindow();
+	for (auto item : menuItems)
+	{
+		item->setEnabled(true);
+		item->setVisible(true);
+	}	
 }
 
 void MainMenuPlayerSetting::closeSettingWindow()
@@ -45,7 +54,6 @@ void MainMenuPlayerSetting::closeSettingWindow()
 
 void MainMenuPlayerSetting::createPlayerSettingWindow()
 {
-	hasCreated = true;
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
@@ -212,46 +220,63 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 
 	mainMenu->addChild(playerSettingPanel, 2);
 	mainMenu->addChild(panelMenu, 3);
+
+	//auto listener = EventListenerKeyboard::create();
+	//listener->onKeyPressed = CC_CALLBACK_2(MainMenuPlayerSetting::onKeyPressed, this);
+	////_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
 }
+
+//void MainMenuScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
+//{
+//
+//}
 
 void MainMenuPlayerSetting::characterSelectedCallback(Ref* pSender)
 {
+	hasSelected = true;
+
 	for (auto item : menuItems)
 	{
-		if (item == pSender)
-		{
-			if (item->itemSelectedData.isSelected)
-			{
-				item->itemSelectedData.isSelected = false;
-				item->itemSelectedData.selectedLabel->setVisible(false);
-				item->unselected();
-				for (auto item : menuItems)
-				{
-					item->setEnabled(true);
-				}
-				return;
-			}
-			else
-			{
-				// create label for first time
-				item->itemSelectedData.isSelected = true;
-				item->itemSelectedData.selectedLabel = Label::createWithTTF("SELECTED", "fonts/NirmalaB.ttf", 40.f);
-				item->itemSelectedData.selectedLabel->setTextColor(colorType.HotPink);
-				item->itemSelectedData.selectedLabel->enableShadow(Color4B::BLACK);
-				item->itemSelectedData.selectedLabel->enableGlow(colorType.LightSteelBlue);
-				item->itemSelectedData.selectedLabel->setPosition(item->getContentSize().width * 0.5f, item->getContentSize().height * 0.5f - 60.f);
-				item->itemSelectedData.selectedLabel->setRotation(-15.f);
-				item->addChild(item->itemSelectedData.selectedLabel, 1);
-				item->selected();
-			}
-		}
-		else
+		if (item != pSender)
 		{
 			if (item->itemSelectedData.type == itemTypes::BUTTON)
 				continue;
 
 			item->setEnabled(false);
+			continue;
 		}
+
+		if (item->itemSelectedData.isSelected)
+		{
+			item->itemSelectedData.isSelected = false;
+			item->itemSelectedData.selectedLabel->setVisible(false);
+			item->unselected();
+			for (auto item : menuItems)
+			{
+				item->setEnabled(true);
+			}
+			hasSelected = false;
+			return;
+		}
+		
+		item->itemSelectedData.isSelected = true;
+
+		if (item->itemSelectedData.selectedLabel)
+		{
+			item->itemSelectedData.selectedLabel->setVisible(true);
+			continue;
+		}
+		
+		// create label for first time
+		item->itemSelectedData.selectedLabel = Label::createWithTTF("SELECTED", "fonts/NirmalaB.ttf", 40.f);
+		item->itemSelectedData.selectedLabel->setTextColor(colorType.HotPink);
+		item->itemSelectedData.selectedLabel->enableShadow(Color4B::BLACK);
+		item->itemSelectedData.selectedLabel->enableGlow(colorType.LightSteelBlue);
+		item->itemSelectedData.selectedLabel->setPosition(item->getContentSize().width * 0.5f, item->getContentSize().height * 0.5f - 60.f);
+		item->itemSelectedData.selectedLabel->setRotation(-15.f);
+		item->addChild(item->itemSelectedData.selectedLabel, 1);
+		item->selected();
 	}
 }
 
@@ -265,7 +290,7 @@ void MainMenuPlayerSetting::playButtonSelectedCallback(Ref* pSender)
 
 	mainMenu->StopAudio();
 	auto scene = GameScene::createScene();
-	Director::getInstance()->replaceScene(TransitionFade::create(2, scene));
+	Director::getInstance()->replaceScene(TransitionFade::create(2.f, scene));
 }
 
 void MainMenuPlayerSetting::cancelButtonSelectedCallback(Ref* pSender)
@@ -277,6 +302,7 @@ void MainMenuPlayerSetting::cancelButtonSelectedCallback(Ref* pSender)
 
 void MainMenuPlayerSetting::onMouseOver(MouseOverMenuItem* overItem, Event* event)
 {
+	textField->setCursorEnabled(false);
 }
 
 bool MainMenuPlayerSetting::validation()
@@ -308,12 +334,13 @@ void MainMenuPlayerSetting::showInvalid()
 		return;
 	}
 
-	auto textMidPoint = textField->getAutoRenderSize() * 0.5f;
+	auto textMidPoint = Vec2(130, 20);
 	invalidBorder = Sprite::createWithSpriteFrameName("Border_Red.png");
 	invalidBorder->setScaleX(1.5f);
 	invalidBorder->setPosition(textMidPoint);
 	textField->addChild(invalidBorder, 1);
 }
+                
 
 void MainMenuPlayerSetting::destroy()
 {
@@ -334,6 +361,6 @@ void MainMenuPlayerSetting::destroy()
 
 	delete invalidBorder;
 	invalidBorder;
-	hasCreated = false;
+	hasSelected = false;
 }
 
