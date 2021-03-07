@@ -73,7 +73,7 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	textField = ui::TextField::create("ENTER YOUR NAME", "fonts/Nirmala.ttf", 30);
 	textField->setColor(Color3B::WHITE);
 	textField->setMaxLengthEnabled(true);
-	textField->setMaxLength(24);
+	textField->setMaxLength(10);
 	textField->setPosition(Vec2(panelMidPoint.x, panelMidPoint.y + 240.f));
 	textField->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) { textField->setCursorEnabled(true); });
 	playerSettingPanel->addChild(textField, 1);
