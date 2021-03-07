@@ -5,7 +5,7 @@
 #include "MouseOverMenuItem.h"
 #include "GameScene.h"
 #include "InGameData.h"
-
+#include "2d/CCNode.h"
 
 MainMenuPlayerSetting::~MainMenuPlayerSetting()
 {
@@ -58,6 +58,7 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	auto sceneMidPoint = Point(origin.x + (visibleSize.width * 0.5f), origin.y + (visibleSize.height * 0.5f));
+
 	// background
 	playerSettingPanel = Sprite::createWithSpriteFrameName("UIPanelRecBlack80.png");
 	playerSettingPanel->setPosition(sceneMidPoint);
@@ -73,8 +74,7 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	textField->setPosition(Vec2(panelMidPoint.x, panelMidPoint.y + 240.f));
 	textField->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
 		textField->setCursorEnabled(true);
-		if (invalidBorder)
-			invalidBorder->setVisible(false); });
+		textField->setPlaceHolderColor(Color4B::GRAY); });
 	playerSettingPanel->addChild(textField, 1);
 
 	// option label
@@ -83,6 +83,7 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	optionLabel->setPosition(panelMidPoint.x, panelMidPoint.y + 160.f);
 	playerSettingPanel->addChild(optionLabel, 1);
 
+#pragma region Create Character MenuItem
 	// woman1
 	auto woman1NormalSprite = Sprite::createWithSpriteFrameName("Woman1_200_Tran.png");
 	auto woman1SelectedSprite = Sprite::createWithSpriteFrameName("Woman1_200_Tran_Lit.png");
@@ -135,7 +136,7 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	auto man1Item = MouseOverMenuItem::create(man1NormalSprite, man1_SelectedSprite, man1DisabledSprite, CC_CALLBACK_1(MainMenuPlayerSetting::characterSelectedCallback, this));
 	man1Item->itemSelectedData.type = itemTypes::MAN1;
 	man1Item->onMouseOver = CC_CALLBACK_2(MainMenuPlayerSetting::onMouseOver, this);
-	Vec2 man1Pos = Vec2(sceneMidPoint.x - 100.f, sceneMidPoint.y -40.f);
+	Vec2 man1Pos = Vec2(sceneMidPoint.x - 100.f, sceneMidPoint.y - 40.f);
 	man1Item->setScale(0.4f);
 	man1Item->setPosition(man1Pos);
 	man1Item->setItemRect(man1Pos, 0.4f);
@@ -150,7 +151,7 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	auto man2Item = MouseOverMenuItem::create(man2NormalSprite, man2SelectedSprite, man2DisabledSprite, CC_CALLBACK_1(MainMenuPlayerSetting::characterSelectedCallback, this));
 	man2Item->itemSelectedData.type = itemTypes::MAN2;
 	man2Item->onMouseOver = CC_CALLBACK_2(MainMenuPlayerSetting::onMouseOver, this);
-	Vec2 man2Pos = Vec2(sceneMidPoint.x, sceneMidPoint.y -40.f);
+	Vec2 man2Pos = Vec2(sceneMidPoint.x, sceneMidPoint.y - 40.f);
 	man2Item->setScale(0.4f);
 	man2Item->setPosition(man2Pos);
 	man2Item->setItemRect(man2Pos, 0.4f);
@@ -165,14 +166,16 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	auto man3Item = MouseOverMenuItem::create(man3NormalSprite, man3SelectedSprite, man3DisabledSprite, CC_CALLBACK_1(MainMenuPlayerSetting::characterSelectedCallback, this));
 	man3Item->itemSelectedData.type = itemTypes::MAN3;
 	man3Item->onMouseOver = CC_CALLBACK_2(MainMenuPlayerSetting::onMouseOver, this);
-	Vec2 man3Pos = Vec2(sceneMidPoint.x + 100.f, sceneMidPoint.y -40.f);
+	Vec2 man3Pos = Vec2(sceneMidPoint.x + 100.f, sceneMidPoint.y - 40.f);
 	man3Item->setScale(0.4f);
 	man3Item->setPosition(man3Pos);
 	man3Item->setItemRect(man3Pos, 0.4f);
 
 	menuItems.pushBack(man3Item);
 	characterSpriteMap.insert(std::pair<itemTypes, std::string>(man3Item->itemSelectedData.type, "Man3_200_Tran.png"));
+#pragma endregion
 
+#pragma region Create Buttons
 	// play button
 	auto playNormalSprite = Sprite::createWithSpriteFrameName("Button_Purple_20_Alpha.png");
 	auto playSelectedSprite = Sprite::createWithSpriteFrameName("Button_Red_50_Alpha_Selected.png");
@@ -207,13 +210,14 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	cancelItem->setPosition(cancelPos);
 	cancelItem->setItemRect(cancelPos, 0.8f);
 
-	// play label
+	// cancel label
 	auto cancelText = Label::createWithTTF("CANCEL", "fonts/Nirmala.ttf", 20);
 	cancelText->setTextColor(Color4B::WHITE);
 	cancelText->setPosition(buttonMidPoint);
 	cancelItem->addChild(cancelText, 1);
 
 	menuItems.pushBack(cancelItem);
+#pragma endregion
 
 	auto panelMenu = Menu::createWithArray(menuItems);
 	panelMenu->setPosition(Vec2::ZERO);
@@ -221,19 +225,22 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	mainMenu->addChild(playerSettingPanel, 2);
 	mainMenu->addChild(panelMenu, 3);
 
-	//auto listener = EventListenerKeyboard::create();
-	//listener->onKeyPressed = CC_CALLBACK_2(MainMenuPlayerSetting::onKeyPressed, this);
-	////_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+	auto listener = EventListenerKeyboard::create();
+	listener->onKeyPressed = CC_CALLBACK_2(MainMenuPlayerSetting::onKeyPressed, this);
+	auto event = mainMenu->getEventDispatcher(); 
+	event->addEventListenerWithSceneGraphPriority(listener, mainMenu);
 
 }
 
-//void MainMenuScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
-//{
-//
-//}
+void MainMenuPlayerSetting::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
+{
+	if (keyCode == EventKeyboard::KeyCode::KEY_ENTER)
+		textField->didNotSelectSelf();
+}
 
 void MainMenuPlayerSetting::characterSelectedCallback(Ref* pSender)
 {
+	textField->didNotSelectSelf();
 	hasSelected = true;
 
 	for (auto item : menuItems)
@@ -302,7 +309,6 @@ void MainMenuPlayerSetting::cancelButtonSelectedCallback(Ref* pSender)
 
 void MainMenuPlayerSetting::onMouseOver(MouseOverMenuItem* overItem, Event* event)
 {
-	textField->setCursorEnabled(false);
 }
 
 bool MainMenuPlayerSetting::validation()
@@ -328,39 +334,40 @@ bool MainMenuPlayerSetting::validation()
 
 void MainMenuPlayerSetting::showInvalid()
 {
-	if (invalidBorder)
-	{
-		invalidBorder->setVisible(true);
-		return;
-	}
-
-	auto textMidPoint = Vec2(130, 20);
-	invalidBorder = Sprite::createWithSpriteFrameName("Border_Red.png");
-	invalidBorder->setScaleX(1.5f);
-	invalidBorder->setPosition(textMidPoint);
-	textField->addChild(invalidBorder, 1);
+	textField->setPlaceHolderColor(colorType.Crimson);
 }
-                
 
 void MainMenuPlayerSetting::destroy()
 {
-	delete mainMenu;
-	mainMenu = nullptr;
-
-	delete playerSettingPanel;
-	playerSettingPanel = nullptr;
-
-	for (auto item : menuItems)
+	if (mainMenu)
 	{
-		delete item;
+		delete mainMenu;
+		mainMenu = nullptr;
 	}
-	menuItems.clear();
 
-	delete textField;
-	textField = nullptr;
+	if (playerSettingPanel)
+	{
+		delete playerSettingPanel;
+		playerSettingPanel = nullptr;
+	}
 
-	delete invalidBorder;
-	invalidBorder;
+	if (menuItems.size() > 0)
+	{
+		for (auto item : menuItems)
+		{
+			delete item;
+		}
+		menuItems.clear();
+	}
+
+	if (textField)
+	{
+		delete textField;
+		textField = nullptr;
+	}
+
 	hasSelected = false;
 }
+
+
 

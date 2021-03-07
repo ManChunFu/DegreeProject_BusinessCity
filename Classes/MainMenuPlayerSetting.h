@@ -4,6 +4,7 @@
 #include "ui/UITextField.h"
 
 USING_NS_CC;
+
 class MouseOverMenuItem;
 class MainMenuScene;
 
@@ -14,20 +15,19 @@ public:
 	
 	void OpenSettingWindow(Scene* scene);
 	void closeSettingWindow();
+	void destroy();
 private:
 	MainMenuScene* mainMenu;
 	Vector<MenuItem*> menuItems;
 	Sprite* playerSettingPanel = nullptr;
 	ui::TextField* textField = nullptr;
-	Sprite* invalidBorder = nullptr;
 	bool hasSelected = false;
 	void createPlayerSettingWindow();
-	//void onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event);
+	void onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event);
 	void characterSelectedCallback(Ref* pSender);
 	void playButtonSelectedCallback(Ref* pSender);
 	void cancelButtonSelectedCallback(Ref* pSender);
 	void onMouseOver(MouseOverMenuItem* overItem, Event* event);
 	bool validation();
 	void showInvalid();
-	void destroy();
 };
