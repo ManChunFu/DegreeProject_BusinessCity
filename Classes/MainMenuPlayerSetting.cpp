@@ -24,6 +24,9 @@ void MainMenuPlayerSetting::OpenSettingWindow(Scene* scene)
 	}
 
 	playerSettingPanel->setVisible(true);
+	textField->setPlaceHolder("ENTER YOUR NAME");
+	textField->setPlaceHolderColor(Color4B::GRAY);
+
 	if (hasSelected)
 	{
 		for (auto item : menuItems)
@@ -72,9 +75,7 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	textField->setMaxLengthEnabled(true);
 	textField->setMaxLength(24);
 	textField->setPosition(Vec2(panelMidPoint.x, panelMidPoint.y + 240.f));
-	textField->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
-		textField->setCursorEnabled(true);
-		textField->setPlaceHolderColor(Color4B::GRAY); });
+	textField->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) { textField->setCursorEnabled(true); });
 	playerSettingPanel->addChild(textField, 1);
 
 	// option label
@@ -335,6 +336,7 @@ bool MainMenuPlayerSetting::validation()
 void MainMenuPlayerSetting::showInvalid()
 {
 	textField->setPlaceHolderColor(colorType.Crimson);
+	textField->setPlaceHolder("?");
 }
 
 void MainMenuPlayerSetting::destroy()
