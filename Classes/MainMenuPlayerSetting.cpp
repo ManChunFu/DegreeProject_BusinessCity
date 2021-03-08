@@ -295,10 +295,13 @@ void MainMenuPlayerSetting::playButtonSelectedCallback(Ref* pSender)
 		showInvalid();
 		return;
 	}
+	if (!mainMenu)
+		return;
 
 	mainMenu->StopAudio();
 	auto scene = GameScene::createScene();
-	Director::getInstance()->replaceScene(TransitionFade::create(2.f, scene));
+	if (scene)
+		Director::getInstance()->replaceScene(TransitionFade::create(2.f, scene));
 }
 
 void MainMenuPlayerSetting::cancelButtonSelectedCallback(Ref* pSender)
@@ -314,10 +317,13 @@ void MainMenuPlayerSetting::onMouseOver(MouseOverMenuItem* overItem, Event* even
 
 bool MainMenuPlayerSetting::validation()
 {
-	if (textField->getString() == "")
+	if (!textField || textField->getString() == "")
 		return false;
 
 	playerName = textField->getString();
+
+	if (menuItems.size() < 0)
+		return false;
 
 	for (auto item : menuItems)
 	{
@@ -328,7 +334,7 @@ bool MainMenuPlayerSetting::validation()
 		}
 	}
 
-	auto randNo = random(0, 6);
+	auto randNo = random(0, 5);
 	playerCharacter = menuItems.at(randNo)->itemSelectedData.type;
 	return true;
 }
