@@ -22,7 +22,6 @@ private:
 	Vec2 scaleFactor = Vec2::ONE;
 	Sprite* topPanel = nullptr;
 	Sprite* bottomPanel = nullptr;
-	Sprite* playerSprite = nullptr;
 	void setSpriteScale(Sprite* sprite, Vec2 scale);
 
 	CREATE_FUNC(GameScene);

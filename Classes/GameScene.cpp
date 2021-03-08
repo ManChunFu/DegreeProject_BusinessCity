@@ -39,20 +39,23 @@ bool GameScene::init()
 
 	auto topPanelMidPoint = Vec2(topPanel->getContentSize().width * 0.5f, topPanel->getContentSize().height * 0.5f);
 	
-	playerSprite = Sprite::createWithSpriteFrameName(characterSpriteMap[playerCharacter]);
+	auto playerSprite = Sprite::createWithSpriteFrameName(characterSpriteMap[playerCharacter]);
 	if (!playerSprite)
 		problemLoading("characterSpriteMap[playerCharacter]");
 
-	playerSprite->setPosition(topPanelMidPoint.x -250.f, topPanelMidPoint.y -10.f);
+	playerSprite->setPosition(topPanelMidPoint.x -250.f, topPanelMidPoint.y -5.f);
 	playerSprite->setScale(0.4f);
 	topPanel->addChild(playerSprite, 1);
 
 	auto playerSpriteMidPoint = Vec2(playerSprite->getContentSize().width * 0.5f, playerSprite->getContentSize().height * 0.5f);
-	auto optionLabel = Label::createWithTTF(playerName, "fonts/NirmalaB.ttf", 25);
+	
+	auto optionLabel = Label::createWithTTF(playerName, "fonts/NirmalaB.ttf", 22);
+	optionLabel->setMaxLineWidth(125);
+	optionLabel->enableWrap(true);
 	optionLabel->setTextColor(Color4B::WHITE);
-	optionLabel->enableShadow(Color4B::BLACK);
-	optionLabel->enableOutline(Color4B::BLACK);
-	optionLabel->setPosition(topPanelMidPoint.x - 150.f, topPanelMidPoint.y);
+	optionLabel->enableShadow(colorType.FireBrick);
+	optionLabel->enableOutline(Color4B::WHITE);
+	optionLabel->setPosition(playerSprite->getPositionX() + 100.f, playerSprite->getPositionY());
 	topPanel->addChild(optionLabel, 2);
 
 
