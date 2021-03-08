@@ -4,12 +4,12 @@
 #define __GAME_SCENE__H
 
 #include "cocos2d.h"
-#include <MouseOverMenuItem.h>
-#include "cocostudio/SimpleAudioEngine.h"
-#include "2d/CCLayer.h"
 
-using namespace CocosDenshion;
-USING_NS_CC;
+namespace CocosDenshion
+{
+	class SimpleAudioEngine;
+}
+class MouseOverMenuItem;
 
 class GameScene : public cocos2d::Layer
 {
@@ -20,19 +20,19 @@ public:
 	
 	void update(float delta);
 	CREATE_FUNC(GameScene);
+
 private:
-	Size visibleSize;
-	Sprite* topPanel = nullptr;
-	Sprite* bottomPanel = nullptr;
-	Label* weekCount = nullptr;
-	Label* dayOfWeek = nullptr;
-	Label* timeHourDisplay = nullptr;
-	Label* timeMinDisplay = nullptr;
-	float elapsedTime = 0.f;
-	unsigned currentMinute = 0;
-	unsigned currentHour = 8;
-	void setSpriteScale(Sprite* sprite, Vec2 scale);
+	cocos2d::Size m_VisibleSize;
+	cocos2d::Sprite* m_TopPanel = nullptr;
+	cocos2d::Sprite* m_BottomPanel = nullptr;
+	cocos2d::Label* m_WeekCount = nullptr;
+	cocos2d::Label* m_DayOfWeek = nullptr;
+	cocos2d::Label* m_TimeHourDisplay = nullptr;
+	cocos2d::Label* m_TimeMinDisplay = nullptr;
+	float m_ElapsedTime = 0.f;
+	unsigned m_CurrentMinute = 0;
+	unsigned m_CurrentHour = 8;
+	void setSpriteScale(cocos2d::Sprite* sprite, cocos2d::Vec2 scale);
 
 };
-
 #endif

@@ -28,6 +28,9 @@
     <ClCompile Include="..\Classes\InGameData.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\GameData.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\Users\mandy\source\repos\DegreeProject\Classes\AppDelegate.h">
@@ -73,6 +76,9 @@
       <Filter>Source Files\Classes\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\InGameData.h">
+      <Filter>Source Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameData.h">
       <Filter>Source Files\Classes</Filter>
     </ClInclude>
   </ItemGroup>

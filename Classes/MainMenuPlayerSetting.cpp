@@ -7,29 +7,37 @@
 #include "InGameData.h"
 #include "2d/CCNode.h"
 
+
+USING_NS_CC;
+
 MainMenuPlayerSetting::~MainMenuPlayerSetting()
 {
-	destroy();
+	m_MenuItems.clear();
+
+	m_TextField = nullptr;
+
+	m_HasSelected = false;
+
 }
 
 void MainMenuPlayerSetting::OpenSettingWindow(Scene* scene)
 {
-	if (!playerSettingPanel)
+	if (!m_PlayerSettingPanel)
 	{
-		mainMenu = dynamic_cast<MainMenuScene*>(scene);
+		m_MainMenu = dynamic_cast<MainMenuScene*>(scene);
 
-		if (mainMenu)
+		if (m_MainMenu)
 			createPlayerSettingWindow();
 		return;
 	}
 
-	playerSettingPanel->setVisible(true);
-	textField->setPlaceHolder("ENTER YOUR NAME");
-	textField->setPlaceHolderColor(Color4B::GRAY);
+	m_PlayerSettingPanel->setVisible(true);
+	m_TextField->setPlaceHolder("ENTER YOUR NAME");
+	m_TextField->setPlaceHolderColor(Color4B::GRAY);
 
-	if (hasSelected)
+	if (m_HasSelected)
 	{
-		for (auto item : menuItems)
+		for (auto item : m_MenuItems)
 		{
 			item->setVisible(true);
 			if (item->itemSelectedData.isSelected || item->itemSelectedData.type == itemTypes::BUTTON)
@@ -38,7 +46,7 @@ void MainMenuPlayerSetting::OpenSettingWindow(Scene* scene)
 		return;
 	}
 
-	for (auto item : menuItems)
+	for (auto item : m_MenuItems)
 	{
 		item->setEnabled(true);
 		item->setVisible(true);
@@ -47,8 +55,8 @@ void MainMenuPlayerSetting::OpenSettingWindow(Scene* scene)
 
 void MainMenuPlayerSetting::closeSettingWindow()
 {
-	playerSettingPanel->setVisible(false);
-	for (auto item : menuItems)
+	m_PlayerSettingPanel->setVisible(false);
+	for (auto item : m_MenuItems)
 	{
 		item->setEnabled(false);
 		item->setVisible(false);
@@ -63,26 +71,26 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	auto sceneMidPoint = Point(origin.x + (visibleSize.width * 0.5f), origin.y + (visibleSize.height * 0.5f));
 
 	// background
-	playerSettingPanel = Sprite::createWithSpriteFrameName("UIPanelRecBlack80.png");
-	playerSettingPanel->setPosition(sceneMidPoint);
-	playerSettingPanel->setScale(0.8f);
+	m_PlayerSettingPanel = Sprite::createWithSpriteFrameName("UIPanelRecBlack80.png");
+	m_PlayerSettingPanel->setPosition(sceneMidPoint);
+	m_PlayerSettingPanel->setScale(0.8f);
 
-	auto panelMidPoint = Vec2(playerSettingPanel->getContentSize().width * 0.5f, playerSettingPanel->getContentSize().height * 0.5f);
+	auto panelMidPoint = Vec2(m_PlayerSettingPanel->getContentSize().width * 0.5f, m_PlayerSettingPanel->getContentSize().height * 0.5f);
 
 	// player name
-	textField = ui::TextField::create("ENTER YOUR NAME", "fonts/Nirmala.ttf", 30);
-	textField->setColor(Color3B::WHITE);
-	textField->setMaxLengthEnabled(true);
-	textField->setMaxLength(24);
-	textField->setPosition(Vec2(panelMidPoint.x, panelMidPoint.y + 240.f));
-	textField->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) { textField->setCursorEnabled(true); });
-	playerSettingPanel->addChild(textField, 1);
+	m_TextField = ui::TextField::create("ENTER YOUR NAME", "fonts/Nirmala.ttf", 30);
+	m_TextField->setColor(Color3B::WHITE);
+	m_TextField->setMaxLengthEnabled(true);
+	m_TextField->setMaxLength(24);
+	m_TextField->setPosition(Vec2(panelMidPoint.x, panelMidPoint.y + 240.f));
+	m_TextField->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) { m_TextField->setCursorEnabled(true); });
+	m_PlayerSettingPanel->addChild(m_TextField, 1);
 
 	// option label
 	auto optionLabel = Label::createWithTTF("CHOOSE YOUR PLAYER", "fonts/Nirmala.ttf", 20);
 	optionLabel->setTextColor(colorType.HotPink);
 	optionLabel->setPosition(panelMidPoint.x, panelMidPoint.y + 160.f);
-	playerSettingPanel->addChild(optionLabel, 1);
+	m_PlayerSettingPanel->addChild(optionLabel, 1);
 
 #pragma region Create Character MenuItem
 	// woman1
@@ -97,7 +105,7 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	woman1Item->setPosition(woman1Pos);
 	woman1Item->setItemRect(woman1Pos, 0.4f);
 
-	menuItems.pushBack(woman1Item);
+	m_MenuItems.pushBack(woman1Item);
 	characterSpriteMap.insert(std::pair<itemTypes, std::string>(woman1Item->itemSelectedData.type, "Woman1_200_Tran.png"));
 
 	// woman2
@@ -112,7 +120,7 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	woman2Item->setPosition(woman2Pos);
 	woman2Item->setItemRect(woman2Pos, 0.4f);
 
-	menuItems.pushBack(woman2Item);
+	m_MenuItems.pushBack(woman2Item);
 	characterSpriteMap.insert(std::pair<itemTypes, std::string>(woman2Item->itemSelectedData.type, "Woman2_200_Tran.png"));
 
 	// woman3
@@ -127,7 +135,7 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	woman3Item->setPosition(woman3Pos);
 	woman3Item->setItemRect(woman3Pos, 0.4f);
 
-	menuItems.pushBack(woman3Item);
+	m_MenuItems.pushBack(woman3Item);
 	characterSpriteMap.insert(std::pair<itemTypes, std::string>(woman3Item->itemSelectedData.type, "Woman3_200_Tran.png"));
 
 	// man1
@@ -142,7 +150,7 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	man1Item->setPosition(man1Pos);
 	man1Item->setItemRect(man1Pos, 0.4f);
 
-	menuItems.pushBack(man1Item);
+	m_MenuItems.pushBack(man1Item);
 	characterSpriteMap.insert(std::pair<itemTypes, std::string>(man1Item->itemSelectedData.type, "Man1_200_Tran.png"));
 
 	// man2
@@ -157,7 +165,7 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	man2Item->setPosition(man2Pos);
 	man2Item->setItemRect(man2Pos, 0.4f);
 
-	menuItems.pushBack(man2Item);
+	m_MenuItems.pushBack(man2Item);
 	characterSpriteMap.insert(std::pair<itemTypes, std::string>(man2Item->itemSelectedData.type, "Man2_200_Tran.png"));
 
 	// man3
@@ -172,7 +180,7 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	man3Item->setPosition(man3Pos);
 	man3Item->setItemRect(man3Pos, 0.4f);
 
-	menuItems.pushBack(man3Item);
+	m_MenuItems.pushBack(man3Item);
 	characterSpriteMap.insert(std::pair<itemTypes, std::string>(man3Item->itemSelectedData.type, "Man3_200_Tran.png"));
 #pragma endregion
 
@@ -197,7 +205,7 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	playText->setPosition(buttonMidPoint);
 	playItem->addChild(playText, 1);
 
-	menuItems.pushBack(playItem);
+	m_MenuItems.pushBack(playItem);
 
 	// cancel button
 	auto cancelNormalSprite = Sprite::createWithSpriteFrameName("Button_Purple_20_Alpha.png");
@@ -217,34 +225,34 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	cancelText->setPosition(buttonMidPoint);
 	cancelItem->addChild(cancelText, 1);
 
-	menuItems.pushBack(cancelItem);
+	m_MenuItems.pushBack(cancelItem);
 #pragma endregion
 
-	auto panelMenu = Menu::createWithArray(menuItems);
+	auto panelMenu = Menu::createWithArray(m_MenuItems);
 	panelMenu->setPosition(Vec2::ZERO);
 
-	mainMenu->addChild(playerSettingPanel, 2);
-	mainMenu->addChild(panelMenu, 3);
+	m_MainMenu->addChild(m_PlayerSettingPanel, 2);
+	m_MainMenu->addChild(panelMenu, 3);
 
 	auto listener = EventListenerKeyboard::create();
 	listener->onKeyPressed = CC_CALLBACK_2(MainMenuPlayerSetting::onKeyPressed, this);
-	auto event = mainMenu->getEventDispatcher(); 
-	event->addEventListenerWithSceneGraphPriority(listener, mainMenu);
+	auto event = m_MainMenu->getEventDispatcher(); 
+	event->addEventListenerWithSceneGraphPriority(listener, m_MainMenu);
 
 }
 
 void MainMenuPlayerSetting::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	if (keyCode == EventKeyboard::KeyCode::KEY_ENTER)
-		textField->didNotSelectSelf();
+		m_TextField->didNotSelectSelf();
 }
 
 void MainMenuPlayerSetting::characterSelectedCallback(Ref* pSender)
 {
-	textField->didNotSelectSelf();
-	hasSelected = true;
+	m_TextField->didNotSelectSelf();
+	m_HasSelected = true;
 
-	for (auto item : menuItems)
+	for (auto item : m_MenuItems)
 	{
 		if (item != pSender)
 		{
@@ -260,11 +268,11 @@ void MainMenuPlayerSetting::characterSelectedCallback(Ref* pSender)
 			item->itemSelectedData.isSelected = false;
 			item->itemSelectedData.selectedLabel->setVisible(false);
 			item->unselected();
-			for (auto item : menuItems)
+			for (auto item : m_MenuItems)
 			{
 				item->setEnabled(true);
 			}
-			hasSelected = false;
+			m_HasSelected = false;
 			return;
 		}
 		
@@ -295,10 +303,10 @@ void MainMenuPlayerSetting::playButtonSelectedCallback(Ref* pSender)
 		showInvalid();
 		return;
 	}
-	if (!mainMenu)
+	if (!m_MainMenu)
 		return;
 
-	mainMenu->StopAudio();
+	m_MainMenu->StopAudio();
 	auto scene = GameScene::createScene();
 	if (scene)
 		Director::getInstance()->replaceScene(TransitionFade::create(2.f, scene));
@@ -306,8 +314,8 @@ void MainMenuPlayerSetting::playButtonSelectedCallback(Ref* pSender)
 
 void MainMenuPlayerSetting::cancelButtonSelectedCallback(Ref* pSender)
 {
-	mainMenu->isOpeningSubWindow = false;
-	mainMenu->setMenuItemVisible(true);
+	m_MainMenu->isOpeningSubWindow = false;
+	m_MainMenu->setMenuItemVisible(true);
 	closeSettingWindow();
 }
 
@@ -317,15 +325,15 @@ void MainMenuPlayerSetting::onMouseOver(MouseOverMenuItem* overItem, Event* even
 
 bool MainMenuPlayerSetting::validation()
 {
-	if (!textField || textField->getString() == "")
+	if (!m_TextField || m_TextField->getString() == "")
 		return false;
 
-	playerName = textField->getString();
+	playerName = m_TextField->getString();
 
-	if (menuItems.size() < 0)
+	if (m_MenuItems.size() < 0)
 		return false;
 
-	for (auto item : menuItems)
+	for (auto item : m_MenuItems)
 	{
 		if (item->itemSelectedData.isSelected)
 		{
@@ -335,47 +343,16 @@ bool MainMenuPlayerSetting::validation()
 	}
 
 	auto randNo = random(0, 5);
-	playerCharacter = menuItems.at(randNo)->itemSelectedData.type;
+	playerCharacter = m_MenuItems.at(randNo)->itemSelectedData.type;
 	return true;
 }
 
 void MainMenuPlayerSetting::showInvalid()
 {
-	textField->setPlaceHolderColor(colorType.Crimson);
-	textField->setPlaceHolder("?");
+	m_TextField->setPlaceHolderColor(colorType.Crimson);
+	m_TextField->setPlaceHolder("?");
 }
 
-void MainMenuPlayerSetting::destroy()
-{
-	if (mainMenu)
-	{
-		delete mainMenu;
-		mainMenu = nullptr;
-	}
-
-	if (playerSettingPanel)
-	{
-		delete playerSettingPanel;
-		playerSettingPanel = nullptr;
-	}
-
-	if (menuItems.size() > 0)
-	{
-		for (auto item : menuItems)
-		{
-			delete item;
-		}
-		menuItems.clear();
-	}
-
-	if (textField)
-	{
-		delete textField;
-		textField = nullptr;
-	}
-
-	hasSelected = false;
-}
 
 
 

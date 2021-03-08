@@ -7,7 +7,8 @@
 
 USING_NS_CC;
 
-class MouseOverMenuItem : public MenuItemImage
+
+class MouseOverMenuItem : public cocos2d::MenuItemImage
 {
 public:
 	~MouseOverMenuItem();
@@ -15,8 +16,8 @@ public:
 	static MouseOverMenuItem* create(const std::string& normalImage, const std::string& overImage, const std::string& disabledImage, const ccMenuCallback& callback);
 	static MouseOverMenuItem* create(Node* normalSprite, Node* overSprite, Node* disabledSprite, const ccMenuCallback& callback);
 
-	std::function<void(MouseOverMenuItem* overItem, Event* event)> onMouseOver;
-	void setItemRect(Vec2& pos, float scale = 1.f);
+	std::function<void(MouseOverMenuItem* overItem,Event* event)> onMouseOver;
+	void setItemRect(cocos2d::Vec2& pos, float scale = 1.f);
 protected:
 	EventListenerMouse* mouseListener;
 
@@ -27,5 +28,4 @@ private :
 	void onMouseMove(Event* event);
 	void setMouseListener();
 };
-
 #endif

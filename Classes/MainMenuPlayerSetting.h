@@ -1,9 +1,7 @@
 #pragma once
 
 #include "cocos2d.h"
-#include "ui/UITextField.h"
-
-USING_NS_CC;
+#include <ui/UITextField.h>
 
 class MouseOverMenuItem;
 class MainMenuScene;
@@ -13,21 +11,21 @@ class MainMenuPlayerSetting
 public:
 	~MainMenuPlayerSetting();
 	
-	void OpenSettingWindow(Scene* scene);
+	void OpenSettingWindow(cocos2d::Scene* scene);
 	void closeSettingWindow();
-	void destroy();
+
 private:
-	MainMenuScene* mainMenu;
-	Vector<MenuItem*> menuItems;
-	Sprite* playerSettingPanel = nullptr;
-	ui::TextField* textField = nullptr;
-	bool hasSelected = false;
+	MainMenuScene* m_MainMenu;
+	cocos2d::Vector<cocos2d::MenuItem*> m_MenuItems;
+	cocos2d::Sprite* m_PlayerSettingPanel = nullptr;
+	cocos2d::ui::TextField* m_TextField = nullptr;
+	bool m_HasSelected = false;
 	void createPlayerSettingWindow();
-	void onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event);
-	void characterSelectedCallback(Ref* pSender);
-	void playButtonSelectedCallback(Ref* pSender);
-	void cancelButtonSelectedCallback(Ref* pSender);
-	void onMouseOver(MouseOverMenuItem* overItem, Event* event);
+	void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
+	void characterSelectedCallback(cocos2d::Ref* pSender);
+	void playButtonSelectedCallback(cocos2d::Ref* pSender);
+	void cancelButtonSelectedCallback(cocos2d::Ref* pSender);
+	void onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event);
 	bool validation();
 	void showInvalid();
 };

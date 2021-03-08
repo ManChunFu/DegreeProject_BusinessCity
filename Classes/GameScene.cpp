@@ -1,6 +1,11 @@
 #include "GameScene.h"
 #include "InGameData.h"
 #include "2d/CCLayer.h"
+#include <MouseOverMenuItem.h>
+#include "cocostudio/SimpleAudioEngine.h"
+using namespace CocosDenshion;
+USING_NS_CC;
+
 
 Scene* GameScene::createScene()
 {
@@ -10,13 +15,12 @@ Scene* GameScene::createScene()
 	return scene;
 }
 
-
 bool GameScene::init()
 {
 	if (!Layer::init())
 		return false;
 
-	visibleSize = Director::getInstance()->getVisibleSize();
+	m_VisibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	auto backgroundSprite = Sprite::create("Sprites/CityView.png");
@@ -24,26 +28,26 @@ bool GameScene::init()
 		return false;
 
 	setSpriteScale(backgroundSprite, Vec2::ONE);
-	backgroundSprite->setPosition(Point(origin.x + (visibleSize.width / 2), origin.y + (visibleSize.height / 2)));
+	backgroundSprite->setPosition(Point(origin.x + (m_VisibleSize.width / 2), origin.y + (m_VisibleSize.height / 2)));
 
 	this->addChild(backgroundSprite, 0);
 
-	topPanel = Sprite::create("X/InGamePanel_Black_80.png");
-	if (!topPanel)
+	m_TopPanel = Sprite::create("X/InGamePanel_Black_80.png");
+	if (!m_TopPanel)
 		return false;
 
-	topPanel->setPosition(Vec2(visibleSize.width * 0.5f, 680.f));
-	this->addChild(topPanel, 1);
+	m_TopPanel->setPosition(Vec2(m_VisibleSize.width * 0.5f, 680.f));
+	this->addChild(m_TopPanel, 1);
 
-	auto topPanelMidPoint = Vec2(topPanel->getContentSize().width * 0.5f, topPanel->getContentSize().height * 0.5f);
+	auto m_TopPanelMidPoint = Vec2(m_TopPanel->getContentSize().width * 0.5f, m_TopPanel->getContentSize().height * 0.5f);
 
 	auto playerSprite = Sprite::createWithSpriteFrameName(characterSpriteMap[playerCharacter]);
 	if (!playerSprite)
 		return false;
 
-	playerSprite->setPosition(topPanelMidPoint.x - 250.f, topPanelMidPoint.y - 5.f);
+	playerSprite->setPosition(m_TopPanelMidPoint.x - 250.f, m_TopPanelMidPoint.y - 5.f);
 	playerSprite->setScale(0.4f);
-	topPanel->addChild(playerSprite, 1);
+	m_TopPanel->addChild(playerSprite, 1);
 
 	auto playerSpriteMidPoint = Vec2(playerSprite->getContentSize().width * 0.5f, playerSprite->getContentSize().height * 0.5f);
 
@@ -55,7 +59,7 @@ bool GameScene::init()
 		nameLabel->setTextColor(Color4B::WHITE);
 		nameLabel->enableGlow(colorType.DeepPink);
 		nameLabel->setPosition(playerSprite->getPositionX() + 100.f, playerSprite->getPositionY());
-		topPanel->addChild(nameLabel, 1);
+		m_TopPanel->addChild(nameLabel, 1);
 	}
 
 	auto weekLabel = Label::createWithTTF("WEEK", "fonts/NirmalaB.ttf", 14);
@@ -63,60 +67,60 @@ bool GameScene::init()
 	{
 		weekLabel->setTextColor(Color4B::WHITE);
 		weekLabel->enableGlow(colorType.DeepPink);
-		weekLabel->setPosition(topPanelMidPoint.x + 540.f, topPanelMidPoint.y + 15.f);
-		topPanel->addChild(weekLabel, 1);
+		weekLabel->setPosition(m_TopPanelMidPoint.x + 540.f, m_TopPanelMidPoint.y + 15.f);
+		m_TopPanel->addChild(weekLabel, 1);
 	}
 
-	weekCount = Label::createWithTTF("1", "fonts/NirmalaB.ttf", 16);
-	if (weekCount)
+	m_WeekCount = Label::createWithTTF("1", "fonts/NirmalaB.ttf", 16);
+	if (m_WeekCount)
 	{
-		weekCount->setTextColor(Color4B::WHITE);
-		weekCount->enableGlow(colorType.PowderBlue);
-		weekCount->setPosition(topPanelMidPoint.x +580.f, topPanelMidPoint.y + 15.f);
-		topPanel->addChild(weekCount, 1);
+		m_WeekCount->setTextColor(Color4B::WHITE);
+		m_WeekCount->enableGlow(colorType.PowderBlue);
+		m_WeekCount->setPosition(m_TopPanelMidPoint.x +580.f, m_TopPanelMidPoint.y + 15.f);
+		m_TopPanel->addChild(m_WeekCount, 1);
 	}
 
-	dayOfWeek = Label::createWithTTF("MONDAY", "fonts/NirmalaB.ttf", 14);
-	if (dayOfWeek)
+	m_DayOfWeek = Label::createWithTTF("MONDAY", "fonts/NirmalaB.ttf", 14);
+	if (m_DayOfWeek)
 	{
-		dayOfWeek->setTextColor(Color4B::WHITE);
-		dayOfWeek->enableGlow(colorType.DeepPink);
-		dayOfWeek->setPosition(topPanelMidPoint.x +550.f, topPanelMidPoint.y -5.f);
-		topPanel->addChild(dayOfWeek, 1);
+		m_DayOfWeek->setTextColor(Color4B::WHITE);
+		m_DayOfWeek->enableGlow(colorType.DeepPink);
+		m_DayOfWeek->setPosition(m_TopPanelMidPoint.x +550.f, m_TopPanelMidPoint.y -5.f);
+		m_TopPanel->addChild(m_DayOfWeek, 1);
 	}
 
-	timeHourDisplay = Label::createWithTTF("08", "fonts/NirmalaB.ttf", 30);
-	if (timeHourDisplay)
+	m_TimeHourDisplay = Label::createWithTTF("08", "fonts/NirmalaB.ttf", 30);
+	if (m_TimeHourDisplay)
 	{
-		timeHourDisplay->setTextColor(Color4B::WHITE);
-		timeHourDisplay->enableGlow(colorType.PowderBlue);
-		timeHourDisplay->setPosition(topPanelMidPoint.x +530.f, topPanelMidPoint.y -30.f);
-		topPanel->addChild(timeHourDisplay, 1);
+		m_TimeHourDisplay->setTextColor(Color4B::WHITE);
+		m_TimeHourDisplay->enableGlow(colorType.PowderBlue);
+		m_TimeHourDisplay->setPosition(m_TopPanelMidPoint.x +530.f, m_TopPanelMidPoint.y -30.f);
+		m_TopPanel->addChild(m_TimeHourDisplay, 1);
 	}
 	auto timeMark = Label::createWithTTF(":", "fonts/NirmalaB.ttf", 30);
 	if (timeMark)
 	{
 		timeMark->setTextColor(Color4B::WHITE);
 		timeMark->enableGlow(colorType.PowderBlue);
-		timeMark->setPosition(topPanelMidPoint.x + 555.f, topPanelMidPoint.y - 28.f);
-		topPanel->addChild(timeMark, 1);
+		timeMark->setPosition(m_TopPanelMidPoint.x + 555.f, m_TopPanelMidPoint.y - 28.f);
+		m_TopPanel->addChild(timeMark, 1);
 	}
 
-	timeMinDisplay = Label::createWithTTF("00", "fonts/NirmalaB.ttf", 30);
-	if (timeHourDisplay)
+	m_TimeMinDisplay = Label::createWithTTF("00", "fonts/NirmalaB.ttf", 30);
+	if (m_TimeHourDisplay)
 	{
-		timeMinDisplay->setTextColor(Color4B::WHITE);
-		timeMinDisplay->enableGlow(colorType.PowderBlue);
-		timeMinDisplay->setPosition(topPanelMidPoint.x + 580.f, topPanelMidPoint.y - 30.f);
-		topPanel->addChild(timeMinDisplay, 1);
+		m_TimeMinDisplay->setTextColor(Color4B::WHITE);
+		m_TimeMinDisplay->enableGlow(colorType.PowderBlue);
+		m_TimeMinDisplay->setPosition(m_TopPanelMidPoint.x + 580.f, m_TopPanelMidPoint.y - 30.f);
+		m_TopPanel->addChild(m_TimeMinDisplay, 1);
 	}
 
 
-	bottomPanel = Sprite::create("X/InGamePanel_Black_80.png");
-	bottomPanel->setPosition(Vec2(visibleSize.width * 0.5f, 50.f));
-	this->addChild(bottomPanel, 1);
+	m_BottomPanel = Sprite::create("X/InGamePanel_Black_80.png");
+	m_BottomPanel->setPosition(Vec2(m_VisibleSize.width * 0.5f, 50.f));
+	this->addChild(m_BottomPanel, 1);
 
-	elapsedTime = 0;
+	m_ElapsedTime = 0;
 	this->scheduleUpdate();
 
 	return true;
@@ -124,26 +128,26 @@ bool GameScene::init()
 
 void GameScene::setSpriteScale(Sprite* sprite, Vec2 scale)
 {
-	sprite->setScaleX((visibleSize.width / sprite->getContentSize().width) * scale.x);
-	sprite->setScaleY((visibleSize.height / sprite->getContentSize().height) * scale.y);
+	sprite->setScaleX((m_VisibleSize.width / sprite->getContentSize().width) * scale.x);
+	sprite->setScaleY((m_VisibleSize.height / sprite->getContentSize().height) * scale.y);
 }
 
 void GameScene::update(float delta)
 {
-	elapsedTime+= delta;
-	if (elapsedTime > 15)
+	m_ElapsedTime+= delta;
+	if (m_ElapsedTime > 4)
 	{
-		currentMinute++;
-		elapsedTime = 0;
-		std::string timeStr = std::to_string(currentMinute);
-		timeMinDisplay->setString(std::string(2 - timeStr.length(), '0').append(timeStr));
+		m_CurrentMinute++;
+		m_ElapsedTime = 0;
+		std::string timeStr = std::to_string(m_CurrentMinute);
+		m_TimeMinDisplay->setString(std::string(2 - timeStr.length(), '0').append(timeStr));
 	}
 
-	if (currentMinute == 60)
+	if (m_CurrentMinute == 60)
 	{
-		currentHour++;
-		currentMinute = 0;
-		std::string timeStr = std::to_string(currentHour);
-		timeMinDisplay->setString(std::string(2 - timeStr.length(), '0').append(timeStr));
+		m_CurrentHour++;
+		m_CurrentMinute = 0;
+		std::string timeStr = std::to_string(m_CurrentHour);
+		m_TimeHourDisplay->setString(std::string(2 - timeStr.length(), '0').append(timeStr));
 	}
 }

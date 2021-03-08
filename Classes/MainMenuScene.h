@@ -26,37 +26,38 @@
 #define __MAINMENU_SCENE_H__
 
 #include "cocos2d.h"
-#include "cocostudio/SimpleAudioEngine.h"
-using namespace CocosDenshion;
-USING_NS_CC;
 
+namespace CocosDenshion
+{
+    class SimpleAudioEngine;
+}
 class MouseOverMenuItem;
 class MainMenuPlayerSetting;
 
 class MainMenuScene : public cocos2d::Scene
 {
 public:
+    virtual ~MainMenuScene();
+
     static cocos2d::Scene* createScene();
     virtual bool init();
     
-    void setSpriteScale(Sprite* sprite, float scale);
+    void setSpriteScale(cocos2d::Sprite* sprite, float scale);
     bool isOpeningSubWindow = false;
     void setMenuItemVisible(bool value);
     void StopAudio(bool deleteAudio = false);
 
 private:
-    Size visibleSize = Size::ZERO;
-    Vec2 scaleFactor = Vec2::ONE;
-    Vector<MenuItem*> menuItems;
-    SimpleAudioEngine* audio;
+    cocos2d::Size m_VisibleSize = cocos2d::Size::ZERO;
+    cocos2d::Vector<cocos2d::MenuItem*> m_MenuItems;
+    CocosDenshion::SimpleAudioEngine* m_Audio;
 
     // a selector callback
-    
-    void onMouseOver(MouseOverMenuItem* overItem, Event* event);
-    void menuStartCallback(Ref* pSender);
-    void menuCloseCallback(Ref* pSender);
-    void onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event);
-    MainMenuPlayerSetting* playerSetting = nullptr;
+    void onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event);
+    void menuStartCallback(cocos2d::Ref* pSender);
+    void menuCloseCallback(cocos2d::Ref* pSender);
+    void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
+    MainMenuPlayerSetting* m_PlayerSetting = nullptr;
 
     // implement the "static create()" method manually
     CREATE_FUNC(MainMenuScene);

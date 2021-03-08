@@ -26,7 +26,16 @@
 #include <MouseOverMenuItem.h>
 #include "ui/UIWidget.h"
 #include <MainMenuPlayerSetting.h>
+ #include "cocostudio/SimpleAudioEngine.h"
+ using namespace CocosDenshion;
+ USING_NS_CC;
 
+
+MainMenuScene::~MainMenuScene()
+{
+	delete m_PlayerSetting;
+	m_PlayerSetting = nullptr;
+}
 
 Scene* MainMenuScene::createScene()
 {
@@ -53,7 +62,7 @@ bool MainMenuScene::init()
 	if (!Scene::init())
 		return false;
 
-	visibleSize = Director::getInstance()->getVisibleSize();
+	m_VisibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	/////////////////////////////
@@ -67,7 +76,7 @@ bool MainMenuScene::init()
 	}
 
 	setSpriteScale(backgroundSprite, 1);
-	backgroundSprite->setPosition(Point(origin.x + (visibleSize.width / 2), origin.y + (visibleSize.height / 2)));
+	backgroundSprite->setPosition(Point(origin.x + (m_VisibleSize.width / 2), origin.y + (m_VisibleSize.height / 2)));
 	this->addChild(backgroundSprite, 0);
 
 	// title
@@ -75,7 +84,7 @@ bool MainMenuScene::init()
 	label->setTextColor(Color4B::ORANGE);
 	label->enableGlow(Color4B::BLACK);
 	label->enableShadow(Color4B::BLACK);
-	label->setPosition(Point(origin.x + visibleSize.width / 2, origin.y + visibleSize.height - label->getContentSize().height));
+	label->setPosition(Point(origin.x + m_VisibleSize.width / 2, origin.y + m_VisibleSize.height - label->getContentSize().height));
 	this->addChild(label, 1);
 
 	// start button
@@ -102,7 +111,7 @@ bool MainMenuScene::init()
 	startText->setPosition(buttonMidPoint);
 	startButtonItem->addChild(startText, 2);
 
-	menuItems.pushBack(startButtonItem);
+	m_MenuItems.pushBack(startButtonItem);
 
 	// quit button
 	auto quitNormalSprite = Sprite::createWithSpriteFrameName("ButtonBlueNormal.png");
@@ -120,10 +129,10 @@ bool MainMenuScene::init()
 	quitText->setPosition(buttonMidPoint);
 	quitButtonItem->addChild(quitText, 2);
 
-	menuItems.pushBack(quitButtonItem);
+	m_MenuItems.pushBack(quitButtonItem);
 
 	// create menu, it's an autorelease object
-	auto menu = Menu::createWithArray(menuItems);
+	auto menu = Menu::createWithArray(m_MenuItems);
 	menu->setPosition(Vec2::ZERO);
 	this->addChild(menu, 1);
 
@@ -134,10 +143,10 @@ bool MainMenuScene::init()
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
 	// set music
-	audio = SimpleAudioEngine::getInstance();
-	audio->playBackgroundMusic("Sounds/market-song.mp3", true);
+	m_Audio = SimpleAudioEngine::getInstance();
+	m_Audio->playBackgroundMusic("Sounds/market-song.mp3", true);
 
-	playerSetting = new MainMenuPlayerSetting();
+	m_PlayerSetting = new MainMenuPlayerSetting();
 
 	return true;
 }
@@ -146,14 +155,14 @@ void MainMenuScene::menuStartCallback(Ref* pSender)
 {
 	isOpeningSubWindow = true;
 	setMenuItemVisible(false);
-	playerSetting->OpenSettingWindow(this);
+	m_PlayerSetting->OpenSettingWindow(this);
 }
 
 void MainMenuScene::menuCloseCallback(Ref* pSender)
 {
 	//Close the cocos2d-x game scene and quit the application
 	StopAudio(true);
-	playerSetting = nullptr;
+	m_PlayerSetting = nullptr;
 	Director::getInstance()->end();
 
 	/*To navigate back to native iOS screen(if present) without quitting the application  ,do not use Director::getInstance()->end() as given above,instead trigger a custom event created in RootViewController.mm as below*/
@@ -171,7 +180,7 @@ void MainMenuScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 		else
 		{
 			isOpeningSubWindow = false;
-			playerSetting->closeSettingWindow();
+			m_PlayerSetting->closeSettingWindow();
 			setMenuItemVisible(false);
 		}
 	}
@@ -179,13 +188,13 @@ void MainMenuScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 
 void MainMenuScene::setSpriteScale(Sprite* sprite, float scale)
 {
-	sprite->setScaleX((visibleSize.width / sprite->getContentSize().width) * scale);
-	sprite->setScaleY((visibleSize.height / sprite->getContentSize().height) * scale);
+	sprite->setScaleX((m_VisibleSize.width / sprite->getContentSize().width) * scale);
+	sprite->setScaleY((m_VisibleSize.height / sprite->getContentSize().height) * scale);
 }
 
 void MainMenuScene::setMenuItemVisible(bool value)
 {
-	for (auto item : menuItems)
+	for (auto item : m_MenuItems)
 	{
 		item->setEnabled(value);
 		item->setVisible(value);
@@ -194,15 +203,15 @@ void MainMenuScene::setMenuItemVisible(bool value)
 
 void MainMenuScene::onMouseOver(MouseOverMenuItem* overItem, Event* event)
 {
-	audio->playEffect("Sounds/SelectedSound.mp3", false, 1.f, 1.f, 1.f);
+	m_Audio->playEffect("Sounds/SelectedSound.mp3", false, 1.f, 1.f, 1.f);
 }
 
 void MainMenuScene::StopAudio(bool deleteAudio)
 {
-	audio->stopBackgroundMusic(true);
+	m_Audio->stopBackgroundMusic(true);
 	if (deleteAudio)
 	{
-		audio->end();
-		audio = nullptr;
+		m_Audio->end();
+		m_Audio = nullptr;
 	}
 }
