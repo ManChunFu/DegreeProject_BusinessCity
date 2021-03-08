@@ -19,18 +19,20 @@ public:
 	virtual bool init() override;
 	
 	void update(float delta);
+	CREATE_FUNC(GameScene);
 private:
-	unsigned elapsedTime = 0;
 	Size visibleSize;
 	Sprite* topPanel = nullptr;
 	Sprite* bottomPanel = nullptr;
 	Label* weekCount = nullptr;
 	Label* dayOfWeek = nullptr;
-	Label* timeDisplay = nullptr;
+	Label* timeHourDisplay = nullptr;
+	Label* timeMinDisplay = nullptr;
+	float elapsedTime = 0.f;
+	unsigned currentMinute = 0;
+	unsigned currentHour = 8;
 	void setSpriteScale(Sprite* sprite, Vec2 scale);
-	
 
-	CREATE_FUNC(GameScene);
 };
 
 #endif

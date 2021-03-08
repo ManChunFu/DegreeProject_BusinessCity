@@ -85,14 +85,32 @@ bool GameScene::init()
 		topPanel->addChild(dayOfWeek, 1);
 	}
 
-	timeDisplay = Label::createWithTTF("08:00", "fonts/NirmalaB.ttf", 30);
-	if (timeDisplay)
+	timeHourDisplay = Label::createWithTTF("08", "fonts/NirmalaB.ttf", 30);
+	if (timeHourDisplay)
 	{
-		timeDisplay->setTextColor(Color4B::WHITE);
-		timeDisplay->enableGlow(colorType.PowderBlue);
-		timeDisplay->setPosition(topPanelMidPoint.x +550.f, topPanelMidPoint.y -30.f);
-		topPanel->addChild(timeDisplay, 1);
+		timeHourDisplay->setTextColor(Color4B::WHITE);
+		timeHourDisplay->enableGlow(colorType.PowderBlue);
+		timeHourDisplay->setPosition(topPanelMidPoint.x +530.f, topPanelMidPoint.y -30.f);
+		topPanel->addChild(timeHourDisplay, 1);
 	}
+	auto timeMark = Label::createWithTTF(":", "fonts/NirmalaB.ttf", 30);
+	if (timeMark)
+	{
+		timeMark->setTextColor(Color4B::WHITE);
+		timeMark->enableGlow(colorType.PowderBlue);
+		timeMark->setPosition(topPanelMidPoint.x + 555.f, topPanelMidPoint.y - 28.f);
+		topPanel->addChild(timeMark, 1);
+	}
+
+	timeMinDisplay = Label::createWithTTF("00", "fonts/NirmalaB.ttf", 30);
+	if (timeHourDisplay)
+	{
+		timeMinDisplay->setTextColor(Color4B::WHITE);
+		timeMinDisplay->enableGlow(colorType.PowderBlue);
+		timeMinDisplay->setPosition(topPanelMidPoint.x + 580.f, topPanelMidPoint.y - 30.f);
+		topPanel->addChild(timeMinDisplay, 1);
+	}
+
 
 	bottomPanel = Sprite::create("X/InGamePanel_Black_80.png");
 	bottomPanel->setPosition(Vec2(visibleSize.width * 0.5f, 50.f));
@@ -112,7 +130,20 @@ void GameScene::setSpriteScale(Sprite* sprite, Vec2 scale)
 
 void GameScene::update(float delta)
 {
+	elapsedTime+= delta;
+	if (elapsedTime > 15)
+	{
+		currentMinute++;
+		elapsedTime = 0;
+		std::string timeStr = std::to_string(currentMinute);
+		timeMinDisplay->setString(std::string(2 - timeStr.length(), '0').append(timeStr));
+	}
 
-
-
+	if (currentMinute == 60)
+	{
+		currentHour++;
+		currentMinute = 0;
+		std::string timeStr = std::to_string(currentHour);
+		timeMinDisplay->setString(std::string(2 - timeStr.length(), '0').append(timeStr));
+	}
 }
