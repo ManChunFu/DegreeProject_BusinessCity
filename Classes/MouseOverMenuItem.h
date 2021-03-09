@@ -19,12 +19,12 @@ public:
 	std::function<void(MouseOverMenuItem* overItem,Event* event)> onMouseOver;
 	void setItemRect(cocos2d::Vec2& pos, float scale = 1.f);
 protected:
-	EventListenerMouse* mouseListener;
+	EventListenerMouse* m_MouseListener;
 
 private :
-	Rect itemRect;
-	bool isHovering = false;
-	bool isSelected = false;
+	Rect m_ItemRect;
+	bool m_IsHovering = false;
+	bool m_IsSelected = false;
 	void onMouseMove(Event* event);
 	void setMouseListener();
 };

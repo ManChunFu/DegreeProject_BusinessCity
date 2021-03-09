@@ -2,8 +2,8 @@
 
 MouseOverMenuItem::~MouseOverMenuItem()
 {
-	isHovering = false;
-	_eventDispatcher->removeEventListener(mouseListener);
+	m_IsHovering = false;
+	_eventDispatcher->removeEventListener(m_MouseListener);
 }
 
 MouseOverMenuItem* MouseOverMenuItem::create(const std::string& normalImage, const std::string& overImage, const std::string& disabledImage, const ccMenuCallback& callback)
@@ -40,7 +40,7 @@ void MouseOverMenuItem::setItemRect(Vec2& pos, float scale)
 {
 	float x = pos.x - getContentSize().width * 0.5f * scale;
 	float y = pos.y - getContentSize().height * 0.5f * scale;
-	itemRect = Rect(x, y, getContentSize().width * scale, getContentSize().height * scale);
+	m_ItemRect = Rect(x, y, getContentSize().width * scale, getContentSize().height * scale);
 }
 
 void MouseOverMenuItem::onMouseMove(Event* event)
@@ -53,18 +53,18 @@ void MouseOverMenuItem::onMouseMove(Event* event)
 	Vec2 locationInNode = Point(Vec2(eventMouse->getCursorX(), eventMouse->getCursorY()));
 
 	// Show the selected image if mouse over and emit the event
-	if (itemRect.containsPoint(locationInNode))
+	if (m_ItemRect.containsPoint(locationInNode))
 	{
 		selected();
-		if (onMouseOver && !isHovering)
+		if (onMouseOver && !m_IsHovering)
 		{
-			isHovering = true;
+			m_IsHovering = true;
 			onMouseOver(this, event);
 		}
 	}
 	else
 	{
-		isHovering = false;
+		m_IsHovering = false;
 		unselected();
 	}
 }
@@ -72,8 +72,8 @@ void MouseOverMenuItem::onMouseMove(Event* event)
 void MouseOverMenuItem::setMouseListener()
 {
 	// Create a mouse listener
-	mouseListener = EventListenerMouse::create();
-	mouseListener->onMouseMove = CC_CALLBACK_1(MouseOverMenuItem::onMouseMove, this);
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(mouseListener, this);
+	m_MouseListener = EventListenerMouse::create();
+	m_MouseListener->onMouseMove = CC_CALLBACK_1(MouseOverMenuItem::onMouseMove, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(m_MouseListener, this);
 
 }

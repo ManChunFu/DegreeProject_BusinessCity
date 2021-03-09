@@ -65,6 +65,7 @@ bool GameScene::init()
 		m_TopPanel->addChild(nameLabel, 1);
 	}
 
+#pragma region CreateTimeLabels
 	auto weekLabel = Label::createWithTTF("WEEK", "fonts/NirmalaB.ttf", 14);
 	if (weekLabel)
 	{
@@ -74,30 +75,32 @@ bool GameScene::init()
 		m_TopPanel->addChild(weekLabel, 1);
 	}
 
-	m_WeekCount = Label::createWithTTF("1", "fonts/NirmalaB.ttf", 16);
+	m_WeekCount = Label::createWithTTF("", "fonts/NirmalaB.ttf", 16);
 	if (m_WeekCount)
 	{
+		updateTimeLabel(m_WeekCount, m_Weeks);
 		m_WeekCount->setTextColor(Color4B::WHITE);
 		m_WeekCount->enableGlow(GameData::getInstance().m_ColorType.PowderBlue);
-		m_WeekCount->setPosition(m_TopPanelMidPoint.x +580.f, m_TopPanelMidPoint.y + 15.f);
+		m_WeekCount->setPosition(m_TopPanelMidPoint.x + 580.f, m_TopPanelMidPoint.y + 15.f);
 		m_TopPanel->addChild(m_WeekCount, 1);
 	}
 
-	m_DayOfWeek = Label::createWithTTF("MONDAY", "fonts/NirmalaB.ttf", 14);
-	if (m_DayOfWeek)
+	m_WeekDay = Label::createWithTTF(m_WeekDays[m_Today], "fonts/NirmalaB.ttf", 14);
+	if (m_WeekDay)
 	{
-		m_DayOfWeek->setTextColor(Color4B::WHITE);
-		m_DayOfWeek->enableGlow(GameData::getInstance().m_ColorType.DeepPink);
-		m_DayOfWeek->setPosition(m_TopPanelMidPoint.x +550.f, m_TopPanelMidPoint.y -5.f);
-		m_TopPanel->addChild(m_DayOfWeek, 1);
+		m_WeekDay->setTextColor(Color4B::WHITE);
+		m_WeekDay->enableGlow(GameData::getInstance().m_ColorType.DeepPink);
+		m_WeekDay->setPosition(m_TopPanelMidPoint.x + 555.f, m_TopPanelMidPoint.y - 5.f);
+		m_TopPanel->addChild(m_WeekDay, 1);
 	}
 
-	m_TimeHourDisplay = Label::createWithTTF("08", "fonts/NirmalaB.ttf", 30);
+	m_TimeHourDisplay = Label::createWithTTF("", "fonts/NirmalaB.ttf", 30);
 	if (m_TimeHourDisplay)
 	{
+		updateTimeLabel(m_TimeHourDisplay, m_CurrentHour);
 		m_TimeHourDisplay->setTextColor(Color4B::WHITE);
 		m_TimeHourDisplay->enableGlow(GameData::getInstance().m_ColorType.PowderBlue);
-		m_TimeHourDisplay->setPosition(m_TopPanelMidPoint.x +530.f, m_TopPanelMidPoint.y -30.f);
+		m_TimeHourDisplay->setPosition(m_TopPanelMidPoint.x + 530.f, m_TopPanelMidPoint.y - 30.f);
 		m_TopPanel->addChild(m_TimeHourDisplay, 1);
 	}
 	auto timeMark = Label::createWithTTF(":", "fonts/NirmalaB.ttf", 30);
@@ -109,15 +112,16 @@ bool GameScene::init()
 		m_TopPanel->addChild(timeMark, 1);
 	}
 
-	m_TimeMinDisplay = Label::createWithTTF("00", "fonts/NirmalaB.ttf", 30);
+	m_TimeMinDisplay = Label::createWithTTF("", "fonts/NirmalaB.ttf", 30);
 	if (m_TimeHourDisplay)
 	{
+		updateTimeLabel(m_TimeMinDisplay, m_CurrentMinute);
 		m_TimeMinDisplay->setTextColor(Color4B::WHITE);
 		m_TimeMinDisplay->enableGlow(GameData::getInstance().m_ColorType.PowderBlue);
 		m_TimeMinDisplay->setPosition(m_TopPanelMidPoint.x + 580.f, m_TopPanelMidPoint.y - 30.f);
 		m_TopPanel->addChild(m_TimeMinDisplay, 1);
 	}
-
+#pragma endregion
 
 	m_BottomPanel = Sprite::create("X/InGamePanel_Black_80.png");
 	m_BottomPanel->setPosition(Vec2(m_VisibleSize.width * 0.5f, 50.f));
@@ -135,22 +139,52 @@ void GameScene::setSpriteScale(Sprite* sprite, Vec2 scale)
 	sprite->setScaleY((m_VisibleSize.height / sprite->getContentSize().height) * scale.y);
 }
 
-void GameScene::update(float delta)
+void GameScene::updateGameTime(float delta)
 {
-	m_ElapsedTime+= delta;
-	if (m_ElapsedTime > 4)
+	m_ElapsedTime += delta;
+
+	// update minute
+	if (m_ElapsedTime < 4)
+		return;
+
+	m_CurrentMinute++;
+	m_ElapsedTime = 0;
+	updateTimeLabel(m_TimeMinDisplay, m_CurrentMinute % 60);
+	
+
+	// update hour
+	if (m_CurrentMinute > 59)
 	{
-		m_CurrentMinute++;
-		m_ElapsedTime = 0;
-		std::string timeStr = std::to_string(m_CurrentMinute);
-		m_TimeMinDisplay->setString(std::string(2 - timeStr.length(), '0').append(timeStr));
+		m_CurrentMinute = 0;
+		m_CurrentHour++;
+		updateTimeLabel(m_TimeHourDisplay, m_CurrentHour % 24);
 	}
 
-	if (m_CurrentMinute == 60)
+	// update weekday
+	if (m_CurrentHour > 23)
 	{
-		m_CurrentHour++;
-		m_CurrentMinute = 0;
-		std::string timeStr = std::to_string(m_CurrentHour);
-		m_TimeHourDisplay->setString(std::string(2 - timeStr.length(), '0').append(timeStr));
+		m_CurrentHour = 0;
+		m_Today++;
+		m_WeekDay->setString(m_WeekDays[m_Today % 7]);
 	}
+
+	// update week
+	if (m_Today > 6)
+	{
+		m_Today = 0;
+		m_Weeks++;
+		updateTimeLabel(m_WeekCount, m_Weeks);
+	}
+}
+
+
+void GameScene::updateTimeLabel(cocos2d::Label* label, unsigned value)
+{
+	std::string timeStr = std::to_string(value);
+	label->setString(std::string(2 - timeStr.length(), '0').append(timeStr));
+}
+
+void GameScene::update(float delta)
+{
+	updateGameTime(delta);
 }
