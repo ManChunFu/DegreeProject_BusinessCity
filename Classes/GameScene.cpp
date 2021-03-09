@@ -2,7 +2,6 @@
 #include "2d/CCLayer.h"
 #include <MouseOverMenuItem.h>
 #include "cocostudio/SimpleAudioEngine.h"
-#include "InGameData.h"
 #include "GameData.h"
 
 using namespace CocosDenshion;
@@ -61,7 +60,7 @@ bool GameScene::init()
 		nameLabel->setMaxLineWidth(125);
 		nameLabel->enableWrap(true);
 		nameLabel->setTextColor(Color4B::WHITE);
-		nameLabel->enableGlow(colorType.DeepPink);
+		nameLabel->enableGlow(GameData::getInstance().m_ColorType.DeepPink);
 		nameLabel->setPosition(playerSprite->getPositionX() + 100.f, playerSprite->getPositionY());
 		m_TopPanel->addChild(nameLabel, 1);
 	}
@@ -70,7 +69,7 @@ bool GameScene::init()
 	if (weekLabel)
 	{
 		weekLabel->setTextColor(Color4B::WHITE);
-		weekLabel->enableGlow(colorType.DeepPink);
+		weekLabel->enableGlow(GameData::getInstance().m_ColorType.DeepPink);
 		weekLabel->setPosition(m_TopPanelMidPoint.x + 540.f, m_TopPanelMidPoint.y + 15.f);
 		m_TopPanel->addChild(weekLabel, 1);
 	}
@@ -79,7 +78,7 @@ bool GameScene::init()
 	if (m_WeekCount)
 	{
 		m_WeekCount->setTextColor(Color4B::WHITE);
-		m_WeekCount->enableGlow(colorType.PowderBlue);
+		m_WeekCount->enableGlow(GameData::getInstance().m_ColorType.PowderBlue);
 		m_WeekCount->setPosition(m_TopPanelMidPoint.x +580.f, m_TopPanelMidPoint.y + 15.f);
 		m_TopPanel->addChild(m_WeekCount, 1);
 	}
@@ -88,7 +87,7 @@ bool GameScene::init()
 	if (m_DayOfWeek)
 	{
 		m_DayOfWeek->setTextColor(Color4B::WHITE);
-		m_DayOfWeek->enableGlow(colorType.DeepPink);
+		m_DayOfWeek->enableGlow(GameData::getInstance().m_ColorType.DeepPink);
 		m_DayOfWeek->setPosition(m_TopPanelMidPoint.x +550.f, m_TopPanelMidPoint.y -5.f);
 		m_TopPanel->addChild(m_DayOfWeek, 1);
 	}
@@ -97,7 +96,7 @@ bool GameScene::init()
 	if (m_TimeHourDisplay)
 	{
 		m_TimeHourDisplay->setTextColor(Color4B::WHITE);
-		m_TimeHourDisplay->enableGlow(colorType.PowderBlue);
+		m_TimeHourDisplay->enableGlow(GameData::getInstance().m_ColorType.PowderBlue);
 		m_TimeHourDisplay->setPosition(m_TopPanelMidPoint.x +530.f, m_TopPanelMidPoint.y -30.f);
 		m_TopPanel->addChild(m_TimeHourDisplay, 1);
 	}
@@ -105,7 +104,7 @@ bool GameScene::init()
 	if (timeMark)
 	{
 		timeMark->setTextColor(Color4B::WHITE);
-		timeMark->enableGlow(colorType.PowderBlue);
+		timeMark->enableGlow(GameData::getInstance().m_ColorType.PowderBlue);
 		timeMark->setPosition(m_TopPanelMidPoint.x + 555.f, m_TopPanelMidPoint.y - 28.f);
 		m_TopPanel->addChild(timeMark, 1);
 	}
@@ -114,7 +113,7 @@ bool GameScene::init()
 	if (m_TimeHourDisplay)
 	{
 		m_TimeMinDisplay->setTextColor(Color4B::WHITE);
-		m_TimeMinDisplay->enableGlow(colorType.PowderBlue);
+		m_TimeMinDisplay->enableGlow(GameData::getInstance().m_ColorType.PowderBlue);
 		m_TimeMinDisplay->setPosition(m_TopPanelMidPoint.x + 580.f, m_TopPanelMidPoint.y - 30.f);
 		m_TopPanel->addChild(m_TimeMinDisplay, 1);
 	}

@@ -4,7 +4,6 @@
 #include "ui/UICheckBox.h"
 #include "MouseOverMenuItem.h"
 #include "GameScene.h"
-#include "InGameData.h"
 #include "2d/CCNode.h"
 #include "CCApplication.h"
 #include "AppDelegate.h"
@@ -91,7 +90,7 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 
 	// option label
 	auto optionLabel = Label::createWithTTF("CHOOSE YOUR PLAYER", "fonts/Nirmala.ttf", 20);
-	optionLabel->setTextColor(colorType.HotPink);
+	optionLabel->setTextColor(GameData::getInstance().m_ColorType.HotPink);
 	optionLabel->setPosition(panelMidPoint.x, panelMidPoint.y + 160.f);
 	m_PlayerSettingPanel->addChild(optionLabel, 1);
 
@@ -109,7 +108,6 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	woman1Item->setItemRect(woman1Pos, 0.4f);
 
 	m_MenuItems.pushBack(woman1Item);
-	//characterSpriteMap.insert(std::pair<itemTypes, std::string>(woman1Item->itemSelectedData.type, "Woman1_200_Tran.png"));
 	GameData::getInstance().registerCharacter(woman1Item->itemSelectedData.type, "Woman1_200_Tran.png");
 
 	// woman2
@@ -125,8 +123,8 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	woman2Item->setItemRect(woman2Pos, 0.4f);
 
 	m_MenuItems.pushBack(woman2Item);
-	//characterSpriteMap.insert(std::pair<itemTypes, std::string>(woman2Item->itemSelectedData.type, "Woman2_200_Tran.png"));
 	GameData::getInstance().registerCharacter(woman2Item->itemSelectedData.type, "Woman2_200_Tran.png");
+
 	// woman3
 	auto woman3NormalSprite = Sprite::createWithSpriteFrameName("Woman3_200_Tran.png");
 	auto woman3SelectedSprite = Sprite::createWithSpriteFrameName("Woman3_200_Tran_Lit.png");
@@ -140,8 +138,8 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	woman3Item->setItemRect(woman3Pos, 0.4f);
 
 	m_MenuItems.pushBack(woman3Item);
-	//characterSpriteMap.insert(std::pair<itemTypes, std::string>(woman3Item->itemSelectedData.type, "Woman3_200_Tran.png"));
 	GameData::getInstance().registerCharacter(woman3Item->itemSelectedData.type, "Woman3_200_Tran.png");
+
 	// man1
 	auto man1NormalSprite = Sprite::createWithSpriteFrameName("Man1_200_Tran.png");
 	auto man1_SelectedSprite = Sprite::createWithSpriteFrameName("Man1_200_Tran_Lit.png");
@@ -155,8 +153,8 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	man1Item->setItemRect(man1Pos, 0.4f);
 
 	m_MenuItems.pushBack(man1Item);
-	//characterSpriteMap.insert(std::pair<itemTypes, std::string>(man1Item->itemSelectedData.type, "Man1_200_Tran.png"));
 	GameData::getInstance().registerCharacter(man1Item->itemSelectedData.type, "Man1_200_Tran.png");
+
 	// man2
 	auto man2NormalSprite = Sprite::createWithSpriteFrameName("Man2_200_Tran.png");
 	auto man2SelectedSprite = Sprite::createWithSpriteFrameName("Man2_200_Tran_Lit.png");
@@ -170,8 +168,8 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	man2Item->setItemRect(man2Pos, 0.4f);
 
 	m_MenuItems.pushBack(man2Item);
-	//characterSpriteMap.insert(std::pair<itemTypes, std::string>(man2Item->itemSelectedData.type, "Man2_200_Tran.png"));
 	GameData::getInstance().registerCharacter(man2Item->itemSelectedData.type, "Man2_200_Tran.png");
+
 	// man3
 	auto man3NormalSprite = Sprite::createWithSpriteFrameName("Man3_200_Tran.png");
 	auto man3SelectedSprite = Sprite::createWithSpriteFrameName("Man3_200_Tran_Lit.png");
@@ -185,7 +183,6 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	man3Item->setItemRect(man3Pos, 0.4f);
 
 	m_MenuItems.pushBack(man3Item);
-	//characterSpriteMap.insert(std::pair<itemTypes, std::string>(man3Item->itemSelectedData.type, "Man3_200_Tran.png"));
 	GameData::getInstance().registerCharacter(man3Item->itemSelectedData.type, "Man3_200_Tran.png");
 #pragma endregion
 
@@ -291,9 +288,9 @@ void MainMenuPlayerSetting::characterSelectedCallback(Ref* pSender)
 		
 		// create label for first time
 		item->itemSelectedData.selectedLabel = Label::createWithTTF("SELECTED", "fonts/NirmalaB.ttf", 40.f);
-		item->itemSelectedData.selectedLabel->setTextColor(colorType.HotPink);
+		item->itemSelectedData.selectedLabel->setTextColor(GameData::getInstance().m_ColorType.HotPink);
 		item->itemSelectedData.selectedLabel->enableShadow(Color4B::BLACK);
-		item->itemSelectedData.selectedLabel->enableGlow(colorType.LightSteelBlue);
+		item->itemSelectedData.selectedLabel->enableGlow(GameData::getInstance().m_ColorType.LightSteelBlue);
 		item->itemSelectedData.selectedLabel->setPosition(item->getContentSize().width * 0.5f, item->getContentSize().height * 0.5f - 60.f);
 		item->itemSelectedData.selectedLabel->setRotation(-15.f);
 		item->addChild(item->itemSelectedData.selectedLabel, 1);
@@ -357,7 +354,7 @@ bool MainMenuPlayerSetting::validation()
 
 void MainMenuPlayerSetting::showInvalid()
 {
-	m_TextField->setPlaceHolderColor(colorType.Crimson);
+	m_TextField->setPlaceHolderColor(GameData::getInstance().m_ColorType.Crimson);
 	m_TextField->setPlaceHolder("?");
 }
 

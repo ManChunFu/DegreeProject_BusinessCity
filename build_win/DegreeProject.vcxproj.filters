@@ -13,9 +13,6 @@
     <ClCompile Include="..\Classes\MouseOverMenuItem.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\KeyboardManager.cpp">
-      <Filter>Source Files\Classes</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\MainMenuScene.cpp">
       <Filter>Source Files\Classes\Scenes</Filter>
     </ClCompile>
@@ -24,9 +21,6 @@
     </ClCompile>
     <ClCompile Include="..\Classes\MainMenuPlayerSetting.cpp">
       <Filter>Source Files\Classes\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\InGameData.cpp">
-      <Filter>Source Files\Classes</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\GameData.cpp">
       <Filter>Source Files\Classes</Filter>
@@ -66,9 +60,6 @@
     <ClInclude Include="..\Classes\MouseOverMenuItem.h">
       <Filter>Source Files\Classes</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\KeyboardManager.h">
-      <Filter>Source Files\Classes</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\MainMenuScene.h">
       <Filter>Source Files\Classes\Scenes</Filter>
     </ClInclude>
@@ -77,9 +68,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\MainMenuPlayerSetting.h">
       <Filter>Source Files\Classes\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\InGameData.h">
-      <Filter>Source Files\Classes</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GameData.h">
       <Filter>Source Files\Classes</Filter>

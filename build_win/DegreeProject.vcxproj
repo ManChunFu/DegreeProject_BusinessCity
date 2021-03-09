@@ -804,8 +804,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\GameData.h" />
     <ClInclude Include="..\Classes\GameManager.h" />
     <ClInclude Include="..\Classes\GameScene.h" />
-    <ClInclude Include="..\Classes\InGameData.h" />
-    <ClInclude Include="..\Classes\KeyboardManager.h" />
     <ClInclude Include="..\Classes\MainMenuPlayerSetting.h" />
     <ClInclude Include="..\Classes\MouseOverMenuItem.h" />
     <ClInclude Include="C:\Users\mandy\source\repos\DegreeProject\Classes\AppDelegate.h" />
@@ -815,8 +813,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\Classes\GameData.cpp" />
     <ClCompile Include="..\Classes\GameManager.cpp" />
     <ClCompile Include="..\Classes\GameScene.cpp" />
-    <ClCompile Include="..\Classes\InGameData.cpp" />
-    <ClCompile Include="..\Classes\KeyboardManager.cpp" />
     <ClCompile Include="..\Classes\MainMenuPlayerSetting.cpp" />
     <ClCompile Include="..\Classes\MouseOverMenuItem.cpp" />
     <ClCompile Include="C:\Users\mandy\source\repos\DegreeProject\Classes\AppDelegate.cpp" />
