@@ -1,8 +1,10 @@
 #include "GameScene.h"
-#include "InGameData.h"
 #include "2d/CCLayer.h"
 #include <MouseOverMenuItem.h>
 #include "cocostudio/SimpleAudioEngine.h"
+#include "InGameData.h"
+#include "GameData.h"
+
 using namespace CocosDenshion;
 USING_NS_CC;
 
@@ -41,7 +43,8 @@ bool GameScene::init()
 
 	auto m_TopPanelMidPoint = Vec2(m_TopPanel->getContentSize().width * 0.5f, m_TopPanel->getContentSize().height * 0.5f);
 
-	auto playerSprite = Sprite::createWithSpriteFrameName(characterSpriteMap[playerCharacter]);
+	auto playerSprite = Sprite::createWithSpriteFrameName(GameData::getInstance().getPlayerCharacter());
+
 	if (!playerSprite)
 		return false;
 
@@ -51,7 +54,8 @@ bool GameScene::init()
 
 	auto playerSpriteMidPoint = Vec2(playerSprite->getContentSize().width * 0.5f, playerSprite->getContentSize().height * 0.5f);
 
-	auto nameLabel = Label::createWithTTF(playerName, "fonts/NirmalaB.ttf", 22);
+	auto nameLabel = Label::createWithTTF(GameData::getInstance().getPlayerName(), "fonts/NirmalaB.ttf", 22);
+
 	if (nameLabel)
 	{
 		nameLabel->setMaxLineWidth(125);

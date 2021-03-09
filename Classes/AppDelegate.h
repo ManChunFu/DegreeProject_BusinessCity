@@ -31,6 +31,9 @@
 
 Private inheritance here hides part of interface from Director.
 */
+
+class GameData;
+
 class  AppDelegate : private cocos2d::Application
 {
 public:
@@ -59,6 +62,7 @@ public:
     */
     virtual void applicationWillEnterForeground();
 
+    
 };
 
 #endif // _APP_DELEGATE_H_

@@ -11,3 +11,4 @@ std::string GameData::getPlayerCharacter()
 {
 	return std::string(m_CharacterSpriteMap[m_PlayerCharacter]);
 }
+

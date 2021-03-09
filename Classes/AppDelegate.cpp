@@ -48,6 +48,7 @@ AppDelegate::~AppDelegate()
 #if USE_AUDIO_ENGINE
     AudioEngine::end();
 #endif
+
 }
 
 // if you want a different context, modify the value of glContextAttrs
@@ -119,7 +120,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // run
     director->runWithScene(scene);
-
+    
     return true;
 }
 
@@ -140,3 +141,4 @@ void AppDelegate::applicationWillEnterForeground() {
     AudioEngine::resumeAll();
 #endif
 }
+
