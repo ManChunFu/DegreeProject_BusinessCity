@@ -240,7 +240,7 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	listener->onKeyPressed = CC_CALLBACK_2(MainMenuPlayerSetting::onKeyPressed, this);
 	auto event = m_MainMenu->getEventDispatcher(); 
 	event->addEventListenerWithSceneGraphPriority(listener, m_MainMenu);
-
+	
 }
 
 void MainMenuPlayerSetting::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
