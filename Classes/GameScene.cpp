@@ -3,6 +3,8 @@
 #include <MouseOverMenuItem.h>
 #include "cocostudio/SimpleAudioEngine.h"
 #include "GameData.h"
+#include "Bank.h"
+
 
 using namespace CocosDenshion;
 USING_NS_CC;
@@ -10,7 +12,9 @@ USING_NS_CC;
 
 GameScene::~GameScene()
 {
-	//menuItems
+	m_MenuItems.clear();
+	delete m_Bank;
+	m_Bank = nullptr;
 }
 
 Scene* GameScene::createScene()
@@ -70,7 +74,7 @@ bool GameScene::init()
 		m_TopPanel->addChild(nameLabel, 1);
 	}
 
-#pragma region CreateSavingLabels and Bank buttons
+#pragma region CreateSavingLabels and Bank 
 	auto cashSymbol = Label::createWithTTF("$", "fonts/NirmalaB.ttf", 20);
 	if (cashSymbol)
 	{
@@ -119,7 +123,9 @@ bool GameScene::init()
 			myBankLabel->setPosition(bankButton->getContentSize().width * 0.5f, bankButton->getContentSize().height * 0.5f);
 			bankButton->addChild(myBankLabel, 1);
 		}
-		menuItems.pushBack(bankButton);
+		m_MenuItems.pushBack(bankButton);
+
+		m_Bank = new Bank();
 	}
 #pragma endregion
 
@@ -185,12 +191,19 @@ bool GameScene::init()
 	m_BottomPanel->setPosition(Vec2(m_VisibleSize.width * 0.5f, 50.f));
 	this->addChild(m_BottomPanel, 1);
 
+	auto menu = Menu::createWithArray(m_MenuItems);
+	menu->setPosition(Vec2::ZERO);
+	this->addChild(menu, 2);
+
+	// Game time setup
 	m_ElapsedTime = 0;
 	this->scheduleUpdate();
 
-	auto menu = Menu::createWithArray(menuItems);
-	menu->setPosition(Vec2::ZERO);
-	this->addChild(menu, 2);
+	// set key event
+	auto listener = EventListenerKeyboard::create();
+	listener->onKeyPressed = CC_CALLBACK_2(GameScene::onKeyPressed, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
 	return true;
 }
 
@@ -262,11 +275,27 @@ void GameScene::updateSavingLabel(cocos2d::Label* label, int value)
 
 void GameScene::checkBalanceCallback(cocos2d::Ref* pSender)
 {
-	log("Open bank account balacnce");
+	m_IsOpeningSubWindow = !m_IsOpeningSubWindow;
+
+	(m_IsOpeningSubWindow) ? m_Bank->openBankPanel(this) : m_Bank->closeBankPanel();
 }
 
 void GameScene::onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event)
 {
+}
+
+void GameScene::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
+{
+	if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE)
+	{
+		if (m_IsOpeningSubWindow)
+		{
+			m_Bank->closeBankPanel();
+			m_IsOpeningSubWindow = false;
+		}
+		else
+			log("Pause");
+	}
 }
 
 

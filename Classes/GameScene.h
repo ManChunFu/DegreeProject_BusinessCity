@@ -10,6 +10,7 @@ namespace CocosDenshion
 	class SimpleAudioEngine;
 }
 class MouseOverMenuItem;
+class Bank;
 
 class GameScene : public cocos2d::Layer
 {
@@ -32,6 +33,10 @@ private:
 	cocos2d::Label* m_WeekDay = nullptr;
 	cocos2d::Label* m_TimeHourDisplay = nullptr;
 	cocos2d::Label* m_TimeMinDisplay = nullptr;
+	cocos2d::Vector<cocos2d::MenuItem*> m_MenuItems;
+	
+	Bank* m_Bank = nullptr;
+
 	float m_ElapsedTime = 0.f;
 	unsigned m_CurrentMinute = 0;
 	unsigned m_CurrentHour = 8;
@@ -39,7 +44,8 @@ private:
 	std::string m_WeekDays[7] = { "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY" };
 	unsigned m_Weeks = 1;
 	int m_CurrentCash = 50000;
-	cocos2d::Vector<cocos2d::MenuItem*> menuItems;
+
+	bool m_IsOpeningSubWindow = false;
 
 	void setSpriteScale(cocos2d::Sprite* sprite, cocos2d::Vec2 scale);
 	void updateGameTime(float delta);
@@ -48,5 +54,6 @@ private:
 	
 	void checkBalanceCallback(cocos2d::Ref* pSender);
 	void onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event);
+	void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
 };
 #endif
