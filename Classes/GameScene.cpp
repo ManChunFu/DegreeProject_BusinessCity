@@ -33,7 +33,7 @@ bool GameScene::init()
 	m_VisibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto backgroundSprite = Sprite::create("Sprites/CityView.png");
+	auto backgroundSprite = Sprite::createWithSpriteFrameName("CityView.png");
 	if (!backgroundSprite)
 		return false;
 
@@ -42,7 +42,7 @@ bool GameScene::init()
 
 	this->addChild(backgroundSprite, 0);
 
-	m_TopPanel = Sprite::create("X/InGamePanel_Black_80.png");
+	m_TopPanel = Sprite::createWithSpriteFrameName("InGamePanel_Black_80.png");
 	if (!m_TopPanel)
 		return false;
 
@@ -94,7 +94,7 @@ bool GameScene::init()
 		m_TopPanel->addChild(m_Saving, 1);
 	}
 
-	auto creditCard = Sprite::create("X/CreditCardBank_100.png");
+	auto creditCard = Sprite::createWithSpriteFrameName("CreditCardBank_100.png");
 	if (creditCard)
 	{
 		creditCard->setPosition(topPanelMidPoint.x + 370.f, topPanelMidPoint.y + 10.f);
@@ -187,7 +187,7 @@ bool GameScene::init()
 	}
 #pragma endregion
 
-	m_BottomPanel = Sprite::create("X/InGamePanel_Black_80.png");
+	m_BottomPanel = Sprite::createWithSpriteFrameName("InGamePanel_Black_80.png");
 	m_BottomPanel->setPosition(Vec2(m_VisibleSize.width * 0.5f, 50.f));
 	this->addChild(m_BottomPanel, 1);
 
@@ -277,7 +277,7 @@ void GameScene::checkBalanceCallback(cocos2d::Ref* pSender)
 {
 	m_IsOpeningSubWindow = !m_IsOpeningSubWindow;
 
-	(m_IsOpeningSubWindow) ? m_Bank->openBankPanel(this) : m_Bank->closeBankPanel();
+	(m_IsOpeningSubWindow) ? m_Bank->openBankPanel(this, m_Weeks) : m_Bank->closeBankPanel();
 }
 
 void GameScene::onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event)

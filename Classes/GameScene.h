@@ -24,6 +24,7 @@ public:
 	void update(float delta);
 	CREATE_FUNC(GameScene);
 
+	void updateTimeLabel(cocos2d::Label* label, unsigned value);
 private:
 	cocos2d::Size m_VisibleSize;
 	cocos2d::Label* m_Saving = nullptr;
@@ -49,7 +50,6 @@ private:
 
 	void setSpriteScale(cocos2d::Sprite* sprite, cocos2d::Vec2 scale);
 	void updateGameTime(float delta);
-	void updateTimeLabel(cocos2d::Label* label, unsigned value);
 	void updateSavingLabel(cocos2d::Label* label, int value);
 	
 	void checkBalanceCallback(cocos2d::Ref* pSender);

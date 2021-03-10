@@ -114,6 +114,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto spritecache = SpriteFrameCache::getInstance();
     spritecache->addSpriteFramesWithFile("Sprites/MainMenu.plist");
     spritecache->addSpriteFramesWithFile("Sprites/Characters.plist");
+    spritecache->addSpriteFramesWithFile("Sprites/GameScene.plist");
 
     // create a scene. it's an autorelease object
     auto scene = MainMenuScene::createScene();
