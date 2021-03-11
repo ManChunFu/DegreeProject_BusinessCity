@@ -1,0 +1,114 @@
+[
+  {
+    "Type": "Hotdog Stand",
+    "Name": "Super Hotdog",
+    "ShopLook": "",
+    "ShopPrice": 20000,
+    "ElectricityCost": 200,
+    "WaterCost": 50,
+    "Employees": 0,
+    "TotalSalary": 0,
+    "CommercialCost": 0,
+    "Products": [
+      {
+        "Name": "French Hot Dog",
+        "Price": 20
+      },
+      {
+        "Name": "Grill Hot Dog",
+        "Price": 18
+      }
+    ]
+  },
+  {
+    "Type": "Ice Cream Stand",
+    "Name": "Sweety Ice Cream",
+    "ShopLook": "",
+    "ShopPrice": 20000,
+    "ElectricityCost": 400,
+    "WaterCost": 50,
+    "Employees": 0,
+    "TotalSalary": 0,
+    "CommercialCost": 0,
+    "Products": [
+      {
+        "Name": "Chocolate Ice Cream",
+        "Price": 30
+      },
+      {
+        "Name": "Vanilla Ice Cream",
+        "Price": 25
+      },
+      {
+        "Name": "Mango Ice Cream",
+        "Price": 35
+      },
+      {
+        "Name": "Strawberry Ice Cream",
+        "Price": 35
+      }
+    ]
+  },
+  {
+    "Type": "Fruit Stand",
+    "Name": "Fresh Fruits",
+    "ShopLook": "",
+    "ShopPrice": 10000,
+    "ElectricityCost": 100,
+    "WaterCost": 100,
+    "Employees": 0,
+    "TotalSalary": 0,
+    "CommercialCost": 0,
+    "Products": [
+      {
+        "Name": "Banana",
+        "Price": 10
+      },
+      {
+        "Name": "Apple",
+        "Price": 12
+      },
+      {
+        "Name": "Orange",
+        "Price": 15
+      },
+      {
+        "Name": "Strawberry",
+        "Price": 20
+      },
+      {
+        "Name": "Pear",
+        "Price": 15
+      }
+    ]
+  },
+  {
+    "Type": "Handicraft Stand",
+    "Name": "Decor",
+    "ShopLook": "",
+    "ShopPrice": 15000,
+    "ElectricityCost": 100,
+    "WaterCost": 50,
+    "Employees": 0,
+    "TotalSalary": 0,
+    "CommercialCost": 0,
+    "Products": [
+      {
+        "Name": "Scarf",
+        "Price": 50
+      },
+      {
+        "Name": "Mug",
+        "Price": 30
+      },
+      {
+        "Name": "Post card",
+        "Price": 5
+      },
+      {
+        "Name": "Picture frame",
+        "Price": 20
+      }
+    ]
+  }
+]

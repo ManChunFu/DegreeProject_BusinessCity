@@ -18,10 +18,11 @@ public:
 	std::string m_ShopType;
 	std::string m_Name;
 	ownerTypes m_Owner;
-	const std::string& m_ProductSpritePath;
+	const std::string& m_ShopLook;
+	/*const std::string& m_ProductSpritePath;
 	std::string m_ProductName;
 	unsigned m_ProductSalePrice;
-	unsigned m_PurchasePrice;
+	unsigned m_ProductPurchasePrice;*/
 	unsigned m_Electricity;
 	unsigned m_Water;
 	unsigned m_Employees;

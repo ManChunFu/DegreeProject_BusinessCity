@@ -895,6 +895,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Name>external</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Resources\Json\Shop.json" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

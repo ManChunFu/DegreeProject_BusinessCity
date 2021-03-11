@@ -125,4 +125,9 @@
       <UniqueIdentifier>{96a26766-1a3f-4c79-8853-bf2a9ae194bb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Resources\Json\Shop.json">
+      <Filter>Resources</Filter>
+    </None>
+  </ItemGroup>
 </Project>
