@@ -97,8 +97,8 @@ void Bank::createBankPanel()
 	if (m_Electricity)
 	{
 		GameFunctions::updateLabelText_MoneyFormat(m_Electricity, m_ElectricityFee, true);
-		GameFunctions::displayLabel(m_Electricity, Color4B::BLACK, Vec2(panelMidPoint.x, panelMidPoint.y + 100.f),
-			m_BankPanel, 1);
+		GameFunctions::displayLabel(m_Electricity, Color4B::BLACK, Vec2(panelMidPoint.x + 20.f, panelMidPoint.y +110.f),
+			m_BankPanel, 1, true);
 	}
 
 	// water
@@ -111,7 +111,7 @@ void Bank::createBankPanel()
 	if (m_Water)
 	{
 		GameFunctions::updateLabelText_MoneyFormat(m_Water, m_WaterFee, true);
-		GameFunctions::displayLabel(m_Water, Color4B::BLACK, Vec2(panelMidPoint.x, panelMidPoint.y + 70.f), m_BankPanel, 1);
+		GameFunctions::displayLabel(m_Water, Color4B::BLACK, Vec2(panelMidPoint.x + 20.f, panelMidPoint.y + 80.f), m_BankPanel, 1, true);
 	}
 
 	// salary
@@ -124,7 +124,7 @@ void Bank::createBankPanel()
 	if (m_Salary)
 	{
 		GameFunctions::updateLabelText_MoneyFormat(m_Salary, m_SalaryExpense, true);
-		GameFunctions::displayLabel(m_Salary, Color4B::BLACK, Vec2(panelMidPoint.x, panelMidPoint.y + 40.f), m_BankPanel, 1);
+		GameFunctions::displayLabel(m_Salary, Color4B::BLACK, Vec2(panelMidPoint.x +20.f, panelMidPoint.y + 50.f), m_BankPanel, 1, true);
 	}
 
 	// loan
@@ -142,7 +142,7 @@ void Bank::createBankPanel()
 	if (m_Loan)
 	{
 		GameFunctions::updateLabelText_MoneyFormat(m_Loan, m_Debt, true);
-		GameFunctions::displayLabel(m_Loan, Color4B::BLACK, Vec2(panelMidPoint.x, panelMidPoint.y + 10.f), m_BankPanel, 1);
+		GameFunctions::displayLabel(m_Loan, Color4B::BLACK, Vec2(panelMidPoint.x + 20.f, panelMidPoint.y + 20.f), m_BankPanel, 1, true);
 	}
 
 	// commerical
@@ -155,7 +155,7 @@ void Bank::createBankPanel()
 	if (m_Commerical)
 	{
 		GameFunctions::updateLabelText_MoneyFormat(m_Commerical, m_commericalFee, true);
-		GameFunctions::displayLabel(m_Commerical, Color4B::BLACK, Vec2(panelMidPoint.x, panelMidPoint.y - 20.f), m_BankPanel, 1);
+		GameFunctions::displayLabel(m_Commerical, Color4B::BLACK, Vec2(panelMidPoint.x + 20.f, panelMidPoint.y -10.f), m_BankPanel, 1, true);
 	}
 
 	// sales
@@ -168,7 +168,7 @@ void Bank::createBankPanel()
 	if (m_Sales)
 	{
 		GameFunctions::updateLabelText_MoneyFormat(m_Sales, m_SalesIncome);
-		GameFunctions::displayLabel(m_Sales, Color4B::BLACK, Vec2(panelMidPoint.x, panelMidPoint.y - 50.f), m_BankPanel, 1);
+		GameFunctions::displayLabel(m_Sales, Color4B::BLACK, Vec2(panelMidPoint.x +20.f, panelMidPoint.y - 40.f), m_BankPanel, 1, true);
 	}
 
 	auto totalLabel = Label::createWithTTF("TOTAL", "fonts/NirmalaB.ttf", 20);

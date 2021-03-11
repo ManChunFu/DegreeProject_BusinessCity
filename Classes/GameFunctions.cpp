@@ -2,10 +2,12 @@
 #include "MouseOverMenuItem.h"
 
 USING_NS_CC;
-void GameFunctions::displayLabel(Label* label, Color4B color, Vec2 pos, Node* parent, unsigned z_order)
+void GameFunctions::displayLabel(Label* label, Color4B color, Vec2 pos, Node* parent, unsigned z_order, bool anchor)
 {
 	label->setTextColor(color);
 	label->setPosition(pos);
+	if (anchor)
+		label->setAnchorPoint(Vec2::ONE);
 	parent->addChild(label, z_order);
 }
 
