@@ -79,14 +79,37 @@ void Bank::createBankPanel()
 #pragma endregion
 
 #pragma region Create weekly expense
-	m_Shop = Label::createWithTTF("Hot Dog Stand", "font/NirmalaB.ttf", 15);
+	m_Shop = Label::createWithTTF("Hotdog Stand", "fonts/NirmalaB.ttf", 15);
 	if (m_Shop)
 	{
-
+		m_Shop->enableGlow(Color4B::WHITE);
+		GameFunctions::displayLabel(m_Shop, Color4B::BLACK, Vec2(panelMidPoint.x, panelMidPoint.y + 120.f),
+			m_BankPanel, 1);
 	}
+
 	auto electricityLabel = Label::createWithTTF("Electricity", "fonts/Nirmala.ttf", 20);
 	if (electricityLabel)
-		GameFunctions::displayLabel(electricityLabel, Color4B::BLACK, Vec2(panelMidPoint.x - 230.f, panelMidPoint.y + 120.f), 
+		GameFunctions::displayLabel(electricityLabel, Color4B::BLACK, Vec2(panelMidPoint.x - 230.f, panelMidPoint.y + 100.f), 
+			m_BankPanel, 1);
+
+	auto waterLabel = Label::createWithTTF("Water", "fonts/Nirmala.ttf", 20);
+	if (waterLabel)
+		GameFunctions::displayLabel(waterLabel, Color4B::BLACK, Vec2(panelMidPoint.x - 245.f, panelMidPoint.y + 70.f),
+			m_BankPanel, 1);
+
+	auto salaryLabel = Label::createWithTTF("Employee Salary", "fonts/Nirmala.ttf", 20);
+	if (salaryLabel)
+		GameFunctions::displayLabel(salaryLabel, Color4B::BLACK, Vec2(panelMidPoint.x - 200.f, panelMidPoint.y + 40.f), 
+			m_BankPanel, 1);
+
+	auto loanLabel = Label::createWithTTF("Loan", "fonts/Nirmala.ttf", 20);
+	if (loanLabel)
+		GameFunctions::displayLabel(loanLabel, Color4B::BLACK, Vec2(panelMidPoint.x - 250.f, panelMidPoint.y + 10.f),
+			m_BankPanel, 1);
+
+	auto loanDetailLabel = Label::createWithTTF("(principle + interest)", "fonts/Nirmala.ttf", 15);
+	if (loanDetailLabel)
+		GameFunctions::displayLabel(loanDetailLabel, Color4B::BLACK, Vec2(panelMidPoint.x -160.f, panelMidPoint.y + 8.f),
 			m_BankPanel, 1);
 #pragma endregion
 

@@ -1,9 +1,19 @@
 #include "MouseOverMenuItem.h"
-
+#include "base/CCEventMouse.h"
+USING_NS_CC;
 MouseOverMenuItem::~MouseOverMenuItem()
 {
 	m_IsHovering = false;
 	_eventDispatcher->removeEventListener(m_MouseListener);
+}
+
+MouseOverMenuItem* MouseOverMenuItem::creatMouseOverMenuButton(const std::string& normalPath, const std::string& selectedPath, const std::string& disabledPath, const ccMenuCallback& callback)
+{
+	auto spriteNormal = Sprite::createWithSpriteFrameName(normalPath);
+	auto spriteSelected = Sprite::createWithSpriteFrameName(selectedPath);
+	auto spriteDisabled = Sprite::createWithSpriteFrameName(disabledPath);
+	
+	return create(spriteNormal, spriteSelected, spriteDisabled, callback);
 }
 
 MouseOverMenuItem* MouseOverMenuItem::create(const std::string& normalImage, const std::string& overImage, const std::string& disabledImage, const ccMenuCallback& callback)

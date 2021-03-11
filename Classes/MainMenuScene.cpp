@@ -203,11 +203,15 @@ void MainMenuScene::setMenuItemVisible(bool value)
 
 void MainMenuScene::onMouseOver(MouseOverMenuItem* overItem, Event* event)
 {
-	m_Audio->playEffect("Sounds/SelectedSound.mp3", false, 1.f, 1.f, 1.f);
+	if (m_Audio)
+		m_Audio->playEffect("Sounds/SelectedSound.mp3", false, 1.f, 1.f, 1.f);
 }
 
 void MainMenuScene::StopAudio(bool deleteAudio)
 {
+	if (!m_Audio)
+		return;
+
 	m_Audio->stopBackgroundMusic(true);
 	if (deleteAudio)
 	{
