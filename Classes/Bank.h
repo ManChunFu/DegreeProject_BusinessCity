@@ -20,15 +20,18 @@ private:
 	cocos2d::Label* m_Electricity = nullptr;
 	cocos2d::Label* m_Water = nullptr;
 	cocos2d::Label* m_Salary = nullptr;
+	cocos2d::Label* m_Loan = nullptr;
+	cocos2d::Label* m_Commerical = nullptr;
 	cocos2d::Label* m_Sales = nullptr;
 
 	std::string m_ShopName = "";
 	unsigned m_CurrentWeek = 1;
 	unsigned m_ElectricityFee = 200;
 	unsigned m_WaterFee = 50;
-	unsigned m_SalaryExpense = 5000;
+	unsigned m_SalaryExpense = 0;
+	unsigned m_Debt = 0;
+	unsigned m_commericalFee = 0;
 	unsigned m_SalesIncome = 2000;
 
 	void createBankPanel();
-
 };

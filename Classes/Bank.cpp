@@ -87,21 +87,47 @@ void Bank::createBankPanel()
 			m_BankPanel, 1);
 	}
 
+	// electricity
 	auto electricityLabel = Label::createWithTTF("Electricity", "fonts/Nirmala.ttf", 20);
 	if (electricityLabel)
 		GameFunctions::displayLabel(electricityLabel, Color4B::BLACK, Vec2(panelMidPoint.x - 230.f, panelMidPoint.y + 100.f), 
 			m_BankPanel, 1);
 
+	m_Electricity = Label::createWithTTF("", "fonts/Nirmala.ttf", 20);
+	if (m_Electricity)
+	{
+		GameFunctions::updateLabelText_MoneyFormat(m_Electricity, m_ElectricityFee, true);
+		GameFunctions::displayLabel(m_Electricity, Color4B::BLACK, Vec2(panelMidPoint.x, panelMidPoint.y + 100.f),
+			m_BankPanel, 1);
+	}
+
+	// water
 	auto waterLabel = Label::createWithTTF("Water", "fonts/Nirmala.ttf", 20);
 	if (waterLabel)
 		GameFunctions::displayLabel(waterLabel, Color4B::BLACK, Vec2(panelMidPoint.x - 245.f, panelMidPoint.y + 70.f),
 			m_BankPanel, 1);
 
+	m_Water = Label::createWithTTF("", "fonts/Nirmala.ttf", 20);
+	if (m_Water)
+	{
+		GameFunctions::updateLabelText_MoneyFormat(m_Water, m_WaterFee, true);
+		GameFunctions::displayLabel(m_Water, Color4B::BLACK, Vec2(panelMidPoint.x, panelMidPoint.y + 70.f), m_BankPanel, 1);
+	}
+
+	// salary
 	auto salaryLabel = Label::createWithTTF("Employee Salary", "fonts/Nirmala.ttf", 20);
 	if (salaryLabel)
 		GameFunctions::displayLabel(salaryLabel, Color4B::BLACK, Vec2(panelMidPoint.x - 200.f, panelMidPoint.y + 40.f), 
 			m_BankPanel, 1);
 
+	m_Salary = Label::createWithTTF("", "fonts/Nirmala.ttf", 20);
+	if (m_Salary)
+	{
+		GameFunctions::updateLabelText_MoneyFormat(m_Salary, m_SalaryExpense, true);
+		GameFunctions::displayLabel(m_Salary, Color4B::BLACK, Vec2(panelMidPoint.x, panelMidPoint.y + 40.f), m_BankPanel, 1);
+	}
+
+	// loan
 	auto loanLabel = Label::createWithTTF("Loan", "fonts/Nirmala.ttf", 20);
 	if (loanLabel)
 		GameFunctions::displayLabel(loanLabel, Color4B::BLACK, Vec2(panelMidPoint.x - 250.f, panelMidPoint.y + 10.f),
@@ -111,9 +137,51 @@ void Bank::createBankPanel()
 	if (loanDetailLabel)
 		GameFunctions::displayLabel(loanDetailLabel, Color4B::BLACK, Vec2(panelMidPoint.x -160.f, panelMidPoint.y + 8.f),
 			m_BankPanel, 1);
+
+	m_Loan = Label::createWithTTF("", "fonts/Nirmala.ttf", 20);
+	if (m_Loan)
+	{
+		GameFunctions::updateLabelText_MoneyFormat(m_Loan, m_Debt, true);
+		GameFunctions::displayLabel(m_Loan, Color4B::BLACK, Vec2(panelMidPoint.x, panelMidPoint.y + 10.f), m_BankPanel, 1);
+	}
+
+	// commerical
+	auto commericalLabel = Label::createWithTTF("Commercial", "fonts/Nirmala.ttf", 20);
+	if (commericalLabel)
+		GameFunctions::displayLabel(commericalLabel, Color4B::BLACK, Vec2(panelMidPoint.x - 220.f, panelMidPoint.y - 20.f),
+			m_BankPanel, 1);
+
+	m_Commerical = Label::createWithTTF("", "fonts/Nirmala.ttf", 20);
+	if (m_Commerical)
+	{
+		GameFunctions::updateLabelText_MoneyFormat(m_Commerical, m_commericalFee, true);
+		GameFunctions::displayLabel(m_Commerical, Color4B::BLACK, Vec2(panelMidPoint.x, panelMidPoint.y - 20.f), m_BankPanel, 1);
+	}
+
+	// sales
+	auto salesLabel = Label::createWithTTF("Sales Income", "fonts/Nirmala.ttf", 20);
+	if (salesLabel)
+		GameFunctions::displayLabel(salesLabel, Color4B::BLACK, Vec2(panelMidPoint.x - 215.f, panelMidPoint.y - 50.f),
+			m_BankPanel, 1);
+
+	m_Sales = Label::createWithTTF("", "fonts/Nirmala.ttf", 20);
+	if (m_Sales)
+	{
+		GameFunctions::updateLabelText_MoneyFormat(m_Sales, m_SalesIncome);
+		GameFunctions::displayLabel(m_Sales, Color4B::BLACK, Vec2(panelMidPoint.x, panelMidPoint.y - 50.f), m_BankPanel, 1);
+	}
+
+	auto totalLabel = Label::createWithTTF("TOTAL", "fonts/NirmalaB.ttf", 20);
+	if (totalLabel)
+	{
+		totalLabel->enableGlow(Color4B::WHITE);
+		GameFunctions::displayLabel(totalLabel, Color4B::BLACK, Vec2(panelMidPoint.x - 244.f, panelMidPoint.y - 105.f),
+			m_BankPanel, 1);
+	}
 #pragma endregion
 
 
 
 }
+
 
