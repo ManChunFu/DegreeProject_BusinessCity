@@ -7,7 +7,16 @@ USING_NS_CC;
 
 Bank::~Bank()
 {
+	m_BankPanel = nullptr;
 	m_Weeks = nullptr;
+	m_Shop = nullptr;
+	m_Electricity = nullptr;
+	m_Water = nullptr;
+	m_Salary = nullptr;
+	m_Loan = nullptr;
+	m_Commerical = nullptr;
+	m_Sales = nullptr;
+	m_Total = nullptr;
 	m_CurrentWeek = 1;
 }
 
@@ -52,13 +61,13 @@ void Bank::createBankPanel()
 	auto panelMidPoint = Vec2(m_BankPanel->getContentSize().width * 0.5f, m_BankPanel->getContentSize().height * 0.5f);
 
 #pragma region create account balance label, week label and week count
-	auto accountBalanceLabel = Label::createWithTTF("ACCOUNT BALANCE", "fonts/NirmalaB.ttf", 20);
-	if (accountBalanceLabel)
+	auto weeklyOverviewLabel = Label::createWithTTF("WEEKLY OVERVIEW", "fonts/NirmalaB.ttf", 20);
+	if (weeklyOverviewLabel)
 	{
-		GameFunctions::displayLabel(accountBalanceLabel, GameData::getInstance().m_ColorType.Taro, 
+		GameFunctions::displayLabel(weeklyOverviewLabel, GameData::getInstance().m_ColorType.Taro, 
 			Vec2(panelMidPoint.x - 180.f, panelMidPoint.y + 160.f),m_BankPanel, 1);
-		accountBalanceLabel->enableOutline(Color4B::WHITE);
-		accountBalanceLabel->enableShadow(Color4B::BLACK);
+		weeklyOverviewLabel->enableOutline(Color4B::WHITE);
+		weeklyOverviewLabel->enableShadow(Color4B::BLACK);
 	}
 
 	auto weekLabel = Label::createWithTTF("WEEK", "fonts/NirmalaB.ttf", 25);
@@ -173,15 +182,32 @@ void Bank::createBankPanel()
 
 	auto totalLabel = Label::createWithTTF("TOTAL", "fonts/NirmalaB.ttf", 20);
 	if (totalLabel)
-	{
-		totalLabel->enableGlow(Color4B::WHITE);
 		GameFunctions::displayLabel(totalLabel, Color4B::BLACK, Vec2(panelMidPoint.x - 244.f, panelMidPoint.y - 105.f),
 			m_BankPanel, 1);
+
+	m_Total = Label::createWithTTF("", "fonts/NirmalaB.ttf", 20);
+	if (m_Total)
+	{
+		auto amout = getOverviewAmout();
+		bool isMinus = false;
+		if (amout < 0)
+		{
+			isMinus = true;
+			amout *= -1;
+		}
+
+		GameFunctions::updateLabelText_MoneyFormat(m_Total, amout, isMinus);
+		GameFunctions::displayLabel(m_Total, Color4B::BLACK, Vec2(panelMidPoint.x + 20.f, panelMidPoint.y - 95.f), m_BankPanel, 1, true);
 	}
 #pragma endregion
 
 
 
+}
+
+int Bank::getOverviewAmout()
+{
+	return m_SalesIncome - m_ElectricityFee - m_WaterFee - m_SalaryExpense - m_commericalFee - m_Debt;
 }
 
 

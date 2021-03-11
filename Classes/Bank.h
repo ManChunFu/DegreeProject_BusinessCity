@@ -23,6 +23,7 @@ private:
 	cocos2d::Label* m_Loan = nullptr;
 	cocos2d::Label* m_Commerical = nullptr;
 	cocos2d::Label* m_Sales = nullptr;
+	cocos2d::Label* m_Total = nullptr;
 
 	std::string m_ShopName = "";
 	unsigned m_CurrentWeek = 1;
@@ -33,5 +34,7 @@ private:
 	unsigned m_commericalFee = 0;
 	unsigned m_SalesIncome = 2000;
 
+
 	void createBankPanel();
+	int getOverviewAmout();
 };
