@@ -34,6 +34,9 @@
     <ClCompile Include="..\Classes\GameFunctions.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Shop.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\Users\mandy\source\repos\DegreeProject\Classes\AppDelegate.h">
@@ -85,6 +88,9 @@
       <Filter>Source Files\Classes\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GameFunctions.h">
+      <Filter>Source Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Shop.h">
       <Filter>Source Files\Classes</Filter>
     </ClInclude>
   </ItemGroup>

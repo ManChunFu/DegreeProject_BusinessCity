@@ -24,7 +24,6 @@
 
 #include "MainMenuScene.h"
 #include <MouseOverMenuItem.h>
-#include "ui/UIWidget.h"
 #include <MainMenuPlayerSetting.h>
  #include "cocostudio/SimpleAudioEngine.h"
  using namespace CocosDenshion;
@@ -42,17 +41,6 @@ Scene* MainMenuScene::createScene()
 	return MainMenuScene::create();
 }
 
-// Print useful error message instead of segfaulting when files are not there.
-static void problemLoading(const char* filename, ui::Widget::TextureResType textureType = ui::Widget::TextureResType::LOCAL)
-{
-	if (textureType == ui::Widget::TextureResType::PLIST)
-		printf("Error while loading: %s in plst", filename);
-	else
-	{
-		printf("Error while loading: %s\n", filename);
-		printf("Depending on how you compiled you might have to add 'Resources/' in front of filenames in HelloWorldScene.cpp\n");
-	}
-}
 
 // on "init" you need to initialize your instance
 bool MainMenuScene::init()
@@ -69,11 +57,8 @@ bool MainMenuScene::init()
 
 	// background image
 	auto backgroundSprite = Sprite::createWithSpriteFrameName("CityTopDownViewWithLayer.png");
-	if (backgroundSprite == nullptr || backgroundSprite->getContentSize().width <= 0 || backgroundSprite->getContentSize().height <= 0)
-	{
-		problemLoading("'CityTopDownViewMediumWithLayer.png'", ui::Widget::TextureResType::PLIST);
+	if (!backgroundSprite) 
 		return false;
-	}
 
 	setSpriteScale(backgroundSprite, 1);
 	backgroundSprite->setPosition(Point(origin.x + (m_VisibleSize.width / 2), origin.y + (m_VisibleSize.height / 2)));
@@ -93,11 +78,9 @@ bool MainMenuScene::init()
 	auto startDisabledSprite = Sprite::createWithSpriteFrameName("ButtonBlueDisabled.png");
 
 	auto startButtonItem = MouseOverMenuItem::create(startNormalSprite, startSelectedSprite, startDisabledSprite, CC_CALLBACK_1(MainMenuScene::menuStartCallback, this));
-	if (startButtonItem == nullptr || startButtonItem->getContentSize().width <= 0 || startButtonItem->getContentSize().height <= 0)
-	{
-		problemLoading("'ButtonBlueNormal.png' and 'ButtonBlueLit.png' and 'ButtonBlueDisabled.png'", ui::Widget::TextureResType::PLIST);
+	if (!startButtonItem)
 		return false;
-	}
+
 	startButtonItem->onMouseOver = CC_CALLBACK_2(MainMenuScene::onMouseOver, this);
 
 	// start button text

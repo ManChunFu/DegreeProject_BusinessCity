@@ -1,7 +1,7 @@
 #include "GameFunctions.h"
-#include "MouseOverMenuItem.h"
 
 USING_NS_CC;
+
 void GameFunctions::displayLabel(Label* label, Color4B color, Vec2 pos, Node* parent, unsigned z_order, bool anchor)
 {
 	label->setTextColor(color);
@@ -26,5 +26,11 @@ void GameFunctions::updateLabelText_MoneyFormat(Label* label, int value, bool mi
 			cashStr.insert(0, "- ");
 	}
 	label->setString(cashStr);
+}
+
+void GameFunctions::updatLabelText_TimeFormat(cocos2d::Label* label, unsigned value)
+{
+	std::string timeStr = std::to_string(value);
+	label->setString(std::string(2 - timeStr.length(), '0').append(timeStr));
 }
 

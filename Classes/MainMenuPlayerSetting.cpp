@@ -1,14 +1,10 @@
 #include "MainMenuPlayerSetting.h"
 #include "MainMenuScene.h"
-#include "2d/CCSprite.h"
-#include "ui/UICheckBox.h"
 #include "MouseOverMenuItem.h"
-#include "GameScene.h"
-#include "2d/CCNode.h"
-#include "CCApplication.h"
-#include "AppDelegate.h"
+#include <ui/UITextField.h>
 #include "GameData.h"
 #include "GameFunctions.h"
+#include "GameScene.h"
 
 
 USING_NS_CC;

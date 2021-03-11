@@ -1,8 +1,13 @@
 #pragma once
 
 #include "cocos2d.h"
-#include <ui/UITextField.h>
 
+NS_CC_BEGIN;
+namespace ui
+{
+	class TextField;
+};
+NS_CC_END;
 class MouseOverMenuItem;
 class MainMenuScene;
 

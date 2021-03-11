@@ -24,7 +24,6 @@ public:
 	void update(float delta);
 	CREATE_FUNC(GameScene);
 
-	void updateTimeLabel(cocos2d::Label* label, unsigned value);
 	void updateSavingLabel(cocos2d::Label* label, int value);
 private:
 	cocos2d::Size m_VisibleSize;

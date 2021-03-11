@@ -130,7 +130,7 @@ bool GameScene::init()
 	m_WeekCount = Label::createWithTTF("", "fonts/NirmalaB.ttf", 16);
 	if (m_WeekCount)
 	{
-		updateTimeLabel(m_WeekCount, m_Weeks);
+		GameFunctions::updatLabelText_TimeFormat(m_WeekCount, m_Weeks);
 		m_WeekCount->enableGlow(GameData::getInstance().m_ColorType.PowderBlue);
 		GameFunctions::displayLabel(m_WeekCount, Color4B::WHITE, Vec2(topPanelMidPoint.x + 580.f, topPanelMidPoint.y + 15.f),
 			m_TopPanel, 1);
@@ -147,7 +147,7 @@ bool GameScene::init()
 	m_TimeHourDisplay = Label::createWithTTF("", "fonts/NirmalaB.ttf", 30);
 	if (m_TimeHourDisplay)
 	{
-		updateTimeLabel(m_TimeHourDisplay, m_CurrentHour);
+		GameFunctions::updatLabelText_TimeFormat(m_TimeHourDisplay, m_CurrentHour);
 		m_TimeHourDisplay->enableGlow(GameData::getInstance().m_ColorType.PowderBlue);
 		GameFunctions::displayLabel(m_TimeHourDisplay, Color4B::WHITE, Vec2(topPanelMidPoint.x + 530.f, topPanelMidPoint.y - 30.f),
 			m_TopPanel, 1);
@@ -164,7 +164,7 @@ bool GameScene::init()
 	m_TimeMinDisplay = Label::createWithTTF("", "fonts/NirmalaB.ttf", 30);
 	if (m_TimeHourDisplay)
 	{
-		updateTimeLabel(m_TimeMinDisplay, m_CurrentMinute);
+		GameFunctions::updatLabelText_TimeFormat(m_TimeMinDisplay, m_CurrentMinute);
 		m_TimeMinDisplay->enableGlow(GameData::getInstance().m_ColorType.PowderBlue);
 		GameFunctions::displayLabel(m_TimeMinDisplay, Color4B::WHITE, Vec2(topPanelMidPoint.x + 580.f, topPanelMidPoint.y - 30.f),
 			m_TopPanel, 1);
@@ -212,7 +212,7 @@ void GameScene::updateGameTime(float delta)
 
 	m_CurrentMinute++;
 	m_ElapsedTime = 0;
-	updateTimeLabel(m_TimeMinDisplay, m_CurrentMinute % 60);
+	GameFunctions::updatLabelText_TimeFormat(m_TimeMinDisplay, m_CurrentMinute % 60);
 
 
 	// update hour
@@ -220,7 +220,7 @@ void GameScene::updateGameTime(float delta)
 	{
 		m_CurrentMinute = 0;
 		m_CurrentHour++;
-		updateTimeLabel(m_TimeHourDisplay, m_CurrentHour % 24);
+		GameFunctions::updatLabelText_TimeFormat(m_TimeHourDisplay, m_CurrentHour % 24);
 	}
 
 	// update weekday
@@ -236,15 +236,10 @@ void GameScene::updateGameTime(float delta)
 	{
 		m_Today = 0;
 		m_Weeks++;
-		updateTimeLabel(m_WeekCount, m_Weeks);
+		GameFunctions::updatLabelText_TimeFormat(m_WeekCount, m_Weeks);
 	}
 }
 
-void GameScene::updateTimeLabel(cocos2d::Label* label, unsigned value)
-{
-	std::string timeStr = std::to_string(value);
-	label->setString(std::string(2 - timeStr.length(), '0').append(timeStr));
-}
 
 void GameScene::updateSavingLabel(cocos2d::Label* label, int value)
 {

@@ -35,7 +35,7 @@ void Bank::openBankPanel(GameScene* scene, unsigned currentWeek)
 	}
 
 	m_BankPanel->setVisible(true);
-	m_GameScene->updateTimeLabel(m_Weeks, m_CurrentWeek);
+	GameFunctions::updatLabelText_TimeFormat(m_Weeks, m_CurrentWeek);
 }
 
 void Bank::closeBankPanel()
@@ -81,7 +81,7 @@ void Bank::createBankPanel()
 	m_Weeks = Label::createWithTTF("", "fonts/NirmalaB.ttf", 25);
 	if (m_Weeks)
 	{
-		m_GameScene->updateTimeLabel(m_Weeks, m_CurrentWeek);
+		GameFunctions::updatLabelText_TimeFormat(m_Weeks, m_CurrentWeek);
 		m_Weeks->enableOutline(Color4B::WHITE);
 		GameFunctions::displayLabel(m_Weeks, Color4B::BLACK, Vec2(weekPos.x + 70.f, weekPos.y), m_BankPanel, 1);
 	}
