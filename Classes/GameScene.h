@@ -24,6 +24,7 @@ public:
 	void update(float delta);
 	CREATE_FUNC(GameScene);
 
+	void updateCurrentCash(int amout);
 private:
 	cocos2d::Size m_VisibleSize;
 	cocos2d::Label* m_Saving = nullptr;

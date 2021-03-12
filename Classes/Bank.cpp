@@ -92,7 +92,7 @@ void Bank::createBankPanel()
 #pragma endregion
 
 #pragma region Create weekly expense
-	m_Shop = Label::createWithTTF("Hotdog Stand", "fonts/NirmalaB.ttf", 15);
+	m_Shop = Label::createWithTTF("Hot Dog Stand", "fonts/NirmalaB.ttf", 15);
 	if (m_Shop)
 	{
 		m_Shop->enableGlow(Color4B::WHITE);
@@ -146,7 +146,7 @@ void Bank::createBankPanel()
 		GameFunctions::displayLabel(loanLabel, Color4B::BLACK, Vec2(panelMidPoint.x - 250.f, panelMidPoint.y + 10.f),
 			m_BankPanel, 1);
 
-	auto loanDetailLabel = Label::createWithTTF("(principle + interest)", "fonts/Nirmala.ttf", 15);
+	auto loanDetailLabel = Label::createWithTTF("(weekly repayments)", "fonts/Nirmala.ttf", 15);
 	if (loanDetailLabel)
 		GameFunctions::displayLabel(loanDetailLabel, Color4B::BLACK, Vec2(panelMidPoint.x - 160.f, panelMidPoint.y + 8.f),
 			m_BankPanel, 1);
@@ -206,11 +206,16 @@ void Bank::createBankPanel()
 #pragma endregion
 
 #pragma region Create Loan Button
+	// loan amout
+	auto loanAmoutText = Label::createWithTTF("Loan Amout", "fonts/Nirmala.ttf", 14);
+	if (loanAmoutText)
+		GameFunctions::displayLabel(loanAmoutText, Color4B::WHITE, Vec2(panelMidPoint.x - 215.f, panelMidPoint.y - 135.f),
+			m_BankPanel, 1);
+
 	auto loanAmoutSprite = Sprite::createWithSpriteFrameName("Border_Brown.png");
 	if (loanAmoutSprite)
 	{
-		loanAmoutSprite->setPosition(panelMidPoint.x - 215.f, panelMidPoint.y - 160.f);
-		loanAmoutSprite->setScale(1.2f);
+		loanAmoutSprite->setPosition(panelMidPoint.x - 215.f, panelMidPoint.y - 165.f);
 		m_BankPanel->addChild(loanAmoutSprite, 1);
 
 		//,000 label
@@ -226,7 +231,7 @@ void Bank::createBankPanel()
 	if (reduceAmoutButton)
 	{
 		reduceAmoutButton->onMouseOver = CC_CALLBACK_2(Bank::onMouseOver, this);
-		Vec2 reducePos = Vec2(sceneMidPoint.x - 170.f, sceneMidPoint.y - 170.f);
+		Vec2 reducePos = Vec2(sceneMidPoint.x - 175.f, sceneMidPoint.y - 175.f);
 		reduceAmoutButton->setScale(0.5f);
 		reduceAmoutButton->setPosition(reducePos);
 		reduceAmoutButton->setItemRect(reducePos, 0.5f);
@@ -240,7 +245,7 @@ void Bank::createBankPanel()
 	if (addAmoutButton)
 	{
 		addAmoutButton->onMouseOver = CC_CALLBACK_2(Bank::onMouseOver, this);
-		Vec2 addPos = Vec2(sceneMidPoint.x - 260.f, sceneMidPoint.y - 150.f);
+		Vec2 addPos = Vec2(sceneMidPoint.x - 255.f, sceneMidPoint.y - 155.f);
 		addAmoutButton->setScale(0.5f);
 		addAmoutButton->setPosition(addPos);
 		addAmoutButton->setItemRect(addPos, 0.5f);
@@ -248,12 +253,107 @@ void Bank::createBankPanel()
 		m_BankButtons.pushBack(addAmoutButton);
 	}
 
+	// payback schedule
+	auto paybackLabel = Label::createWithTTF("Payback Schedule", "fonts/Nirmala.ttf", 14);
+	if (paybackLabel)
+		GameFunctions::displayLabel(paybackLabel, Color4B::WHITE, Vec2(panelMidPoint.x -70.f, panelMidPoint.y - 135.f),
+			m_BankPanel, 1);
+
+	auto paybackSprite = Sprite::createWithSpriteFrameName("Border_Brown_Square.png");
+	if (paybackSprite)
+	{
+		paybackSprite->setPosition(panelMidPoint.x - 100.f, panelMidPoint.y - 165.f);
+		m_BankPanel->addChild(paybackSprite, 1);
+
+		//,000 label
+		m_WeeklyPayText = Label::createWithTTF("5", "fonts/Nirmala.ttf", 20);
+		if (m_WeeklyPayText)
+			GameFunctions::displayLabel(m_WeeklyPayText, Color4B::WHITE, Vec2(paybackSprite->getContentSize().width - 15.f, paybackSprite->getContentSize().height - 5.f),
+				paybackSprite, 1, true);
+	}
+
+	auto reduceWeekButton = MouseOverMenuItem::creatMouseOverMenuButton("UIButtonCorner40.png", "UIButtonCorner40_Lit.png", "UIButtonCorner40_Disabled.png",
+		CC_CALLBACK_1(Bank::reduceWeekCallback, this));
+
+	if (reduceWeekButton)
+	{
+		reduceWeekButton->onMouseOver = CC_CALLBACK_2(Bank::onMouseOver, this);
+		Vec2 reduceWeekPos = Vec2(sceneMidPoint.x - 85.f, sceneMidPoint.y - 176.f);
+		reduceWeekButton->setScale(0.5f);
+		reduceWeekButton->setPosition(reduceWeekPos);
+		reduceWeekButton->setItemRect(reduceWeekPos);
+
+		m_BankButtons.pushBack(reduceWeekButton);
+	}
+
+	auto addWeekButton = MouseOverMenuItem::creatMouseOverMenuButton("UIButtonCorner40Left.png", "UIButtonCorner40Left_Lit.png", "UIButtonCorner40Left_Disabled.png",
+		CC_CALLBACK_1(Bank::addWeekCallback, this));
+
+	if (addWeekButton)
+	{
+		addWeekButton->onMouseOver = CC_CALLBACK_2(Bank::onMouseOver, this);
+		Vec2 addWeekPos = Vec2(sceneMidPoint.x - 115.f, sceneMidPoint.y - 155.f);
+		addWeekButton->setScale(0.5f);
+		addWeekButton->setPosition(addWeekPos);
+		addWeekButton->setItemRect(addWeekPos, 0.5f);
+
+		m_BankButtons.pushBack(addWeekButton);
+	}
+
+	auto totalWeeksLabel = Label::createWithTTF("Weeks", "fonts/Nirmala.ttf", 20);
+	if (totalWeeksLabel)
+		GameFunctions::displayLabel(totalWeeksLabel, Color4B::WHITE, Vec2(panelMidPoint.x - 45.f, panelMidPoint.y - 165.f),
+			m_BankPanel, 1);
+
+	// weekly repayments
+	auto repaymentLabel = Label::createWithTTF("Weekly Repayments", "fonts/Nirmala.ttf", 14);
+	if (repaymentLabel)
+		GameFunctions::displayLabel(repaymentLabel, Color4B::WHITE, Vec2(panelMidPoint.x + 90.f, panelMidPoint.y - 135.f),
+			m_BankPanel, 1);
+
+	auto cashSymbol = Label::createWithTTF("$", "fonts/Nirmala.ttf", 20);
+	if (cashSymbol)
+	{
+		GameFunctions::displayLabel(cashSymbol, GameData::getInstance().m_ColorType.Taro, Vec2(panelMidPoint.x + 40.f, panelMidPoint.y - 165.f),
+			m_BankPanel, 1);
+		cashSymbol->enableShadow(Color4B::BLACK);
+	}
+
+	m_RepaymentText = Label::createWithTTF("2,200", "fonts/NirmalaB.ttf", 20);
+	if (m_RepaymentText)
+	{
+		GameFunctions::displayLabel(m_RepaymentText, GameData::getInstance().m_ColorType.Taro, Vec2(panelMidPoint.x + 90.f, panelMidPoint.y - 165.f),
+			m_BankPanel, 1);
+		m_RepaymentText->enableShadow(Color4B::BLACK);
+	}
+
+	// apply loan button
+	auto applyLoanButton = MouseOverMenuItem::creatMouseOverMenuButton("Button100.png", "Button100_Lit.png", "Button100_Disabled.png",
+		CC_CALLBACK_1(Bank::takeLoan, this));
+
+	if (applyLoanButton)
+	{
+		applyLoanButton->onMouseOver = CC_CALLBACK_2(Bank::onMouseOver, this);
+		Vec2 applyLoanPos = Vec2(sceneMidPoint.x + 220.f, sceneMidPoint.y - 165.f);
+		applyLoanButton->setPosition(applyLoanPos);
+		applyLoanButton->setItemRect(applyLoanPos);
+
+		auto takeLoanText = Label::createWithTTF("TAKE LOAN", "fonts/NirmalaB.ttf", 14);
+		if (takeLoanText)
+		{
+			GameFunctions::displayLabel(takeLoanText, GameData::getInstance().m_ColorType.Taro,
+				Vec2(applyLoanButton->getContentSize().width * 0.5f, applyLoanButton->getContentSize().height * 0.5f),
+				applyLoanButton, 1);
+			takeLoanText->enableOutline(Color4B::BLACK);
+		}
+
+		m_BankButtons.pushBack(applyLoanButton);
+	}
+#pragma endregion
+
 	auto menu = Menu::createWithArray(m_BankButtons);
 	menu->setPosition(Vec2::ZERO);
 	m_GameScene->addChild(menu, 2);
-
-#pragma endregion
-
 
 }
 
@@ -264,21 +364,49 @@ int Bank::getOverviewAmout()
 
 void Bank::addAmoutCallback(cocos2d::Ref* pSender)
 {
-	m_LoanAmout += 10000;
-	m_LoanAmout = clampf(m_LoanAmout, 10000, 100000);
-	GameFunctions::updateLabelText_MoneyFormat(m_LoanAmoutText, m_LoanAmout);
+	m_LoanAmout = updateLabelText(m_LoanAmoutText, m_LoanAmout, 10000, 10000, 100000);
+	calculateWeeklyRepayments();
 }
 
 void Bank::reduceAmoutCallback(cocos2d::Ref* pSender)
 {
-	m_LoanAmout -= 10000;
-	m_LoanAmout = clampf(m_LoanAmout, 10000, 100000);
-	GameFunctions::updateLabelText_MoneyFormat(m_LoanAmoutText, m_LoanAmout);
+	m_LoanAmout = updateLabelText(m_LoanAmoutText, m_LoanAmout, -10000, 10000, 100000);
+	calculateWeeklyRepayments();
+}
+
+void Bank::addWeekCallback(cocos2d::Ref* pSender)
+{
+	m_PaybackWeeks = updateLabelText(m_WeeklyPayText, m_PaybackWeeks, 1, 5, 30);
+	calculateWeeklyRepayments();
+}
+
+void Bank::reduceWeekCallback(cocos2d::Ref* pSender)
+{
+	m_PaybackWeeks = updateLabelText(m_WeeklyPayText, m_PaybackWeeks, -1, 5, 30);
+	calculateWeeklyRepayments();
 }
 
 void Bank::onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event)
+{}
+
+unsigned Bank::updateLabelText(cocos2d::Label* label, unsigned originValue, int newValue, unsigned minValue, unsigned maxValue)
 {
-	
+	originValue += newValue;
+	originValue = clampf(originValue, minValue, maxValue);
+	GameFunctions::updateLabelText_MoneyFormat(label, originValue);
+	return originValue;
+}
+
+void Bank::calculateWeeklyRepayments()
+{
+	auto rate = 1 + (float)(m_PaybackWeeks) * 2 / 100;
+	auto repayments = (float)(m_LoanAmout / m_PaybackWeeks) * rate;
+	GameFunctions::updateLabelText_MoneyFormat(m_RepaymentText, repayments);
+}
+
+void Bank::takeLoan(cocos2d::Ref* pSender)
+{
+	m_GameScene->updateCurrentCash(m_LoanAmout);
 }
 
 

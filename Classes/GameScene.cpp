@@ -196,6 +196,12 @@ void GameScene::update(float delta)
 	updateGameTime(delta);
 }
 
+void GameScene::updateCurrentCash(int amout)
+{
+	m_CurrentCash += amout;
+	GameFunctions::updateLabelText_MoneyFormat(m_Saving, m_CurrentCash);
+}
+
 void GameScene::setSpriteScale(Sprite* sprite, Vec2 scale)
 {
 	sprite->setScaleX((m_VisibleSize.width / sprite->getContentSize().width) * scale.x);
