@@ -82,7 +82,7 @@ bool GameScene::init()
 	m_Saving = Label::createWithTTF("", "fonts/NirmalaB.ttf", 25);
 	if (m_Saving)
 	{
-		updateSavingLabel(m_Saving, m_CurrentCash);
+		GameFunctions::updateLabelText_MoneyFormat(m_Saving, m_CurrentCash);
 		m_Saving->enableGlow(Color4B::WHITE);
 		GameFunctions::displayLabel(m_Saving, GameData::getInstance().m_ColorType.Gold, 
 			Vec2(topPanelMidPoint.x + 420.f, topPanelMidPoint.y - 30.f), m_TopPanel, 1);
@@ -240,17 +240,6 @@ void GameScene::updateGameTime(float delta)
 	}
 }
 
-
-void GameScene::updateSavingLabel(cocos2d::Label* label, int value)
-{
-	std::string cashStr = std::to_string(value);
-	auto cashStrLength = cashStr.length();
-	if (cashStrLength > 3)
-		cashStr = cashStr.insert(cashStr.length() - 3, 1, ',');
-	if (cashStrLength > 6)
-		cashStr = cashStr.insert(cashStr.length() - 7, 1, ',');
-	label->setString(cashStr);
-}
 
 void GameScene::checkBalanceCallback(cocos2d::Ref* pSender)
 {

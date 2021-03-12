@@ -19,6 +19,51 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
+            <key>Border_Brown.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{100,40}</string>
+                <key>spriteSourceSize</key>
+                <string>{100,40}</string>
+                <key>textureRect</key>
+                <string>{{1923,1},{100,40}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>Border_Brown_Disabled.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{100,40}</string>
+                <key>spriteSourceSize</key>
+                <string>{100,40}</string>
+                <key>textureRect</key>
+                <string>{{1923,103},{100,40}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>Border_Brown_Lit.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{100,40}</string>
+                <key>spriteSourceSize</key>
+                <string>{100,40}</string>
+                <key>textureRect</key>
+                <string>{{1923,205},{100,40}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
             <key>CityView.png</key>
             <dict>
                 <key>aliases</key>
@@ -64,6 +109,96 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
+            <key>UIButtonCorner40.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{38,38}</string>
+                <key>spriteSourceSize</key>
+                <string>{40,40}</string>
+                <key>textureRect</key>
+                <string>{{1923,307},{38,38}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>UIButtonCorner40Left.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{38,38}</string>
+                <key>spriteSourceSize</key>
+                <string>{40,40}</string>
+                <key>textureRect</key>
+                <string>{{1923,347},{38,38}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>UIButtonCorner40Left_Disabled.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{38,38}</string>
+                <key>spriteSourceSize</key>
+                <string>{40,40}</string>
+                <key>textureRect</key>
+                <string>{{1923,387},{38,38}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>UIButtonCorner40Left_Lit.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{38,38}</string>
+                <key>spriteSourceSize</key>
+                <string>{40,40}</string>
+                <key>textureRect</key>
+                <string>{{1923,427},{38,38}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>UIButtonCorner40_Disabled.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{38,38}</string>
+                <key>spriteSourceSize</key>
+                <string>{40,40}</string>
+                <key>textureRect</key>
+                <string>{{1923,467},{38,38}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>UIButtonCorner40_Lit.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{38,38}</string>
+                <key>spriteSourceSize</key>
+                <string>{40,40}</string>
+                <key>textureRect</key>
+                <string>{{1923,507},{38,38}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -78,7 +213,7 @@
             <key>size</key>
             <string>{1992,1478}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:90f8e44c8dcab7996f211052db8942a7:731a50cc0d5239f3bb845806dcb21708:865db70d33f6fd1c3bd18ff13c48b0ed$</string>
+            <string>$TexturePacker:SmartUpdate:5d2b4350e5c67f36eebf2272617bf572:15a5b04099a5065b014daa8308b22516:865db70d33f6fd1c3bd18ff13c48b0ed$</string>
             <key>textureFileName</key>
             <string>GameScene.png</string>
         </dict>

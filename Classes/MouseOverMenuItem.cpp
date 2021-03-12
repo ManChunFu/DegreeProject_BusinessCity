@@ -51,6 +51,7 @@ void MouseOverMenuItem::setItemRect(Vec2& pos, float scale)
 	float x = pos.x - getContentSize().width * 0.5f * scale;
 	float y = pos.y - getContentSize().height * 0.5f * scale;
 	m_ItemRect = Rect(x, y, getContentSize().width * scale, getContentSize().height * scale);
+	
 }
 
 void MouseOverMenuItem::onMouseMove(Event* event)
@@ -59,7 +60,6 @@ void MouseOverMenuItem::onMouseMove(Event* event)
 		return;
 
 	EventMouse* eventMouse = (EventMouse*)event;
-	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 locationInNode = Point(Vec2(eventMouse->getCursorX(), eventMouse->getCursorY()));
 
 	// Show the selected image if mouse over and emit the event

@@ -78,12 +78,12 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 
 	// player name
 	m_TextField = ui::TextField::create("ENTER YOUR NAME", "fonts/Nirmala.ttf", 30);
-	m_TextField->setColor(Color3B::WHITE);
-	m_TextField->setMaxLengthEnabled(true);
-	m_TextField->setMaxLength(24);
-	m_TextField->setPosition(Vec2(panelMidPoint.x, panelMidPoint.y + 240.f));
-	m_TextField->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) { m_TextField->setCursorEnabled(true); });
-	m_PlayerSettingPanel->addChild(m_TextField, 1);
+	if (m_TextField)
+	{
+		GameFunctions::displayTextField(m_TextField, Color3B::WHITE, Vec2(panelMidPoint.x, panelMidPoint.y + 240.f),
+			m_PlayerSettingPanel, 1, false, 24);
+		m_TextField->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) { m_TextField->setCursorEnabled(true); });
+	}
 
 	// option label
 	auto optionLabel = Label::createWithTTF("CHOOSE YOUR PLAYER", "fonts/Nirmala.ttf", 20);

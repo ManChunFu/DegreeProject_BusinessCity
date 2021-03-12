@@ -1,4 +1,5 @@
 #include "GameFunctions.h"
+#include "ui/UITextField.h"
 
 USING_NS_CC;
 
@@ -9,6 +10,18 @@ void GameFunctions::displayLabel(Label* label, Color4B color, Vec2 pos, Node* pa
 	if (anchor)
 		label->setAnchorPoint(Vec2::ONE);
 	parent->addChild(label, z_order);
+}
+
+void GameFunctions::displayTextField(ui::TextField* textField, Color3B color, Vec2 pos, Node* parent, unsigned z_order, bool anchor, unsigned maxLength)
+{
+	textField->setColor(color);
+	if (maxLength > 0)
+	{
+		textField->setMaxLength(maxLength);
+		textField->setMaxLengthEnabled(true);
+	}
+	textField->setPosition(pos);
+	parent->addChild(textField, z_order);
 }
 
 void GameFunctions::updateLabelText_MoneyFormat(Label* label, int value, bool minus)
