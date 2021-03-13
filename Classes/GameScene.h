@@ -11,6 +11,7 @@ namespace CocosDenshion
 }
 class MouseOverMenuItem;
 class Bank;
+class Player;
 
 class GameScene : public cocos2d::Layer
 {
@@ -24,6 +25,7 @@ public:
 	void update(float delta);
 	CREATE_FUNC(GameScene);
 
+	Player* m_Player = nullptr;
 	void updateCurrentCash(int amout);
 private:
 	cocos2d::Size m_VisibleSize;

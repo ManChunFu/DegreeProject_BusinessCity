@@ -1,6 +1,8 @@
 #pragma once
 #include "cocos2d.h"
 
+class Player;
+
 class GameData
 {
 public:
@@ -13,7 +15,7 @@ public:
 		 return instance;
 	 }
 private:
-	GameData() {}
+	GameData() { m_CharacterSpriteMap.clear(); delete m_Player; m_Player = nullptr; };
 	//GameData(GameData const&);              // Don't Implement
 	//void operator=(GameData const&); // Don't implement
 public:
@@ -22,11 +24,10 @@ public:
 
 
 	void registerCharacter(cocos2d::itemTypes type, std::string path);
-	void setPlayerCharacter(cocos2d::itemTypes type) { m_PlayerCharacter = type; }
-	std::string getPlayerCharacter();
-	void setPlayerName(std::string name) { m_PlayerName = name; }
-	std::string getPlayerName() { return m_PlayerName; }
+	void setPlayer(const std::string& name, cocos2d::itemTypes type);
+	std::string getPlayerCharacter(cocos2d::itemTypes playerCharacterType);
 
+	Player* m_Player = nullptr;
 	struct colorTypes
 	{
 		cocos2d::Color4B MediumOrchild = cocos2d::Color4B(186, 85, 211, 255);
@@ -56,8 +57,6 @@ public:
 	};
 	colorTypes m_ColorType;
 private:
-	std::string m_PlayerName;
-	cocos2d::itemTypes m_PlayerCharacter;
-	std::map<cocos2d::itemTypes, std::string> m_CharacterSpriteMap;
+	std::map<cocos2d::itemTypes, const std::string> m_CharacterSpriteMap;
 
 };

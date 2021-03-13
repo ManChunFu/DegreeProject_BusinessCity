@@ -9,6 +9,7 @@ enum ownerTypes
 	other
 };
 
+class Product;
 
 class Shop
 {
@@ -19,14 +20,12 @@ public:
 	std::string m_Name;
 	ownerTypes m_Owner;
 	const std::string& m_ShopLook;
-	/*const std::string& m_ProductSpritePath;
-	std::string m_ProductName;
-	unsigned m_ProductSalePrice;
-	unsigned m_ProductPurchasePrice;*/
 	unsigned m_Electricity;
 	unsigned m_Water;
 	unsigned m_Employees;
 	unsigned m_TotalSalaryExpense;
 	unsigned m_CommericalCost;
+
+	//cocos2d::Vector<Product*> m_Products;
 
 };

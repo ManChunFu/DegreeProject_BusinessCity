@@ -5,6 +5,7 @@
 #include "GameData.h"
 #include "GameFunctions.h"
 #include "GameScene.h"
+#include "Player.h"
 
 
 USING_NS_CC;
@@ -330,9 +331,6 @@ bool MainMenuPlayerSetting::validation()
 	if (!m_TextField || m_TextField->getString() == "")
 		return false;
 
-	//playerName = m_TextField->getString();
-	GameData::getInstance().setPlayerName(m_TextField->getString());
-
 	if (m_MenuItems.size() < 0)
 		return false;
 
@@ -340,15 +338,13 @@ bool MainMenuPlayerSetting::validation()
 	{
 		if (item->itemSelectedData.isSelected)
 		{
-			//playerCharacter = item->itemSelectedData.type;
-			GameData::getInstance().setPlayerCharacter(item->itemSelectedData.type);
+			GameData::getInstance().setPlayer(m_TextField->getString(), item->itemSelectedData.type);
 			return true;
 		}
 	}
 
 	auto randNo = random(0, 5);
-	//playerCharacter = m_MenuItems.at(randNo)->itemSelectedData.type;
-	GameData::getInstance().setPlayerCharacter(m_MenuItems.at(randNo)->itemSelectedData.type);
+	GameData::getInstance().setPlayer(m_TextField->getString(),m_MenuItems.at(randNo)->itemSelectedData.type);
 	return true;
 }
 

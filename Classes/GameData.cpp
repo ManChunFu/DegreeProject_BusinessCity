@@ -1,14 +1,22 @@
 #include "GameData.h"
+#include "Player.h"
 
 USING_NS_CC;
+
 
 void GameData::registerCharacter(cocos2d::itemTypes type, std::string path)
 {
 	m_CharacterSpriteMap.insert(std::pair<itemTypes, std::string>(type, path));
 }
 
-std::string GameData::getPlayerCharacter()
+void GameData::setPlayer(const std::string& name, cocos2d::itemTypes type)
 {
-	return std::string(m_CharacterSpriteMap[m_PlayerCharacter]);
+	m_Player = new Player(name, type);
+}
+
+
+std::string GameData::getPlayerCharacter(cocos2d::itemTypes playerCharacterType)
+{
+	return std::string(m_CharacterSpriteMap[playerCharacterType]);
 }
 

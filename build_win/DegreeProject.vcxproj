@@ -808,6 +808,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\GameScene.h" />
     <ClInclude Include="..\Classes\MainMenuPlayerSetting.h" />
     <ClInclude Include="..\Classes\MouseOverMenuItem.h" />
+    <ClInclude Include="..\Classes\Player.h" />
+    <ClInclude Include="..\Classes\Product.h" />
     <ClInclude Include="..\Classes\Shop.h" />
     <ClInclude Include="C:\Users\mandy\source\repos\DegreeProject\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\MainMenuScene.h" />
@@ -820,6 +822,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\Classes\GameScene.cpp" />
     <ClCompile Include="..\Classes\MainMenuPlayerSetting.cpp" />
     <ClCompile Include="..\Classes\MouseOverMenuItem.cpp" />
+    <ClCompile Include="..\Classes\Player.cpp" />
+    <ClCompile Include="..\Classes\Product.cpp" />
     <ClCompile Include="..\Classes\Shop.cpp" />
     <ClCompile Include="C:\Users\mandy\source\repos\DegreeProject\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\MainMenuScene.cpp" />

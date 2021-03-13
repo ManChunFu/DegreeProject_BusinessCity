@@ -1,12 +1,11 @@
 #include "GameScene.h"
 #include "2d/CCLayer.h"
 #include <MouseOverMenuItem.h>
-#include "cocostudio/SimpleAudioEngine.h"
 #include "GameData.h"
 #include "GameFunctions.h"
 #include "Bank.h"
-
-
+#include "Player.h"
+#include "cocostudio/SimpleAudioEngine.h"
 using namespace CocosDenshion;
 USING_NS_CC;
 
@@ -16,6 +15,7 @@ GameScene::~GameScene()
 	m_MenuItems.clear();
 	delete m_Bank;
 	m_Bank = nullptr;
+	m_Player = nullptr;
 }
 
 Scene* GameScene::createScene()
@@ -34,6 +34,8 @@ bool GameScene::init()
 	m_VisibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
+	m_Player = GameData::getInstance().m_Player;
+
 	auto backgroundSprite = Sprite::createWithSpriteFrameName("CityView.png");
 	if (!backgroundSprite)
 		return false;
@@ -49,13 +51,13 @@ bool GameScene::init()
 	GameFunctions::displaySprite(m_TopPanel, Vec2(m_VisibleSize.width * 0.5f, 680.f), this, 1);
 	auto topPanelMidPoint = Vec2(m_TopPanel->getContentSize().width * 0.5f, m_TopPanel->getContentSize().height * 0.5f);
 
-	auto playerSprite = Sprite::createWithSpriteFrameName(GameData::getInstance().getPlayerCharacter());
+	auto playerSprite = Sprite::createWithSpriteFrameName(GameData::getInstance().getPlayerCharacter(m_Player->getCharacter()));
 	if (!playerSprite)
 		return false;
 
 	GameFunctions::displaySprite(playerSprite, Vec2(topPanelMidPoint.x - 250.f, topPanelMidPoint.y - 5.f), m_TopPanel, 1, 0.4f, 0.4f);
 
-	auto nameLabel = Label::createWithTTF(GameData::getInstance().getPlayerName(), "fonts/NirmalaB.ttf", 22);
+	auto nameLabel = Label::createWithTTF(m_Player->getName(), "fonts/NirmalaB.ttf", 22);
 	if (nameLabel)
 	{
 		nameLabel->setMaxLineWidth(125);
