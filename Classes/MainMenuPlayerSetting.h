@@ -8,6 +8,11 @@ namespace ui
 	class TextField;
 };
 NS_CC_END;
+
+namespace base
+{
+	class EventListenrKeyboard;
+}
 class MouseOverMenuItem;
 class MainMenuScene;
 
@@ -21,6 +26,7 @@ public:
 
 private:
 	MainMenuScene* m_MainMenu;
+	cocos2d::EventListenerKeyboard* m_Listener;
 	cocos2d::Vector<cocos2d::MenuItem*> m_MenuItems;
 	cocos2d::Sprite* m_PlayerSettingPanel = nullptr;
 	cocos2d::ui::TextField* m_TextField = nullptr;

@@ -14,6 +14,7 @@ MainMenuPlayerSetting::~MainMenuPlayerSetting()
 	m_MenuItems.clear();
 	m_TextField = nullptr;
 	m_HasSelected = false;
+	m_MainMenu->getEventDispatcher()->removeEventListener(m_Listener);
 }
 
 void MainMenuPlayerSetting::OpenSettingWindow(Scene* scene)
@@ -237,10 +238,10 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 
 	m_MainMenu->addChild(panelMenu, 3);
 
-	auto listener = EventListenerKeyboard::create();
-	listener->onKeyPressed = CC_CALLBACK_2(MainMenuPlayerSetting::onKeyPressed, this);
+	m_Listener = EventListenerKeyboard::create();
+	m_Listener->onKeyPressed = CC_CALLBACK_2(MainMenuPlayerSetting::onKeyPressed, this);
 	auto event = m_MainMenu->getEventDispatcher(); 
-	event->addEventListenerWithSceneGraphPriority(listener, m_MainMenu);
+	event->addEventListenerWithSceneGraphPriority(m_Listener, m_MainMenu);
 	
 }
 

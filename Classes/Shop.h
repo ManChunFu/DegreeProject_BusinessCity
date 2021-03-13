@@ -9,7 +9,7 @@ enum ownerTypes
 	other
 };
 
-class Product;
+class ShopProduct;
 
 class Shop
 {
@@ -26,6 +26,6 @@ public:
 	unsigned m_TotalSalaryExpense;
 	unsigned m_CommericalCost;
 
-	//cocos2d::Vector<Product*> m_Products;
+	std::vector<ShopProduct*> m_Products;
 
 };

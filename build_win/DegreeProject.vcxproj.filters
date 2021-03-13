@@ -37,10 +37,13 @@
     <ClCompile Include="..\Classes\Shop.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Product.cpp">
+    <ClCompile Include="..\Classes\ShopProduct.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Player.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DataManager.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -99,10 +102,13 @@
     <ClInclude Include="..\Classes\Shop.h">
       <Filter>Source Files\Classes</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Product.h">
+    <ClInclude Include="..\Classes\ShopProduct.h">
       <Filter>Source Files\Classes</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Player.h">
+      <Filter>Source Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DataManager.h">
       <Filter>Source Files\Classes</Filter>
     </ClInclude>
   </ItemGroup>

@@ -4,6 +4,7 @@
 #include "GameFunctions.h"
 #include <ui/UITextField.h>
 #include "MouseOverMenuItem.h"
+#include "ui/UIWidget.h"
 
 
 USING_NS_CC;
@@ -24,7 +25,9 @@ Bank::~Bank()
 	m_WeeklyPayText = nullptr;
 	m_RepaymentText = nullptr;
 	m_DisabledPanel = nullptr;
-	m_CurrentWeek = 1;
+	m_LoanWidget = nullptr;
+	m_DebtAmoutText = nullptr;
+	m_RemainWeeksText = nullptr;
 	m_BankButtons.clear();
 }
 
@@ -47,11 +50,7 @@ void Bank::openBankPanel(GameScene* scene, unsigned currentWeek)
 	
 	if (m_HasDebt)
 	{
-		for (auto item : m_BankButtons)
-		{
-			item->setEnabled(false);
-			item->setVisible(true);
-		}
+		setMenuItemsVisible(false);
 		m_DisabledPanel->setVisible(true);
 	} 
 	else
@@ -65,6 +64,7 @@ void Bank::closeBankPanel()
 {
 	m_BankPanel->setVisible(false);
 	setMenuItemsVisible(false);
+	m_LoanWidget->setVisible(false);
 	m_DisabledPanel->setVisible(false);
 }
 
@@ -226,16 +226,20 @@ void Bank::createBankPanel()
 #pragma endregion
 
 #pragma region Create Loan Button
+	m_LoanWidget = ui::Widget::create();
+	m_LoanWidget->setPosition(panelMidPoint);
+	m_GameScene->addChild(m_LoanWidget, 2);
+
 	// loan amout
 	auto loanAmoutText = Label::createWithTTF("Loan Amout", "fonts/Nirmala.ttf", 14);
 	if (loanAmoutText)
-		GameFunctions::displayLabel(loanAmoutText, Color4B::WHITE, Vec2(panelMidPoint.x - 215.f, panelMidPoint.y - 135.f),
-			m_BankPanel, 1);
+		GameFunctions::displayLabel(loanAmoutText, Color4B::WHITE, Vec2(panelMidPoint.x - 175.f, panelMidPoint.y - 175.f),
+			m_LoanWidget, 1);
 
 	auto loanAmoutSprite = Sprite::createWithSpriteFrameName("Border_Brown.png");
 	if (loanAmoutSprite)
 	{
-		GameFunctions::displaySprite(loanAmoutSprite, Vec2(panelMidPoint.x - 215.f, panelMidPoint.y - 165.f), m_BankPanel, 1);
+		GameFunctions::displaySprite(loanAmoutSprite, Vec2(panelMidPoint.x - 175.f, panelMidPoint.y - 205.f), m_LoanWidget, 1);
 
 		//,000 label
 		m_LoanAmoutText = Label::createWithTTF("10,000", "fonts/Nirmala.ttf", 20);
@@ -275,15 +279,14 @@ void Bank::createBankPanel()
 	// payback schedule
 	auto paybackLabel = Label::createWithTTF("Payback Schedule", "fonts/Nirmala.ttf", 14);
 	if (paybackLabel)
-		GameFunctions::displayLabel(paybackLabel, Color4B::WHITE, Vec2(panelMidPoint.x -70.f, panelMidPoint.y - 135.f),
-			m_BankPanel, 1);
+		GameFunctions::displayLabel(paybackLabel, Color4B::WHITE, Vec2(panelMidPoint.x -30.f , panelMidPoint.y - 175.f),
+			m_LoanWidget, 1);
 
 	auto paybackSprite = Sprite::createWithSpriteFrameName("Border_Brown_Square.png");
 	if (paybackSprite)
 	{
-		GameFunctions::displaySprite(paybackSprite, Vec2(panelMidPoint.x - 100.f, panelMidPoint.y - 165.f), m_BankPanel, 1);
+		GameFunctions::displaySprite(paybackSprite, Vec2(panelMidPoint.x - 60.f, panelMidPoint.y - 205.f), m_LoanWidget, 1);
 
-		//,000 label
 		m_WeeklyPayText = Label::createWithTTF("5", "fonts/Nirmala.ttf", 20);
 		if (m_WeeklyPayText)
 			GameFunctions::displayLabel(m_WeeklyPayText, Color4B::WHITE, Vec2(paybackSprite->getContentSize().width - 15.f, paybackSprite->getContentSize().height - 5.f),
@@ -368,19 +371,64 @@ void Bank::createBankPanel()
 		m_BankButtons.pushBack(applyLoanButton);
 	}
 
+#pragma endregion
+
+#pragma region Create debt panel
 	// create disabled panel
 	m_DisabledPanel = Sprite::createWithSpriteFrameName("LongPanelBlack50.png");
 	if (m_DisabledPanel)
 	{
-		GameFunctions::displaySprite(m_DisabledPanel, Vec2(sceneMidPoint.x, sceneMidPoint.y - 160.f), m_GameScene, 1,
-			0.98f, 0.95f);
+		GameFunctions::displaySprite(m_DisabledPanel, Vec2(sceneMidPoint.x, sceneMidPoint.y - 162.f), m_GameScene, 1,
+			0.98f, 0.96f);
 		m_DisabledPanel->setVisible(false);
+	}
+
+	auto disableMidPoint = Vec2(m_DisabledPanel->getContentSize().width * 0.5f, m_DisabledPanel->getContentSize().height * 0.5f);
+
+	auto debtLabel = Label::createWithTTF("Total Debt", "fonts/Nirmala.ttf", 14);
+	if (debtLabel)
+		GameFunctions::displayLabel(debtLabel, Color4B::WHITE, Vec2(disableMidPoint.x - 215.f, disableMidPoint.y + 28.f),
+			m_DisabledPanel, 1);
+
+	auto debtAmoutSprite = Sprite::createWithSpriteFrameName("Border_Brown.png");
+	if (debtAmoutSprite)
+	{
+		GameFunctions::displaySprite(debtAmoutSprite, Vec2(disableMidPoint.x - 215.f, disableMidPoint.y -5.f), m_DisabledPanel, 1);
+
+		m_DebtAmoutText = Label::createWithTTF("10,000", "fonts/NirmalaB.ttf", 20);
+		if (m_DebtAmoutText)
+		{
+			GameFunctions::displayLabel(m_DebtAmoutText, GameData::getInstance().m_ColorType.Taro, Vec2(debtAmoutSprite->getContentSize().width - 15.f, debtAmoutSprite->getContentSize().height - 5.f),
+				debtAmoutSprite, 1, true);
+			m_DebtAmoutText->enableShadow(Color4B::BLACK);
+		}
+	}
+
+	auto remainWeeksLabel = Label::createWithTTF("Remain Weeks", "fonts/Nirmala.ttf", 14);
+	if (remainWeeksLabel)
+		GameFunctions::displayLabel(remainWeeksLabel, Color4B::WHITE, Vec2(disableMidPoint.x - 70.f, disableMidPoint.y +28.f),
+			m_DisabledPanel, 1);
+
+	auto remainWeeksSprite = Sprite::createWithSpriteFrameName("Border_Brown_Square.png");
+	if (remainWeeksSprite)
+	{
+		GameFunctions::displaySprite(remainWeeksSprite, Vec2(disableMidPoint.x - 100.f, disableMidPoint.y - 5.f), m_DisabledPanel, 1);
+
+		//,000 label
+		m_RemainWeeksText = Label::createWithTTF("5", "fonts/NirmalaB.ttf", 20);
+		if (m_RemainWeeksText)
+		{
+			GameFunctions::displayLabel(m_RemainWeeksText, GameData::getInstance().m_ColorType.Taro, Vec2(remainWeeksSprite->getContentSize().width - 15.f, remainWeeksSprite->getContentSize().height - 5.f),
+				remainWeeksSprite, 1, true);
+			m_RemainWeeksText->enableShadow(Color4B::BLACK);
+		}
 	}
 #pragma endregion
 
+
 	auto menu = Menu::createWithArray(m_BankButtons);
 	menu->setPosition(Vec2::ZERO);
-	m_GameScene->addChild(menu, 2);
+	m_GameScene->addChild(menu, 3);
 
 }
 
@@ -433,13 +481,13 @@ void Bank::calculateWeeklyRepayments()
 
 void Bank::takeLoan(cocos2d::Ref* pSender)
 {
+
 	m_GameScene->updateCurrentCash(m_LoanAmout);
-	for (auto item : m_BankButtons)
-	{
-		item->setEnabled(false);
-	}
+	setMenuItemsVisible(false);
+	m_LoanWidget->setVisible(false);
 	m_DisabledPanel->setVisible(true);
 	m_HasDebt = true;
+	m_Debt = m_LoanAmout;
 }
 
 void Bank::setMenuItemsVisible(bool visible)
@@ -449,6 +497,11 @@ void Bank::setMenuItemsVisible(bool visible)
 		item->setEnabled(visible);
 		item->setVisible(visible);
 	}
+}
+
+void Bank::updateDebtCalculation(unsigned repayment)
+{
+	m_Loan -= repayment;
 }
 
 

@@ -120,9 +120,9 @@ bool MainMenuScene::init()
 
 
 	// set key event
-	auto listener = EventListenerKeyboard::create();
-	listener->onKeyPressed = CC_CALLBACK_2(MainMenuScene::onKeyPressed, this);
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+	m_Listener = EventListenerKeyboard::create();
+	m_Listener->onKeyPressed = CC_CALLBACK_2(MainMenuScene::onKeyPressed, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(m_Listener, this);
 
 	// set music
 	m_Audio = SimpleAudioEngine::getInstance();
@@ -149,8 +149,9 @@ void MainMenuScene::menuCloseCallback(Ref* pSender)
 
 	/*To navigate back to native iOS screen(if present) without quitting the application  ,do not use Director::getInstance()->end() as given above,instead trigger a custom event created in RootViewController.mm as below*/
 
-	/*EventCustom customEndEvent("game_scene_close_event");
-	_eventDispatcher->dispatchEvent(&customEndEvent);*/
+	//EventCustom customEndEvent("game_scene_close_event");
+	//_eventDispatcher->dispatchEvent(&customEndEvent);
+	_eventDispatcher->removeEventListener(m_Listener);
 }
 
 void MainMenuScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)

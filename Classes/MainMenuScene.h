@@ -31,6 +31,12 @@ namespace CocosDenshion
 {
     class SimpleAudioEngine;
 }
+
+namespace base
+{
+    class EventListenerKeyboard;
+}
+
 class MouseOverMenuItem;
 class MainMenuPlayerSetting;
 
@@ -51,6 +57,7 @@ private:
     cocos2d::Size m_VisibleSize = cocos2d::Size::ZERO;
     cocos2d::Vector<cocos2d::MenuItem*> m_MenuItems;
     CocosDenshion::SimpleAudioEngine* m_Audio;
+    cocos2d::EventListenerKeyboard* m_Listener;
 
     // a selector callback
     void onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event);

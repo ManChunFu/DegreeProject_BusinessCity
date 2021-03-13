@@ -4,6 +4,12 @@
 
 class GameScene;
 class MouseOverMenuItem;
+NS_CC_BEGIN;
+namespace ui
+{
+	class Widget;
+}
+NS_CC_END;
 
 class Bank
 {
@@ -29,6 +35,9 @@ private:
 	cocos2d::Label* m_WeeklyPayText = nullptr;
 	cocos2d::Label* m_RepaymentText = nullptr;
 	cocos2d::Sprite* m_DisabledPanel = nullptr;
+	cocos2d::Label* m_DebtAmoutText = nullptr;
+	cocos2d::Label* m_RemainWeeksText = nullptr;
+	cocos2d::ui::Widget* m_LoanWidget = nullptr;
 
 	std::string m_ShopName = "";
 	unsigned m_CurrentWeek = 1;
@@ -56,4 +65,5 @@ private:
 	void calculateWeeklyRepayments();
 	void takeLoan(cocos2d::Ref* pSender);
 	void setMenuItemsVisible(bool visible);
+	void updateDebtCalculation(unsigned repayment);
 };

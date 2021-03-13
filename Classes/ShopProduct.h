@@ -1,7 +1,7 @@
 #pragma once
 #include "cocos2d.h"
 
-class Product
+class ShopProduct
 {
 public:
 	std::string m_Name;
