@@ -38,27 +38,22 @@ bool GameScene::init()
 	if (!backgroundSprite)
 		return false;
 
+	GameFunctions::displaySprite(backgroundSprite, Point(origin.x + (m_VisibleSize.width / 2), origin.y + (m_VisibleSize.height / 2)),
+		this, 0);
 	setSpriteScale(backgroundSprite, Vec2::ONE);
-	backgroundSprite->setPosition(Point(origin.x + (m_VisibleSize.width / 2), origin.y + (m_VisibleSize.height / 2)));
-
-	this->addChild(backgroundSprite, 0);
 
 	m_TopPanel = Sprite::createWithSpriteFrameName("InGamePanel_Black_80.png");
 	if (!m_TopPanel)
 		return false;
 
-	m_TopPanel->setPosition(Vec2(m_VisibleSize.width * 0.5f, 680.f));
-	this->addChild(m_TopPanel, 1);
-
+	GameFunctions::displaySprite(m_TopPanel, Vec2(m_VisibleSize.width * 0.5f, 680.f), this, 1);
 	auto topPanelMidPoint = Vec2(m_TopPanel->getContentSize().width * 0.5f, m_TopPanel->getContentSize().height * 0.5f);
 
 	auto playerSprite = Sprite::createWithSpriteFrameName(GameData::getInstance().getPlayerCharacter());
 	if (!playerSprite)
 		return false;
 
-	playerSprite->setPosition(topPanelMidPoint.x - 250.f, topPanelMidPoint.y - 5.f);
-	playerSprite->setScale(0.4f);
-	m_TopPanel->addChild(playerSprite, 1);
+	GameFunctions::displaySprite(playerSprite, Vec2(topPanelMidPoint.x - 250.f, topPanelMidPoint.y - 5.f), m_TopPanel, 1, 0.4f, 0.4f);
 
 	auto nameLabel = Label::createWithTTF(GameData::getInstance().getPlayerName(), "fonts/NirmalaB.ttf", 22);
 	if (nameLabel)

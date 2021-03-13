@@ -25,9 +25,11 @@
 #include "MainMenuScene.h"
 #include <MouseOverMenuItem.h>
 #include <MainMenuPlayerSetting.h>
- #include "cocostudio/SimpleAudioEngine.h"
- using namespace CocosDenshion;
- USING_NS_CC;
+#include "GameFunctions.h"
+#include "GameData.h"
+#include "cocostudio/SimpleAudioEngine.h"
+using namespace CocosDenshion;
+USING_NS_CC;
 
 
 MainMenuScene::~MainMenuScene()
@@ -57,50 +59,48 @@ bool MainMenuScene::init()
 
 	// background image
 	auto backgroundSprite = Sprite::createWithSpriteFrameName("CityTopDownViewWithLayer.png");
-	if (!backgroundSprite) 
+	if (!backgroundSprite)
 		return false;
 
+	GameFunctions::displaySprite(backgroundSprite, Vec2(Point(origin.x + (m_VisibleSize.width / 2), origin.y
+		+ (m_VisibleSize.height / 2))), this, 0);
 	setSpriteScale(backgroundSprite, 1);
-	backgroundSprite->setPosition(Point(origin.x + (m_VisibleSize.width / 2), origin.y + (m_VisibleSize.height / 2)));
-	this->addChild(backgroundSprite, 0);
 
 	// title
 	auto label = Label::createWithTTF("Bussiness City", "fonts/BROADW.TTF", 56);
-	label->setTextColor(Color4B::ORANGE);
+	if (!label)
+		return false;
+
 	label->enableGlow(Color4B::BLACK);
 	label->enableShadow(Color4B::BLACK);
-	label->setPosition(Point(origin.x + m_VisibleSize.width / 2, origin.y + m_VisibleSize.height - label->getContentSize().height));
-	this->addChild(label, 1);
+	GameFunctions::displayLabel(label, Color4B::ORANGE, Point(origin.x + m_VisibleSize.width / 2,
+		origin.y + m_VisibleSize.height - label->getContentSize().height), this, 1);
 
 	// start button
-	auto startNormalSprite = Sprite::createWithSpriteFrameName("ButtonBlueNormal.png");
-	auto startSelectedSprite = Sprite::createWithSpriteFrameName("ButtonBlueLit.png");
-	auto startDisabledSprite = Sprite::createWithSpriteFrameName("ButtonBlueDisabled.png");
-
-	auto startButtonItem = MouseOverMenuItem::create(startNormalSprite, startSelectedSprite, startDisabledSprite, CC_CALLBACK_1(MainMenuScene::menuStartCallback, this));
+	auto startButtonItem = MouseOverMenuItem::creatMouseOverMenuButton("ButtonBlueNormal.png", "ButtonBlueLit.png", "ButtonBlueDisabled.png",
+		CC_CALLBACK_1(MainMenuScene::menuStartCallback, this));
 	if (!startButtonItem)
 		return false;
 
 	startButtonItem->onMouseOver = CC_CALLBACK_2(MainMenuScene::onMouseOver, this);
-
-	// start button text
 	Vec2 startButtonPos = Vec2(label->getPositionX(), label->getPositionY() - 200.f);
 	startButtonItem->setPosition(startButtonPos);
 	startButtonItem->setItemRect(startButtonPos);
 
+	// start button text
 	Vec2 buttonMidPoint = Vec2(startButtonItem->getContentSize().width * 0.5f, startButtonItem->getContentSize().height * 0.5f);
 	auto startText = Label::createWithTTF("Start", "fonts/BROADW.TTF", 25);
-	startText->setTextColor(Color4B(125, 100, 100, 255));
-	startText->setPosition(buttonMidPoint);
-	startButtonItem->addChild(startText, 2);
+	if (startText)
+		GameFunctions::displayLabel(startText, GameData::getInstance().m_ColorType.Taro, buttonMidPoint, startButtonItem, 1);
 
 	m_MenuItems.pushBack(startButtonItem);
 
 	// quit button
-	auto quitNormalSprite = Sprite::createWithSpriteFrameName("ButtonBlueNormal.png");
-	auto quitSelectedSprite = Sprite::createWithSpriteFrameName("ButtonBlueLit.png");
-	auto quitDisabledSprite = Sprite::createWithSpriteFrameName("ButtonBlueDisabled.png");
-	auto quitButtonItem = MouseOverMenuItem::create(quitNormalSprite, quitSelectedSprite, quitDisabledSprite, CC_CALLBACK_1(MainMenuScene::menuCloseCallback, this));
+	auto quitButtonItem = MouseOverMenuItem::creatMouseOverMenuButton("ButtonBlueNormal.png", "ButtonBlueLit.png", "ButtonBlueDisabled.png",
+		CC_CALLBACK_1(MainMenuScene::menuCloseCallback, this));
+	if (!quitButtonItem)
+		return false;
+
 	quitButtonItem->onMouseOver = CC_CALLBACK_2(MainMenuScene::onMouseOver, this);
 	Vec2 quitButtonPos = Vec2(startButtonPos.x, startButtonPos.y - 100.f);
 	quitButtonItem->setPosition(quitButtonPos);
@@ -108,9 +108,8 @@ bool MainMenuScene::init()
 
 	// quit button text
 	auto quitText = Label::createWithTTF("Quit", "fonts/BROADW.TTF", 25);
-	quitText->setTextColor(Color4B(125, 100, 100, 255));
-	quitText->setPosition(buttonMidPoint);
-	quitButtonItem->addChild(quitText, 2);
+	if (quitText)
+		GameFunctions::displayLabel(quitText, GameData::getInstance().m_ColorType.Taro, buttonMidPoint, quitButtonItem, 1);
 
 	m_MenuItems.pushBack(quitButtonItem);
 

@@ -28,6 +28,7 @@ private:
 	cocos2d::Label* m_LoanAmoutText = nullptr;
 	cocos2d::Label* m_WeeklyPayText = nullptr;
 	cocos2d::Label* m_RepaymentText = nullptr;
+	cocos2d::Sprite* m_DisabledPanel = nullptr;
 
 	std::string m_ShopName = "";
 	unsigned m_CurrentWeek = 1;
@@ -42,6 +43,8 @@ private:
 
 	cocos2d::Vector<cocos2d::MenuItem*> m_BankButtons;
 
+	bool m_HasDebt = false;
+
 	void createBankPanel();
 	int getOverviewAmout();
 	void addAmoutCallback(cocos2d::Ref* pSender);
@@ -52,4 +55,5 @@ private:
 	unsigned updateLabelText(cocos2d::Label* label, unsigned originValue, int newValue, unsigned minValue, unsigned maxValue);
 	void calculateWeeklyRepayments();
 	void takeLoan(cocos2d::Ref* pSender);
+	void setMenuItemsVisible(bool visible);
 };

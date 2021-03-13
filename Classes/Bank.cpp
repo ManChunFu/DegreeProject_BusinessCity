@@ -20,6 +20,10 @@ Bank::~Bank()
 	m_Commerical = nullptr;
 	m_Sales = nullptr;
 	m_Total = nullptr;
+	m_LoanAmoutText = nullptr;
+	m_WeeklyPayText = nullptr;
+	m_RepaymentText = nullptr;
+	m_DisabledPanel = nullptr;
 	m_CurrentWeek = 1;
 	m_BankButtons.clear();
 }
@@ -40,11 +44,28 @@ void Bank::openBankPanel(GameScene* scene, unsigned currentWeek)
 
 	m_BankPanel->setVisible(true);
 	GameFunctions::updatLabelText_TimeFormat(m_Weeks, m_CurrentWeek);
+	
+	if (m_HasDebt)
+	{
+		for (auto item : m_BankButtons)
+		{
+			item->setEnabled(false);
+			item->setVisible(true);
+		}
+		m_DisabledPanel->setVisible(true);
+	} 
+	else
+	{
+		setMenuItemsVisible(true);
+		m_DisabledPanel->setVisible(false);
+	}
 }
 
 void Bank::closeBankPanel()
 {
 	m_BankPanel->setVisible(false);
+	setMenuItemsVisible(false);
+	m_DisabledPanel->setVisible(false);
 }
 
 void Bank::createBankPanel()
@@ -59,8 +80,7 @@ void Bank::createBankPanel()
 	if (!m_BankPanel)
 		return;
 
-	m_BankPanel->setPosition(sceneMidPoint);
-	m_GameScene->addChild(m_BankPanel, 1);
+	GameFunctions::displaySprite(m_BankPanel, Vec2(sceneMidPoint), m_GameScene, 1);
 
 	auto panelMidPoint = Vec2(m_BankPanel->getContentSize().width * 0.5f, m_BankPanel->getContentSize().height * 0.5f);
 
@@ -215,8 +235,7 @@ void Bank::createBankPanel()
 	auto loanAmoutSprite = Sprite::createWithSpriteFrameName("Border_Brown.png");
 	if (loanAmoutSprite)
 	{
-		loanAmoutSprite->setPosition(panelMidPoint.x - 215.f, panelMidPoint.y - 165.f);
-		m_BankPanel->addChild(loanAmoutSprite, 1);
+		GameFunctions::displaySprite(loanAmoutSprite, Vec2(panelMidPoint.x - 215.f, panelMidPoint.y - 165.f), m_BankPanel, 1);
 
 		//,000 label
 		m_LoanAmoutText = Label::createWithTTF("10,000", "fonts/Nirmala.ttf", 20);
@@ -262,8 +281,7 @@ void Bank::createBankPanel()
 	auto paybackSprite = Sprite::createWithSpriteFrameName("Border_Brown_Square.png");
 	if (paybackSprite)
 	{
-		paybackSprite->setPosition(panelMidPoint.x - 100.f, panelMidPoint.y - 165.f);
-		m_BankPanel->addChild(paybackSprite, 1);
+		GameFunctions::displaySprite(paybackSprite, Vec2(panelMidPoint.x - 100.f, panelMidPoint.y - 165.f), m_BankPanel, 1);
 
 		//,000 label
 		m_WeeklyPayText = Label::createWithTTF("5", "fonts/Nirmala.ttf", 20);
@@ -349,6 +367,15 @@ void Bank::createBankPanel()
 
 		m_BankButtons.pushBack(applyLoanButton);
 	}
+
+	// create disabled panel
+	m_DisabledPanel = Sprite::createWithSpriteFrameName("LongPanelBlack50.png");
+	if (m_DisabledPanel)
+	{
+		GameFunctions::displaySprite(m_DisabledPanel, Vec2(sceneMidPoint.x, sceneMidPoint.y - 160.f), m_GameScene, 1,
+			0.98f, 0.95f);
+		m_DisabledPanel->setVisible(false);
+	}
 #pragma endregion
 
 	auto menu = Menu::createWithArray(m_BankButtons);
@@ -407,6 +434,21 @@ void Bank::calculateWeeklyRepayments()
 void Bank::takeLoan(cocos2d::Ref* pSender)
 {
 	m_GameScene->updateCurrentCash(m_LoanAmout);
+	for (auto item : m_BankButtons)
+	{
+		item->setEnabled(false);
+	}
+	m_DisabledPanel->setVisible(true);
+	m_HasDebt = true;
+}
+
+void Bank::setMenuItemsVisible(bool visible)
+{
+	for (auto item : m_BankButtons)
+	{
+		item->setEnabled(visible);
+		item->setVisible(visible);
+	}
 }
 
 

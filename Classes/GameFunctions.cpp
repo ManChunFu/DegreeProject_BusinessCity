@@ -3,13 +3,11 @@
 
 USING_NS_CC;
 
-void GameFunctions::displayLabel(Label* label, Color4B color, Vec2 pos, Node* parent, unsigned z_order, bool anchor)
+void GameFunctions::displaySprite(cocos2d::Sprite* sprite, cocos2d::Vec2 pos, cocos2d::Node* parent, unsigned z_order, float scaleX, float scaleY)
 {
-	label->setTextColor(color);
-	label->setPosition(pos);
-	if (anchor)
-		label->setAnchorPoint(Vec2::ONE);
-	parent->addChild(label, z_order);
+	sprite->setScale(scaleX, scaleY);
+	sprite->setPosition(pos);
+	parent->addChild(sprite, z_order);
 }
 
 void GameFunctions::displayTextField(ui::TextField* textField, Color3B color, Vec2 pos, Node* parent, unsigned z_order, bool anchor, unsigned maxLength)
@@ -20,8 +18,19 @@ void GameFunctions::displayTextField(ui::TextField* textField, Color3B color, Ve
 		textField->setMaxLength(maxLength);
 		textField->setMaxLengthEnabled(true);
 	}
+	if (anchor)
+		textField->setAnchorPoint(Vec2::ANCHOR_BOTTOM_RIGHT);
 	textField->setPosition(pos);
 	parent->addChild(textField, z_order);
+}
+
+void GameFunctions::displayLabel(Label* label, Color4B color, Vec2 pos, Node* parent, unsigned z_order, bool anchor)
+{
+	label->setTextColor(color);
+	label->setPosition(pos);
+	if (anchor)
+		label->setAnchorPoint(Vec2::ONE);
+	parent->addChild(label, z_order);
 }
 
 void GameFunctions::updateLabelText_MoneyFormat(Label* label, int value, bool minus)

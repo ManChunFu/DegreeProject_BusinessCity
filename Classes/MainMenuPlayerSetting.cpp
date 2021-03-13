@@ -12,11 +12,8 @@ USING_NS_CC;
 MainMenuPlayerSetting::~MainMenuPlayerSetting()
 {
 	m_MenuItems.clear();
-
 	m_TextField = nullptr;
-
 	m_HasSelected = false;
-
 }
 
 void MainMenuPlayerSetting::OpenSettingWindow(Scene* scene)
@@ -71,8 +68,11 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 
 	// background
 	m_PlayerSettingPanel = Sprite::createWithSpriteFrameName("UIPanelRecBlack80.png");
-	m_PlayerSettingPanel->setPosition(sceneMidPoint);
-	m_PlayerSettingPanel->setScale(0.8f);
+	if (m_PlayerSettingPanel)
+	{
+		GameFunctions::displaySprite(m_PlayerSettingPanel, sceneMidPoint, m_MainMenu, 2);
+		m_PlayerSettingPanel->setScale(0.8f);
+	}
 
 	auto panelMidPoint = Vec2(m_PlayerSettingPanel->getContentSize().width * 0.5f, m_PlayerSettingPanel->getContentSize().height * 0.5f);
 
@@ -92,7 +92,7 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 
 #pragma region Create Character MenuItem
 	// woman1
-	auto woman1Item = MouseOverMenuItem::creatMouseOverMenuButton("Woman1_200_Tran.png", "Woman1_200_Tran.png", "Woman1_200_Tran_Disabled.png",
+	auto woman1Item = MouseOverMenuItem::creatMouseOverMenuButton("Woman1_200_Tran.png", "Woman1_200_Tran_Lit.png", "Woman1_200_Tran_Disabled.png",
 		CC_CALLBACK_1(MainMenuPlayerSetting::characterSelectedCallback, this));
 	if (!woman1Item)
 		return;
@@ -235,7 +235,6 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	auto panelMenu = Menu::createWithArray(m_MenuItems);
 	panelMenu->setPosition(Vec2::ZERO);
 
-	m_MainMenu->addChild(m_PlayerSettingPanel, 2);
 	m_MainMenu->addChild(panelMenu, 3);
 
 	auto listener = EventListenerKeyboard::create();
@@ -290,12 +289,11 @@ void MainMenuPlayerSetting::characterSelectedCallback(Ref* pSender)
 		
 		// create label for first time
 		item->itemSelectedData.selectedLabel = Label::createWithTTF("SELECTED", "fonts/NirmalaB.ttf", 40.f);
-		item->itemSelectedData.selectedLabel->setTextColor(GameData::getInstance().m_ColorType.HotPink);
 		item->itemSelectedData.selectedLabel->enableShadow(Color4B::BLACK);
 		item->itemSelectedData.selectedLabel->enableGlow(GameData::getInstance().m_ColorType.LightSteelBlue);
-		item->itemSelectedData.selectedLabel->setPosition(item->getContentSize().width * 0.5f, item->getContentSize().height * 0.5f - 60.f);
 		item->itemSelectedData.selectedLabel->setRotation(-15.f);
-		item->addChild(item->itemSelectedData.selectedLabel, 1);
+		GameFunctions::displayLabel(item->itemSelectedData.selectedLabel, GameData::getInstance().m_ColorType.HotPink, Vec2(item->getContentSize().width * 0.5f,
+			item->getContentSize().height * 0.5f - 60.f), item, 1), 
 		item->selected();
 	}
 }
