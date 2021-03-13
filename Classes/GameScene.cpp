@@ -265,7 +265,7 @@ void GameScene::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::E
 			m_IsOpeningSubWindow = false;
 		}
 		else
-			log("Pause");
+			Director::getInstance()->end();
 	}
 }
 

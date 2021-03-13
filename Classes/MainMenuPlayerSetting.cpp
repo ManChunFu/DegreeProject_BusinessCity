@@ -5,7 +5,6 @@
 #include "GameData.h"
 #include "GameFunctions.h"
 #include "GameScene.h"
-#include "Player.h"
 
 
 USING_NS_CC;

@@ -15,7 +15,7 @@ public:
 		 return instance;
 	 }
 private:
-	GameData() { m_CharacterSpriteMap.clear(); delete m_Player; m_Player = nullptr; };
+	GameData() { m_CharacterSpriteMap.empty(); m_CharacterSpriteMap.clear(); delete m_Player; m_Player = nullptr; };
 	//GameData(GameData const&);              // Don't Implement
 	//void operator=(GameData const&); // Don't implement
 public:
