@@ -1,8 +1,15 @@
 #include "GameData.h"
 #include "Player.h"
+#include "DataManager.h"
+#include "Shop.h"
+
 
 USING_NS_CC;
 
+void GameData::init()
+{
+	m_Shops = DataManager::getShops();
+}
 
 void GameData::registerCharacter(cocos2d::itemTypes type, std::string path)
 {

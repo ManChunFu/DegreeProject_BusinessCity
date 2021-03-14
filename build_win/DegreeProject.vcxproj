@@ -808,6 +808,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\GameFunctions.h" />
     <ClInclude Include="..\Classes\GameManager.h" />
     <ClInclude Include="..\Classes\GameScene.h" />
+    <ClInclude Include="..\Classes\InfoPanel.h" />
     <ClInclude Include="..\Classes\MainMenuPlayerSetting.h" />
     <ClInclude Include="..\Classes\MouseOverMenuItem.h" />
     <ClInclude Include="..\Classes\Player.h" />
@@ -818,11 +819,13 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\Users\mandy\source\repos\DegreeProject\proj.win32\main.h" />
     <ClInclude Include="C:\Users\mandy\source\repos\DegreeProject\proj.win32\resource.h" />
     <ClCompile Include="..\Classes\Bank.cpp" />
+    <ClCompile Include="..\Classes\Canvas.cpp" />
     <ClCompile Include="..\Classes\DataManager.cpp" />
     <ClCompile Include="..\Classes\GameData.cpp" />
     <ClCompile Include="..\Classes\GameFunctions.cpp" />
     <ClCompile Include="..\Classes\GameManager.cpp" />
     <ClCompile Include="..\Classes\GameScene.cpp" />
+    <ClCompile Include="..\Classes\InfoPanel.cpp" />
     <ClCompile Include="..\Classes\MainMenuPlayerSetting.cpp" />
     <ClCompile Include="..\Classes\MouseOverMenuItem.cpp" />
     <ClCompile Include="..\Classes\Player.cpp" />

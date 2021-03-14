@@ -12,12 +12,16 @@ public:
 
 	const std::string& getName();
 	cocos2d::itemTypes getCharacter();
+	void updateDebt(unsigned debtAmout);
+	void updateCurrentCashAmout(int cashAmout);
+
+	std::function<void(Player* player, int cashAmout)> onCashAmoutChange;
 
 private:
 	const std::string& m_PlayerName = "";
 	cocos2d::itemTypes m_PlayerCharacter;
 	int m_CurrentCashAmout = 50000;
 	unsigned m_Debut = 0;
-	//cocos2d::Vector<Shop*> m_MyShop;
+	std::vector<Shop*> m_MyShop;
 
 };

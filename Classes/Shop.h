@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cocos2d.h"
+#include "json/Document.h"
 
 enum ownerTypes
 {
@@ -14,12 +15,15 @@ class ShopProduct;
 class Shop
 {
 public:
+	Shop(rapidjson::Value& json);
+	Shop() {};
 	~Shop() {};
 
 	std::string m_ShopType;
 	std::string m_Name;
 	ownerTypes m_Owner;
-	const std::string& m_ShopLook;
+	std::string m_ShopLook;
+	unsigned m_ShopPrice;
 	unsigned m_Electricity;
 	unsigned m_Water;
 	unsigned m_Employees;

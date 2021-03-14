@@ -53,8 +53,6 @@ bool MainMenuScene::init()
 	if (!Scene::init())
 		return false;
 
-	DataManager::getShops();
-
 	m_VisibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 

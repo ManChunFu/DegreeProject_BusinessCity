@@ -31,10 +31,15 @@ bool GameScene::init()
 	if (!Layer::init())
 		return false;
 
-	m_VisibleSize = Director::getInstance()->getVisibleSize();
-	Vec2 origin = Director::getInstance()->getVisibleOrigin();
+	//init data
+	GameData::getInstance().init();
+	//
 
 	m_Player = GameData::getInstance().m_Player;
+	m_Player->onCashAmoutChange = CC_CALLBACK_2(GameScene::onCurrentCashChange, this);
+
+	m_VisibleSize = Director::getInstance()->getVisibleSize();
+	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	auto backgroundSprite = Sprite::createWithSpriteFrameName("CityView.png");
 	if (!backgroundSprite)
@@ -267,6 +272,11 @@ void GameScene::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::E
 		else
 			Director::getInstance()->end();
 	}
+}
+
+void GameScene::onCurrentCashChange(Player* player, int currentCashAmout)
+{
+	GameFunctions::updateLabelText_MoneyFormat(m_Saving, currentCashAmout);
 }
 
 

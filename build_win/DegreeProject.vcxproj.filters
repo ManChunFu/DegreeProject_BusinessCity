@@ -46,6 +46,12 @@
     <ClCompile Include="..\Classes\DataManager.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\InfoPanel.cpp">
+      <Filter>Source Files\Classes\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Canvas.cpp">
+      <Filter>Source Files\Classes\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\Users\mandy\source\repos\DegreeProject\Classes\AppDelegate.h">
@@ -112,7 +118,10 @@
       <Filter>Source Files\Classes</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Canvas.h">
-      <Filter>Source Files\Classes</Filter>
+      <Filter>Source Files\Classes\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\InfoPanel.h">
+      <Filter>Source Files\Classes\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +153,9 @@
     </Filter>
     <Filter Include="Source Files\Classes\Scenes">
       <UniqueIdentifier>{96a26766-1a3f-4c79-8853-bf2a9ae194bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Classes\UI">
+      <UniqueIdentifier>{eb60b117-3bf7-4144-9047-c22030741b8d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

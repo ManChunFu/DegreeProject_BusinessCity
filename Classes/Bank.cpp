@@ -5,6 +5,7 @@
 #include <ui/UITextField.h>
 #include "MouseOverMenuItem.h"
 #include "ui/UIWidget.h"
+#include "Player.h"
 
 
 USING_NS_CC;
@@ -481,8 +482,7 @@ void Bank::calculateWeeklyRepayments()
 
 void Bank::takeLoan(cocos2d::Ref* pSender)
 {
-
-	m_GameScene->updateCurrentCash(m_LoanAmout);
+	GameData::getInstance().m_Player->updateDebt(m_LoanAmout);
 	setMenuItemsVisible(false);
 	m_LoanWidget->setVisible(false);
 	m_DisabledPanel->setVisible(true);

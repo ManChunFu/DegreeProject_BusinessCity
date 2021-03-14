@@ -2,6 +2,7 @@
 #include "cocos2d.h"
 
 class Player;
+class Shop;
 
 class GameData
 {
@@ -22,12 +23,13 @@ public:
 	GameData(GameData const&) = delete;
 	void operator=(GameData const&) = delete;
 
-
+	void init();
 	void registerCharacter(cocos2d::itemTypes type, std::string path);
 	void setPlayer(const std::string& name, cocos2d::itemTypes type);
 	std::string getPlayerCharacter(cocos2d::itemTypes playerCharacterType);
 
 	Player* m_Player = nullptr;
+	std::vector<Shop*> m_Shops;
 	struct colorTypes
 	{
 		cocos2d::Color4B MediumOrchild = cocos2d::Color4B(186, 85, 211, 255);

@@ -56,5 +56,6 @@ private:
 	void checkBalanceCallback(cocos2d::Ref* pSender);
 	void onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event);
 	void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
+	void onCurrentCashChange(Player* player, int currentCashAmout);
 };
 #endif
