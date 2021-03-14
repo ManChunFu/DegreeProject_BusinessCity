@@ -27,6 +27,7 @@
 #include <MainMenuPlayerSetting.h>
 #include "GameFunctions.h"
 #include "GameData.h"
+#include "DataManager.h"
 #include "cocostudio/SimpleAudioEngine.h"
 using namespace CocosDenshion;
 USING_NS_CC;
@@ -51,6 +52,8 @@ bool MainMenuScene::init()
 	// 1. super init first
 	if (!Scene::init())
 		return false;
+
+	DataManager::getShops();
 
 	m_VisibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
