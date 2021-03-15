@@ -3,6 +3,7 @@
 #include "GameData.h"
 #include "MouseOverMenuItem.h"
 #include "Shop.h"
+#include "Player.h"
 
 USING_NS_CC;
 
@@ -53,133 +54,47 @@ void GameStartPanel::createPanel(GameScene* scene, Vec2 sceneMidPoint)
 	}
 
 #pragma region create startup items
-	auto item1 = MouseOverMenuItem::creatMouseOverMenuButton("HotdogStand.png", "HotdogStand_Lit.png", "HotdogStand_Disabled.png", 
-		CC_CALLBACK_1(GameStartPanel::selectedItemCallback, this));
 
-	if (item1)
+	for (auto item : GameData::getInstance().m_Shops)
 	{
-		item1->onMouseOver = CC_CALLBACK_2(GameStartPanel::onMouseOver, this);
-		Vec2 item1Pos = Vec2(sceneMidPoint.x - 145.f, sceneMidPoint.y + 80.f);
-		item1->setScale(0.8f);
-		item1->setPosition(item1Pos);
-		item1->setItemRect(item1Pos, 0.8f);
+		if (!item.second->m_Startup)
+			continue;
 
-		auto item1MidPoint = Vec2(item1->getContentSize().width * 0.5f, item1->getContentSize().height * 0.5f);
+		auto buttomItem = MouseOverMenuItem::creatMouseOverMenuButton(item.second->m_ShopLook_Normal, item.second ->m_ShopLook_Lit, item.second ->m_ShopLook_Disabled,
+			CC_CALLBACK_1(GameStartPanel::selectedItemCallback, this, item.second));
 
-		auto item1Label = Label::createWithTTF(GameData::getInstance().m_Shops[0]->m_ShopType, "fonts/NirmalaB.ttf", 20);
-		if (item1Label)
-			GameFunctions::displayLabel(item1Label, Color4B::BLACK, Vec2(item1MidPoint.x - 60.f,item1MidPoint.y + 80.f), item1, 1);
+		if (!buttomItem)
+			continue;
+			
+		buttomItem->onMouseOver = CC_CALLBACK_2(GameStartPanel::onMouseOver, this);
+		Vec2 buttonPos = Vec2(sceneMidPoint.x + (item.first % 2 == 0 ? -145.f : 145.f), sceneMidPoint.y + (item.first > 1 ? -90.f : 80.f));
+		buttomItem->setScale(0.8f);
+		buttomItem->setPosition(buttonPos);
+		buttomItem->setItemRect(buttonPos, 0.8f);
+
+		auto buttonMidPoint = Vec2(buttomItem->getContentSize().width * 0.5f, buttomItem->getContentSize().height * 0.5f);
+
+		auto buttonLabel = Label::createWithTTF(item.second->m_ShopType, "fonts/NirmalaB.ttf", 20);
+		if (buttonLabel)
+			GameFunctions::displayLabel(buttonLabel, Color4B::BLACK, Vec2(buttonMidPoint.x - 60.f, buttonMidPoint.y + 80.f), buttomItem, 1);
 
 		auto cashSymbol = Label::createWithTTF("$", "fonts/Nirmala.ttf", 20);
 		if (cashSymbol)
-			GameFunctions::displayLabel(cashSymbol, Color4B::BLACK, Vec2(item1MidPoint.x - 100.f, item1MidPoint.y + 60.f),
-				item1, 1);
+			GameFunctions::displayLabel(cashSymbol, Color4B::BLACK, Vec2(buttonMidPoint.x - 100.f, buttonMidPoint.y + 60.f),
+				buttomItem, 1);
 
-		auto item1PriceLabel = Label::createWithTTF("", "fonts/NirmalaB.ttf", 20);
-		if (item1PriceLabel)
+		auto buttonPriceLabel = Label::createWithTTF("", "fonts/NirmalaB.ttf", 20);
+		if (buttonPriceLabel)
 		{
-			GameFunctions::updateLabelText_MoneyFormat(item1PriceLabel, GameData::getInstance().m_Shops[0]->m_ShopPrice);
-			GameFunctions::displayLabel(item1PriceLabel, Color4B::BLACK, Vec2(item1MidPoint.x - 50.f, item1MidPoint.y + 60.f), item1, 1);
+			GameFunctions::updateLabelText_MoneyFormat(buttonPriceLabel, item.second->m_ShopPrice);
+			GameFunctions::displayLabel(buttonPriceLabel, Color4B::BLACK, Vec2(buttonMidPoint.x - 50.f, buttonMidPoint.y + 60.f), buttomItem, 1);
 		}
 
-		m_StartupItems.pushBack(item1);
+		m_StartupItems.pushBack(buttomItem);
+		
 	}
 
-	auto item2 = MouseOverMenuItem::creatMouseOverMenuButton("Icecream.png", "Icecream_Lit.png", "Icecream_Disabled.png",
-		CC_CALLBACK_1(GameStartPanel::selectedItemCallback, this));
-
-	if (item2)
-	{
-		item2->onMouseOver = CC_CALLBACK_2(GameStartPanel::onMouseOver, this);
-		Vec2 item2Pos = Vec2(sceneMidPoint.x + 145.f, sceneMidPoint.y + 80.f);
-		item2->setScale(0.8f);
-		item2->setPosition(item2Pos);
-		item2->setItemRect(item2Pos, 0.8f);
-
-		auto item2MidPoint = Vec2(item2->getContentSize().width * 0.5f, item2->getContentSize().height * 0.5f);
-
-		auto item2Label = Label::createWithTTF(GameData::getInstance().m_Shops[1]->m_ShopType, "fonts/NirmalaB.ttf", 20);
-		if (item2Label)
-			GameFunctions::displayLabel(item2Label, Color4B::BLACK, Vec2(item2MidPoint.x - 50.f, item2MidPoint.y + 80.f), item2, 1);
-
-		auto cashSymbol = Label::createWithTTF("$", "fonts/Nirmala.ttf", 20);
-		if (cashSymbol)
-			GameFunctions::displayLabel(cashSymbol, Color4B::BLACK, Vec2(item2MidPoint.x - 100.f, item2MidPoint.y + 60.f),
-				item2, 1);
-
-		auto item2PriceLabel = Label::createWithTTF("", "fonts/NirmalaB.ttf", 20);
-		if (item2PriceLabel)
-		{
-			GameFunctions::updateLabelText_MoneyFormat(item2PriceLabel, GameData::getInstance().m_Shops[1]->m_ShopPrice);
-			GameFunctions::displayLabel(item2PriceLabel, Color4B::BLACK, Vec2(item2MidPoint.x - 50.f, item2MidPoint.y + 60.f), item2, 1);
-		}
-
-		m_StartupItems.pushBack(item2);
-	}
-
-	auto item3 = MouseOverMenuItem::creatMouseOverMenuButton("Handicrafts.png", "Handicrafts_Lit.png", "Handicrafts_Disabled.png",
-		CC_CALLBACK_1(GameStartPanel::selectedItemCallback, this));
-
-	if (item3)
-	{
-		item3->onMouseOver = CC_CALLBACK_2(GameStartPanel::onMouseOver, this);
-		Vec2 item3Pos = Vec2(sceneMidPoint.x - 145.f, sceneMidPoint.y - 90.f);
-		item3->setScale(0.8f);
-		item3->setPosition(item3Pos);
-		item3->setItemRect(item3Pos, 0.8f);
-
-		auto item3MidPoint = Vec2(item3->getContentSize().width * 0.5f, item3->getContentSize().height * 0.5f);
-
-		auto item3Label = Label::createWithTTF(GameData::getInstance().m_Shops[3]->m_ShopType, "fonts/NirmalaB.ttf", 20);
-		if (item3Label)
-			GameFunctions::displayLabel(item3Label, Color4B::BLACK, Vec2(item3MidPoint.x - 60.f, item3MidPoint.y + 80.f), item3, 1);
-
-		auto cashSymbol = Label::createWithTTF("$", "fonts/Nirmala.ttf", 20);
-		if (cashSymbol)
-			GameFunctions::displayLabel(cashSymbol, Color4B::BLACK, Vec2(item3MidPoint.x - 100.f, item3MidPoint.y + 60.f),
-				item3, 1);
-
-		auto item3PriceLabel = Label::createWithTTF("", "fonts/NirmalaB.ttf", 20);
-		if (item3PriceLabel)
-		{
-			GameFunctions::updateLabelText_MoneyFormat(item3PriceLabel, GameData::getInstance().m_Shops[3]->m_ShopPrice);
-			GameFunctions::displayLabel(item3PriceLabel, Color4B::BLACK, Vec2(item3MidPoint.x - 50.f, item3MidPoint.y + 60.f), item3, 1);
-		}
-
-		m_StartupItems.pushBack(item3);
-	}
 	
-	auto item4 = MouseOverMenuItem::creatMouseOverMenuButton("FruitStand.png", "FruitStand_Lit.png", "FruitStand_Disabled.png",
-		CC_CALLBACK_1(GameStartPanel::selectedItemCallback, this));
-
-	if (item4)
-	{
-		item4->onMouseOver = CC_CALLBACK_2(GameStartPanel::onMouseOver, this);
-		Vec2 item4Pos = Vec2(sceneMidPoint.x + 145.f, sceneMidPoint.y - 90.f);
-		item4->setScale(0.8f);
-		item4->setPosition(item4Pos);
-		item4->setItemRect(item4Pos, 0.8f);
-
-		auto item4MidPoint = Vec2(item4->getContentSize().width * 0.5f, item4->getContentSize().height * 0.5f);
-
-		auto item4Label = Label::createWithTTF(GameData::getInstance().m_Shops[3]->m_ShopType, "fonts/NirmalaB.ttf", 20);
-		if (item4Label)
-			GameFunctions::displayLabel(item4Label, Color4B::BLACK, Vec2(item4MidPoint.x - 50.f, item4MidPoint.y + 80.f), item4, 1);
-
-		auto cashSymbol = Label::createWithTTF("$", "fonts/Nirmala.ttf", 20);
-		if (cashSymbol)
-			GameFunctions::displayLabel(cashSymbol, Color4B::BLACK, Vec2(item4MidPoint.x - 100.f, item4MidPoint.y + 60.f),
-				item4, 1);
-
-		auto item4PriceLabel = Label::createWithTTF("", "fonts/NirmalaB.ttf", 20);
-		if (item4PriceLabel)
-		{
-			GameFunctions::updateLabelText_MoneyFormat(item4PriceLabel, GameData::getInstance().m_Shops[3]->m_ShopPrice);
-			GameFunctions::displayLabel(item4PriceLabel, Color4B::BLACK, Vec2(item4MidPoint.x - 50.f, item4MidPoint.y + 60.f), item4, 1);
-		}
-
-		m_StartupItems.pushBack(item4);
-	}
 #pragma endregion
 
 	auto menu = Menu::createWithArray(m_StartupItems);
@@ -191,6 +106,7 @@ void GameStartPanel::createPanel(GameScene* scene, Vec2 sceneMidPoint)
 
 void GameStartPanel::goButtonCallback(cocos2d::Ref* pSender)
 {
+
 	for (auto element : m_Elements)
 	{
 		m_GameScene->removeChild(element);
@@ -198,8 +114,9 @@ void GameStartPanel::goButtonCallback(cocos2d::Ref* pSender)
 	m_GameScene->deleteStartupPanel();
 }
 
-void GameStartPanel::selectedItemCallback(cocos2d::Ref* pSender)
+void GameStartPanel::selectedItemCallback(cocos2d::Ref* pSender, Shop* shop)
 {
+
 	for (auto item : m_StartupItems)
 	{
 		if (item != pSender)
@@ -254,5 +171,14 @@ void GameStartPanel::selectedItemCallback(cocos2d::Ref* pSender)
 
 void GameStartPanel::onMouseOver(MouseOverMenuItem* item, cocos2d::Event* event)
 {
+}
+
+void GameStartPanel::registerStartupChoice()
+{
+	for (auto item : m_StartupItems)
+	{
+		//if (item->itemSelectedData.isSelected)
+		//	GameData::getInstance().m_Player->m_MyShops.push_back()
+	}
 
 }

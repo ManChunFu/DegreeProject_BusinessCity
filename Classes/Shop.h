@@ -22,7 +22,11 @@ public:
 	std::string m_ShopType;
 	std::string m_Name;
 	ownerTypes m_Owner;
-	std::string m_ShopLook;
+	std::string m_ShopLook_Normal;
+	std::string m_ShopLook_Lit;
+	std::string m_ShopLook_Disabled;
+	bool m_Startup;
+	unsigned m_ShopId;
 	unsigned m_ShopPrice;
 	unsigned m_Electricity;
 	unsigned m_Water;

@@ -1,6 +1,10 @@
 #include "Player.h"
 #include "Shop.h"
 
+Player::~Player()
+{
+}
+
 const std::string& Player::getName()
 {
 	return m_PlayerName;

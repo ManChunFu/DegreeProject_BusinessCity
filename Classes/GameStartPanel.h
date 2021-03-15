@@ -3,6 +3,7 @@
 
 class GameScene;
 class MouseOverMenuItem;
+class Shop;
 
 class GameStartPanel : public Canvas
 {
@@ -15,7 +16,7 @@ private:
 	GameScene* m_GameScene = nullptr;
 	cocos2d::Vector<cocos2d::MenuItem*> m_StartupItems;
 	void goButtonCallback(cocos2d::Ref* pSender);
-	void selectedItemCallback(cocos2d::Ref* pSender);
+	void selectedItemCallback(cocos2d::Ref* pSender, Shop* shop);
 	void onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event);
-	
+	void registerStartupChoice();
 };

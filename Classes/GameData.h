@@ -16,7 +16,7 @@ public:
 		 return instance;
 	 }
 private:
-	GameData() { m_CharacterSpriteMap.empty(); m_CharacterSpriteMap.clear(); delete m_Player; m_Player = nullptr; };
+	GameData() {};
 	//GameData(GameData const&);              // Don't Implement
 	//void operator=(GameData const&); // Don't implement
 public:
@@ -29,7 +29,7 @@ public:
 	std::string getPlayerCharacter(cocos2d::itemTypes playerCharacterType);
 
 	Player* m_Player = nullptr;
-	std::vector<Shop*> m_Shops;
+	std::map<unsigned, Shop*> m_Shops;
 	struct colorTypes
 	{
 		cocos2d::Color4B MediumOrchild = cocos2d::Color4B(186, 85, 211, 255);

@@ -1,8 +1,12 @@
 [
   {
+    "ShopId": 0,
+    "Startup": true,
     "Type": "Hot Dog Stand",
     "Name": "Super Hotdog",
-    "ShopLook": "",
+    "ShopLookNormal": "HotdogStand.png",
+    "ShopLookLit": "HotdogStand_Lit.png",
+    "ShopLookDisabled" : "HotdogStand_Disabled.png",
     "ShopPrice": 20000,
     "ElectricityCost": 200,
     "WaterCost": 50,
@@ -21,9 +25,13 @@
     ]
   },
   {
+    "ShopId": 1,
+    "Startup": true,
     "Type": "Ice Cream Stand",
     "Name": "Sweety Ice Cream",
-    "ShopLook": "",
+    "ShopLookNormal": "Icecream.png",
+    "ShopLookLit": "Icecream_Lit.png",
+    "ShopLookDisabled": "Icecream_Disabled.png",
     "ShopPrice": 20000,
     "ElectricityCost": 400,
     "WaterCost": 50,
@@ -50,9 +58,13 @@
     ]
   },
   {
+    "ShopId": 2,
+    "Startup": true,
     "Type": "Fruit Stand",
     "Name": "Fresh Fruits",
-    "ShopLook": "",
+    "ShopLookNormal": "FruitStand.png",
+    "ShopLookLit": "FruitStand_Lit.png",
+    "ShopLookDisabled": "FruitStand_Disabled.png",
     "ShopPrice": 10000,
     "ElectricityCost": 100,
     "WaterCost": 100,
@@ -83,9 +95,13 @@
     ]
   },
   {
+    "ShopId": 3,
+    "Startup": true,
     "Type": "Handicraft Stand",
     "Name": "Decor",
-    "ShopLook": "",
+    "ShopLookNormal": "Handicrafts.png",
+    "ShopLookLit": "Handicrafts_Lit.png",
+    "ShopLookDisabled": "Handicrafts_Disabled.png",
     "ShopPrice": 15000,
     "ElectricityCost": 100,
     "WaterCost": 50,

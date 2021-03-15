@@ -58,6 +58,7 @@ void Bank::openBankPanel(GameScene* scene, unsigned currentWeek)
 	{
 		setMenuItemsVisible(true);
 		m_DisabledPanel->setVisible(false);
+		m_LoanWidget->setVisible(true);
 	}
 }
 

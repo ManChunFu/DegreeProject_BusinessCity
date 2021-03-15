@@ -6,5 +6,5 @@ class Shop;
 
 struct DataManager
 {
-	static std::vector<Shop*> getShops();
+	static std::map<unsigned, Shop*> getShops();
 };

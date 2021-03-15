@@ -15,14 +15,26 @@ Shop::Shop(rapidjson::Value& json)
 
 		switch (StringToInt(propertyName.c_str()))
 		{
+		case StringToInt("ShopId"):
+			m_ShopId = itr->value.GetInt();
+			break;
+		case StringToInt("Startup"):
+			m_Startup = itr->value.GetBool();
+			break;
 		case StringToInt("Type"):
 			m_ShopType = itr->value.GetString();
 			break;
 		case StringToInt("Name"):
 			m_Name = itr->value.GetString();
 			break;
-		case StringToInt("ShopLook"):
-			m_ShopLook = itr->value.GetString();
+		case StringToInt("ShopLookNormal"):
+			m_ShopLook_Normal = itr->value.GetString();
+			break;
+		case StringToInt("ShopLookLit"):
+			m_ShopLook_Lit = itr->value.GetString();
+			break;
+		case StringToInt("ShopLookDisabled"):
+			m_ShopLook_Disabled = itr->value.GetString();
 			break;
 		case StringToInt("ShopPrice"):
 			m_ShopPrice = itr->value.GetInt();
