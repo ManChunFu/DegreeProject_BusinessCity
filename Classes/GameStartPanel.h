@@ -7,11 +7,14 @@ class MouseOverMenuItem;
 class GameStartPanel : public Canvas
 {
 public:
-	~GameStartPanel() { m_StartupItems.clear(); }
+	virtual ~GameStartPanel();
 	void createPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint);
 
 private:
+	std::vector<cocos2d::Node*> m_Elements;
+	GameScene* m_GameScene = nullptr;
 	cocos2d::Vector<cocos2d::MenuItem*> m_StartupItems;
+	void goButtonCallback(cocos2d::Ref* pSender);
 	void selectedItemCallback(cocos2d::Ref* pSender);
 	void onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event);
 	

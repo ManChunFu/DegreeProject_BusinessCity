@@ -27,9 +27,10 @@ public:
 	CREATE_FUNC(GameScene);
 
 	Player* m_Player = nullptr;
-	void updateCurrentCash(int amout);
-private:
 	GameStartPanel* m_StartupPanel = nullptr;
+	void updateCurrentCash(int amout);
+	void deleteStartupPanel();
+private:
 	cocos2d::Size m_VisibleSize;
 	cocos2d::Label* m_Saving = nullptr;
 	cocos2d::Sprite* m_TopPanel = nullptr;
@@ -59,5 +60,6 @@ private:
 	void onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event);
 	void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
 	void onCurrentCashChange(Player* player, int currentCashAmout);
+
 };
 #endif

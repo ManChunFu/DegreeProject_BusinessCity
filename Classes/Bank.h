@@ -14,7 +14,7 @@ NS_CC_END;
 class Bank
 {
 public:
-	~Bank();
+	virtual ~Bank();
 
 	void openBankPanel(GameScene* scene, unsigned currentWeek);
 	void closeBankPanel();

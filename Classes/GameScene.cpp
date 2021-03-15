@@ -212,6 +212,12 @@ void GameScene::updateCurrentCash(int amout)
 	GameFunctions::updateLabelText_MoneyFormat(m_Saving, m_CurrentCash);
 }
 
+void GameScene::deleteStartupPanel()
+{
+	delete m_StartupPanel;
+	m_StartupPanel = nullptr;
+}
+
 void GameScene::setSpriteScale(Sprite* sprite, Vec2 scale)
 {
 	sprite->setScaleX((m_VisibleSize.width / sprite->getContentSize().width) * scale.x);

@@ -7,11 +7,21 @@
 USING_NS_CC;
 
 
+GameStartPanel::~GameStartPanel()
+{
+	m_StartupItems.clear(); 
+	m_Elements.clear();
+	m_GameScene = nullptr;
+}
+
 void GameStartPanel::createPanel(GameScene* scene, Vec2 sceneMidPoint)
 {
+	m_GameScene = scene;
+
 	auto startupPanel = Sprite::createWithSpriteFrameName("Brown_Panel_400.png");
 	startupPanel->setPosition(sceneMidPoint);
-	scene->addChild(startupPanel, 2);
+	m_GameScene->addChild(startupPanel, 2);
+	m_Elements.push_back(startupPanel);
 
 	auto startupLabel = Label::createWithTTF("CHOOSE YOUR STARTUP", "fonts/NirmalaB.ttf", 20);
 	if (startupLabel)
@@ -21,6 +31,28 @@ void GameStartPanel::createPanel(GameScene* scene, Vec2 sceneMidPoint)
 			startupPanel->getContentSize().height - 25.f), startupPanel, 1);
 	}
 
+	auto goButton = MouseOverMenuItem::creatMouseOverMenuButton("UIToggleButton.png", "UIToggleButton_Lit.png", "UIToggleButton_Disabled.png",
+		CC_CALLBACK_1(GameStartPanel::goButtonCallback, this));
+	if (goButton)
+	{
+		goButton->onMouseOver = CC_CALLBACK_2(GameStartPanel::onMouseOver, this);
+		goButton->itemSelectedData.type = itemTypes::BUTTON;
+		goButton->setScale(1.5f);
+		goButton->setPosition(sceneMidPoint);
+		goButton->setItemRect(sceneMidPoint, 1.5f);
+
+		goButton->setVisible(false);
+		goButton->setEnabled(false);
+
+		auto goLabel = Label::createWithTTF("GO", "fonts/NirmalaB.ttf", 16);
+		if (goLabel)
+			GameFunctions::displayLabel(goLabel, Color4B::WHITE, Vec2(goButton->getContentSize().width * 0.5f,
+				goButton->getContentSize().height * 0.5f), goButton, 1);
+
+		m_StartupItems.pushBack(goButton);
+	}
+
+#pragma region create startup items
 	auto item1 = MouseOverMenuItem::creatMouseOverMenuButton("HotdogStand.png", "HotdogStand_Lit.png", "HotdogStand_Disabled.png", 
 		CC_CALLBACK_1(GameStartPanel::selectedItemCallback, this));
 
@@ -148,11 +180,22 @@ void GameStartPanel::createPanel(GameScene* scene, Vec2 sceneMidPoint)
 
 		m_StartupItems.pushBack(item4);
 	}
+#pragma endregion
 
 	auto menu = Menu::createWithArray(m_StartupItems);
 	menu->setPosition(Vec2::ZERO);
+	m_Elements.push_back(menu);
 
-	scene->addChild(menu, 3);
+	m_GameScene->addChild(menu, 3);
+}
+
+void GameStartPanel::goButtonCallback(cocos2d::Ref* pSender)
+{
+	for (auto element : m_Elements)
+	{
+		m_GameScene->removeChild(element);
+	}
+	m_GameScene->deleteStartupPanel();
 }
 
 void GameStartPanel::selectedItemCallback(cocos2d::Ref* pSender)
@@ -161,6 +204,13 @@ void GameStartPanel::selectedItemCallback(cocos2d::Ref* pSender)
 	{
 		if (item != pSender)
 		{
+			if (item->itemSelectedData.type == itemTypes::BUTTON)
+			{
+				item->setVisible(true);
+				item->setEnabled(true);
+				continue;
+			}
+
 			item->setEnabled(false);
 			continue;
 		}
@@ -172,6 +222,11 @@ void GameStartPanel::selectedItemCallback(cocos2d::Ref* pSender)
 			item->unselected();
 			for (auto item : m_StartupItems)
 			{
+				if (item->itemSelectedData.type == itemTypes::BUTTON)
+				{
+					item->setVisible(false);
+					item->setEnabled(false);
+				}
 				item->setEnabled(true);
 			}
 			return;
@@ -192,10 +247,12 @@ void GameStartPanel::selectedItemCallback(cocos2d::Ref* pSender)
 		item->itemSelectedData.selectedLabel->setRotation(-15.f);
 		GameFunctions::displayLabel(item->itemSelectedData.selectedLabel, GameData::getInstance().m_ColorType.HotPink, Vec2(item->getContentSize().width * 0.5f,
 			item->getContentSize().height * 0.5f - 60.f), item, 1),
-			item->selected();
+		
+		item->selected();
 	}
 }
 
 void GameStartPanel::onMouseOver(MouseOverMenuItem* item, cocos2d::Event* event)
 {
+
 }

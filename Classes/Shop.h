@@ -17,7 +17,7 @@ class Shop
 public:
 	Shop(rapidjson::Value& json);
 	Shop() {};
-	~Shop() {};
+	virtual ~Shop() {};
 
 	std::string m_ShopType;
 	std::string m_Name;
