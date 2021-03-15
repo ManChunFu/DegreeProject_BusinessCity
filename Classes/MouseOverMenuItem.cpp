@@ -13,7 +13,10 @@ MouseOverMenuItem* MouseOverMenuItem::creatMouseOverMenuButton(const std::string
 	auto spriteSelected = Sprite::createWithSpriteFrameName(selectedPath);
 	auto spriteDisabled = Sprite::createWithSpriteFrameName(disabledPath);
 	
-	return create(spriteNormal, spriteSelected, spriteDisabled, callback);
+	if (spriteNormal && spriteSelected && spriteDisabled)
+		return create(spriteNormal, spriteSelected, spriteDisabled, callback);
+	
+	return nullptr;
 }
 
 MouseOverMenuItem* MouseOverMenuItem::create(const std::string& normalImage, const std::string& overImage, const std::string& disabledImage, const ccMenuCallback& callback)

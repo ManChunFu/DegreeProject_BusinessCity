@@ -11,4 +11,5 @@ public:
 	cocos2d::Size m_VisibleSize;
 	cocos2d::Vec2 m_origin;
 	void setSpriteScale(cocos2d::Sprite* sprite, cocos2d::Vec2 scale);
+
 };

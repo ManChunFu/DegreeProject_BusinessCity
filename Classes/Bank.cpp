@@ -81,7 +81,7 @@ void Bank::createBankPanel()
 	if (!m_BankPanel)
 		return;
 
-	GameFunctions::displaySprite(m_BankPanel, Vec2(sceneMidPoint), m_GameScene, 1);
+	GameFunctions::displaySprite(m_BankPanel, Vec2(sceneMidPoint), m_GameScene, 2);
 
 	auto panelMidPoint = Vec2(m_BankPanel->getContentSize().width * 0.5f, m_BankPanel->getContentSize().height * 0.5f);
 

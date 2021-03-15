@@ -5,6 +5,7 @@
 #include "GameFunctions.h"
 #include "Bank.h"
 #include "Player.h"
+#include "GameStartPanel.h"
 #include "cocostudio/SimpleAudioEngine.h"
 using namespace CocosDenshion;
 USING_NS_CC;
@@ -12,6 +13,8 @@ USING_NS_CC;
 
 GameScene::~GameScene()
 {
+	delete m_StartupPanel;
+	m_StartupPanel = nullptr;
 	m_MenuItems.clear();
 	delete m_Bank;
 	m_Bank = nullptr;
@@ -45,10 +48,13 @@ bool GameScene::init()
 	auto backgroundSprite = Sprite::createWithSpriteFrameName("GameSceneCityView.png");
 	if (!backgroundSprite)
 		return false;
-
-	GameFunctions::displaySprite(backgroundSprite, Point(origin.x + (m_VisibleSize.width / 2), origin.y + (m_VisibleSize.height / 2)),
-		this, 0);
+	
+	auto sceneMidPoint = Point(origin.x + (m_VisibleSize.width / 2), origin.y + (m_VisibleSize.height / 2));
+	GameFunctions::displaySprite(backgroundSprite, sceneMidPoint, this, 0);
 	setSpriteScale(backgroundSprite, Vec2::ONE);
+	
+	m_StartupPanel = new GameStartPanel();
+	m_StartupPanel->createPanel(this, sceneMidPoint);
 
 	m_TopPanel = Sprite::createWithSpriteFrameName("InGamePanel_Black_80.png");
 	if (!m_TopPanel)

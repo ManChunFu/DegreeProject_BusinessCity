@@ -12,6 +12,7 @@ namespace CocosDenshion
 class MouseOverMenuItem;
 class Bank;
 class Player;
+class GameStartPanel;
 
 class GameScene : public cocos2d::Layer
 {
@@ -28,6 +29,7 @@ public:
 	Player* m_Player = nullptr;
 	void updateCurrentCash(int amout);
 private:
+	GameStartPanel* m_StartupPanel = nullptr;
 	cocos2d::Size m_VisibleSize;
 	cocos2d::Label* m_Saving = nullptr;
 	cocos2d::Sprite* m_TopPanel = nullptr;
