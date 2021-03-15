@@ -124,21 +124,6 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>CityView.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{1920,1080}</string>
-                <key>spriteSourceSize</key>
-                <string>{1920,1080}</string>
-                <key>textureRect</key>
-                <string>{{1,1},{1920,1080}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
             <key>CreditCardBank_100.png</key>
             <dict>
                 <key>aliases</key>
@@ -153,6 +138,21 @@
                 <string>{{595,1185},{100,71}}</string>
                 <key>textureRotated</key>
                 <true/>
+            </dict>
+            <key>GameSceneCityView.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{1920,1080}</string>
+                <key>spriteSourceSize</key>
+                <string>{1920,1080}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{1920,1080}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>InGamePanel_Black_80.png</key>
             <dict>
@@ -288,7 +288,7 @@
             <key>size</key>
             <string>{1992,1478}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:dfdea07576885625b11352cd355a60d1:c665788f2ccb833ec29a10c912283104:865db70d33f6fd1c3bd18ff13c48b0ed$</string>
+            <string>$TexturePacker:SmartUpdate:cec608822481559354d2bc7541370117:0e58a871acbcbaf516f742494fe81ad5:865db70d33f6fd1c3bd18ff13c48b0ed$</string>
             <key>textureFileName</key>
             <string>GameScene.png</string>
         </dict>

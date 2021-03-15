@@ -38,10 +38,11 @@ bool GameScene::init()
 	m_Player = GameData::getInstance().m_Player;
 	m_Player->onCashAmoutChange = CC_CALLBACK_2(GameScene::onCurrentCashChange, this);
 
+#pragma region Setup InGame UI
 	m_VisibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto backgroundSprite = Sprite::createWithSpriteFrameName("CityView.png");
+	auto backgroundSprite = Sprite::createWithSpriteFrameName("GameSceneCityView.png");
 	if (!backgroundSprite)
 		return false;
 
@@ -86,7 +87,7 @@ bool GameScene::init()
 	{
 		GameFunctions::updateLabelText_MoneyFormat(m_Saving, m_CurrentCash);
 		m_Saving->enableGlow(Color4B::WHITE);
-		GameFunctions::displayLabel(m_Saving, GameData::getInstance().m_ColorType.Gold, 
+		GameFunctions::displayLabel(m_Saving, GameData::getInstance().m_ColorType.Gold,
 			Vec2(topPanelMidPoint.x + 420.f, topPanelMidPoint.y - 30.f), m_TopPanel, 1);
 	}
 
@@ -180,6 +181,7 @@ bool GameScene::init()
 	auto menu = Menu::createWithArray(m_MenuItems);
 	menu->setPosition(Vec2::ZERO);
 	this->addChild(menu, 2);
+#pragma endregion
 
 	// Game time setup
 	m_ElapsedTime = 0;

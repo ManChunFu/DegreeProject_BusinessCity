@@ -59,7 +59,7 @@ bool MainMenuScene::init()
 	/////////////////////////////
 
 	// background image
-	auto backgroundSprite = Sprite::createWithSpriteFrameName("CityTopDownViewWithLayer.png");
+	auto backgroundSprite = Sprite::createWithSpriteFrameName("MainMenuBackground.png");
 	if (!backgroundSprite)
 		return false;
 
@@ -145,14 +145,15 @@ void MainMenuScene::menuCloseCallback(Ref* pSender)
 {
 	//Close the cocos2d-x game scene and quit the application
 	StopAudio(true);
+	delete m_PlayerSetting;
 	m_PlayerSetting = nullptr;
+	_eventDispatcher->removeEventListener(m_Listener);
 	Director::getInstance()->end();
 
 	/*To navigate back to native iOS screen(if present) without quitting the application  ,do not use Director::getInstance()->end() as given above,instead trigger a custom event created in RootViewController.mm as below*/
 
 	//EventCustom customEndEvent("game_scene_close_event");
 	//_eventDispatcher->dispatchEvent(&customEndEvent);
-	_eventDispatcher->removeEventListener(m_Listener);
 }
 
 void MainMenuScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)

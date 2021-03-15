@@ -485,9 +485,14 @@ void Bank::takeLoan(cocos2d::Ref* pSender)
 	GameData::getInstance().m_Player->updateDebt(m_LoanAmout);
 	setMenuItemsVisible(false);
 	m_LoanWidget->setVisible(false);
+
+	// showing debt panel
 	m_DisabledPanel->setVisible(true);
 	m_HasDebt = true;
-	m_Debt = m_LoanAmout;
+	m_Debt += m_LoanAmout;
+	GameFunctions::updateLabelText_MoneyFormat(m_DebtAmoutText, m_Debt);
+	m_RepaymentRemainWeeks = m_PaybackWeeks;
+	m_RemainWeeksText->setString(std::to_string(m_RepaymentRemainWeeks));
 }
 
 void Bank::setMenuItemsVisible(bool visible)

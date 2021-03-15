@@ -45,6 +45,7 @@ private:
 	unsigned m_WaterFee = 0;
 	unsigned m_SalaryExpense = 0;
 	unsigned m_Debt = 0;
+	unsigned m_RepaymentRemainWeeks = 0;
 	unsigned m_commericalFee = 0;
 	unsigned m_SalesIncome = 0;
 	unsigned m_LoanAmout = 10000;
