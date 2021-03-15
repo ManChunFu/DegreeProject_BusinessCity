@@ -66,5 +66,6 @@ private:
 	void calculateWeeklyRepayments();
 	void takeLoan(cocos2d::Ref* pSender);
 	void setMenuItemsVisible(bool visible);
-	void updateDebtCalculation(unsigned repayment);
+	void updateLoanCalculation(unsigned repayment);
+	void updateDebtDisplay(int repayment);
 };

@@ -113,9 +113,10 @@ void Bank::createBankPanel()
 #pragma endregion
 
 #pragma region Create weekly expense
-	m_Shop = Label::createWithTTF("Hot Dog Stand", "fonts/NirmalaB.ttf", 15);
+	m_Shop = Label::createWithTTF("", "fonts/NirmalaB.ttf", 15);
 	if (m_Shop)
 	{
+		m_Shop->setString(m_ShopName);
 		m_Shop->enableGlow(Color4B::WHITE);
 		GameFunctions::displayLabel(m_Shop, Color4B::BLACK, Vec2(panelMidPoint.x, panelMidPoint.y + 120.f),
 			m_BankPanel, 1);
@@ -489,10 +490,7 @@ void Bank::takeLoan(cocos2d::Ref* pSender)
 	// showing debt panel
 	m_DisabledPanel->setVisible(true);
 	m_HasDebt = true;
-	m_Debt += m_LoanAmout;
-	GameFunctions::updateLabelText_MoneyFormat(m_DebtAmoutText, m_Debt);
-	m_RepaymentRemainWeeks = m_PaybackWeeks;
-	m_RemainWeeksText->setString(std::to_string(m_RepaymentRemainWeeks));
+	updateDebtDisplay(m_LoanAmout);
 }
 
 void Bank::setMenuItemsVisible(bool visible)
@@ -504,9 +502,17 @@ void Bank::setMenuItemsVisible(bool visible)
 	}
 }
 
-void Bank::updateDebtCalculation(unsigned repayment)
+void Bank::updateLoanCalculation(unsigned repayment)
 {
 	m_Loan -= repayment;
+}
+
+void Bank::updateDebtDisplay(int repayment)
+{
+	m_Debt += repayment;
+	GameFunctions::updateLabelText_MoneyFormat(m_DebtAmoutText, m_Debt);
+	m_RepaymentRemainWeeks = m_PaybackWeeks;
+	m_RemainWeeksText->setString(std::to_string(m_RepaymentRemainWeeks));
 }
 
 
