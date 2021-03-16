@@ -3,6 +3,7 @@
 
 Player::~Player()
 {
+	m_MyShopIds.clear();
 }
 
 const std::string& Player::getName()
