@@ -27,8 +27,8 @@ private:
 	cocos2d::Label* m_Electricity = nullptr;
 	cocos2d::Label* m_Water = nullptr;
 	cocos2d::Label* m_Salary = nullptr;
-	cocos2d::Label* m_Loan = nullptr;
-	cocos2d::Label* m_Commerical = nullptr;
+	cocos2d::Label* m_PaybackWeekly = nullptr;
+	cocos2d::Label* m_Commercial = nullptr;
 	cocos2d::Label* m_Sales = nullptr;
 	cocos2d::Label* m_Total = nullptr;
 	cocos2d::Label* m_LoanAmoutText = nullptr;
@@ -46,17 +46,18 @@ private:
 	unsigned m_SalaryExpense = 0;
 	unsigned m_Debt = 0;
 	unsigned m_RepaymentRemainWeeks = 0;
-	unsigned m_commericalFee = 0;
+	unsigned m_commercialFee = 0;
 	unsigned m_SalesIncome = 0;
 	unsigned m_LoanAmout = 10000;
 	unsigned m_PaybackWeeks = 5;
+	unsigned m_Repayments = 0;
 
 	cocos2d::Vector<cocos2d::MenuItem*> m_BankButtons;
 
 	bool m_HasDebt = false;
 
 	void createBankPanel();
-	int getOverviewAmout();
+	void updateOverviewAmout();
 	void addAmoutCallback(cocos2d::Ref* pSender);
 	void reduceAmoutCallback(cocos2d::Ref* pSender);
 	void addWeekCallback(cocos2d::Ref* pSender);
@@ -66,6 +67,6 @@ private:
 	void calculateWeeklyRepayments();
 	void takeLoan(cocos2d::Ref* pSender);
 	void setMenuItemsVisible(bool visible);
-	void updateLoanCalculation(unsigned repayment);
 	void updateDebtDisplay(int repayment);
+	void updatePlayerCurrentShopInfo();
 };

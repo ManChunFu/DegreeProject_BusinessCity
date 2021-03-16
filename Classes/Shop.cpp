@@ -1,9 +1,9 @@
 #include "Shop.h"
 #include "ShopProduct.h"
 
-constexpr unsigned int StringToInt(const char* str, int h = 0)
+constexpr unsigned int stringToInt(const char* str, int h = 0)
 {
-	return !str[h] ? 5381 : (StringToInt(str, h + 1) * 33) ^ str[h];
+	return !str[h] ? 5381 : (stringToInt(str, h + 1) * 33) ^ str[h];
 }
 
 
@@ -13,48 +13,48 @@ Shop::Shop(rapidjson::Value& json)
 	{
 		std::string propertyName = itr->name.GetString();
 
-		switch (StringToInt(propertyName.c_str()))
+		switch (stringToInt(propertyName.c_str()))
 		{
-		case StringToInt("ShopId"):
+		case stringToInt("ShopId"):
 			m_ShopId = itr->value.GetInt();
 			break;
-		case StringToInt("Startup"):
+		case stringToInt("Startup"):
 			m_Startup = itr->value.GetBool();
 			break;
-		case StringToInt("Type"):
+		case stringToInt("Type"):
 			m_ShopType = itr->value.GetString();
 			break;
-		case StringToInt("Name"):
+		case stringToInt("Name"):
 			m_Name = itr->value.GetString();
 			break;
-		case StringToInt("ShopLookNormal"):
+		case stringToInt("ShopLookNormal"):
 			m_ShopLook_Normal = itr->value.GetString();
 			break;
-		case StringToInt("ShopLookLit"):
+		case stringToInt("ShopLookLit"):
 			m_ShopLook_Lit = itr->value.GetString();
 			break;
-		case StringToInt("ShopLookDisabled"):
+		case stringToInt("ShopLookDisabled"):
 			m_ShopLook_Disabled = itr->value.GetString();
 			break;
-		case StringToInt("ShopPrice"):
+		case stringToInt("ShopPrice"):
 			m_ShopPrice = itr->value.GetInt();
 			break;
-		case StringToInt("ElectricityCost"):
+		case stringToInt("ElectricityCost"):
 			m_Electricity = itr->value.GetInt();
 			break;
-		case StringToInt("WaterCost"):
+		case stringToInt("WaterCost"):
 			m_Water = itr->value.GetInt();
 			break;
-		case StringToInt("Employees"):
+		case stringToInt("Employees"):
 			m_Employees = itr->value.GetInt();
 			break;
-		case StringToInt("TotalSalary"):
+		case stringToInt("TotalSalary"):
 			m_TotalSalaryExpense = itr->value.GetInt();
 			break;
-		case StringToInt("CommericalCost"):
-			m_CommericalCost = itr->value.GetInt();
+		case stringToInt("CommercialCost"):
+			m_CommercialCost = itr->value.GetInt();
 			break;
-		case StringToInt("Products"):
+		case stringToInt("Products"):
 			if (itr->value.IsArray())
 			{
 				auto products = itr->value.GetArray();
@@ -69,7 +69,6 @@ Shop::Shop(rapidjson::Value& json)
 			break;
 		
 		}
-
 
 	}
 

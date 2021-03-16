@@ -39,7 +39,7 @@ void GameFunctions::updateLabelText_MoneyFormat(Label* label, int value, bool mi
 	if (value != 0)
 	{
 		cashStr = std::to_string(value);
-		auto cashStrLength =  cashStr.length();
+		auto cashStrLength =  (value < 0)? cashStr.length() -1 : cashStr.length();
 		if (cashStrLength > 3)
 			cashStr = cashStr.insert(cashStr.length() - 3, 1, ',');
 		if (cashStrLength > 6)

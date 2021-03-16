@@ -14,6 +14,7 @@ public:
 	cocos2d::itemTypes getCharacter();
 	void updateDebt(unsigned debtAmout);
 	void updateCurrentCashAmout(int cashAmout);
+	std::vector<unsigned> m_MyShopIds;
 	
 	std::function<void(Player* player, int cashAmout)> onCashAmoutChange;
 private:
@@ -21,5 +22,4 @@ private:
 	cocos2d::itemTypes m_PlayerCharacter;
 	int m_CurrentCashAmout = 50000;
 	unsigned m_Debut = 0;
-	std::vector<unsigned> m_MyShopIds;
 };

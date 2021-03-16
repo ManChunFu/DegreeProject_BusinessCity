@@ -61,7 +61,7 @@ void GameStartPanel::createPanel(GameScene* scene, Vec2 sceneMidPoint)
 			continue;
 
 		auto buttomItem = MouseOverMenuItem::creatMouseOverMenuButton(item.second->m_ShopLook_Normal, item.second ->m_ShopLook_Lit, item.second ->m_ShopLook_Disabled,
-			CC_CALLBACK_1(GameStartPanel::selectedItemCallback, this, item.second));
+			CC_CALLBACK_1(GameStartPanel::selectedItemCallback, this, item.first));
 
 		if (!buttomItem)
 			continue;
@@ -106,7 +106,6 @@ void GameStartPanel::createPanel(GameScene* scene, Vec2 sceneMidPoint)
 
 void GameStartPanel::goButtonCallback(cocos2d::Ref* pSender)
 {
-
 	for (auto element : m_Elements)
 	{
 		m_GameScene->removeChild(element);
@@ -114,8 +113,9 @@ void GameStartPanel::goButtonCallback(cocos2d::Ref* pSender)
 	m_GameScene->deleteStartupPanel();
 }
 
-void GameStartPanel::selectedItemCallback(cocos2d::Ref* pSender, Shop* shop)
+void GameStartPanel::selectedItemCallback(cocos2d::Ref* pSender, unsigned shopID)
 {
+	GameData::getInstance().m_Player->m_MyShopIds.push_back(shopID);
 
 	for (auto item : m_StartupItems)
 	{

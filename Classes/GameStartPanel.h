@@ -15,8 +15,8 @@ private:
 	std::vector<cocos2d::Node*> m_Elements;
 	GameScene* m_GameScene = nullptr;
 	cocos2d::Vector<cocos2d::MenuItem*> m_StartupItems;
+	void selectedItemCallback(cocos2d::Ref* pSender, unsigned shopID);
 	void goButtonCallback(cocos2d::Ref* pSender);
-	void selectedItemCallback(cocos2d::Ref* pSender, Shop* shop);
 	void onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event);
 	void registerStartupChoice();
 };

@@ -25,14 +25,14 @@ public:
 	std::string m_ShopLook_Normal;
 	std::string m_ShopLook_Lit;
 	std::string m_ShopLook_Disabled;
-	bool m_Startup;
-	unsigned m_ShopId;
-	unsigned m_ShopPrice;
-	unsigned m_Electricity;
-	unsigned m_Water;
-	unsigned m_Employees;
-	unsigned m_TotalSalaryExpense;
-	unsigned m_CommericalCost;
+	bool m_Startup = false;
+	unsigned m_ShopId = 0;
+	unsigned m_ShopPrice = 0;
+	unsigned m_Electricity = 0;
+	unsigned m_Water = 0;
+	unsigned m_Employees = 0;
+	unsigned m_TotalSalaryExpense = 0;
+	unsigned m_CommercialCost = 0;
 
 	std::vector<ShopProduct*> m_Products;
 
