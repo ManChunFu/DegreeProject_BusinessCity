@@ -16,6 +16,7 @@ GameScene::~GameScene()
 	delete m_StartupPanel;
 	m_StartupPanel = nullptr;
 	m_MenuItems.clear();
+	m_BankButton = nullptr;
 	delete m_Bank;
 	m_Bank = nullptr;
 	m_Player = nullptr;
@@ -106,22 +107,23 @@ bool GameScene::init()
 	}
 
 	// create bank buttons
-	auto bankButton = MouseOverMenuItem::creatMouseOverMenuButton("ButtonBlueNormal.png", "ButtonBlueLit.png", "ButtonBlueDisabled.png",
+	m_BankButton = MouseOverMenuItem::creatMouseOverMenuButton("ButtonBlueNormal.png", "ButtonBlueLit.png", "ButtonBlueDisabled.png",
 		CC_CALLBACK_1(GameScene::checkBalanceCallback, this));
-	if (bankButton)
+	if (m_BankButton)
 	{
-		bankButton->onMouseOver = CC_CALLBACK_2(GameScene::onMouseOver, this);
+		m_BankButton->onMouseOver = CC_CALLBACK_2(GameScene::onMouseOver, this);
 		auto bankPos = Vec2(m_TopPanel->getPosition().x + 445.f, m_TopPanel->getPosition().y);
-		bankButton->setPosition(bankPos);
-		bankButton->setScale(0.7f);
-		bankButton->setItemRect(bankPos, 0.7f);
+		m_BankButton->setPosition(bankPos);
+		m_BankButton->setScale(0.7f);
+		m_BankButton->setItemRect(bankPos, 0.7f);
 
 		auto myBankLabel = Label::createWithTTF("CHIBANK", "fonts/NirmalaB.ttf", 20);
 		if (myBankLabel)
 			GameFunctions::displayLabel(myBankLabel, GameData::getInstance().m_ColorType.Taro,
-				Vec2(bankButton->getContentSize().width * 0.5f, bankButton->getContentSize().height * 0.5f), bankButton, 1);
+				Vec2(m_BankButton->getContentSize().width * 0.5f, m_BankButton->getContentSize().height * 0.5f), m_BankButton, 1);
 
-		m_MenuItems.pushBack(bankButton);
+		m_BankButton->setEnabled(false);
+		m_MenuItems.pushBack(m_BankButton);
 
 		m_Bank = new Bank();
 	}
@@ -216,6 +218,7 @@ void GameScene::deleteStartupPanel()
 {
 	delete m_StartupPanel;
 	m_StartupPanel = nullptr;
+	m_BankButton->setEnabled(true);
 }
 
 void GameScene::setSpriteScale(Sprite* sprite, Vec2 scale)

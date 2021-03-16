@@ -39,6 +39,7 @@ private:
 	cocos2d::Label* m_WeekDay = nullptr;
 	cocos2d::Label* m_TimeHourDisplay = nullptr;
 	cocos2d::Label* m_TimeMinDisplay = nullptr;
+	MouseOverMenuItem* m_BankButton = nullptr;
 	cocos2d::Vector<cocos2d::MenuItem*> m_MenuItems;
 	
 	Bank* m_Bank = nullptr;
