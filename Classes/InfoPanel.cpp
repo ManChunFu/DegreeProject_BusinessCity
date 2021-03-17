@@ -58,7 +58,7 @@ void InfoPanel::createPanel(GameScene* scene, Player* player, cocos2d::Vec2 scen
 	m_Saving = Label::createWithTTF("", "fonts/NirmalaB.ttf", 25);
 	if (m_Saving)
 	{
-		GameFunctions::updateLabelText_MoneyFormat(m_Saving, m_CurrentCash);
+		GameFunctions::updateLabelText_MoneyFormat(m_Saving, player->getCurrentCash());
 		m_Saving->enableGlow(Color4B::WHITE);
 		GameFunctions::displayLabel(m_Saving, GameData::getInstance().m_ColorType.Gold,
 			Vec2(topPanelMidPoint.x + 420.f, topPanelMidPoint.y - 30.f), m_InfoPanel, 1);
@@ -156,7 +156,7 @@ void InfoPanel::createPanel(GameScene* scene, Player* player, cocos2d::Vec2 scen
 	menu->setPosition(Vec2::ZERO);
 	m_GameScene->addChild(menu, 2);
 
-	m_ElapsedTime = 0;
+	m_ElapsedTime = -20;
 
 	// set key event
 	auto listener = EventListenerKeyboard::create();
@@ -175,7 +175,7 @@ void InfoPanel::update(float delta)
 	m_CurrentMinute++;
 	m_ElapsedTime = 0;
 	GameFunctions::updatLabelText_TimeFormat(m_TimeMinDisplay, m_CurrentMinute % 60);
-
+	m_Bank->update();
 
 	// update hour
 	if (m_CurrentMinute > 59)
@@ -197,13 +197,14 @@ void InfoPanel::update(float delta)
 	if (m_Today > 6)
 	{
 		m_Today = 0;
+		//m_Bank->update();
 		m_Weeks++;
 		GameFunctions::updatLabelText_TimeFormat(m_WeekCount, m_Weeks);
 	}
 
 }
 
-void InfoPanel::enableBankButton()
+void InfoPanel::enableBankButton(bool value)
 {
 	m_BankButton->setEnabled(true);
 }

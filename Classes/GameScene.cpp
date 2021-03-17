@@ -57,6 +57,12 @@ void GameScene::update(float delta)
 	m_Canvas->update(delta);
 }
 
+void GameScene::gameOver()
+{
+	Director::getInstance()->pause();
+	m_Canvas->gameOver(this);
+}
+
 
 void GameScene::setSpriteScale(Sprite* sprite, Vec2 scale)
 {

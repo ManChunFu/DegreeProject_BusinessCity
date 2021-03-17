@@ -3,7 +3,9 @@
 #include "cocos2d.h"
 
 class GameScene;
+class Player;
 class MouseOverMenuItem;
+
 NS_CC_BEGIN;
 namespace ui
 {
@@ -19,8 +21,10 @@ public:
 	void openBankPanel(GameScene* scene, unsigned currentWeek);
 	void closeBankPanel();
 
+	void update();
 private:
 	GameScene* m_GameScene = nullptr;
+	Player* m_Player = nullptr;
 	std::vector<cocos2d::Node*> m_Elements;
 
 	cocos2d::Sprite* m_BankPanel = nullptr;
@@ -54,6 +58,8 @@ private:
 	unsigned m_LoanAmout = 10000;
 	unsigned m_PaybackWeeks = 5;
 	unsigned m_Repayments = 2200;
+	unsigned m_InterestsWeekly = 200;
+	unsigned m_Principle = 2000;
 	unsigned m_Debt = 0;
 	unsigned m_RepaymentRemainWeeks = 0;
 
@@ -61,17 +67,19 @@ private:
 
 	bool m_HasDebt = false;
 
-	void createBankPanel();
-	void updateOverviewAmout();
+	int calculateTotalAmoutWeekly();
+	void updateOverviewAmout(int amout);
 	void addAmoutCallback(cocos2d::Ref* pSender);
 	void reduceAmoutCallback(cocos2d::Ref* pSender);
 	void addWeekCallback(cocos2d::Ref* pSender);
 	void reduceWeekCallback(cocos2d::Ref* pSender);
-	void onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event);
-	void calculateWeeklyRepayments();
-	void takeLoan(cocos2d::Ref* pSender);
-	void setMenuItemsVisible(bool visible);
-	void updateDebtDisplay(int repayment);
-	void updatePlayerCurrentShopInfo();
 	unsigned updateLabelText(cocos2d::Label* label, unsigned originValue, int newValue, unsigned minValue, unsigned maxValue);
+	void takeLoan(cocos2d::Ref* pSender);
+	void calculateWeeklyRepayments();
+	void updateDebtDisplay(int amout, unsigned remainWeeks);
+	void resetTakeLoan();
+	void updatePlayerCurrentShopInfo();
+	void onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event);
+	void createBankPanel();
+	void setMenuItemsVisible(bool visible);
 };

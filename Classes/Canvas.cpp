@@ -1,6 +1,7 @@
 #include "Canvas.h"
 #include "InfoPanel.h"
 #include "GameStartPanel.h"
+#include "GameOverPanel.h"
 #include "GameScene.h"
 
 USING_NS_CC;
@@ -15,6 +16,7 @@ Canvas::~Canvas()
 	m_UIPanels.clear();
 	m_InfoPanel = nullptr;
 	m_GameStartPanel = nullptr;
+	m_GameoverPanel = nullptr;
 }
 
 void Canvas::setSpriteScale(cocos2d::Sprite* sprite, cocos2d::Vec2 scale)
@@ -26,23 +28,22 @@ void Canvas::setSpriteScale(cocos2d::Sprite* sprite, cocos2d::Vec2 scale)
 void Canvas::Init(GameScene* scene, Player* player)
 {
 	m_VisibleSize = Director::getInstance()->getVisibleSize();
-	Vec2 origin = Director::getInstance()->getVisibleOrigin();
+	m_Origin = Director::getInstance()->getVisibleOrigin();
 
 	auto backgroundSprite = Sprite::createWithSpriteFrameName("GameSceneCityView.png");
 	if (!backgroundSprite)
 		return;
 
-	auto sceneMidPoint = Point(origin.x + (m_VisibleSize.width / 2), origin.y + (m_VisibleSize.height / 2));
-	GameFunctions::displaySprite(backgroundSprite, sceneMidPoint, scene, 0);
+	m_SceneMidPoint = Point(m_Origin.x + (m_VisibleSize.width / 2), m_Origin.y + (m_VisibleSize.height / 2));
+	GameFunctions::displaySprite(backgroundSprite, m_SceneMidPoint, scene, 0);
 	setSpriteScale(backgroundSprite, Vec2::ONE);
 
-
 	m_InfoPanel = new InfoPanel();
-	m_InfoPanel->createPanel(scene, player, sceneMidPoint);
+	m_InfoPanel->createPanel(scene, player, m_SceneMidPoint);
 	m_UIPanels.push_back(m_InfoPanel);
 
 	m_GameStartPanel = new GameStartPanel();
-	m_GameStartPanel->createPanel(scene, sceneMidPoint);
+	m_GameStartPanel->createPanel(scene, m_SceneMidPoint);
 	m_GameStartPanel->onDestroyCall = CC_CALLBACK_1(Canvas::destroyPanel, this);
 	m_UIPanels.push_back(m_GameStartPanel);
 }
@@ -53,6 +54,14 @@ void Canvas::update(float deltaTime)
 	{
 		panel->update(deltaTime);
 	}
+}
+
+void Canvas::gameOver(GameScene* scene)
+{
+	m_InfoPanel->enableBankButton(false);
+	m_GameoverPanel = new GameOverPanel;
+	m_GameoverPanel->init(scene, m_SceneMidPoint);
+	m_UIPanels.push_back(m_GameoverPanel);
 }
 
 void Canvas::destroyPanel(cocos2d::Ref* pSender)
@@ -68,6 +77,6 @@ void Canvas::destroyPanel(cocos2d::Ref* pSender)
 	delete m_GameStartPanel;
 	m_GameStartPanel = nullptr;
 
-	m_InfoPanel->enableBankButton();
+	m_InfoPanel->enableBankButton(true);
 }
 

@@ -19,7 +19,8 @@ Bank::~Bank()
 	}
 	m_Elements.clear();
 	m_GameScene = nullptr;
-	 m_BankPanel = nullptr;
+	m_Player = nullptr;
+	m_BankPanel = nullptr;
 	m_Weeks = nullptr;
 	m_Shop = nullptr;
 	m_Electricity = nullptr;
@@ -45,12 +46,12 @@ Bank::~Bank()
 void Bank::openBankPanel(GameScene* scene, unsigned currentWeek)
 {
 	m_CurrentWeek = currentWeek;
-	updatePlayerCurrentShopInfo();
 
 	if (!m_BankPanel)
 	{
+		m_Player = GameData::getInstance().m_Player;
+		updatePlayerCurrentShopInfo();
 		m_GameScene = scene;
-
 		if (m_GameScene)
 			createBankPanel();
 
@@ -80,6 +81,144 @@ void Bank::closeBankPanel()
 	m_LoanWidget->setVisible(false);
 	m_DisabledPanel->setVisible(false);
 }
+
+void Bank::update()
+{
+	// player pays weekly expense
+	auto amout = calculateTotalAmoutWeekly();
+	GameData::getInstance().m_Player->updateCurrentCashAmout(amout);
+
+	if (m_Player->getCurrentCash() < 0)
+	{
+		m_GameScene->gameOver();
+	}
+	else
+	{
+		if (m_HasDebt)
+			updateDebtDisplay(-m_Principle, -1);
+	}
+
+	if (m_Debt == 0)
+		resetTakeLoan();
+}
+
+int Bank::calculateTotalAmoutWeekly()
+{
+	auto amout = m_SalesIncome - m_ElectricityFee - m_WaterFee - m_SalaryExpense - m_commercialFee;
+	if (m_HasDebt)
+		amout -= m_Repayments;
+
+	return amout;
+}
+
+void Bank::updateOverviewAmout(int amout)
+{
+	bool isMinus = false;
+	if (amout < 0)
+	{
+		isMinus = true;
+		amout *= -1;
+	}
+	GameFunctions::updateLabelText_MoneyFormat(m_Total, amout, isMinus);
+}
+
+void Bank::addAmoutCallback(cocos2d::Ref* pSender)
+{
+	m_LoanAmout = updateLabelText(m_LoanAmoutText, m_LoanAmout, 10000, 10000, 100000);
+	calculateWeeklyRepayments();
+}
+
+void Bank::reduceAmoutCallback(cocos2d::Ref* pSender)
+{
+	m_LoanAmout = updateLabelText(m_LoanAmoutText, m_LoanAmout, -10000, 10000, 100000);
+	calculateWeeklyRepayments();
+}
+
+void Bank::addWeekCallback(cocos2d::Ref* pSender)
+{
+	m_PaybackWeeks = updateLabelText(m_WeeklyPayText, m_PaybackWeeks, 1, 5, 30);
+	calculateWeeklyRepayments();
+}
+
+void Bank::reduceWeekCallback(cocos2d::Ref* pSender)
+{
+	m_PaybackWeeks = updateLabelText(m_WeeklyPayText, m_PaybackWeeks, -1, 5, 30);
+	calculateWeeklyRepayments();
+}
+
+unsigned Bank::updateLabelText(cocos2d::Label* label, unsigned originValue, int newValue, unsigned minValue, unsigned maxValue)
+{
+	originValue += newValue;
+	originValue = clampf(originValue, minValue, maxValue);
+	GameFunctions::updateLabelText_MoneyFormat(label, originValue);
+	return originValue;
+}
+
+void Bank::resetTakeLoan()
+{
+	m_HasDebt = false;
+	m_Debt = 0;
+	m_LoanAmout = 10000;
+	GameFunctions::updateLabelText_MoneyFormat(m_LoanAmoutText, m_LoanAmout);
+	m_PaybackWeeks = 5;
+	calculateWeeklyRepayments();
+	m_LoanWidget->setVisible(true);
+	setMenuItemsVisible(true);
+	GameFunctions::updateLabelText_MoneyFormat(m_PaybackWeekly, 0, true);
+	updateOverviewAmout(calculateTotalAmoutWeekly());
+	m_DisabledPanel->setVisible(false);
+}
+
+void Bank::takeLoan(cocos2d::Ref* pSender)
+{
+	GameData::getInstance().m_Player->updateCurrentCashAmout(m_LoanAmout);
+	setMenuItemsVisible(false);
+	m_LoanWidget->setVisible(false);
+
+	// showing debt panel
+	m_DisabledPanel->setVisible(true);
+	m_HasDebt = true;
+	updateDebtDisplay(m_LoanAmout, m_PaybackWeeks);
+}
+
+void Bank::calculateWeeklyRepayments()
+{
+	auto rate = 1 + (float)(m_PaybackWeeks) * 2 / 100;
+	m_InterestsWeekly = (float)(m_LoanAmout) * rate / m_PaybackWeeks;
+	m_Repayments = (float)(m_LoanAmout / m_PaybackWeeks) * rate; // principle + interests
+	m_Principle = m_Repayments - m_InterestsWeekly;
+
+	GameFunctions::updateLabelText_MoneyFormat(m_RepaymentText, m_Repayments);
+}
+
+void Bank::updateDebtDisplay(int amout, unsigned remainWeeks)
+{
+	m_Debt += amout;
+	GameFunctions::updateLabelText_MoneyFormat(m_DebtAmoutText, m_Debt);
+	m_RepaymentRemainWeeks += remainWeeks;
+	m_RemainWeeksText->setString(std::to_string(m_RepaymentRemainWeeks));
+
+	// update weekly overview account
+	GameFunctions::updateLabelText_MoneyFormat(m_PaybackWeekly, m_Repayments, true);
+	
+	updateOverviewAmout(calculateTotalAmoutWeekly());
+}
+
+void Bank::updatePlayerCurrentShopInfo()
+{
+	// to do: update to multiple shops 
+	if (m_Player->m_MyShopIds.size() < 0)
+		return;
+
+	m_ShopName = GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]]->m_Name;
+	m_ElectricityFee= GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]]->m_Electricity;
+	m_WaterFee = GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]]->m_Water;
+	m_SalaryExpense = GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]]->m_TotalSalaryExpense;
+	m_commercialFee = GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]]->m_CommercialCost;
+}
+
+void Bank::onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event)
+{}
 
 void Bank::createBankPanel()
 {
@@ -224,7 +363,7 @@ void Bank::createBankPanel()
 		m_Total = Label::createWithTTF("", "fonts/NirmalaB.ttf", 20);
 		if (m_Total)
 		{
-			updateOverviewAmout();
+			updateOverviewAmout(calculateTotalAmoutWeekly());
 			GameFunctions::displayLabel(m_Total, Color4B::BLACK, Vec2(panelMidPoint.x + 20.f, panelMidPoint.y - 95.f), m_BankPanel, 1, true);
 		}
 	}
@@ -446,87 +585,6 @@ void Bank::createBankPanel()
 
 }
 
-void Bank::updateOverviewAmout()
-{
-	auto amout = m_SalesIncome - m_ElectricityFee - m_WaterFee - m_SalaryExpense - m_commercialFee;
-	if (m_HasDebt)
-		amout -= m_Repayments;
-	
-	bool isMinus = false;
-	if (amout < 0)
-	{
-		isMinus = true;
-		amout *= -1;
-	}
-	GameFunctions::updateLabelText_MoneyFormat(m_Total, amout, isMinus);
-}
-
-void Bank::addAmoutCallback(cocos2d::Ref* pSender)
-{
-	m_LoanAmout = updateLabelText(m_LoanAmoutText, m_LoanAmout, 10000, 10000, 100000);
-	calculateWeeklyRepayments();
-}
-
-void Bank::reduceAmoutCallback(cocos2d::Ref* pSender)
-{
-	m_LoanAmout = updateLabelText(m_LoanAmoutText, m_LoanAmout, -10000, 10000, 100000);
-	calculateWeeklyRepayments();
-}
-
-void Bank::addWeekCallback(cocos2d::Ref* pSender)
-{
-	m_PaybackWeeks = updateLabelText(m_WeeklyPayText, m_PaybackWeeks, 1, 5, 30);
-	calculateWeeklyRepayments();
-}
-
-void Bank::reduceWeekCallback(cocos2d::Ref* pSender)
-{
-	m_PaybackWeeks = updateLabelText(m_WeeklyPayText, m_PaybackWeeks, -1, 5, 30);
-	calculateWeeklyRepayments();
-}
-
-void Bank::onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event)
-{}
-
-unsigned Bank::updateLabelText(cocos2d::Label* label, unsigned originValue, int newValue, unsigned minValue, unsigned maxValue)
-{
-	originValue += newValue;
-	originValue = clampf(originValue, minValue, maxValue);
-	GameFunctions::updateLabelText_MoneyFormat(label, originValue);
-	return originValue;
-}
-
-void Bank::calculateWeeklyRepayments()
-{
-	auto rate = 1 + (float)(m_PaybackWeeks) * 2 / 100;
-	m_Repayments = (float)(m_LoanAmout / m_PaybackWeeks) * rate;
-	GameFunctions::updateLabelText_MoneyFormat(m_RepaymentText, m_Repayments);
-}
-
-void Bank::takeLoan(cocos2d::Ref* pSender)
-{
-	GameData::getInstance().m_Player->updateDebt(m_LoanAmout);
-	setMenuItemsVisible(false);
-	m_LoanWidget->setVisible(false);
-
-	// showing debt panel
-	m_DisabledPanel->setVisible(true);
-	m_HasDebt = true;
-	updateDebtDisplay(m_LoanAmout);
-}
-
-void Bank::updateDebtDisplay(int repayment)
-{
-	m_Debt += repayment;
-	GameFunctions::updateLabelText_MoneyFormat(m_DebtAmoutText, m_Debt);
-	m_RepaymentRemainWeeks = m_PaybackWeeks;
-	m_RemainWeeksText->setString(std::to_string(m_RepaymentRemainWeeks));
-
-	// update weekly overview account
-	GameFunctions::updateLabelText_MoneyFormat(m_PaybackWeekly, m_Repayments, true);
-	updateOverviewAmout();
-}
-
 void Bank::setMenuItemsVisible(bool visible)
 {
 	for (auto item : m_BankButtons)
@@ -535,19 +593,3 @@ void Bank::setMenuItemsVisible(bool visible)
 		item->setVisible(visible);
 	}
 }
-
-void Bank::updatePlayerCurrentShopInfo()
-{
-	// to do: update to multiple shops 
-	auto player = GameData::getInstance().m_Player;
-	if (player->m_MyShopIds.size() < 0)
-		return;
-
-	m_ShopName = GameData::getInstance().m_Shops[player->m_MyShopIds[0]]->m_Name;
-	m_ElectricityFee= GameData::getInstance().m_Shops[player->m_MyShopIds[0]]->m_Electricity;
-	m_WaterFee = GameData::getInstance().m_Shops[player->m_MyShopIds[0]]->m_Water;
-	m_SalaryExpense = GameData::getInstance().m_Shops[player->m_MyShopIds[0]]->m_TotalSalaryExpense;
-	m_commercialFee = GameData::getInstance().m_Shops[player->m_MyShopIds[0]]->m_CommercialCost;
-}
-
-

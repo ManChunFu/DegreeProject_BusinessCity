@@ -10,16 +10,17 @@ public:
 	Player(const std::string& name, cocos2d::itemTypes character) : m_PlayerName(name), m_PlayerCharacter(character){};
 	virtual ~Player();
 
-	const std::string& getName();
-	cocos2d::itemTypes getCharacter();
-	void updateDebt(unsigned debtAmout);
-	void updateCurrentCashAmout(int cashAmout);
 	std::vector<unsigned> m_MyShopIds;
 	
+	const std::string& getName();
+	cocos2d::itemTypes getCharacter();
+	void updateCurrentCashAmout(int cashAmout);
+	int getCurrentCash() { return m_CurrentCashAmout; }
+
 	std::function<void(Player* player, int cashAmout)> onCashAmoutChange;
 private:
 	const std::string& m_PlayerName = "";
 	cocos2d::itemTypes m_PlayerCharacter;
-	int m_CurrentCashAmout = 50000;
+	int m_CurrentCashAmout = 3000;
 	unsigned m_Debut = 0;
 };
