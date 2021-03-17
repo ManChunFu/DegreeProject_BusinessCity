@@ -1,5 +1,4 @@
 #include "Canvas.h"
-#include "Player.h"
 #include "InfoPanel.h"
 #include "GameStartPanel.h"
 #include "GameScene.h"
@@ -14,6 +13,8 @@ Canvas::~Canvas()
 		delete panel;
 	}
 	m_UIPanels.clear();
+	m_InfoPanel = nullptr;
+	m_GameStartPanel = nullptr;
 }
 
 void Canvas::setSpriteScale(cocos2d::Sprite* sprite, cocos2d::Vec2 scale)
@@ -57,5 +58,7 @@ void Canvas::destroyPanel(cocos2d::Ref* pSender)
 
 	delete m_GameStartPanel;
 	m_GameStartPanel = nullptr;
+
+	m_InfoPanel->enableBankButton();
 }
 

@@ -12,6 +12,7 @@ USING_NS_CC;
 InfoPanel::~InfoPanel()
 {
 	m_MenuItems.clear();
+	delete m_BankButton;
 	m_BankButton = nullptr;
 	delete m_Bank;
 	m_Bank = nullptr;
@@ -200,6 +201,11 @@ void InfoPanel::update(float delta)
 		GameFunctions::updatLabelText_TimeFormat(m_WeekCount, m_Weeks);
 	}
 
+}
+
+void InfoPanel::enableBankButton()
+{
+	m_BankButton->setEnabled(true);
 }
 
 void InfoPanel::checkBalanceCallback(cocos2d::Ref* pSender, GameScene* scene)

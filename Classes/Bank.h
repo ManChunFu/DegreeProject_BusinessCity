@@ -44,13 +44,14 @@ private:
 	unsigned m_ElectricityFee = 0;
 	unsigned m_WaterFee = 0;
 	unsigned m_SalaryExpense = 0;
-	unsigned m_Debt = 0;
-	unsigned m_RepaymentRemainWeeks = 0;
 	unsigned m_commercialFee = 0;
 	unsigned m_SalesIncome = 0;
+
 	unsigned m_LoanAmout = 10000;
 	unsigned m_PaybackWeeks = 5;
-	unsigned m_Repayments = 0;
+	unsigned m_Repayments = 2200;
+	unsigned m_Debt = 0;
+	unsigned m_RepaymentRemainWeeks = 0;
 
 	cocos2d::Vector<cocos2d::MenuItem*> m_BankButtons;
 

@@ -178,10 +178,7 @@ void Bank::createBankPanel()
 
 		m_PaybackWeekly = Label::createWithTTF("", "fonts/Nirmala.ttf", 20);
 		if (m_PaybackWeekly)
-		{
-			GameFunctions::updateLabelText_MoneyFormat(m_PaybackWeekly, m_Repayments, true);
 			GameFunctions::displayLabel(m_PaybackWeekly, Color4B::BLACK, Vec2(panelMidPoint.x + 20.f, panelMidPoint.y + 20.f), m_BankPanel, 1, true);
-		}
 
 		// commerical
 		auto commericalLabel = Label::createWithTTF("Commercial", "fonts/Nirmala.ttf", 20);
@@ -240,10 +237,13 @@ void Bank::createBankPanel()
 		GameFunctions::displaySprite(loanAmoutSprite, Vec2(panelMidPoint.x - 175.f, panelMidPoint.y - 205.f), m_LoanWidget, 1);
 
 		//,000 label
-		m_LoanAmoutText = Label::createWithTTF("10,000", "fonts/Nirmala.ttf", 20);
+		m_LoanAmoutText = Label::createWithTTF("", "fonts/Nirmala.ttf", 20);
 		if (m_LoanAmoutText)
+		{
+			GameFunctions::updateLabelText_MoneyFormat(m_LoanAmoutText, m_LoanAmout);
 			GameFunctions::displayLabel(m_LoanAmoutText, Color4B::WHITE, Vec2(loanAmoutSprite->getContentSize().width - 15.f, loanAmoutSprite->getContentSize().height - 5.f),
 				loanAmoutSprite, 1, true);
+		}
 	}
 
 	auto reduceAmoutButton = MouseOverMenuItem::creatMouseOverMenuButton("UIButtonCorner40.png", "UIButtonCorner40_Lit.png", "UIButtonCorner40_Disabled.png",
@@ -285,10 +285,13 @@ void Bank::createBankPanel()
 	{
 		GameFunctions::displaySprite(paybackSprite, Vec2(panelMidPoint.x - 60.f, panelMidPoint.y - 205.f), m_LoanWidget, 1);
 
-		m_WeeklyPayText = Label::createWithTTF("5", "fonts/Nirmala.ttf", 20);
+		m_WeeklyPayText = Label::createWithTTF("", "fonts/Nirmala.ttf", 20);
 		if (m_WeeklyPayText)
+		{
+			m_WeeklyPayText->setString(std::to_string(m_PaybackWeeks));
 			GameFunctions::displayLabel(m_WeeklyPayText, Color4B::WHITE, Vec2(paybackSprite->getContentSize().width - 15.f, paybackSprite->getContentSize().height - 5.f),
 				paybackSprite, 1, true);
+		}
 	}
 
 	auto reduceWeekButton = MouseOverMenuItem::creatMouseOverMenuButton("UIButtonCorner40.png", "UIButtonCorner40_Lit.png", "UIButtonCorner40_Disabled.png",
@@ -338,9 +341,10 @@ void Bank::createBankPanel()
 		cashSymbol->enableShadow(Color4B::BLACK);
 	}
 
-	m_RepaymentText = Label::createWithTTF("2,200", "fonts/NirmalaB.ttf", 20);
+	m_RepaymentText = Label::createWithTTF("", "fonts/NirmalaB.ttf", 20);
 	if (m_RepaymentText)
 	{
+		GameFunctions::updateLabelText_MoneyFormat(m_RepaymentText, m_Repayments);
 		GameFunctions::displayLabel(m_RepaymentText, GameData::getInstance().m_ColorType.Taro, Vec2(panelMidPoint.x + 90.f, panelMidPoint.y - 165.f),
 			m_BankPanel, 1);
 		m_RepaymentText->enableShadow(Color4B::BLACK);

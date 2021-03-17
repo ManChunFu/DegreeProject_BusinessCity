@@ -17,7 +17,7 @@ public:
 	void createPanel(GameScene* scene, Player* player, cocos2d::Vec2 sceneMidPoint);
 	void update(float delta);
 
-	MouseOverMenuItem* m_BankButton = nullptr;
+	void enableBankButton();
 private:
 	GameScene* m_GameScene = nullptr;
 	cocos2d::Label* m_Saving = nullptr;
@@ -28,6 +28,7 @@ private:
 	cocos2d::Label* m_TimeHourDisplay = nullptr;
 	cocos2d::Label* m_TimeMinDisplay = nullptr;
 	cocos2d::Vector<cocos2d::MenuItem*> m_MenuItems;
+	MouseOverMenuItem* m_BankButton = nullptr;
 
 	Bank* m_Bank = nullptr;
 
