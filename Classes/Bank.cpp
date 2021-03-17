@@ -13,7 +13,13 @@ USING_NS_CC;
 
 Bank::~Bank()
 {
-	m_BankPanel = nullptr;
+	for (auto element : m_Elements)
+	{
+		m_GameScene->removeChild(element);
+	}
+	m_Elements.clear();
+	m_GameScene = nullptr;
+	 m_BankPanel = nullptr;
 	m_Weeks = nullptr;
 	m_Shop = nullptr;
 	m_Electricity = nullptr;
@@ -23,13 +29,16 @@ Bank::~Bank()
 	m_Commercial = nullptr;
 	m_Sales = nullptr;
 	m_Total = nullptr;
+
+	m_LoanWidget = nullptr;
 	m_LoanAmoutText = nullptr;
 	m_WeeklyPayText = nullptr;
 	m_RepaymentText = nullptr;
+
 	m_DisabledPanel = nullptr;
-	m_LoanWidget = nullptr;
 	m_DebtAmoutText = nullptr;
 	m_RemainWeeksText = nullptr;
+
 	m_BankButtons.clear();
 }
 
@@ -85,6 +94,7 @@ void Bank::createBankPanel()
 		return;
 
 	GameFunctions::displaySprite(m_BankPanel, Vec2(sceneMidPoint), m_GameScene, 1);
+	m_Elements.push_back(m_BankPanel);
 
 	auto panelMidPoint = Vec2(m_BankPanel->getContentSize().width * 0.5f, m_BankPanel->getContentSize().height * 0.5f);
 
@@ -224,6 +234,7 @@ void Bank::createBankPanel()
 	m_LoanWidget = ui::Widget::create();
 	m_LoanWidget->setPosition(panelMidPoint);
 	m_GameScene->addChild(m_LoanWidget, 2);
+	m_Elements.push_back(m_LoanWidget);
 
 	// loan amout
 	auto loanAmoutText = Label::createWithTTF("Loan Amout", "fonts/Nirmala.ttf", 14);
@@ -383,6 +394,7 @@ void Bank::createBankPanel()
 		GameFunctions::displaySprite(m_DisabledPanel, Vec2(sceneMidPoint.x, sceneMidPoint.y - 162.f), m_GameScene, 1,
 			0.98f, 0.96f);
 		m_DisabledPanel->setVisible(false);
+		m_Elements.push_back(m_DisabledPanel);
 	}
 
 	auto disableMidPoint = Vec2(m_DisabledPanel->getContentSize().width * 0.5f, m_DisabledPanel->getContentSize().height * 0.5f);
@@ -427,23 +439,25 @@ void Bank::createBankPanel()
 	}
 #pragma endregion
 
-
 	auto menu = Menu::createWithArray(m_BankButtons);
 	menu->setPosition(Vec2::ZERO);
 	m_GameScene->addChild(menu, 3);
+	m_Elements.push_back(menu);
 
 }
 
 void Bank::updateOverviewAmout()
 {
-	auto amout = m_SalesIncome - m_ElectricityFee - m_WaterFee - m_SalaryExpense - m_commercialFee - m_Repayments;
+	auto amout = m_SalesIncome - m_ElectricityFee - m_WaterFee - m_SalaryExpense - m_commercialFee;
+	if (m_HasDebt)
+		amout -= m_Repayments;
+	
 	bool isMinus = false;
 	if (amout < 0)
 	{
 		isMinus = true;
 		amout *= -1;
 	}
-
 	GameFunctions::updateLabelText_MoneyFormat(m_Total, amout, isMinus);
 }
 
@@ -501,15 +515,6 @@ void Bank::takeLoan(cocos2d::Ref* pSender)
 	updateDebtDisplay(m_LoanAmout);
 }
 
-void Bank::setMenuItemsVisible(bool visible)
-{
-	for (auto item : m_BankButtons)
-	{
-		item->setEnabled(visible);
-		item->setVisible(visible);
-	}
-}
-
 void Bank::updateDebtDisplay(int repayment)
 {
 	m_Debt += repayment;
@@ -520,6 +525,15 @@ void Bank::updateDebtDisplay(int repayment)
 	// update weekly overview account
 	GameFunctions::updateLabelText_MoneyFormat(m_PaybackWeekly, m_Repayments, true);
 	updateOverviewAmout();
+}
+
+void Bank::setMenuItemsVisible(bool visible)
+{
+	for (auto item : m_BankButtons)
+	{
+		item->setEnabled(visible);
+		item->setVisible(visible);
+	}
 }
 
 void Bank::updatePlayerCurrentShopInfo()

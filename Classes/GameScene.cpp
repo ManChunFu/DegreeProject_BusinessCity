@@ -16,6 +16,8 @@ USING_NS_CC;
 GameScene::~GameScene()
 {
 	m_Player = nullptr;
+	delete m_Canvas;
+	m_Canvas = nullptr;
 }
 
 Scene* GameScene::createScene()
@@ -33,27 +35,10 @@ bool GameScene::init()
 
 	//init data
 	GameData::getInstance().init();
-	//
 
 #pragma region Create In-Game UI panels
-	m_VisibleSize = Director::getInstance()->getVisibleSize();
-	Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-	auto backgroundSprite = Sprite::createWithSpriteFrameName("GameSceneCityView.png");
-	if (!backgroundSprite)
-		return false;
-	
-	auto sceneMidPoint = Point(origin.x + (m_VisibleSize.width / 2), origin.y + (m_VisibleSize.height / 2));
-	GameFunctions::displaySprite(backgroundSprite, sceneMidPoint, this, 0);
-	setSpriteScale(backgroundSprite, Vec2::ONE);
-	
 	m_Canvas = new Canvas;
-	m_Canvas->Init(this, GameData::getInstance().m_Player, sceneMidPoint);
-	/*m_StartupPanel = new GameStartPanel();
-	m_StartupPanel->createPanel(this, sceneMidPoint);
-
-	m_InfoPanel = new InfoPanel();
-	m_InfoPanel->createPanel(this, GameData::getInstance().m_Player, sceneMidPoint);*/
+	m_Canvas->Init(this, GameData::getInstance().m_Player);
 #pragma endregion
 
 	// Game time setup

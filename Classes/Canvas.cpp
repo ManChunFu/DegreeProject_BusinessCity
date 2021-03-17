@@ -23,10 +23,19 @@ void Canvas::setSpriteScale(cocos2d::Sprite* sprite, cocos2d::Vec2 scale)
 	sprite->setScaleY((m_VisibleSize.height / sprite->getContentSize().height) * scale.y);
 }
 
-void Canvas::Init(GameScene* scene, Player* player, cocos2d::Vec2 sceneMidPoint)
+void Canvas::Init(GameScene* scene, Player* player)
 {
 	m_VisibleSize = Director::getInstance()->getVisibleSize();
-	m_origin = Director::getInstance()->getVisibleOrigin();
+	Vec2 origin = Director::getInstance()->getVisibleOrigin();
+
+	auto backgroundSprite = Sprite::createWithSpriteFrameName("GameSceneCityView.png");
+	if (!backgroundSprite)
+		return;
+
+	auto sceneMidPoint = Point(origin.x + (m_VisibleSize.width / 2), origin.y + (m_VisibleSize.height / 2));
+	GameFunctions::displaySprite(backgroundSprite, sceneMidPoint, scene, 0);
+	setSpriteScale(backgroundSprite, Vec2::ONE);
+
 
 	m_InfoPanel = new InfoPanel();
 	m_InfoPanel->createPanel(scene, player, sceneMidPoint);

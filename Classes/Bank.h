@@ -21,6 +21,8 @@ public:
 
 private:
 	GameScene* m_GameScene = nullptr;
+	std::vector<cocos2d::Node*> m_Elements;
+
 	cocos2d::Sprite* m_BankPanel = nullptr;
 	cocos2d::Label* m_Weeks = nullptr;
 	cocos2d::Label* m_Shop = nullptr;
@@ -31,13 +33,15 @@ private:
 	cocos2d::Label* m_Commercial = nullptr;
 	cocos2d::Label* m_Sales = nullptr;
 	cocos2d::Label* m_Total = nullptr;
+	
+	cocos2d::ui::Widget* m_LoanWidget = nullptr;
 	cocos2d::Label* m_LoanAmoutText = nullptr;
 	cocos2d::Label* m_WeeklyPayText = nullptr;
 	cocos2d::Label* m_RepaymentText = nullptr;
+	
 	cocos2d::Sprite* m_DisabledPanel = nullptr;
 	cocos2d::Label* m_DebtAmoutText = nullptr;
 	cocos2d::Label* m_RemainWeeksText = nullptr;
-	cocos2d::ui::Widget* m_LoanWidget = nullptr;
 
 	std::string m_ShopName = "";
 	unsigned m_CurrentWeek = 1;
@@ -64,10 +68,10 @@ private:
 	void addWeekCallback(cocos2d::Ref* pSender);
 	void reduceWeekCallback(cocos2d::Ref* pSender);
 	void onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event);
-	unsigned updateLabelText(cocos2d::Label* label, unsigned originValue, int newValue, unsigned minValue, unsigned maxValue);
 	void calculateWeeklyRepayments();
 	void takeLoan(cocos2d::Ref* pSender);
 	void setMenuItemsVisible(bool visible);
 	void updateDebtDisplay(int repayment);
 	void updatePlayerCurrentShopInfo();
+	unsigned updateLabelText(cocos2d::Label* label, unsigned originValue, int newValue, unsigned minValue, unsigned maxValue);
 };

@@ -13,7 +13,7 @@ class Canvas
 public:
 	virtual ~Canvas();
 
-	void Init(GameScene* scene, Player* player, cocos2d::Vec2 sceneMidPoint);
+	void Init(GameScene* scene, Player* player);
 	
 	void update(float deltaTime);
 private:
