@@ -5,6 +5,7 @@
 #include "GameFunctions.h"
 #include "Bank.h"
 #include "Player.h"
+#include "Canvas.h"
 #include "GameStartPanel.h"
 #include "InfoPanel.h"
 #include "cocostudio/SimpleAudioEngine.h"
@@ -14,10 +15,6 @@ USING_NS_CC;
 
 GameScene::~GameScene()
 {
-	delete m_StartupPanel;
-	m_StartupPanel = nullptr;
-	delete m_InfoPanel;
-	m_InfoPanel = nullptr;
 	m_Player = nullptr;
 }
 
@@ -50,11 +47,13 @@ bool GameScene::init()
 	GameFunctions::displaySprite(backgroundSprite, sceneMidPoint, this, 0);
 	setSpriteScale(backgroundSprite, Vec2::ONE);
 	
-	m_StartupPanel = new GameStartPanel();
+	m_Canvas = new Canvas;
+	m_Canvas->Init(this, GameData::getInstance().m_Player, sceneMidPoint);
+	/*m_StartupPanel = new GameStartPanel();
 	m_StartupPanel->createPanel(this, sceneMidPoint);
 
 	m_InfoPanel = new InfoPanel();
-	m_InfoPanel->createPanel(this, GameData::getInstance().m_Player, sceneMidPoint);
+	m_InfoPanel->createPanel(this, GameData::getInstance().m_Player, sceneMidPoint);*/
 #pragma endregion
 
 	// Game time setup
@@ -70,15 +69,9 @@ bool GameScene::init()
 
 void GameScene::update(float delta)
 {
-	m_InfoPanel->updateGameTime(delta);
+	m_Canvas->update(delta);
 }
 
-void GameScene::deleteStartupPanel()
-{
-	delete m_StartupPanel;
-	m_StartupPanel = nullptr;
-	m_InfoPanel->m_BankButton->setEnabled(true);
-}
 
 void GameScene::setSpriteScale(Sprite* sprite, Vec2 scale)
 {

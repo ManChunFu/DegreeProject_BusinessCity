@@ -6,6 +6,17 @@
 
 USING_NS_CC;
 
+GameData::~GameData()
+{
+	delete m_Player;
+	m_Player = nullptr;
+	for (auto item : m_Shops)
+	{
+		delete item.second;
+	}
+	m_Shops.clear();
+}
+
 void GameData::init()
 {
 	m_Shops = DataManager::getShops();

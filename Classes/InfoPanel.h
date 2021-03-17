@@ -1,21 +1,21 @@
 #pragma once
 
 #include "cocos2d.h"
-#include "Canvas.h"
+#include "2d/CCNode.h"
 
 class Player;
 class Bank;
 class GameScene;
 class MouseOverMenuItem;
 
-class InfoPanel : public Canvas
+class InfoPanel : public cocos2d::Node
 {
 public:
 	virtual ~InfoPanel();
 
 	cocos2d::Sprite* m_InfoPanel = nullptr;
 	void createPanel(GameScene* scene, Player* player, cocos2d::Vec2 sceneMidPoint);
-	void updateGameTime(float delta);
+	void update(float delta);
 
 	MouseOverMenuItem* m_BankButton = nullptr;
 private:

@@ -4,6 +4,7 @@
 #include "MouseOverMenuItem.h"
 #include "Shop.h"
 #include "Player.h"
+#include "GameFunctions.h"
 
 USING_NS_CC;
 
@@ -110,7 +111,8 @@ void GameStartPanel::goButtonCallback(cocos2d::Ref* pSender)
 	{
 		m_GameScene->removeChild(element);
 	}
-	m_GameScene->deleteStartupPanel();
+	if (onDestroyCall)
+		onDestroyCall(this);
 }
 
 void GameStartPanel::selectedItemCallback(cocos2d::Ref* pSender, unsigned shopID)

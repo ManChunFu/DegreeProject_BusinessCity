@@ -1,16 +1,17 @@
 #pragma once
-#include "Canvas.h"
+#include "2d/CCNode.h"
 
 class GameScene;
 class MouseOverMenuItem;
 class Shop;
 
-class GameStartPanel : public Canvas
+class GameStartPanel : public cocos2d::Node
 {
 public:
 	virtual ~GameStartPanel();
 	void createPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint);
 
+	std::function<void(cocos2d::Ref* pSender)> onDestroyCall;
 private:
 	std::vector<cocos2d::Node*> m_Elements;
 	GameScene* m_GameScene = nullptr;

@@ -17,11 +17,15 @@ public:
 	 }
 private:
 	GameData() {};
-	//GameData(GameData const&);              // Don't Implement
-	//void operator=(GameData const&); // Don't implement
+	virtual ~GameData();
+
 public:
-	GameData(GameData const&) = delete;
-	void operator=(GameData const&) = delete;
+	//GameData(GameData const&) = delete;
+	//void operator=(GameData const&) = delete;
+	GameData(const GameData& arg) = delete; // Copy constructor
+	GameData(const GameData&& arg) = delete;  // Move constructor
+	GameData& operator=(const GameData& arg) = delete; // Assignment operator
+	GameData& operator=(const GameData&& arg) = delete; // Move operator
 
 	void init();
 	void registerCharacter(cocos2d::itemTypes type, std::string path);

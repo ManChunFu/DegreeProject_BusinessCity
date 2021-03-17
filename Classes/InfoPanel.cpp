@@ -3,6 +3,8 @@
 #include "MouseOverMenuItem.h"
 #include "GameScene.h"
 #include "Bank.h"
+#include "GameFunctions.h"
+#include "GameData.h"
 
 
 USING_NS_CC;
@@ -159,10 +161,9 @@ void InfoPanel::createPanel(GameScene* scene, Player* player, cocos2d::Vec2 scen
 	auto listener = EventListenerKeyboard::create();
 	listener->onKeyPressed = CC_CALLBACK_2(InfoPanel::onKeyPressed, this);
 	m_GameScene->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, m_GameScene);
-
 }
 
-void InfoPanel::updateGameTime(float delta)
+void InfoPanel::update(float delta)
 {
 	m_ElapsedTime += delta;
 
