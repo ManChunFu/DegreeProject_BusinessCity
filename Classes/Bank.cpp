@@ -95,11 +95,13 @@ void Bank::update()
 	else
 	{
 		if (m_HasDebt)
+		{
 			updateDebtDisplay(-m_Principle, -1);
-	}
 
-	if (m_Debt == 0)
-		resetTakeLoan();
+			if (m_Debt == 0)
+				resetTakeLoan();
+		}
+	}
 }
 
 int Bank::calculateTotalAmoutWeekly()
@@ -183,10 +185,10 @@ void Bank::takeLoan(cocos2d::Ref* pSender)
 
 void Bank::calculateWeeklyRepayments()
 {
-	auto rate = 1 + (float)(m_PaybackWeeks) * 2 / 100;
-	m_InterestsWeekly = (float)(m_LoanAmout) * rate / m_PaybackWeeks;
-	m_Repayments = (float)(m_LoanAmout / m_PaybackWeeks) * rate; // principle + interests
-	m_Principle = m_Repayments - m_InterestsWeekly;
+	auto rate = ((float)(m_PaybackWeeks) * 2 / 100);
+	m_Principle = roundf((float)(m_LoanAmout) / m_PaybackWeeks);
+	m_InterestsWeekly = m_Principle * rate;
+	m_Repayments = m_Principle + m_InterestsWeekly; // principle + interests
 
 	GameFunctions::updateLabelText_MoneyFormat(m_RepaymentText, m_Repayments);
 }
@@ -194,6 +196,9 @@ void Bank::calculateWeeklyRepayments()
 void Bank::updateDebtDisplay(int amout, unsigned remainWeeks)
 {
 	m_Debt += amout;
+	if (m_Debt < 10)
+		m_Debt = 0;
+
 	GameFunctions::updateLabelText_MoneyFormat(m_DebtAmoutText, m_Debt);
 	m_RepaymentRemainWeeks += remainWeeks;
 	m_RemainWeeksText->setString(std::to_string(m_RepaymentRemainWeeks));

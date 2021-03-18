@@ -60,8 +60,8 @@ private:
 	unsigned m_Repayments = 2200;
 	unsigned m_InterestsWeekly = 200;
 	unsigned m_Principle = 2000;
-	unsigned m_Debt = 0;
 	unsigned m_RepaymentRemainWeeks = 0;
+	int m_Debt = 0;
 
 	cocos2d::Vector<cocos2d::MenuItem*> m_BankButtons;
 
