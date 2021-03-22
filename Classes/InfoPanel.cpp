@@ -156,7 +156,7 @@ void InfoPanel::createPanel(GameScene* scene, Player* player, cocos2d::Vec2 scen
 	menu->setPosition(Vec2::ZERO);
 	m_GameScene->addChild(menu, 2);
 
-	m_ElapsedTime = -20;
+	m_ElapsedTime = 0;
 
 	// set key event
 	auto listener = EventListenerKeyboard::create();
@@ -175,7 +175,7 @@ void InfoPanel::update(float delta)
 	m_CurrentMinute++;
 	m_ElapsedTime = 0;
 	GameFunctions::updatLabelText_TimeFormat(m_TimeMinDisplay, m_CurrentMinute % 60);
-	m_Bank->update();
+	//m_Bank->update();
 
 	// update hour
 	if (m_CurrentMinute > 59)
@@ -206,7 +206,7 @@ void InfoPanel::update(float delta)
 
 void InfoPanel::enableBankButton(bool value)
 {
-	m_BankButton->setEnabled(true);
+	m_BankButton->setEnabled(value);
 }
 
 void InfoPanel::checkBalanceCallback(cocos2d::Ref* pSender, GameScene* scene)

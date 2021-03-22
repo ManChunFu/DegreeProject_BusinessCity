@@ -86,6 +86,9 @@ void Bank::update()
 {
 	// player pays weekly expense
 	auto amout = calculateTotalAmoutWeekly();
+	if (!m_Player)
+		return;
+
 	GameData::getInstance().m_Player->updateCurrentCashAmout(amout);
 
 	if (m_Player->getCurrentCash() < 0)

@@ -58,6 +58,12 @@
     <ClCompile Include="..\Classes\GameOverPanel.cpp">
       <Filter>Source Files\Classes\UI</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\MyShopSettingPanel.cpp">
+      <Filter>Source Files\Classes\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\UIPanel.cpp">
+      <Filter>Source Files\Classes\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\Users\mandy\source\repos\DegreeProject\Classes\AppDelegate.h">
@@ -134,6 +140,15 @@
     </ClInclude>
     <ClInclude Include="..\Classes\GameOverPanel.h">
       <Filter>Source Files\Classes\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MyShopSettingPanel.h">
+      <Filter>Source Files\Classes\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\UIPanel.h">
+      <Filter>Source Files\Classes\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EPanel.h">
+      <Filter>Source Files\Classes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

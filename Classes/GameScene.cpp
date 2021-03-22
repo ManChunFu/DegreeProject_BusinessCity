@@ -33,6 +33,9 @@ bool GameScene::init()
 	if (!Layer::init())
 		return false;
 
+	if (Director::getInstance()->isPaused())
+		Director::getInstance()->resume();
+
 	//init data
 	GameData::getInstance().init();
 
@@ -48,7 +51,7 @@ bool GameScene::init()
 	auto listener = EventListenerKeyboard::create();
 	listener->onKeyPressed = CC_CALLBACK_2(GameScene::onKeyPressed, this);
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
-
+	
 	return true;
 }
 
@@ -60,7 +63,7 @@ void GameScene::update(float delta)
 void GameScene::gameOver()
 {
 	Director::getInstance()->pause();
-	m_Canvas->gameOver(this);
+	m_Canvas->gameOver();
 }
 
 

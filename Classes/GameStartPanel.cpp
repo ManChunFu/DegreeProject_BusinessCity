@@ -14,11 +14,13 @@ GameStartPanel::~GameStartPanel()
 	m_StartupItems.clear(); 
 	m_Elements.clear();
 	m_GameScene = nullptr;
+	m_Player = nullptr;
 }
 
 void GameStartPanel::createPanel(GameScene* scene, Vec2 sceneMidPoint)
 {
 	m_GameScene = scene;
+	m_Player = GameData::getInstance().m_Player;
 
 	auto startupPanel = Sprite::createWithSpriteFrameName("Brown_Panel_400.png");
 	startupPanel->setPosition(sceneMidPoint);
@@ -107,6 +109,8 @@ void GameStartPanel::createPanel(GameScene* scene, Vec2 sceneMidPoint)
 
 void GameStartPanel::goButtonCallback(cocos2d::Ref* pSender)
 {
+	GameData::getInstance().m_Player->updateCurrentCashAmout(-GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]]->m_ShopPrice);
+	
 	for (auto element : m_Elements)
 	{
 		m_GameScene->removeChild(element);
@@ -117,7 +121,7 @@ void GameStartPanel::goButtonCallback(cocos2d::Ref* pSender)
 
 void GameStartPanel::selectedItemCallback(cocos2d::Ref* pSender, unsigned shopID)
 {
-	GameData::getInstance().m_Player->m_MyShopIds.push_back(shopID);
+	m_Player->m_MyShopIds.push_back(shopID);
 
 	for (auto item : m_StartupItems)
 	{
@@ -175,12 +179,3 @@ void GameStartPanel::onMouseOver(MouseOverMenuItem* item, cocos2d::Event* event)
 {
 }
 
-void GameStartPanel::registerStartupChoice()
-{
-	for (auto item : m_StartupItems)
-	{
-		//if (item->itemSelectedData.isSelected)
-		//	GameData::getInstance().m_Player->m_MyShops.push_back()
-	}
-
-}
