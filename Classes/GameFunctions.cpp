@@ -24,12 +24,22 @@ void GameFunctions::displayTextField(ui::TextField* textField, Color3B color, Ve
 	parent->addChild(textField, z_order);
 }
 
-void GameFunctions::displayLabel(Label* label, Color4B color, Vec2 pos, Node* parent, unsigned z_order, bool anchor)
+void GameFunctions::displayLabel(Label* label, Color4B color, Vec2 pos, Node* parent, unsigned z_order, bool anchor, TextHAlignment alignment)
 {
 	label->setTextColor(color);
 	label->setPosition(pos);
 	if (anchor)
-		label->setAnchorPoint(Vec2::ONE);
+	{
+		switch (alignment)
+		{
+		case cocos2d::TextHAlignment::LEFT:
+			label->setAnchorPoint(Vec2::ZERO);
+			break;
+		case cocos2d::TextHAlignment::RIGHT:
+			label->setAnchorPoint(Vec2::ONE);
+			break;
+		}
+	}
 	parent->addChild(label, z_order);
 }
 

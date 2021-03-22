@@ -293,7 +293,7 @@ void Bank::createBankPanel()
 		{
 			GameFunctions::updateLabelText_MoneyFormat(m_Electricity, m_ElectricityFee, true);
 			GameFunctions::displayLabel(m_Electricity, Color4B::BLACK, Vec2(panelMidPoint.x + 20.f, panelMidPoint.y + 110.f),
-				m_BankPanel, 1, true);
+				m_BankPanel, 1, true, TextHAlignment::RIGHT);
 		}
 
 		// water
@@ -306,7 +306,8 @@ void Bank::createBankPanel()
 		if (m_Water)
 		{
 			GameFunctions::updateLabelText_MoneyFormat(m_Water, m_WaterFee, true);
-			GameFunctions::displayLabel(m_Water, Color4B::BLACK, Vec2(panelMidPoint.x + 20.f, panelMidPoint.y + 80.f), m_BankPanel, 1, true);
+			GameFunctions::displayLabel(m_Water, Color4B::BLACK, Vec2(panelMidPoint.x + 20.f, panelMidPoint.y + 80.f), 
+				m_BankPanel, 1, true, TextHAlignment::RIGHT);
 		}
 
 		// salary
@@ -319,7 +320,8 @@ void Bank::createBankPanel()
 		if (m_Salary)
 		{
 			GameFunctions::updateLabelText_MoneyFormat(m_Salary, m_SalaryExpense, true);
-			GameFunctions::displayLabel(m_Salary, Color4B::BLACK, Vec2(panelMidPoint.x + 20.f, panelMidPoint.y + 50.f), m_BankPanel, 1, true);
+			GameFunctions::displayLabel(m_Salary, Color4B::BLACK, Vec2(panelMidPoint.x + 20.f, panelMidPoint.y + 50.f), 
+				m_BankPanel, 1, true, TextHAlignment::RIGHT);
 		}
 
 		// loan
@@ -335,7 +337,8 @@ void Bank::createBankPanel()
 
 		m_PaybackWeekly = Label::createWithTTF("", "fonts/Nirmala.ttf", 20);
 		if (m_PaybackWeekly)
-			GameFunctions::displayLabel(m_PaybackWeekly, Color4B::BLACK, Vec2(panelMidPoint.x + 20.f, panelMidPoint.y + 20.f), m_BankPanel, 1, true);
+			GameFunctions::displayLabel(m_PaybackWeekly, Color4B::BLACK, Vec2(panelMidPoint.x + 20.f, panelMidPoint.y + 20.f), 
+				m_BankPanel, 1, true, TextHAlignment::RIGHT);
 
 		// commerical
 		auto commericalLabel = Label::createWithTTF("Commercial", "fonts/Nirmala.ttf", 20);
@@ -347,7 +350,8 @@ void Bank::createBankPanel()
 		if (m_Commercial)
 		{
 			GameFunctions::updateLabelText_MoneyFormat(m_Commercial, m_commercialFee, true);
-			GameFunctions::displayLabel(m_Commercial, Color4B::BLACK, Vec2(panelMidPoint.x + 20.f, panelMidPoint.y - 10.f), m_BankPanel, 1, true);
+			GameFunctions::displayLabel(m_Commercial, Color4B::BLACK, Vec2(panelMidPoint.x + 20.f, panelMidPoint.y - 10.f), 
+				m_BankPanel, 1, true, TextHAlignment::RIGHT);
 		}
 
 		// sales
@@ -360,7 +364,8 @@ void Bank::createBankPanel()
 		if (m_Sales)
 		{
 			GameFunctions::updateLabelText_MoneyFormat(m_Sales, m_SalesIncome);
-			GameFunctions::displayLabel(m_Sales, Color4B::BLACK, Vec2(panelMidPoint.x + 20.f, panelMidPoint.y - 40.f), m_BankPanel, 1, true);
+			GameFunctions::displayLabel(m_Sales, Color4B::BLACK, Vec2(panelMidPoint.x + 20.f, panelMidPoint.y - 40.f), 
+				m_BankPanel, 1, true, TextHAlignment::RIGHT);
 		}
 
 		auto totalLabel = Label::createWithTTF("TOTAL", "fonts/NirmalaB.ttf", 20);
@@ -372,7 +377,8 @@ void Bank::createBankPanel()
 		if (m_Total)
 		{
 			updateOverviewAmout(calculateTotalAmoutWeekly());
-			GameFunctions::displayLabel(m_Total, Color4B::BLACK, Vec2(panelMidPoint.x + 20.f, panelMidPoint.y - 95.f), m_BankPanel, 1, true);
+			GameFunctions::displayLabel(m_Total, Color4B::BLACK, Vec2(panelMidPoint.x + 20.f, panelMidPoint.y - 95.f), 
+				m_BankPanel, 1, true, TextHAlignment::RIGHT);
 		}
 	}
 #pragma endregion
@@ -400,7 +406,7 @@ void Bank::createBankPanel()
 		{
 			GameFunctions::updateLabelText_MoneyFormat(m_LoanAmoutText, m_LoanAmout);
 			GameFunctions::displayLabel(m_LoanAmoutText, Color4B::WHITE, Vec2(loanAmoutSprite->getContentSize().width - 15.f, loanAmoutSprite->getContentSize().height - 5.f),
-				loanAmoutSprite, 1, true);
+				loanAmoutSprite, 1, true, TextHAlignment::RIGHT);
 		}
 	}
 
@@ -448,7 +454,7 @@ void Bank::createBankPanel()
 		{
 			m_WeeklyPayText->setString(std::to_string(m_PaybackWeeks));
 			GameFunctions::displayLabel(m_WeeklyPayText, Color4B::WHITE, Vec2(paybackSprite->getContentSize().width - 15.f, paybackSprite->getContentSize().height - 5.f),
-				paybackSprite, 1, true);
+				paybackSprite, 1, true, TextHAlignment::RIGHT);
 		}
 	}
 
@@ -560,7 +566,7 @@ void Bank::createBankPanel()
 		if (m_DebtAmoutText)
 		{
 			GameFunctions::displayLabel(m_DebtAmoutText, GameData::getInstance().m_ColorType.Taro, Vec2(debtAmoutSprite->getContentSize().width - 15.f, debtAmoutSprite->getContentSize().height - 5.f),
-				debtAmoutSprite, 1, true);
+				debtAmoutSprite, 1, true, TextHAlignment::RIGHT);
 			m_DebtAmoutText->enableShadow(Color4B::BLACK);
 		}
 	}
@@ -580,7 +586,7 @@ void Bank::createBankPanel()
 		if (m_RemainWeeksText)
 		{
 			GameFunctions::displayLabel(m_RemainWeeksText, GameData::getInstance().m_ColorType.Taro, Vec2(remainWeeksSprite->getContentSize().width - 15.f, remainWeeksSprite->getContentSize().height - 5.f),
-				remainWeeksSprite, 1, true);
+				remainWeeksSprite, 1, true, TextHAlignment::RIGHT);
 			m_RemainWeeksText->enableShadow(Color4B::BLACK);
 		}
 	}
