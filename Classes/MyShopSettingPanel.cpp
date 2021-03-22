@@ -58,8 +58,10 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 	if (shopName)
 	{
 		shopName->setString(GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]]->m_Name);
-		GameFunctions::displayLabel(shopName, Color4B::BLACK, Vec2(panelMidPoint.x - 200.f, panelMidPoint.y + 200.f),
+		GameFunctions::displayLabel(shopName, Color4B::BLACK, Vec2(panelMidPoint.x - 250.f, panelMidPoint.y + 190.f),
 			m_ThisPanel, 1, true, TextHAlignment::LEFT);
 	}
+
+
 
 }

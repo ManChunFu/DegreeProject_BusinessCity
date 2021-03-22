@@ -79,22 +79,23 @@ void GameStartPanel::createPanel(GameScene* scene, Vec2 sceneMidPoint)
 
 		auto buttonLabel = Label::createWithTTF(item.second->m_ShopType, "fonts/NirmalaB.ttf", 20);
 		if (buttonLabel)
-			GameFunctions::displayLabel(buttonLabel, Color4B::BLACK, Vec2(buttonMidPoint.x - 60.f, buttonMidPoint.y + 80.f), buttomItem, 1);
+			GameFunctions::displayLabel(buttonLabel, Color4B::BLACK, Vec2(buttonMidPoint.x - 130.f, buttonMidPoint.y + 60.f), 
+				buttomItem, 1, true, TextHAlignment::LEFT);
 
 		auto cashSymbol = Label::createWithTTF("$", "fonts/Nirmala.ttf", 20);
 		if (cashSymbol)
-			GameFunctions::displayLabel(cashSymbol, Color4B::BLACK, Vec2(buttonMidPoint.x - 100.f, buttonMidPoint.y + 60.f),
-				buttomItem, 1);
+			GameFunctions::displayLabel(cashSymbol, Color4B::BLACK, Vec2(buttonMidPoint.x - 130.f, buttonMidPoint.y + 40.f),
+				buttomItem, 1, true, TextHAlignment::LEFT);
 
 		auto buttonPriceLabel = Label::createWithTTF("", "fonts/NirmalaB.ttf", 20);
 		if (buttonPriceLabel)
 		{
 			GameFunctions::updateLabelText_MoneyFormat(buttonPriceLabel, item.second->m_ShopPrice);
-			GameFunctions::displayLabel(buttonPriceLabel, Color4B::BLACK, Vec2(buttonMidPoint.x - 50.f, buttonMidPoint.y + 60.f), buttomItem, 1);
+			GameFunctions::displayLabel(buttonPriceLabel, Color4B::BLACK, Vec2(buttonMidPoint.x - 100.f, buttonMidPoint.y + 40.f), 
+				buttomItem, 1, true, TextHAlignment::LEFT);
 		}
 
 		m_StartupItems.pushBack(buttomItem);
-		
 	}
 
 	
