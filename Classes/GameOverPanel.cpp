@@ -76,7 +76,6 @@ void GameOverPanel::restart(cocos2d::Ref* pSender)
 {
 	destroyPanel();
 	auto scene = GameScene::createScene();
-	DelayTime::create(2.f);
 	Director::getInstance()->replaceScene(scene);
 
 }

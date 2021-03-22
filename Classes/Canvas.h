@@ -24,6 +24,8 @@ public:
 
 private:
 	std::vector<cocos2d::Node*> m_UIPanels;
+	std::vector<cocos2d::Node*> m_AddPanels;
+	std::vector<cocos2d::Ref*> m_RemovePanels;
 	GameScene* m_GameScene = nullptr;
 	InfoPanel* m_InfoPanel = nullptr;
 	GameStartPanel* m_GameStartPanel = nullptr;

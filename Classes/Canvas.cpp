@@ -17,6 +17,8 @@ Canvas::~Canvas()
 		delete panel;
 	}
 	m_UIPanels.clear();
+	m_AddPanels.clear();
+	m_RemovePanels.clear();
 	m_InfoPanel = nullptr;
 	m_GameStartPanel = nullptr;
 	m_MyShopPanel = nullptr;
@@ -59,10 +61,29 @@ void Canvas::Init(GameScene* scene, Player* player)
 
 void Canvas::update(float deltaTime)
 {
+	for (auto panel : m_AddPanels)
+	{
+		m_UIPanels.push_back(panel);
+	}
+	m_AddPanels.clear();
+
 	for (auto panel : m_UIPanels)
 	{
 		panel->update(deltaTime);
 	}
+
+	for (unsigned index = 0; index < m_UIPanels.size(); index++)
+	{
+		for (auto ref : m_RemovePanels)
+		{
+			if (m_UIPanels[index] == ref)
+			{
+				m_UIPanels.erase(m_UIPanels.begin() + index);
+				index--;
+			}
+		}
+	}
+	m_RemovePanels.clear();
 }
 
 void Canvas::gameOver()
@@ -71,18 +92,22 @@ void Canvas::gameOver()
 	m_GameoverPanel = new GameOverPanel;
 	m_GameoverPanel->init(m_GameScene, m_SceneMidPoint);
 	m_GameoverPanel->onDestroyCall = CC_CALLBACK_1(Canvas::destroyPanel, this, EPanels::DEFAULT_PANEL);
-	m_UIPanels.push_back(m_GameoverPanel);
+	m_AddPanels.push_back(m_GameoverPanel);
+	//m_UIPanels.push_back(m_GameoverPanel);
 }
 
 void Canvas::destroyPanel(cocos2d::Ref* pSender, EPanels uiPanel)
 {
-	for (unsigned index = 0;  index < m_UIPanels.size(); index++)
-	{
-		if (m_UIPanels[index] == pSender)
-		{
-			m_UIPanels.erase(m_UIPanels.begin() + index);
-		}
-	}
+	//for (unsigned index = 0;  index < m_UIPanels.size(); index++)
+	//{
+	//	if (m_UIPanels[index] == pSender)
+	//	{
+	//		m_UIPanels.erase(m_UIPanels.begin() + index);
+	//		index--;
+	//	}
+	//}
+
+	m_RemovePanels.push_back(pSender);
 
 	if (uiPanel == EPanels::DEFAULT_PANEL)
 		return;
@@ -118,7 +143,8 @@ void Canvas::createMyShopPanel()
 	m_MyShopPanel = new MyShopSettingPanel();
 	m_MyShopPanel->openPanel(m_GameScene, m_SceneMidPoint);
 	m_MyShopPanel->onActionCall = CC_CALLBACK_1(Canvas::actionCall, this, EPanels::INFO_PANEL);
-	m_UIPanels.push_back(m_MyShopPanel);
+	m_AddPanels.push_back(m_MyShopPanel);
+	//m_UIPanels.push_back(m_MyShopPanel);
 
 	// ToDo: move this call to its own funciton 
 	m_InfoPanel->enableBankButton(true);

@@ -7,7 +7,7 @@ class Shop;
 class Player
 {
 public:
-	Player(const std::string& name, cocos2d::itemTypes character) : m_PlayerName(name), m_PlayerCharacter(character){};
+	Player(const std::string name, cocos2d::itemTypes character) : m_PlayerName(name), m_PlayerCharacter(character){};
 	virtual ~Player();
 
 	std::vector<unsigned> m_MyShopIds;
@@ -19,8 +19,8 @@ public:
 
 	std::function<void(Player* player, int cashAmout)> onCashAmoutChange;
 private:
-	const std::string& m_PlayerName = "";
+	const std::string m_PlayerName = "";
 	cocos2d::itemTypes m_PlayerCharacter;
-	int m_CurrentCashAmout = 50000;
+	int m_CurrentCashAmout = -1;
 	unsigned m_Debut = 0;
 };

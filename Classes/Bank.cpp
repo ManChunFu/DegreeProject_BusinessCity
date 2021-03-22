@@ -400,7 +400,6 @@ void Bank::createBankPanel()
 	{
 		GameFunctions::displaySprite(loanAmoutSprite, Vec2(panelMidPoint.x - 175.f, panelMidPoint.y - 205.f), m_LoanWidget, 1);
 
-		//,000 label
 		m_LoanAmoutText = Label::createWithTTF("", "fonts/Nirmala.ttf", 20);
 		if (m_LoanAmoutText)
 		{

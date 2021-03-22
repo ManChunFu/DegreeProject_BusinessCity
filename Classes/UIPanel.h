@@ -16,6 +16,7 @@ public:
 
 protected:
 	std::vector<cocos2d::Node*> m_Elements;
+	cocos2d::Vector<cocos2d::MenuItem*> m_MenuItems;
 	GameScene* m_GameScene = nullptr;
 	cocos2d::Sprite* m_ThisPanel = nullptr;
 	Player* m_Player = nullptr;

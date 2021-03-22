@@ -7,7 +7,7 @@ class Player;
 class MyShopSettingPanel : public UIPanel
 {
 public:
-	virtual ~MyShopSettingPanel();
+	~MyShopSettingPanel() override;
 
 	void openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint) override;
 	void closePanel() override;
@@ -15,5 +15,5 @@ public:
 
 protected:	
 	void createPanel(cocos2d::Vec2 sceneMidPoint) override;
-
+	void reduceCallback(cocos2d::Ref* pSender);
 };
