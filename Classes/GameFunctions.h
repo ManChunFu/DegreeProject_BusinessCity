@@ -20,4 +20,6 @@ struct GameFunctions
 
 	static void updatLabelText_TimeFormat(cocos2d::Label* label, unsigned value);
 
+	static unsigned displayLabelText_ClampValue(cocos2d::Label* label, int originValue, int newValue, unsigned minValue, unsigned maxValue);
+
 };

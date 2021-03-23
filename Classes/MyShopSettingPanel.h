@@ -3,6 +3,14 @@
 #include "UIPanel.h"
 
 class Player;
+class MouseOverMenuItem;
+
+NS_CC_BEGIN
+namespace ui
+{
+	class CheckBox;
+}
+NS_CC_END
 
 class MyShopSettingPanel : public UIPanel
 {
@@ -16,4 +24,20 @@ public:
 protected:	
 	void createPanel(cocos2d::Vec2 sceneMidPoint) override;
 	void reduceCallback(cocos2d::Ref* pSender);
+	void addCallback(cocos2d::Ref* pSender);
+	void reduceTimeCallback(cocos2d::Ref* pSender);
+	void increaseTimeCallback(cocos2d::Ref* pSender);
+	void actionCallback(cocos2d::Ref* pSender);
+	void onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event);
+
+private:
+	cocos2d::Label* m_EmployeeCountText = nullptr;
+	cocos2d::ui::CheckBox* m_WorkHere = nullptr;
+	cocos2d::Label* m_FromHourText = nullptr;
+	cocos2d::Label* m_ToHourText = nullptr;
+
+	bool m_OwnerWorkHere = false;
+	unsigned m_EmployeeCount = 0;
+	unsigned m_FromHour = 8;
+	unsigned m_ToHour = 17;
 };

@@ -62,7 +62,19 @@ void GameFunctions::updateLabelText_MoneyFormat(Label* label, int value, bool mi
 
 void GameFunctions::updatLabelText_TimeFormat(cocos2d::Label* label, unsigned value)
 {
+	if (value == 24)
+		value = 0;
 	std::string timeStr = std::to_string(value);
 	label->setString(std::string(2 - timeStr.length(), '0').append(timeStr));
 }
+
+unsigned GameFunctions::displayLabelText_ClampValue(cocos2d::Label* label, int originValue, int newValue, unsigned minValue, unsigned maxValue)
+{
+	originValue += newValue;
+	originValue = clampf(originValue, minValue, maxValue);
+	GameFunctions::updateLabelText_MoneyFormat(label, originValue);
+	return originValue;
+}
+
+
 

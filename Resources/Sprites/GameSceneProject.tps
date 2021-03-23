@@ -217,6 +217,7 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">../X/Border_Blue.png</key>
             <key type="filename">../X/Border_Brown.png</key>
             <key type="filename">../X/Border_Brown_Disabled.png</key>
             <key type="filename">../X/Border_Brown_Lit.png</key>
@@ -237,7 +238,9 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">../X/Border_Blue_Square.png</key>
             <key type="filename">../X/Border_Brown_Square.png</key>
+            <key type="filename">../X/Border_White_Square.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -249,6 +252,45 @@
                 <rect>13,10,25,20</rect>
                 <key>scale9Paddings</key>
                 <rect>13,10,25,20</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../X/Brown_Panel_500.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>150,125,300,250</rect>
+                <key>scale9Paddings</key>
+                <rect>150,125,300,250</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../X/Checkbox_Active.png</key>
+            <key type="filename">../X/Checkbox_Normal.png</key>
+            <key type="filename">../X/Checkbox_Normal_Disable.png</key>
+            <key type="filename">../X/Checkbox_Normal_Press.png</key>
+            <key type="filename">../X/UIButtonCorner40.png</key>
+            <key type="filename">../X/UIButtonCorner40Left.png</key>
+            <key type="filename">../X/UIButtonCorner40Left_Disabled.png</key>
+            <key type="filename">../X/UIButtonCorner40Left_Lit.png</key>
+            <key type="filename">../X/UIButtonCorner40_Disabled.png</key>
+            <key type="filename">../X/UIButtonCorner40_Lit.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>10,10,20,20</rect>
+                <key>scale9Paddings</key>
+                <rect>10,10,20,20</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -297,26 +339,6 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../X/UIButtonCorner40.png</key>
-            <key type="filename">../X/UIButtonCorner40Left.png</key>
-            <key type="filename">../X/UIButtonCorner40Left_Disabled.png</key>
-            <key type="filename">../X/UIButtonCorner40Left_Lit.png</key>
-            <key type="filename">../X/UIButtonCorner40_Disabled.png</key>
-            <key type="filename">../X/UIButtonCorner40_Lit.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>10,10,20,20</rect>
-                <key>scale9Paddings</key>
-                <rect>10,10,20,20</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
         </map>
         <key>fileList</key>
         <array>
@@ -338,6 +360,14 @@
             <filename>../X/UIButtonCorner40Left.png</filename>
             <filename>../X/UIButtonCorner40Left_Disabled.png</filename>
             <filename>../X/UIButtonCorner40Left_Lit.png</filename>
+            <filename>../X/Border_Blue.png</filename>
+            <filename>../X/Border_Blue_Square.png</filename>
+            <filename>../X/Brown_Panel_500.png</filename>
+            <filename>../X/Border_White_Square.png</filename>
+            <filename>../X/Checkbox_Active.png</filename>
+            <filename>../X/Checkbox_Normal.png</filename>
+            <filename>../X/Checkbox_Normal_Disable.png</filename>
+            <filename>../X/Checkbox_Normal_Press.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

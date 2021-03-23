@@ -73,7 +73,6 @@ private:
 	void reduceAmoutCallback(cocos2d::Ref* pSender);
 	void addWeekCallback(cocos2d::Ref* pSender);
 	void reduceWeekCallback(cocos2d::Ref* pSender);
-	unsigned updateLabelText(cocos2d::Label* label, unsigned originValue, int newValue, unsigned minValue, unsigned maxValue);
 	void takeLoan(cocos2d::Ref* pSender);
 	void calculateWeeklyRepayments();
 	void updateDebtDisplay(int amout, unsigned remainWeeks);

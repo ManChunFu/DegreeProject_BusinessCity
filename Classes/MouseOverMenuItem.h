@@ -15,6 +15,8 @@ class MouseOverMenuItem : public cocos2d::MenuItemImage
 public:
 	virtual ~MouseOverMenuItem();
 
+	static MouseOverMenuItem* createUpperButton(const cocos2d::ccMenuCallback& callback);
+	static MouseOverMenuItem* createLowerButton(const cocos2d::ccMenuCallback& callback);
 	static MouseOverMenuItem* creatMouseOverMenuButton(const std::string& normalPath, const std::string& selectedPath, const std::string& disabledPath, const cocos2d::ccMenuCallback& callback);
 	static MouseOverMenuItem* create(const std::string& normalImage, const std::string& overImage, const std::string& disabledImage, const cocos2d::ccMenuCallback& callback);
 	static MouseOverMenuItem* create(Node* normalSprite, Node* overSprite, Node* disabledSprite, const cocos2d::ccMenuCallback& callback);

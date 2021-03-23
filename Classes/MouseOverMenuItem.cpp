@@ -7,6 +7,28 @@ MouseOverMenuItem::~MouseOverMenuItem()
 	_eventDispatcher->removeEventListener(m_MouseListener);
 }
 
+MouseOverMenuItem* MouseOverMenuItem::createUpperButton(const cocos2d::ccMenuCallback& callback)
+{
+	auto spriteNormal = Sprite::createWithSpriteFrameName("UIButtonCorner40Left.png");
+	auto spriteSelected = Sprite::createWithSpriteFrameName("UIButtonCorner40Left_Lit.png");
+	auto spriteDisabled = Sprite::createWithSpriteFrameName("UIButtonCorner40Left_Disabled.png");
+
+	if (spriteNormal && spriteSelected && spriteDisabled)
+		return create(spriteNormal, spriteSelected, spriteDisabled, callback);
+	return nullptr;
+}
+
+MouseOverMenuItem* MouseOverMenuItem::createLowerButton(const cocos2d::ccMenuCallback& callback)
+{
+	auto spriteNormal = Sprite::createWithSpriteFrameName("UIButtonCorner40.png"); 
+	auto spriteSelected = Sprite::createWithSpriteFrameName("UIButtonCorner40_Lit.png");
+	auto spriteDisabled = Sprite::createWithSpriteFrameName("UIButtonCorner40_Disabled.png");
+
+	if (spriteNormal && spriteSelected && spriteDisabled)
+		return create(spriteNormal, spriteSelected, spriteDisabled, callback);
+	return nullptr;
+}
+
 MouseOverMenuItem* MouseOverMenuItem::creatMouseOverMenuButton(const std::string& normalPath, const std::string& selectedPath, const std::string& disabledPath, const ccMenuCallback& callback)
 {
 	auto spriteNormal = Sprite::createWithSpriteFrameName(normalPath);

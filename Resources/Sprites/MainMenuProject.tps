@@ -202,6 +202,21 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">../X/Brown_Panel_400.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>150,100,300,200</rect>
+                <key>scale9Paddings</key>
+                <rect>150,100,300,200</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">../X/ButtonBlueDisabled.png</key>
             <key type="filename">../X/ButtonBlueLit.png</key>
             <key type="filename">../X/ButtonBlueNormal.png</key>
@@ -226,6 +241,60 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">../X/FruitStand.png</key>
+            <key type="filename">../X/FruitStand_Disabled.png</key>
+            <key type="filename">../X/FruitStand_Lit.png</key>
+            <key type="filename">../X/Handicrafts.png</key>
+            <key type="filename">../X/Handicrafts_Disabled.png</key>
+            <key type="filename">../X/Handicrafts_Lit.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>73,47,146,94</rect>
+                <key>scale9Paddings</key>
+                <rect>73,47,146,94</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../X/HotdogStand.png</key>
+            <key type="filename">../X/HotdogStand_Disabled.png</key>
+            <key type="filename">../X/HotdogStand_Lit.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>75,50,150,100</rect>
+                <key>scale9Paddings</key>
+                <rect>75,50,150,100</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../X/Icecream.png</key>
+            <key type="filename">../X/Icecream_Disabled.png</key>
+            <key type="filename">../X/Icecream_Lit.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>73,47,147,95</rect>
+                <key>scale9Paddings</key>
+                <rect>73,47,147,95</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">../X/UIPanelRecBlack80.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -238,6 +307,23 @@
                 <rect>100,150,200,300</rect>
                 <key>scale9Paddings</key>
                 <rect>100,150,200,300</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../X/UIToggleButton.png</key>
+            <key type="filename">../X/UIToggleButton_Disabled.png</key>
+            <key type="filename">../X/UIToggleButton_Lit.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>8,8,16,16</rect>
+                <key>scale9Paddings</key>
+                <rect>8,8,16,16</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -256,6 +342,22 @@
             <filename>../X/Button_Red_50_Alpha_Disabled.png</filename>
             <filename>../X/Button_Red_50_Alpha_Selected.png</filename>
             <filename>../X/Button_Yellow_20_Alpha.png</filename>
+            <filename>../X/FruitStand.png</filename>
+            <filename>../X/Brown_Panel_400.png</filename>
+            <filename>../X/Handicrafts.png</filename>
+            <filename>../X/HotdogStand.png</filename>
+            <filename>../X/Icecream.png</filename>
+            <filename>../X/FruitStand_Disabled.png</filename>
+            <filename>../X/FruitStand_Lit.png</filename>
+            <filename>../X/HotdogStand_Lit.png</filename>
+            <filename>../X/HotdogStand_Disabled.png</filename>
+            <filename>../X/Icecream_Lit.png</filename>
+            <filename>../X/Icecream_Disabled.png</filename>
+            <filename>../X/Handicrafts_Disabled.png</filename>
+            <filename>../X/Handicrafts_Lit.png</filename>
+            <filename>../X/UIToggleButton.png</filename>
+            <filename>../X/UIToggleButton_Disabled.png</filename>
+            <filename>../X/UIToggleButton_Lit.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

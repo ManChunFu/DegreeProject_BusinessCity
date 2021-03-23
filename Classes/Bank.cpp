@@ -129,34 +129,26 @@ void Bank::updateOverviewAmout(int amout)
 
 void Bank::addAmoutCallback(cocos2d::Ref* pSender)
 {
-	m_LoanAmout = updateLabelText(m_LoanAmoutText, m_LoanAmout, 10000, 10000, 100000);
+	m_LoanAmout = GameFunctions::displayLabelText_ClampValue(m_LoanAmoutText, m_LoanAmout, 10000, 10000, 100000);
 	calculateWeeklyRepayments();
 }
 
 void Bank::reduceAmoutCallback(cocos2d::Ref* pSender)
 {
-	m_LoanAmout = updateLabelText(m_LoanAmoutText, m_LoanAmout, -10000, 10000, 100000);
+	m_LoanAmout = GameFunctions::displayLabelText_ClampValue(m_LoanAmoutText, m_LoanAmout, -10000, 10000, 100000);
 	calculateWeeklyRepayments();
 }
 
 void Bank::addWeekCallback(cocos2d::Ref* pSender)
 {
-	m_PaybackWeeks = updateLabelText(m_WeeklyPayText, m_PaybackWeeks, 1, 5, 30);
+	m_PaybackWeeks = GameFunctions::displayLabelText_ClampValue(m_WeeklyPayText, m_PaybackWeeks, 1, 5, 30);
 	calculateWeeklyRepayments();
 }
 
 void Bank::reduceWeekCallback(cocos2d::Ref* pSender)
 {
-	m_PaybackWeeks = updateLabelText(m_WeeklyPayText, m_PaybackWeeks, -1, 5, 30);
+	m_PaybackWeeks = GameFunctions::displayLabelText_ClampValue(m_WeeklyPayText, m_PaybackWeeks, -1, 5, 30);
 	calculateWeeklyRepayments();
-}
-
-unsigned Bank::updateLabelText(cocos2d::Label* label, unsigned originValue, int newValue, unsigned minValue, unsigned maxValue)
-{
-	originValue += newValue;
-	originValue = clampf(originValue, minValue, maxValue);
-	GameFunctions::updateLabelText_MoneyFormat(label, originValue);
-	return originValue;
 }
 
 void Bank::resetTakeLoan()

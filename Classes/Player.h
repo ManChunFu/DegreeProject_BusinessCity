@@ -21,6 +21,6 @@ public:
 private:
 	const std::string m_PlayerName = "";
 	cocos2d::itemTypes m_PlayerCharacter;
-	int m_CurrentCashAmout = -1;
+	int m_CurrentCashAmout = 50000;
 	unsigned m_Debut = 0;
 };
