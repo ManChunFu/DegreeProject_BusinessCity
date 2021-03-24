@@ -202,6 +202,22 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">Products/FrenchHotDog_100.png</key>
+            <key type="filename">Products/GrillHotDog_100.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>25,25,50,50</rect>
+                <key>scale9Paddings</key>
+                <rect>25,25,50,50</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">../X/Bank_Panel_400.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -256,6 +272,7 @@
                 <false/>
             </struct>
             <key type="filename">../X/Brown_Panel_500.png</key>
+            <key type="filename">../X/Brown_Panel_500_BlueLine.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -368,6 +385,9 @@
             <filename>../X/Checkbox_Normal.png</filename>
             <filename>../X/Checkbox_Normal_Disable.png</filename>
             <filename>../X/Checkbox_Normal_Press.png</filename>
+            <filename>../X/Brown_Panel_500_BlueLine.png</filename>
+            <filename>Products/FrenchHotDog_100.png</filename>
+            <filename>Products/GrillHotDog_100.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

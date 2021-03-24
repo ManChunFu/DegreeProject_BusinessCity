@@ -11,6 +11,11 @@ USING_NS_CC;
 
 MyShopSettingPanel::~MyShopSettingPanel()
 {
+	m_EmployeeCountText = nullptr;
+	m_WorkHere = nullptr;
+	m_FromHourText = nullptr;
+	m_ToHourText = nullptr;
+	m_Weekdays.clear();
 }
 
 void MyShopSettingPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
@@ -139,6 +144,7 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 	m_WorkHere = ui::CheckBox::create("X/Checkbox_Normal.png", "X/Checkbox_Normal_Press.png", "X/Checkbox_Active.png", "", "");
 	m_WorkHere->setPosition(Vec2(panelMidPoint.x - 120.f, panelMidPoint.y + 110.f));
 	m_WorkHere->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {});
+	m_WorkHere->setSelected(true);
 
 	m_ThisPanel->addChild(m_WorkHere, 1);
 #pragma endregion
@@ -148,7 +154,7 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 	if (workScheduleText)
 		GameFunctions::displayLabel(workScheduleText, Color4B::BLACK, Vec2(textAligmentLeft, panelMidPoint.y + 40.f),
 			m_ThisPanel, 1, true, TextHAlignment::LEFT);
-	
+
 	// from
 	auto fromText = Label::createWithTTF("From", "fonts/Nirmala.ttf", 18);
 	if (fromText)
@@ -167,19 +173,19 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 
 		auto minuteText = Label::createWithTTF(": 00", "fonts/Nirmala.ttf", 20);
 		if (minuteText)
-			GameFunctions::displayLabel(minuteText, Color4B::BLACK, Vec2(fromBoxMidPoint.x + 30.f, fromBoxMidPoint.y + 15.f), 
+			GameFunctions::displayLabel(minuteText, Color4B::BLACK, Vec2(fromBoxMidPoint.x + 30.f, fromBoxMidPoint.y + 15.f),
 				fromBoxSprite, 1, true, TextHAlignment::RIGHT);
 
 		m_FromHourText = Label::createWithTTF("08", "fonts/Nirmala.ttf", 20);
 		if (m_FromHourText)
-			GameFunctions::displayLabel(m_FromHourText, Color4B::BLACK, Vec2(fromBoxMidPoint.x -10.f, fromBoxMidPoint.y + 15.f),
+			GameFunctions::displayLabel(m_FromHourText, Color4B::BLACK, Vec2(fromBoxMidPoint.x - 10.f, fromBoxMidPoint.y + 15.f),
 				fromBoxSprite, 1, true, TextHAlignment::RIGHT);
 	}
 
 	for (unsigned index = 0; index < 2; index++)
 	{
-		auto button = (index % 2 == 0) ? MouseOverMenuItem::createLowerButton(CC_CALLBACK_1(MyShopSettingPanel::reduceTimeCallback, this))
-			: MouseOverMenuItem::createUpperButton(CC_CALLBACK_1(MyShopSettingPanel::increaseTimeCallback, this));
+		auto button = (index % 2 == 0) ? MouseOverMenuItem::createLowerButton(CC_CALLBACK_1(MyShopSettingPanel::reduceTimeCallback, this, true))
+			: MouseOverMenuItem::createUpperButton(CC_CALLBACK_1(MyShopSettingPanel::increaseTimeCallback, this, true));
 		if (button)
 		{
 			button->onMouseOver = CC_CALLBACK_2(MyShopSettingPanel::onMouseOver, this);
@@ -220,14 +226,13 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 
 	for (unsigned index = 0; index < 2; index++)
 	{
-		auto toButton = (index % 2 == 0) ? MouseOverMenuItem::createLowerButton(CC_CALLBACK_1(MyShopSettingPanel::reduceTimeCallback, this))
-			: MouseOverMenuItem::createUpperButton(CC_CALLBACK_1(MyShopSettingPanel::increaseTimeCallback, this));
+		auto toButton = (index % 2 == 0) ? MouseOverMenuItem::createLowerButton(CC_CALLBACK_1(MyShopSettingPanel::reduceTimeCallback, this, false))
+			: MouseOverMenuItem::createUpperButton(CC_CALLBACK_1(MyShopSettingPanel::increaseTimeCallback, this, false));
 		if (toButton)
 		{
-			toButton->_ID = 15;
 			toButton->onMouseOver = CC_CALLBACK_2(MyShopSettingPanel::onMouseOver, this);
 			Vec2 buttonPos = (index % 2 == 0) ? Vec2(sceneMidPoint.x + 190.f, sceneMidPoint.y + 40.f) :
-				Vec2(sceneMidPoint.x + 110.f , sceneMidPoint.y + 60.f);
+				Vec2(sceneMidPoint.x + 110.f, sceneMidPoint.y + 60.f);
 			toButton->setScale(0.5f);
 			toButton->setPosition(buttonPos);
 			toButton->setItemRect(buttonPos, 0.5f);
@@ -236,7 +241,32 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 		}
 	}
 
+	// weeks
+	std::string weekdays[7] = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" };
+	auto checkboxPos = Vec2(panelMidPoint.x - 80.f, panelMidPoint.y - 20.f);
+	for (unsigned index = 0; index < 7; index++)
+	{
+		auto checkbox = ui::CheckBox::create("X/Checkbox_Normal.png", "X/Checkbox_Normal_Press.png", "X/Checkbox_Active.png", "", "");
+		checkbox->setPosition(checkboxPos);
+		checkbox->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {});
+		(index > 4) ? checkbox->setSelected(false) : checkbox->setSelected(true);
 
+		m_Weekdays.push_back(checkbox);
+		m_ThisPanel->addChild(checkbox, 1);
+		checkboxPos.x += 50.f;
+
+		auto text = Label::createWithTTF(weekdays[index], "fonts/Nirmala.ttf", 15);
+		if (text)
+			GameFunctions::displayLabel(text, Color4B::BLACK, Vec2(checkbox->getContentSize().width * 0.5f,
+				checkbox->getContentSize().height + 10.f), checkbox, 1);
+	}
+#pragma endregion
+
+#pragma region Shop Products
+	auto productText = Label::createWithTTF("Products", "fonts/NirmalaB.ttf", 20);
+	if (productText)
+		GameFunctions::displayLabel(productText, Color4B::BLACK, Vec2(textAligmentLeft, panelMidPoint.y - 50.f), m_ThisPanel, 1,
+			true, TextHAlignment::LEFT);
 #pragma endregion
 
 	auto menu = Menu::createWithArray(m_MenuItems);
@@ -257,35 +287,33 @@ void MyShopSettingPanel::addCallback(cocos2d::Ref* pSender)
 	m_EmployeeCountText->setString(std::to_string(m_EmployeeCount));
 }
 
-void MyShopSettingPanel::reduceTimeCallback(cocos2d::Ref* pSender)
+void MyShopSettingPanel::reduceTimeCallback(cocos2d::Ref* pSender, bool fromHourButton)
 {
-	if (pSender->_ID == 15)
+	if (fromHourButton)
 	{
-		m_ToHour = GameFunctions::displayLabelText_ClampValue(m_ToHourText, m_ToHour, -1, 0, 24);
-		GameFunctions::updatLabelText_TimeFormat(m_ToHourText, m_ToHour);
+		m_FromHour = GameFunctions::displayLabelText_ClampValue(m_FromHourText, m_FromHour, -1, 0, 24);
+		GameFunctions::updatLabelText_TimeFormat(m_FromHourText, m_FromHour);
 		return;
 	}
-	m_FromHour = GameFunctions::displayLabelText_ClampValue(m_FromHourText, m_FromHour, -1, 0, 24);
-	GameFunctions::updatLabelText_TimeFormat(m_FromHourText, m_FromHour);
+	m_ToHour = GameFunctions::displayLabelText_ClampValue(m_ToHourText, m_ToHour, -1, 0, 24);
+	GameFunctions::updatLabelText_TimeFormat(m_ToHourText, m_ToHour);
 }
 
-void MyShopSettingPanel::increaseTimeCallback(cocos2d::Ref* pSender)
+void MyShopSettingPanel::increaseTimeCallback(cocos2d::Ref* pSender, bool fromHourButton)
 {
-	if (pSender->_ID == 15)
+	if (fromHourButton)
 	{
-		m_ToHour = GameFunctions::displayLabelText_ClampValue(m_ToHourText, m_ToHour, 1, 0, 24);
-		GameFunctions::updatLabelText_TimeFormat(m_ToHourText, m_ToHour);
+		m_FromHour = GameFunctions::displayLabelText_ClampValue(m_FromHourText, m_FromHour, 1, 0, 24);
+		GameFunctions::updatLabelText_TimeFormat(m_FromHourText, m_FromHour);
 		return;
 	}
+	m_ToHour = GameFunctions::displayLabelText_ClampValue(m_ToHourText, m_ToHour, 1, 0, 24);
+	GameFunctions::updatLabelText_TimeFormat(m_ToHourText, m_ToHour);
 
-	m_FromHour = GameFunctions::displayLabelText_ClampValue(m_FromHourText, m_FromHour, 1, 0, 24);
-	GameFunctions::updatLabelText_TimeFormat(m_FromHourText, m_FromHour);
 }
 
 void MyShopSettingPanel::actionCallback(cocos2d::Ref* pSender)
 {
-	m_OwnerWorkHere = m_WorkHere->isSelected();
-
 }
 
 void MyShopSettingPanel::onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event)
