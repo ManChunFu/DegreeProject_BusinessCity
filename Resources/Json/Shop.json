@@ -18,13 +18,15 @@
         "Name": "French Hot Dog",
         "ProductLook": "FrenchHotDog_100.png",
         "Price": 20,
-        "PurchasePrice": 4
+        "PurchasePrice": 4,
+        "Quantity":  20
       },
       {
         "Name": "Grill Hot Dog",
         "ProductLook": "GrillHotDog_100.png",
         "Price": 18,
-        "PurchasePrice": 3
+        "PurchasePrice": 3,
+        "Quantity": 20
       }
     ]
   },
@@ -47,25 +49,29 @@
         "Name": "Chocolate Ice Cream",
         "ProductLook": "",
         "Price": 30,
-        "PurchasePrice": 6
+        "PurchasePrice": 6,
+        "Quantity": 20
       },
       {
         "Name": "Vanilla Ice Cream",
         "ProductLook": "",
         "Price": 25,
-        "PurchasePrice": 5
+        "PurchasePrice": 5,
+        "Quantity": 20
       },
       {
         "Name": "Mango Ice Cream",
         "ProductLook": "",
         "Price": 35,
-        "PurchasePrice": 8
+        "PurchasePrice": 8,
+        "Quantity": 20
       },
       {
         "Name": "Strawberry Ice Cream",
         "ProductLook": "",
         "Price": 35,
-        "PurchasePrice": 8
+        "PurchasePrice": 8,
+        "Quantity": 20
       }
     ]
   },
@@ -88,13 +94,15 @@
         "Name": "Banana",
         "ProductLook": "",
         "Price": 10,
-        "PurchasePrice": 2
+        "PurchasePrice": 2,
+        "Quantity": 20
       },
       {
         "Name": "Apple",
         "ProductLook": "",
         "Price": 12,
-        "PurchasePrice": 3
+        "PurchasePrice": 3,
+        "Quantity": 20
       },
       {
         "Name": "Orange",
@@ -106,13 +114,15 @@
         "Name": "Strawberry",
         "ProductLook": "",
         "Price": 20,
-        "PurchasePrice": 6
+        "PurchasePrice": 6,
+        "Quantity": 20
       },
       {
         "Name": "Pear",
         "ProductLook": "",
         "Price": 15,
-        "PurchasePrice": 4
+        "PurchasePrice": 4,
+        "Quantity": 20
       }
     ]
   },
@@ -135,25 +145,29 @@
         "Name": "Scarf",
         "ProductLook": "",
         "Price": 50,
-        "PurchasePrice": 25
+        "PurchasePrice": 25,
+        "Quantity": 20
       },
       {
         "Name": "Mug",
         "ProductLook": "",
         "Price": 30,
-        "PurchasePrice": 15
+        "PurchasePrice": 15,
+        "Quantity": 20
       },
       {
         "Name": "Post card",
         "ProductLook": "",
         "Price": 5,
-        "PurchasePrice": 1
+        "PurchasePrice": 1,
+        "Quantity": 20
       },
       {
         "Name": "Picture frame",
         "ProductLook": "",
         "Price": 20,
-        "PurchasePrice": 6
+        "PurchasePrice": 6,
+        "Quantity": 20
       }
     ]
   }

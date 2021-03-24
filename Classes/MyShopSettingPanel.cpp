@@ -43,6 +43,7 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 {
 	auto myShop = GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]];
 
+	// create this panel
 	m_ThisPanel = Sprite::createWithSpriteFrameName("Brown_Panel_500_BlueLine.png");
 	if (!m_ThisPanel)
 		return;
@@ -53,6 +54,7 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 
 	auto panelMidPoint = Vec2(m_ThisPanel->getContentSize().width * 0.5f, m_ThisPanel->getContentSize().height * 0.5f);
 
+	// shop picture, name
 	auto shopPic = Sprite::createWithSpriteFrameName(myShop->m_ShopLook_Normal);
 	if (shopPic)
 	{
@@ -70,19 +72,19 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 	auto shopName = Label::createWithTTF("", "fonts/NirmalaB.ttf", 30);
 	if (shopName)
 	{
-		shopName->setString(GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]]->m_Name);
+		shopName->setString(myShop->m_Name);
 		shopName->enableShadow(Color4B::BLACK);
 		GameFunctions::displayLabel(shopName, Color4B::WHITE, Vec2(textAligmentLeft, panelMidPoint.y + 190.f),
 			m_ThisPanel, 1, true, TextHAlignment::LEFT);
 	}
 
+#pragma region Hire Employee button
 	auto employeeText = Label::createWithTTF("Employees", "fonts/NirmalaB.ttf", 20);
 	if (employeeText)
 		GameFunctions::displayLabel(employeeText, Color4B::BLACK, Vec2(textAligmentLeft, panelMidPoint.y + 150.f),
 			m_ThisPanel, 1, true, TextHAlignment::LEFT);
 
-#pragma region Hire Employee button
-	auto boxSprite = Sprite::createWithSpriteFrameName("Border_White_Square.png");
+	auto boxSprite = Sprite::createWithSpriteFrameName("Border_Black_Square.png");
 
 	if (boxSprite)
 	{
@@ -91,7 +93,8 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 		m_EmployeeCountText = Label::createWithTTF("", "fonts/Nirmala.ttf", 20);
 		if (m_EmployeeCountText)
 		{
-			m_EmployeeCountText->setString(std::to_string(GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]]->m_Employees));
+			m_EmployeeCountText->enableShadow(Color4B::BLACK);
+			m_EmployeeCountText->setString(std::to_string(myShop->m_Employees));
 			GameFunctions::displayLabel(m_EmployeeCountText, Color4B::WHITE, Vec2(boxSprite->getContentSize().width * 0.5f,
 				boxSprite->getContentSize().height * 0.5f), boxSprite, 1);
 		}
@@ -99,18 +102,12 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 
 	for (unsigned index = 0; index < 2; index++)
 	{
-		auto button = (index % 2 == 0) ? MouseOverMenuItem::createLowerButton(CC_CALLBACK_1(MyShopSettingPanel::reduceCallback, this))
+		auto employeeButton = (index % 2 == 0) ? MouseOverMenuItem::createLowerButton(CC_CALLBACK_1(MyShopSettingPanel::reduceCallback, this))
 			: MouseOverMenuItem::createUpperButton(CC_CALLBACK_1(MyShopSettingPanel::addCallback, this));
-		if (button)
+		if (employeeButton)
 		{
-			button->onMouseOver = CC_CALLBACK_2(MyShopSettingPanel::onMouseOver, this);
-			Vec2 buttonPos = (index % 2 == 0) ? Vec2(sceneMidPoint.x - 105.f, sceneMidPoint.y + 150.f) :
-				Vec2(sceneMidPoint.x - 135.f, sceneMidPoint.y + 170.f);
-			button->setScale(0.5f);
-			button->setPosition(buttonPos);
-			button->setItemRect(buttonPos, 0.5f);
-
-			m_MenuItems.pushBack(button);
+			displayButtons(employeeButton, (index % 2 == 0) ? Vec2(sceneMidPoint.x - 105.f, sceneMidPoint.y + 150.f) :
+				Vec2(sceneMidPoint.x - 135.f, sceneMidPoint.y + 170.f));
 		}
 	}
 
@@ -135,7 +132,6 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 
 		m_MenuItems.pushBack(hireButton);
 	}
-
 #pragma endregion
 
 #pragma region Work here checkbox
@@ -144,7 +140,7 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 		GameFunctions::displayLabel(workHereText, Color4B::BLACK, Vec2(textAligmentLeft, panelMidPoint.y + 100.f),
 			m_ThisPanel, 1, true, TextHAlignment::LEFT);
 
-	m_WorkHere = ui::CheckBox::create("X/Checkbox_Normal.png", "X/Checkbox_Normal_Press.png", "X/Checkbox_Active.png", "", "");
+	m_WorkHere = ui::CheckBox::create("X/Checkbox_Normal.png", "X/Checkbox_Checked.png");
 	m_WorkHere->setPosition(Vec2(panelMidPoint.x - 120.f, panelMidPoint.y + 110.f));
 	m_WorkHere->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {});
 	m_WorkHere->setSelected(true);
@@ -167,38 +163,37 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 			m_ThisPanel, 1, true, TextHAlignment::LEFT);
 	}
 
-	auto fromBoxSprite = Sprite::createWithSpriteFrameName("Border_Blue.png");
+	auto fromBoxSprite = Sprite::createWithSpriteFrameName("Border_Black.png");
 	auto fromBoxMidPoint = Vec2(fromBoxSprite->getContentSize().width * 0.5f, fromBoxSprite->getContentSize().height * 0.5f);
-
 	if (fromBoxSprite)
 	{
 		GameFunctions::displaySprite(fromBoxSprite, Vec2(panelMidPoint.x, panelMidPoint.y + 50.f), m_ThisPanel, 1);
 
 		auto minuteText = Label::createWithTTF(": 00", "fonts/Nirmala.ttf", 20);
 		if (minuteText)
-			GameFunctions::displayLabel(minuteText, Color4B::BLACK, Vec2(fromBoxMidPoint.x + 30.f, fromBoxMidPoint.y + 15.f),
+		{
+			minuteText->enableShadow(Color4B::BLACK);
+			GameFunctions::displayLabel(minuteText, Color4B::WHITE, Vec2(fromBoxMidPoint.x + 30.f, fromBoxMidPoint.y + 15.f),
 				fromBoxSprite, 1, true, TextHAlignment::RIGHT);
+		}
 
 		m_FromHourText = Label::createWithTTF("08", "fonts/Nirmala.ttf", 20);
 		if (m_FromHourText)
-			GameFunctions::displayLabel(m_FromHourText, Color4B::BLACK, Vec2(fromBoxMidPoint.x - 10.f, fromBoxMidPoint.y + 15.f),
+		{
+			m_FromHourText->enableShadow(Color4B::BLACK);
+			GameFunctions::displayLabel(m_FromHourText, Color4B::WHITE, Vec2(fromBoxMidPoint.x - 10.f, fromBoxMidPoint.y + 15.f),
 				fromBoxSprite, 1, true, TextHAlignment::RIGHT);
+		}
 	}
 
 	for (unsigned index = 0; index < 2; index++)
 	{
-		auto button = (index % 2 == 0) ? MouseOverMenuItem::createLowerButton(CC_CALLBACK_1(MyShopSettingPanel::reduceTimeCallback, this, true))
+		auto fromButton = (index % 2 == 0) ? MouseOverMenuItem::createLowerButton(CC_CALLBACK_1(MyShopSettingPanel::reduceTimeCallback, this, true))
 			: MouseOverMenuItem::createUpperButton(CC_CALLBACK_1(MyShopSettingPanel::increaseTimeCallback, this, true));
-		if (button)
+		if (fromButton)
 		{
-			button->onMouseOver = CC_CALLBACK_2(MyShopSettingPanel::onMouseOver, this);
-			Vec2 buttonPos = (index % 2 == 0) ? Vec2(sceneMidPoint.x + 40.f, sceneMidPoint.y + 40.f) :
-				Vec2(sceneMidPoint.x - 40.f, sceneMidPoint.y + 60.f);
-			button->setScale(0.5f);
-			button->setPosition(buttonPos);
-			button->setItemRect(buttonPos, 0.5f);
-
-			m_MenuItems.pushBack(button);
+			displayButtons(fromButton, (index % 2 == 0) ? Vec2(sceneMidPoint.x + 33.f, sceneMidPoint.y + 40.f) :
+				Vec2(sceneMidPoint.x - 33.f, sceneMidPoint.y + 60.f));
 		}
 	}
 
@@ -211,20 +206,26 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 			m_ThisPanel, 1, true, TextHAlignment::LEFT);
 	}
 
-	auto toBoxSprite = Sprite::createWithSpriteFrameName("Border_Blue.png");
+	auto toBoxSprite = Sprite::createWithSpriteFrameName("Border_Black.png");
 	if (toBoxSprite)
 	{
 		GameFunctions::displaySprite(toBoxSprite, Vec2(panelMidPoint.x + 150.f, panelMidPoint.y + 50.f), m_ThisPanel, 1);
 
 		auto toMinuteText = Label::createWithTTF(": 00", "fonts/Nirmala.ttf", 20);
 		if (toMinuteText)
-			GameFunctions::displayLabel(toMinuteText, Color4B::BLACK, Vec2(fromBoxMidPoint.x + 30.f, fromBoxMidPoint.y + 15.f),
+		{
+			toMinuteText->enableShadow(Color4B::BLACK);
+			GameFunctions::displayLabel(toMinuteText, Color4B::WHITE, Vec2(fromBoxMidPoint.x + 30.f, fromBoxMidPoint.y + 15.f),
 				toBoxSprite, 1, true, TextHAlignment::RIGHT);
+		}
 
 		m_ToHourText = Label::createWithTTF("17", "fonts/Nirmala.ttf", 20);
 		if (m_ToHourText)
-			GameFunctions::displayLabel(m_ToHourText, Color4B::BLACK, Vec2(fromBoxMidPoint.x - 10.f, fromBoxMidPoint.y + 15.f),
+		{
+			m_ToHourText->enableShadow(Color4B::BLACK);
+			GameFunctions::displayLabel(m_ToHourText, Color4B::WHITE, Vec2(fromBoxMidPoint.x - 10.f, fromBoxMidPoint.y + 15.f),
 				toBoxSprite, 1, true, TextHAlignment::RIGHT);
+		}
 	}
 
 	for (unsigned index = 0; index < 2; index++)
@@ -233,14 +234,8 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 			: MouseOverMenuItem::createUpperButton(CC_CALLBACK_1(MyShopSettingPanel::increaseTimeCallback, this, false));
 		if (toButton)
 		{
-			toButton->onMouseOver = CC_CALLBACK_2(MyShopSettingPanel::onMouseOver, this);
-			Vec2 buttonPos = (index % 2 == 0) ? Vec2(sceneMidPoint.x + 190.f, sceneMidPoint.y + 40.f) :
-				Vec2(sceneMidPoint.x + 110.f, sceneMidPoint.y + 60.f);
-			toButton->setScale(0.5f);
-			toButton->setPosition(buttonPos);
-			toButton->setItemRect(buttonPos, 0.5f);
-
-			m_MenuItems.pushBack(toButton);
+			displayButtons(toButton, (index % 2 == 0) ? Vec2(sceneMidPoint.x + 183.f, sceneMidPoint.y + 40.f) :
+				Vec2(sceneMidPoint.x + 117.f, sceneMidPoint.y + 60.f));
 		}
 	}
 
@@ -249,7 +244,7 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 	auto checkboxPos = Vec2(panelMidPoint.x - 80.f, panelMidPoint.y - 20.f);
 	for (unsigned index = 0; index < 7; index++)
 	{
-		auto checkbox = ui::CheckBox::create("X/Checkbox_Normal.png", "X/Checkbox_Normal_Press.png", "X/Checkbox_Active.png", "", "");
+		auto checkbox = ui::CheckBox::create("X/Checkbox_Normal.png", "X/Checkbox_Checked.png");
 		checkbox->setPosition(checkboxPos);
 		checkbox->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {});
 		(index > 4) ? checkbox->setSelected(false) : checkbox->setSelected(true);
@@ -271,18 +266,53 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 		GameFunctions::displayLabel(productText, Color4B::BLACK, Vec2(textAligmentLeft, panelMidPoint.y - 60.f), m_ThisPanel, 1,
 			true, TextHAlignment::LEFT);
 
-	
 	auto myShopProducts = myShop->m_Products;
 	auto productLength = myShopProducts.size();
-	auto productSpritePos = Vec2(textAligmentLeft, panelMidPoint.y - 100.f);
-	for (unsigned index = 0; index < productLength; index++)
+	auto productSpritePos = Vec2(textAligmentLeft + 30.f, panelMidPoint.y - 80.f);
+	auto productButtonPos = Vec2(sceneMidPoint.x + 15.f, sceneMidPoint.y - 90.f);
+	for (unsigned productIndex = 0; productIndex < productLength; productIndex++)
 	{
-		auto productSprite = Sprite::createWithSpriteFrameName(myShopProducts[index]->m_ProductSpritePath);
-		if (productSprite)
+		auto productSprite = Sprite::createWithSpriteFrameName(myShopProducts[productIndex]->m_ProductSpritePath);
+		if (!productSprite)
+			continue;
+
+		GameFunctions::displaySprite(productSprite, productSpritePos, m_ThisPanel, 1, 0.5f, 0.5f);
+
+		auto productName = Label::createWithTTF(myShopProducts[productIndex]->m_Name, "fonts/Nirmala.ttf", 15);
+		if (!productName)
+			continue;
+
+		GameFunctions::displayLabel(productName, Color4B::BLACK, Vec2(productSpritePos.x + 50.f, productSpritePos.y - 10.f),
+			m_ThisPanel, 1, true, TextHAlignment::LEFT);
+
+		auto boxSprite = Sprite::createWithSpriteFrameName("Border_Black_Square.png");
+		if (!boxSprite)
+			continue;
+
+		GameFunctions::displaySprite(boxSprite, Vec2(productSpritePos.x + 230.f, productSpritePos.y), m_ThisPanel, 1);
+
+		auto productCountText = Label::createWithTTF(std::to_string(myShopProducts[productIndex]->m_Quantity), "fonts/Nirmala.ttf", 20);
+		if (!productCountText)
+			continue;
+
+		GameFunctions::displayLabel(productCountText, Color4B::WHITE, Vec2(boxSprite->getContentSize().width * 0.5f,
+			boxSprite->getContentSize().height * 0.5f), boxSprite, 1);
+
+		m_ProductCountText.push_back(productCountText);
+
+		for (unsigned index = 0; index < 2; index++)
 		{
-			GameFunctions::displaySprite(productSprite, productSpritePos, m_ThisPanel, 1);
-			productSpritePos.y -= 100.f;
+			auto productButton = (index % 2 == 0) ? MouseOverMenuItem::createLowerButton(CC_CALLBACK_1(
+				MyShopSettingPanel::reduceProductAmoutCallback, this, productIndex)) : MouseOverMenuItem::createUpperButton(
+					CC_CALLBACK_1(MyShopSettingPanel::increaseProductAmoutCallback, this, productIndex));
+			if (productButton)
+			{
+				displayButtons(productButton, (index % 2 == 0) ? productButtonPos :
+					Vec2(productButtonPos.x -30.f, productButtonPos.y + 40.f));
+			}
+			productButtonPos.y -= 20.f;
 		}
+		productSpritePos.y -= 40.f;
 	}
 #pragma endregion
 
@@ -329,10 +359,36 @@ void MyShopSettingPanel::increaseTimeCallback(cocos2d::Ref* pSender, bool fromHo
 
 }
 
+void MyShopSettingPanel::reduceProductAmoutCallback(cocos2d::Ref* pSender, unsigned productIndex)
+{
+	auto originalQuantity = GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]]->m_Products[productIndex]->m_Quantity;
+	originalQuantity = GameFunctions::displayLabelText_ClampValue(m_ProductCountText[productIndex], originalQuantity, -20, 0, 100);
+	m_ProductCountText[productIndex]->setString(std::to_string(originalQuantity));
+	GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]]->m_Products[productIndex]->m_Quantity = originalQuantity;
+}
+
+void MyShopSettingPanel::increaseProductAmoutCallback(cocos2d::Ref* pSender, unsigned productIndex)
+{
+	auto originalQuantity = GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]]->m_Products[productIndex]->m_Quantity;
+	originalQuantity = GameFunctions::displayLabelText_ClampValue(m_ProductCountText[productIndex], originalQuantity, 20, 0, 100);
+	m_ProductCountText[productIndex]->setString(std::to_string(originalQuantity));
+	GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]]->m_Products[productIndex]->m_Quantity = originalQuantity;
+}
+
 void MyShopSettingPanel::actionCallback(cocos2d::Ref* pSender)
 {
 }
 
 void MyShopSettingPanel::onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event)
 {
+}
+
+void MyShopSettingPanel::displayButtons(MouseOverMenuItem* button, Vec2 pos)
+{
+	button->onMouseOver = CC_CALLBACK_2(MyShopSettingPanel::onMouseOver, this);
+	button->setScale(0.5f);
+	button->setPosition(pos);
+	button->setItemRect(pos, 0.5f);
+
+	m_MenuItems.pushBack(button);
 }

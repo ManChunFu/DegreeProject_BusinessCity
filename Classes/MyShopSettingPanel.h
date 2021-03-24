@@ -27,6 +27,8 @@ protected:
 	void addCallback(cocos2d::Ref* pSender);
 	void reduceTimeCallback(cocos2d::Ref* pSender, bool fromHourButton);
 	void increaseTimeCallback(cocos2d::Ref* pSender, bool fromHourButton);
+	void reduceProductAmoutCallback(cocos2d::Ref* pSender, unsigned productIndex);
+	void increaseProductAmoutCallback(cocos2d::Ref* pSender, unsigned productIndex);
 	void actionCallback(cocos2d::Ref* pSender);
 	void onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event);
 
@@ -36,9 +38,12 @@ private:
 	cocos2d::Label* m_FromHourText = nullptr;
 	cocos2d::Label* m_ToHourText = nullptr;
 	std::vector<cocos2d::ui::CheckBox*> m_Weekdays;
+	std::vector<cocos2d::Label*> m_ProductCountText;
 
 	bool m_OwnerWorkHere = false;
 	unsigned m_EmployeeCount = 0;
 	unsigned m_FromHour = 8;
 	unsigned m_ToHour = 17;
+
+	void displayButtons(MouseOverMenuItem* button, cocos2d::Vec2 pos);
 };

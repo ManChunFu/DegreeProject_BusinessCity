@@ -26,6 +26,9 @@ ShopProduct::ShopProduct(rapidjson::Value& json)
 		case stringToInt("PurchasePrice"):
 			m_PurchasePrice = itr->value.GetInt();
 			break;
+		case stringToInt("Quantity"):
+			m_Quantity = itr->value.GetInt();
+			break;
 		}
 	}
 }
