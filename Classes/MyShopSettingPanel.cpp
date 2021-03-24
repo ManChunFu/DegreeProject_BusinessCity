@@ -272,12 +272,14 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 	auto productButtonPos = Vec2(sceneMidPoint.x + 15.f, sceneMidPoint.y - 90.f);
 	for (unsigned productIndex = 0; productIndex < productLength; productIndex++)
 	{
+		// product pic
 		auto productSprite = Sprite::createWithSpriteFrameName(myShopProducts[productIndex]->m_ProductSpritePath);
 		if (!productSprite)
 			continue;
 
 		GameFunctions::displaySprite(productSprite, productSpritePos, m_ThisPanel, 1, 0.5f, 0.5f);
 
+		// product name
 		auto productName = Label::createWithTTF(myShopProducts[productIndex]->m_Name, "fonts/Nirmala.ttf", 15);
 		if (!productName)
 			continue;
@@ -285,6 +287,7 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 		GameFunctions::displayLabel(productName, Color4B::BLACK, Vec2(productSpritePos.x + 50.f, productSpritePos.y - 10.f),
 			m_ThisPanel, 1, true, TextHAlignment::LEFT);
 
+		// product quantity with add/reduce buttons
 		auto boxSprite = Sprite::createWithSpriteFrameName("Border_Black_Square.png");
 		if (!boxSprite)
 			continue;
