@@ -6,7 +6,7 @@ constexpr unsigned int stringToInt(const char* str, int h = 0)
 	return !str[h] ? 5381 : (stringToInt(str, h + 1) * 33) ^ str[h];
 }
 
-ShopProduct::ShopProduct(rapidjson::Value json)
+ShopProduct::ShopProduct(rapidjson::Value& json)
 {
 	for (rapidjson::Value::ConstMemberIterator itr = json.MemberBegin(); itr != json.MemberEnd(); ++itr)
 	{

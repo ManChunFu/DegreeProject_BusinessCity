@@ -4,6 +4,7 @@
 #include "GameFunctions.h"
 #include "Player.h"
 #include "Shop.h"
+#include "ShopProduct.h"
 #include "MouseOverMenuItem.h"
 #include "ui/CocosGUI.h"
 
@@ -40,6 +41,8 @@ void MyShopSettingPanel::closePanel()
 
 void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 {
+	auto myShop = GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]];
+
 	m_ThisPanel = Sprite::createWithSpriteFrameName("Brown_Panel_500_BlueLine.png");
 	if (!m_ThisPanel)
 		return;
@@ -50,7 +53,7 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 
 	auto panelMidPoint = Vec2(m_ThisPanel->getContentSize().width * 0.5f, m_ThisPanel->getContentSize().height * 0.5f);
 
-	auto shopPic = Sprite::createWithSpriteFrameName(GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]]->m_ShopLook_Normal);
+	auto shopPic = Sprite::createWithSpriteFrameName(myShop->m_ShopLook_Normal);
 	if (shopPic)
 	{
 		GameFunctions::displaySprite(shopPic, Vec2(panelMidPoint.x + 170.f, panelMidPoint.y + 160.f), m_ThisPanel, 1, 0.6f, 0.6f);
@@ -265,8 +268,22 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 #pragma region Shop Products
 	auto productText = Label::createWithTTF("Products", "fonts/NirmalaB.ttf", 20);
 	if (productText)
-		GameFunctions::displayLabel(productText, Color4B::BLACK, Vec2(textAligmentLeft, panelMidPoint.y - 50.f), m_ThisPanel, 1,
+		GameFunctions::displayLabel(productText, Color4B::BLACK, Vec2(textAligmentLeft, panelMidPoint.y - 60.f), m_ThisPanel, 1,
 			true, TextHAlignment::LEFT);
+
+	
+	auto myShopProducts = myShop->m_Products;
+	auto productLength = myShopProducts.size();
+	auto productSpritePos = Vec2(textAligmentLeft, panelMidPoint.y - 100.f);
+	for (unsigned index = 0; index < productLength; index++)
+	{
+		auto productSprite = Sprite::createWithSpriteFrameName(myShopProducts[index]->m_ProductSpritePath);
+		if (productSprite)
+		{
+			GameFunctions::displaySprite(productSprite, productSpritePos, m_ThisPanel, 1);
+			productSpritePos.y -= 100.f;
+		}
+	}
 #pragma endregion
 
 	auto menu = Menu::createWithArray(m_MenuItems);

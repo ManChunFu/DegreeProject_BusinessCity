@@ -58,18 +58,14 @@ Shop::Shop(rapidjson::Value& json)
 			if (itr->value.IsArray())
 			{
 				auto products = itr->value.GetArray();
-
-				for (rapidjson::Value::ConstValueIterator productItr = products.Begin(); productItr != products.End(); ++productItr)
+				for (int index = 0; index < itr->value.Size(); index++)
 				{
-					auto productName = (*productItr)["Name"].GetString();
-					auto productPrice = (*productItr)["Price"].GetInt();
-					m_Products.push_back(new ShopProduct(productName, productPrice));
+					ShopProduct* shopProduct = new ShopProduct((rapidjson::Value&)(products[index]));
+					m_Products.push_back(shopProduct);
 				}
 			}
 			break;
-		
 		}
-
 	}
 
 }
