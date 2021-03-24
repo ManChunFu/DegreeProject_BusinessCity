@@ -4,6 +4,7 @@
 
 class Player;
 class MouseOverMenuItem;
+class Shop;
 
 NS_CC_BEGIN
 namespace ui
@@ -39,6 +40,7 @@ private:
 	cocos2d::Label* m_ToHourText = nullptr;
 	std::vector<cocos2d::ui::CheckBox*> m_Weekdays;
 	std::vector<cocos2d::Label*> m_ProductCountText;
+	Shop* m_MyShop = nullptr;
 
 	bool m_OwnerWorkHere = false;
 	unsigned m_EmployeeCount = 0;

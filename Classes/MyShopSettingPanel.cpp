@@ -17,6 +17,7 @@ MyShopSettingPanel::~MyShopSettingPanel()
 	m_FromHourText = nullptr;
 	m_ToHourText = nullptr;
 	m_Weekdays.clear();
+	m_MyShop = nullptr;
 }
 
 void MyShopSettingPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
@@ -41,7 +42,7 @@ void MyShopSettingPanel::closePanel()
 
 void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 {
-	auto myShop = GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]];
+	m_MyShop = GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]];
 
 	// create this panel
 	m_ThisPanel = Sprite::createWithSpriteFrameName("Brown_Panel_500_BlueLine.png");
@@ -55,7 +56,7 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 	auto panelMidPoint = Vec2(m_ThisPanel->getContentSize().width * 0.5f, m_ThisPanel->getContentSize().height * 0.5f);
 
 	// shop picture, name
-	auto shopPic = Sprite::createWithSpriteFrameName(myShop->m_ShopLook_Normal);
+	auto shopPic = Sprite::createWithSpriteFrameName(m_MyShop->m_ShopLook_Normal);
 	if (shopPic)
 	{
 		GameFunctions::displaySprite(shopPic, Vec2(panelMidPoint.x + 170.f, panelMidPoint.y + 160.f), m_ThisPanel, 1, 0.6f, 0.6f);
@@ -72,7 +73,7 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 	auto shopName = Label::createWithTTF("", "fonts/NirmalaB.ttf", 30);
 	if (shopName)
 	{
-		shopName->setString(myShop->m_Name);
+		shopName->setString(m_MyShop->m_Name);
 		shopName->enableShadow(Color4B::BLACK);
 		GameFunctions::displayLabel(shopName, Color4B::WHITE, Vec2(textAligmentLeft, panelMidPoint.y + 190.f),
 			m_ThisPanel, 1, true, TextHAlignment::LEFT);
@@ -94,7 +95,7 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 		if (m_EmployeeCountText)
 		{
 			m_EmployeeCountText->enableShadow(Color4B::BLACK);
-			m_EmployeeCountText->setString(std::to_string(myShop->m_Employees));
+			m_EmployeeCountText->setString(std::to_string(m_MyShop->m_Employees));
 			GameFunctions::displayLabel(m_EmployeeCountText, Color4B::WHITE, Vec2(boxSprite->getContentSize().width * 0.5f,
 				boxSprite->getContentSize().height * 0.5f), boxSprite, 1);
 		}
@@ -266,21 +267,20 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 		GameFunctions::displayLabel(productText, Color4B::BLACK, Vec2(textAligmentLeft, panelMidPoint.y - 60.f), m_ThisPanel, 1,
 			true, TextHAlignment::LEFT);
 
-	auto myShopProducts = myShop->m_Products;
-	auto productLength = myShopProducts.size();
+	auto productLength = m_MyShop->m_Products.size();
 	auto productSpritePos = Vec2(textAligmentLeft + 30.f, panelMidPoint.y - 80.f);
 	auto productButtonPos = Vec2(sceneMidPoint.x + 15.f, sceneMidPoint.y - 90.f);
 	for (unsigned productIndex = 0; productIndex < productLength; productIndex++)
 	{
 		// product pic
-		auto productSprite = Sprite::createWithSpriteFrameName(myShopProducts[productIndex]->m_ProductSpritePath);
+		auto productSprite = Sprite::createWithSpriteFrameName(m_MyShop->m_Products[productIndex]->m_ProductSpritePath);
 		if (!productSprite)
 			continue;
 
 		GameFunctions::displaySprite(productSprite, productSpritePos, m_ThisPanel, 1, 0.5f, 0.5f);
 
 		// product name
-		auto productName = Label::createWithTTF(myShopProducts[productIndex]->m_Name, "fonts/Nirmala.ttf", 15);
+		auto productName = Label::createWithTTF(m_MyShop->m_Products[productIndex]->m_Name, "fonts/Nirmala.ttf", 15);
 		if (!productName)
 			continue;
 
@@ -294,10 +294,12 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 
 		GameFunctions::displaySprite(boxSprite, Vec2(productSpritePos.x + 230.f, productSpritePos.y), m_ThisPanel, 1);
 
-		auto productCountText = Label::createWithTTF(std::to_string(myShopProducts[productIndex]->m_Quantity), "fonts/Nirmala.ttf", 20);
+		auto productCountText = Label::createWithTTF(std::to_string(m_MyShop->m_Products[productIndex]->m_Quantity), 
+			"fonts/Nirmala.ttf", 15);
 		if (!productCountText)
 			continue;
 
+		productCountText->enableShadow(Color4B::BLACK);
 		GameFunctions::displayLabel(productCountText, Color4B::WHITE, Vec2(boxSprite->getContentSize().width * 0.5f,
 			boxSprite->getContentSize().height * 0.5f), boxSprite, 1);
 
@@ -372,10 +374,10 @@ void MyShopSettingPanel::reduceProductAmoutCallback(cocos2d::Ref* pSender, unsig
 
 void MyShopSettingPanel::increaseProductAmoutCallback(cocos2d::Ref* pSender, unsigned productIndex)
 {
-	auto originalQuantity = GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]]->m_Products[productIndex]->m_Quantity;
-	originalQuantity = GameFunctions::displayLabelText_ClampValue(m_ProductCountText[productIndex], originalQuantity, 20, 0, 100);
-	m_ProductCountText[productIndex]->setString(std::to_string(originalQuantity));
-	GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]]->m_Products[productIndex]->m_Quantity = originalQuantity;
+	m_MyShop->m_Products[productIndex]->m_Quantity = GameFunctions::displayLabelText_ClampValue(m_ProductCountText[productIndex],
+		m_MyShop->m_Products[productIndex]->m_Quantity, 20, 0, 100);
+	m_ProductCountText[productIndex]->setString(std::to_string(m_MyShop->m_Products[productIndex]->m_Quantity));
+	GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]]->m_Products[productIndex]->m_Quantity = m_MyShop->m_Products[productIndex]->m_Quantity;
 }
 
 void MyShopSettingPanel::actionCallback(cocos2d::Ref* pSender)
