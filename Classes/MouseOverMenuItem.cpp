@@ -41,6 +41,18 @@ MouseOverMenuItem* MouseOverMenuItem::creatMouseOverMenuButton(const std::string
 	return nullptr;
 }
 
+MouseOverMenuItem* MouseOverMenuItem::creatMouseOverMenuButton(const cocos2d::ccMenuCallback& callback)
+{
+	auto spriteNormal = Sprite::createWithSpriteFrameName("ButtonBlueNormal.png");
+	auto spriteSelected = Sprite::createWithSpriteFrameName("ButtonBlueLit.png");
+	auto spriteDisabled = Sprite::createWithSpriteFrameName("ButtonBlueDisabled.png");
+
+	if (spriteNormal && spriteSelected && spriteDisabled)
+		return create(spriteNormal, spriteSelected, spriteDisabled, callback);
+
+	return nullptr;
+}
+
 MouseOverMenuItem* MouseOverMenuItem::create(const std::string& normalImage, const std::string& overImage, const std::string& disabledImage, const ccMenuCallback& callback)
 {
 	MouseOverMenuItem* mouseOver = new(std::nothrow) MouseOverMenuItem();

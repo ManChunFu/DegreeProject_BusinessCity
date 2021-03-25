@@ -32,6 +32,8 @@ public:
 	void setPlayer(const std::string& name, cocos2d::itemTypes type);
 	std::string getPlayerCharacter(cocos2d::itemTypes playerCharacterType);
 
+	void setShopProductQuantity(unsigned shopId, unsigned productId, unsigned quantity);
+
 	Player* m_Player = nullptr;
 	std::map<unsigned, Shop*> m_Shops;
 	struct colorTypes

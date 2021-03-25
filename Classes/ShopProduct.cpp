@@ -14,6 +14,9 @@ ShopProduct::ShopProduct(rapidjson::Value& json)
 
 		switch (stringToInt(propertyName.c_str()))
 		{
+		case stringToInt("ProductId"):
+			m_ProductId = itr->value.GetInt();
+			break;
 		case stringToInt("Name"):
 			m_Name = itr->value.GetString();
 			break;

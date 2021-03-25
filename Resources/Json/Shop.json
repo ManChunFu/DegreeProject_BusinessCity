@@ -15,13 +15,15 @@
     "CommercialCost": 0,
     "Products": [
       {
+        "ProductId": 0,
         "Name": "French Hot Dog",
         "ProductLook": "FrenchHotDog_100.png",
         "Price": 20,
         "PurchasePrice": 4,
-        "Quantity":  20
+        "Quantity": 20
       },
       {
+        "ProductId": 1,
         "Name": "Grill Hot Dog",
         "ProductLook": "GrillHotDog_100.png",
         "Price": 18,
@@ -46,6 +48,7 @@
     "CommercialCost": 0,
     "Products": [
       {
+        "ProductId": 0,
         "Name": "Chocolate Ice Cream",
         "ProductLook": "",
         "Price": 30,
@@ -53,6 +56,7 @@
         "Quantity": 20
       },
       {
+        "ProductId": 1,
         "Name": "Vanilla Ice Cream",
         "ProductLook": "",
         "Price": 25,
@@ -60,6 +64,7 @@
         "Quantity": 20
       },
       {
+        "ProductId": 2,
         "Name": "Mango Ice Cream",
         "ProductLook": "",
         "Price": 35,
@@ -67,6 +72,7 @@
         "Quantity": 20
       },
       {
+        "ProductId": 3,
         "Name": "Strawberry Ice Cream",
         "ProductLook": "",
         "Price": 35,
@@ -91,6 +97,7 @@
     "CommercialCost": 0,
     "Products": [
       {
+        "ProductId": 0,
         "Name": "Banana",
         "ProductLook": "",
         "Price": 10,
@@ -98,6 +105,7 @@
         "Quantity": 20
       },
       {
+        "ProductId": 1,
         "Name": "Apple",
         "ProductLook": "",
         "Price": 12,
@@ -105,12 +113,14 @@
         "Quantity": 20
       },
       {
+        "ProductId": 2,
         "Name": "Orange",
         "ProductLook": "",
         "Price": 15,
         "PurchasePrice": 4
       },
       {
+        "ProductId": 3,
         "Name": "Strawberry",
         "ProductLook": "",
         "Price": 20,
@@ -118,6 +128,7 @@
         "Quantity": 20
       },
       {
+        "ProductId": 4,
         "Name": "Pear",
         "ProductLook": "",
         "Price": 15,
@@ -142,6 +153,7 @@
     "CommercialCost": 0,
     "Products": [
       {
+        "ProductId": 0,
         "Name": "Scarf",
         "ProductLook": "",
         "Price": 50,
@@ -149,6 +161,7 @@
         "Quantity": 20
       },
       {
+        "ProductId": 1,
         "Name": "Mug",
         "ProductLook": "",
         "Price": 30,
@@ -156,6 +169,7 @@
         "Quantity": 20
       },
       {
+        "ProductId": 2,
         "Name": "Post card",
         "ProductLook": "",
         "Price": 5,
@@ -163,6 +177,7 @@
         "Quantity": 20
       },
       {
+        "ProductId": 3,
         "Name": "Picture frame",
         "ProductLook": "",
         "Price": 20,

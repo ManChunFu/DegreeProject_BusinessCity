@@ -816,6 +816,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\MouseOverMenuItem.h" />
     <ClInclude Include="..\Classes\MyShopSettingPanel.h" />
     <ClInclude Include="..\Classes\Player.h" />
+    <ClInclude Include="..\Classes\PurchaseProductData.h" />
     <ClInclude Include="..\Classes\ShopProduct.h" />
     <ClInclude Include="..\Classes\Shop.h" />
     <ClInclude Include="..\Classes\UIPanel.h" />

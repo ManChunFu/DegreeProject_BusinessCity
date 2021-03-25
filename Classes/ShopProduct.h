@@ -9,6 +9,7 @@ public:
 	ShopProduct(rapidjson::Value& json);
 	~ShopProduct() {};
 
+	unsigned m_ProductId = 0;
 	std::string m_Name = "";
 	std::string m_ProductSpritePath = "";
 	unsigned m_PurchasePrice = 0;

@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "DataManager.h"
 #include "Shop.h"
+#include "ShopProduct.h"
 
 
 USING_NS_CC;
@@ -36,5 +37,10 @@ void GameData::setPlayer(const std::string& name, cocos2d::itemTypes type)
 std::string GameData::getPlayerCharacter(cocos2d::itemTypes playerCharacterType)
 {
 	return std::string(m_CharacterSpriteMap[playerCharacterType]);
+}
+
+void GameData::setShopProductQuantity(unsigned shopId, unsigned productId, unsigned quantity)
+{
+	m_Shops[shopId]->m_Products[productId]->m_Quantity = quantity;
 }
 

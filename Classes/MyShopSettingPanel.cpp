@@ -7,6 +7,7 @@
 #include "ShopProduct.h"
 #include "MouseOverMenuItem.h"
 #include "ui/CocosGUI.h"
+#include "PurchaseProductData.h"
 
 USING_NS_CC;
 
@@ -18,6 +19,14 @@ MyShopSettingPanel::~MyShopSettingPanel()
 	m_ToHourText = nullptr;
 	m_Weekdays.clear();
 	m_MyShop = nullptr;
+
+	m_CurrentProductQuantityTexts.clear();
+
+	for (auto product : m_PurchaseProducts)
+	{
+		delete product;
+	}
+	m_PurchaseProducts.clear();
 }
 
 void MyShopSettingPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
@@ -121,7 +130,7 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 		hireButton->setPosition(buttonPos);
 		hireButton->setItemRect(buttonPos, 0.7f);
 
-		auto hireText = Label::createWithTTF("HIRE", "fonts/NirmalaB.ttf", 25);
+		auto hireText = Label::createWithTTF("HIRE", "fonts/NirmalaB.ttf", 20);
 		if (hireText)
 			GameFunctions::displayLabel(hireText, GameData::getInstance().m_ColorType.Taro, Vec2(hireButton->getContentSize().width * 0.5f,
 				hireButton->getContentSize().height * 0.5f), hireButton, 1);
@@ -264,12 +273,24 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 #pragma region Shop Products
 	auto productText = Label::createWithTTF("Products", "fonts/NirmalaB.ttf", 20);
 	if (productText)
-		GameFunctions::displayLabel(productText, Color4B::BLACK, Vec2(textAligmentLeft, panelMidPoint.y - 60.f), m_ThisPanel, 1,
+		GameFunctions::displayLabel(productText, Color4B::BLACK, Vec2(textAligmentLeft, panelMidPoint.y - 90.f), m_ThisPanel, 1,
 			true, TextHAlignment::LEFT);
 
+	// current QTY in shop
+	auto qtyText = Label::createWithTTF("QTY", "fonts/NirmalaB.ttf", 15);
+	if (qtyText)
+		GameFunctions::displayLabel(qtyText, Color4B::BLACK, Vec2(panelMidPoint.x - 20.f, panelMidPoint.y - 80.f), m_ThisPanel, 1);
+
+	// purchase QTY
+	auto purchaseQTYText = Label::createWithTTF("Purchase QTY", "fonts/NirmalaB.ttf", 15);
+	if (purchaseQTYText)
+		GameFunctions::displayLabel(purchaseQTYText, Color4B::BLACK, Vec2(panelMidPoint.x + 70.f, panelMidPoint.y - 80.f), 
+			m_ThisPanel, 1);
+
+
 	auto productLength = m_MyShop->m_Products.size();
-	auto productSpritePos = Vec2(textAligmentLeft + 30.f, panelMidPoint.y - 80.f);
-	auto productButtonPos = Vec2(sceneMidPoint.x + 15.f, sceneMidPoint.y - 90.f);
+	auto productSpritePos = Vec2(textAligmentLeft + 30.f, panelMidPoint.y - 110.f);
+	auto productButtonPos = Vec2(sceneMidPoint.x + 85.f, sceneMidPoint.y - 120.f);
 	for (unsigned productIndex = 0; productIndex < productLength; productIndex++)
 	{
 		// product pic
@@ -287,12 +308,23 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 		GameFunctions::displayLabel(productName, Color4B::BLACK, Vec2(productSpritePos.x + 50.f, productSpritePos.y - 10.f),
 			m_ThisPanel, 1, true, TextHAlignment::LEFT);
 
+		// product quantity in shop
+		auto currentProductCountText = Label::createWithTTF(std::to_string(m_MyShop->m_Products[productIndex]->m_Quantity), 
+			"fonts/Nirmala.ttf", 15);
+		if (!currentProductCountText)
+			continue;
+
+		currentProductCountText->enableShadow(Color4B::BLACK);
+		GameFunctions::displayLabel(currentProductCountText, Color4B::WHITE, Vec2(productSpritePos.x + 210.f, productSpritePos.y),
+			m_ThisPanel, 1);
+		m_CurrentProductQuantityTexts.push_back(currentProductCountText);
+
 		// product quantity with add/reduce buttons
 		auto boxSprite = Sprite::createWithSpriteFrameName("Border_Black_Square.png");
 		if (!boxSprite)
 			continue;
 
-		GameFunctions::displaySprite(boxSprite, Vec2(productSpritePos.x + 230.f, productSpritePos.y), m_ThisPanel, 1);
+		GameFunctions::displaySprite(boxSprite, Vec2(productSpritePos.x + 300.f, productSpritePos.y), m_ThisPanel, 1);
 
 		auto productCountText = Label::createWithTTF(std::to_string(m_MyShop->m_Products[productIndex]->m_Quantity), 
 			"fonts/Nirmala.ttf", 15);
@@ -302,8 +334,8 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 		productCountText->enableShadow(Color4B::BLACK);
 		GameFunctions::displayLabel(productCountText, Color4B::WHITE, Vec2(boxSprite->getContentSize().width * 0.5f,
 			boxSprite->getContentSize().height * 0.5f), boxSprite, 1);
-
-		m_ProductCountText.push_back(productCountText);
+		
+		m_PurchaseProducts.push_back(new PurchaseProductData(m_MyShop->m_Products[productIndex]->m_ProductId, productCountText, 20));
 
 		for (unsigned index = 0; index < 2; index++)
 		{
@@ -317,6 +349,38 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 			}
 			productButtonPos.y -= 20.f;
 		}
+
+		// buy button
+		auto buyButton = MouseOverMenuItem::creatMouseOverMenuButton(CC_CALLBACK_1(MyShopSettingPanel::buyProductCallback, this,
+			productIndex));
+		if (buyButton)
+		{
+			displayButtons(buyButton, Vec2(panelMidPoint.x + 480.f, productSpritePos.y + 110.f), 0.7f);
+
+			auto buyText = Label::createWithTTF("BUY", "fonts/NirmalaB.ttf", 20);
+			if (buyText)
+				GameFunctions::displayLabel(buyText, GameData::getInstance().m_ColorType.Taro, Vec2(buyButton->getContentSize().width * 0.5f,
+					buyButton->getContentSize().height * 0.5f), buyButton, 1);
+		}
+
+		// productPurchasePrice
+		auto cashSymbol = Label::createWithTTF("$", "fonts/NirmalaB.ttf", 18);
+		if (cashSymbol)
+			GameFunctions::displayLabel(cashSymbol, Color4B::BLACK, Vec2(panelMidPoint.x + 190.f, productSpritePos.y - 10.f),
+				m_ThisPanel, 1, true, TextHAlignment::LEFT);
+		
+		auto priceText = Label::createWithTTF(std::to_string(m_MyShop->m_Products[productIndex]->m_PurchasePrice), 
+			"fonts/NirmalaB.ttf", 18);
+		if (priceText)
+			GameFunctions::displayLabel(priceText, Color4B::BLACK, Vec2(panelMidPoint.x + 220.f, productSpritePos.y + 15.f),
+				m_ThisPanel, 1, true, TextHAlignment::RIGHT);
+
+		auto pieceText = Label::createWithTTF("/PCS", "fonts/NirmalaB.ttf", 16);
+		if (pieceText)
+			GameFunctions::displayLabel(pieceText, Color4B::BLACK, Vec2(panelMidPoint.x + 225.f, productSpritePos.y - 6.f),
+			m_ThisPanel, 1, true, TextHAlignment::LEFT);
+		
+
 		productSpritePos.y -= 40.f;
 	}
 #pragma endregion
@@ -366,34 +430,44 @@ void MyShopSettingPanel::increaseTimeCallback(cocos2d::Ref* pSender, bool fromHo
 
 void MyShopSettingPanel::reduceProductAmoutCallback(cocos2d::Ref* pSender, unsigned productIndex)
 {
-	auto originalQuantity = GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]]->m_Products[productIndex]->m_Quantity;
-	originalQuantity = GameFunctions::displayLabelText_ClampValue(m_ProductCountText[productIndex], originalQuantity, -20, 0, 100);
-	m_ProductCountText[productIndex]->setString(std::to_string(originalQuantity));
-	GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]]->m_Products[productIndex]->m_Quantity = originalQuantity;
+	m_PurchaseProducts[productIndex]->productId = productIndex;
+	m_PurchaseProducts[productIndex]->purchaseCount = GameFunctions::displayLabelText_ClampValue(
+		m_PurchaseProducts[productIndex]->productCountText,
+		m_PurchaseProducts[productIndex]->purchaseCount, -20, 0, 100);
+	m_PurchaseProducts[productIndex]->productCountText->setString(std::to_string(m_PurchaseProducts[productIndex]->purchaseCount));
 }
 
 void MyShopSettingPanel::increaseProductAmoutCallback(cocos2d::Ref* pSender, unsigned productIndex)
 {
-	m_MyShop->m_Products[productIndex]->m_Quantity = GameFunctions::displayLabelText_ClampValue(m_ProductCountText[productIndex],
-		m_MyShop->m_Products[productIndex]->m_Quantity, 20, 0, 100);
-	m_ProductCountText[productIndex]->setString(std::to_string(m_MyShop->m_Products[productIndex]->m_Quantity));
-	GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]]->m_Products[productIndex]->m_Quantity = m_MyShop->m_Products[productIndex]->m_Quantity;
+	m_PurchaseProducts[productIndex]->productId = productIndex;
+	m_PurchaseProducts[productIndex]->purchaseCount = GameFunctions::displayLabelText_ClampValue(
+		m_PurchaseProducts[productIndex]->productCountText,
+		m_PurchaseProducts[productIndex]->purchaseCount, 20, 0, 100);
+	m_PurchaseProducts[productIndex]->productCountText->setString(std::to_string(m_PurchaseProducts[productIndex]->purchaseCount));
 }
 
 void MyShopSettingPanel::actionCallback(cocos2d::Ref* pSender)
 {
 }
 
+void MyShopSettingPanel::buyProductCallback(cocos2d::Ref* pSender, unsigned productId)
+{
+	m_MyShop->m_Products[productId]->m_Quantity += m_PurchaseProducts[productId]->purchaseCount;
+	m_CurrentProductQuantityTexts[productId]->setString(std::to_string(m_MyShop->m_Products[productId]->m_Quantity));
+
+	GameData::getInstance().setShopProductQuantity(m_MyShop->m_ShopId, productId, m_MyShop->m_Products[productId]->m_Quantity);
+}
+
 void MyShopSettingPanel::onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event)
 {
 }
 
-void MyShopSettingPanel::displayButtons(MouseOverMenuItem* button, Vec2 pos)
+void MyShopSettingPanel::displayButtons(MouseOverMenuItem* button, Vec2 pos, float scale)
 {
 	button->onMouseOver = CC_CALLBACK_2(MyShopSettingPanel::onMouseOver, this);
-	button->setScale(0.5f);
+	button->setScale(scale);
 	button->setPosition(pos);
-	button->setItemRect(pos, 0.5f);
+	button->setItemRect(pos, scale);
 
 	m_MenuItems.pushBack(button);
 }

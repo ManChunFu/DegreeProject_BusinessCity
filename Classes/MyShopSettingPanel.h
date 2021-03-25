@@ -5,6 +5,7 @@
 class Player;
 class MouseOverMenuItem;
 class Shop;
+struct PurchaseProductData;
 
 NS_CC_BEGIN
 namespace ui
@@ -31,6 +32,7 @@ protected:
 	void reduceProductAmoutCallback(cocos2d::Ref* pSender, unsigned productIndex);
 	void increaseProductAmoutCallback(cocos2d::Ref* pSender, unsigned productIndex);
 	void actionCallback(cocos2d::Ref* pSender);
+	void buyProductCallback(cocos2d::Ref* pSender, unsigned productId);
 	void onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event);
 
 private:
@@ -39,7 +41,9 @@ private:
 	cocos2d::Label* m_FromHourText = nullptr;
 	cocos2d::Label* m_ToHourText = nullptr;
 	std::vector<cocos2d::ui::CheckBox*> m_Weekdays;
-	std::vector<cocos2d::Label*> m_ProductCountText;
+	std::vector<PurchaseProductData*> m_PurchaseProducts;
+	std::vector<cocos2d::Label*> m_CurrentProductQuantityTexts;
+
 	Shop* m_MyShop = nullptr;
 
 	bool m_OwnerWorkHere = false;
@@ -47,5 +51,5 @@ private:
 	unsigned m_FromHour = 8;
 	unsigned m_ToHour = 17;
 
-	void displayButtons(MouseOverMenuItem* button, cocos2d::Vec2 pos);
+	void displayButtons(MouseOverMenuItem* button, cocos2d::Vec2 pos, float scale = 0.5f);
 };

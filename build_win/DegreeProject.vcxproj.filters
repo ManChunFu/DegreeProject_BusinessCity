@@ -150,6 +150,9 @@
     <ClInclude Include="..\Classes\EPanel.h">
       <Filter>Source Files\Classes</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\PurchaseProductData.h">
+      <Filter>Source Files\Classes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Users\mandy\source\repos\DegreeProject\CMakeLists.txt" />
