@@ -50,7 +50,7 @@
       {
         "ProductId": 0,
         "Name": "Chocolate Ice Cream",
-        "ProductLook": "",
+        "ProductLook": "Chocolate_IceCream_100.png",
         "Price": 30,
         "PurchasePrice": 6,
         "Quantity": 20
@@ -58,7 +58,7 @@
       {
         "ProductId": 1,
         "Name": "Vanilla Ice Cream",
-        "ProductLook": "",
+        "ProductLook": "Vanilla_IceCream_100.png",
         "Price": 25,
         "PurchasePrice": 5,
         "Quantity": 20
@@ -66,7 +66,7 @@
       {
         "ProductId": 2,
         "Name": "Mango Ice Cream",
-        "ProductLook": "",
+        "ProductLook": "Mango_IceCream_100.png",
         "Price": 35,
         "PurchasePrice": 8,
         "Quantity": 20
@@ -74,7 +74,7 @@
       {
         "ProductId": 3,
         "Name": "Strawberry Ice Cream",
-        "ProductLook": "",
+        "ProductLook": "Strawberry_IceCream_100.png",
         "Price": 35,
         "PurchasePrice": 8,
         "Quantity": 20

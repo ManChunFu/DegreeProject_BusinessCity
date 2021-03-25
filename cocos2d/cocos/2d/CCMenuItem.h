@@ -51,7 +51,8 @@ enum class itemTypes
 {
     WOMAN1, WOMAN2, WOMAN3,
     MAN1, MAN2, MAN3,
-    BUTTON
+    BUTTON,
+    WIDGET_BUTTON
 };
 struct itemData
 {

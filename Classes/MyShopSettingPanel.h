@@ -11,6 +11,7 @@ NS_CC_BEGIN
 namespace ui
 {
 	class CheckBox;
+	class Widget;
 }
 NS_CC_END
 
@@ -36,6 +37,7 @@ protected:
 	void onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event);
 
 private:
+	cocos2d::ui::Widget* m_ProductWidget1 = nullptr;
 	cocos2d::Label* m_EmployeeCountText = nullptr;
 	cocos2d::ui::CheckBox* m_WorkHere = nullptr;
 	cocos2d::Label* m_FromHourText = nullptr;
@@ -46,10 +48,13 @@ private:
 
 	Shop* m_MyShop = nullptr;
 
+	bool m_DisplayWidget2 = false;
 	bool m_OwnerWorkHere = false;
 	unsigned m_EmployeeCount = 0;
 	unsigned m_FromHour = 8;
 	unsigned m_ToHour = 17;
+	unsigned m_PanelLimit = 2;
 
 	void displayButtons(MouseOverMenuItem* button, cocos2d::Vec2 pos, float scale = 0.5f);
+	void enableWidget(cocos2d::ui::Widget* widget, bool enable, cocos2d::itemTypes type);
 };
