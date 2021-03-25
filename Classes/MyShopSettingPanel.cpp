@@ -284,7 +284,7 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 	// purchase QTY
 	auto purchaseQTYText = Label::createWithTTF("Purchase QTY", "fonts/NirmalaB.ttf", 15);
 	if (purchaseQTYText)
-		GameFunctions::displayLabel(purchaseQTYText, Color4B::BLACK, Vec2(panelMidPoint.x + 70.f, panelMidPoint.y - 80.f), 
+		GameFunctions::displayLabel(purchaseQTYText, Color4B::BLACK, Vec2(panelMidPoint.x + 110.f, panelMidPoint.y - 80.f), 
 			m_ThisPanel, 1);
 
 
@@ -455,7 +455,12 @@ void MyShopSettingPanel::buyProductCallback(cocos2d::Ref* pSender, unsigned prod
 	m_MyShop->m_Products[productId]->m_Quantity += m_PurchaseProducts[productId]->purchaseCount;
 	m_CurrentProductQuantityTexts[productId]->setString(std::to_string(m_MyShop->m_Products[productId]->m_Quantity));
 
+	// update shops data
 	GameData::getInstance().setShopProductQuantity(m_MyShop->m_ShopId, productId, m_MyShop->m_Products[productId]->m_Quantity);
+	// update player current cash amout
+	auto totalPurchasePrice = GameData::getInstance().getProductPurchasePrice(m_MyShop->m_ShopId, productId) *
+		m_PurchaseProducts[productId]->purchaseCount;
+	m_Player->updateCurrentCashAmout(-totalPurchasePrice);
 }
 
 void MyShopSettingPanel::onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event)

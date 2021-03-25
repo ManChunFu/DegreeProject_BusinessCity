@@ -33,6 +33,7 @@ public:
 	std::string getPlayerCharacter(cocos2d::itemTypes playerCharacterType);
 
 	void setShopProductQuantity(unsigned shopId, unsigned productId, unsigned quantity);
+	unsigned getProductPurchasePrice(unsigned shopId, unsigned productId);
 
 	Player* m_Player = nullptr;
 	std::map<unsigned, Shop*> m_Shops;

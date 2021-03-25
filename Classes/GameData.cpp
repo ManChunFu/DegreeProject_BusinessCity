@@ -44,3 +44,8 @@ void GameData::setShopProductQuantity(unsigned shopId, unsigned productId, unsig
 	m_Shops[shopId]->m_Products[productId]->m_Quantity = quantity;
 }
 
+unsigned GameData::getProductPurchasePrice(unsigned shopId, unsigned productId)
+{
+	return m_Shops[shopId]->m_Products[productId]->m_PurchasePrice;
+}
+
