@@ -26,6 +26,8 @@ public:
 
 protected:	
 	void createPanel(cocos2d::Vec2 sceneMidPoint) override;
+	void openProductWidget2();
+	void createProductWidget2();
 	void reduceCallback(cocos2d::Ref* pSender);
 	void addCallback(cocos2d::Ref* pSender);
 	void reduceTimeCallback(cocos2d::Ref* pSender, bool fromHourButton);
@@ -38,6 +40,7 @@ protected:
 
 private:
 	cocos2d::ui::Widget* m_ProductWidget1 = nullptr;
+	cocos2d::ui::Widget* m_ProductWidget2 = nullptr;
 	cocos2d::Label* m_EmployeeCountText = nullptr;
 	cocos2d::ui::CheckBox* m_WorkHere = nullptr;
 	cocos2d::Label* m_FromHourText = nullptr;
@@ -45,6 +48,8 @@ private:
 	std::vector<cocos2d::ui::CheckBox*> m_Weekdays;
 	std::vector<PurchaseProductData*> m_PurchaseProducts;
 	std::vector<cocos2d::Label*> m_CurrentProductQuantityTexts;
+	cocos2d::Vector<cocos2d::MenuItem*> m_WidgetMenu;
+	MouseOverMenuItem* m_ExtendButton = nullptr;
 
 	Shop* m_MyShop = nullptr;
 
@@ -55,6 +60,7 @@ private:
 	unsigned m_ToHour = 17;
 	unsigned m_PanelLimit = 2;
 
-	void displayButtons(MouseOverMenuItem* button, cocos2d::Vec2 pos, float scale = 0.5f);
-	void enableWidget(cocos2d::ui::Widget* widget, bool enable, cocos2d::itemTypes type);
+	void displayButtons(MouseOverMenuItem* button, cocos2d::Vec2 pos, cocos2d::itemTypes type, float scale = 0.5f);
+	void enableWidget(cocos2d::ui::Widget* widget, bool enable, cocos2d::Vector<cocos2d::MenuItem*>itemList, cocos2d::itemTypes type);
+	
 };

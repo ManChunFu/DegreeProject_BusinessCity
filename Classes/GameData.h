@@ -32,6 +32,7 @@ public:
 	void setPlayer(const std::string& name, cocos2d::itemTypes type);
 	std::string getPlayerCharacter(cocos2d::itemTypes playerCharacterType);
 
+	unsigned getProductQuantity(unsigned shopId, unsigned productId);
 	void setShopProductQuantity(unsigned shopId, unsigned productId, unsigned quantity);
 	unsigned getProductPurchasePrice(unsigned shopId, unsigned productId);
 

@@ -39,6 +39,11 @@ std::string GameData::getPlayerCharacter(cocos2d::itemTypes playerCharacterType)
 	return std::string(m_CharacterSpriteMap[playerCharacterType]);
 }
 
+unsigned GameData::getProductQuantity(unsigned shopId, unsigned productId)
+{
+	return m_Shops[shopId]->m_Products[productId]->m_Quantity;
+}
+
 void GameData::setShopProductQuantity(unsigned shopId, unsigned productId, unsigned quantity)
 {
 	m_Shops[shopId]->m_Products[productId]->m_Quantity = quantity;

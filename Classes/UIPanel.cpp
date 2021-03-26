@@ -16,6 +16,10 @@ UIPanel::~UIPanel()
 		m_GameScene = nullptr;
 		m_Player = nullptr;
 
+		for (auto item : m_MenuItems)
+		{
+			delete item;
+		}
 		m_MenuItems.clear();
 	}
 }

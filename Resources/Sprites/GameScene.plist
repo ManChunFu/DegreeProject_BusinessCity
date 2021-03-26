@@ -240,7 +240,7 @@
                 <key>spriteSourceSize</key>
                 <string>{40,40}</string>
                 <key>textureRect</key>
-                <string>{{1239,1417},{40,40}}</string>
+                <string>{{1291,1357},{40,40}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -255,7 +255,7 @@
                 <key>spriteSourceSize</key>
                 <string>{40,40}</string>
                 <key>textureRect</key>
-                <string>{{1281,1417},{40,40}}</string>
+                <string>{{1327,1305},{40,40}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -270,7 +270,7 @@
                 <key>spriteSourceSize</key>
                 <string>{40,40}</string>
                 <key>textureRect</key>
-                <string>{{1291,1305},{40,40}}</string>
+                <string>{{1333,1237},{40,40}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -285,7 +285,7 @@
                 <key>spriteSourceSize</key>
                 <string>{40,40}</string>
                 <key>textureRect</key>
-                <string>{{1291,1347},{40,40}}</string>
+                <string>{{1291,1399},{40,40}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -360,7 +360,7 @@
                 <key>spriteSourceSize</key>
                 <string>{40,40}</string>
                 <key>textureRect</key>
-                <string>{{1299,1459},{38,38}}</string>
+                <string>{{1358,1185},{38,38}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -375,7 +375,7 @@
                 <key>spriteSourceSize</key>
                 <string>{40,40}</string>
                 <key>textureRect</key>
-                <string>{{1323,1389},{38,38}}</string>
+                <string>{{1291,1441},{38,38}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -390,7 +390,7 @@
                 <key>spriteSourceSize</key>
                 <string>{40,40}</string>
                 <key>textureRect</key>
-                <string>{{1299,1499},{38,38}}</string>
+                <string>{{1299,1481},{38,38}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -405,7 +405,7 @@
                 <key>spriteSourceSize</key>
                 <string>{40,40}</string>
                 <key>textureRect</key>
-                <string>{{1333,1237},{38,38}}</string>
+                <string>{{1331,1441},{38,38}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -420,7 +420,7 @@
                 <key>spriteSourceSize</key>
                 <string>{40,40}</string>
                 <key>textureRect</key>
-                <string>{{1358,1185},{38,38}}</string>
+                <string>{{1333,1347},{38,38}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -435,7 +435,52 @@
                 <key>spriteSourceSize</key>
                 <string>{40,40}</string>
                 <key>textureRect</key>
-                <string>{{1333,1277},{38,38}}</string>
+                <string>{{1333,1387},{38,38}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>UIButtonLess50.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,1}</string>
+                <key>spriteSize</key>
+                <string>{50,34}</string>
+                <key>spriteSourceSize</key>
+                <string>{50,40}</string>
+                <key>textureRect</key>
+                <string>{{1281,1269},{50,34}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>UIButtonLess50_Disable.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,1}</string>
+                <key>spriteSize</key>
+                <string>{50,34}</string>
+                <key>spriteSourceSize</key>
+                <string>{50,40}</string>
+                <key>textureRect</key>
+                <string>{{1322,1185},{50,34}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>UIButtonLess50_Lit.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,1}</string>
+                <key>spriteSize</key>
+                <string>{50,34}</string>
+                <key>spriteSourceSize</key>
+                <string>{50,40}</string>
+                <key>textureRect</key>
+                <string>{{1239,1381},{50,34}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -450,7 +495,7 @@
                 <key>spriteSourceSize</key>
                 <string>{50,40}</string>
                 <key>textureRect</key>
-                <string>{{1281,1269},{50,34}}</string>
+                <string>{{1239,1417},{50,34}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -465,9 +510,9 @@
                 <key>spriteSourceSize</key>
                 <string>{50,40}</string>
                 <key>textureRect</key>
-                <string>{{1322,1185},{50,34}}</string>
+                <string>{{1239,1453},{50,34}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>UIButtonMore50_Lit.png</key>
             <dict>
@@ -480,9 +525,9 @@
                 <key>spriteSourceSize</key>
                 <string>{50,40}</string>
                 <key>textureRect</key>
-                <string>{{1239,1381},{50,34}}</string>
+                <string>{{1291,1305},{50,34}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
         </dict>
         <key>metadata</key>
@@ -498,7 +543,7 @@
             <key>size</key>
             <string>{1922,1682}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:f304d0a82b0ccc9b997491ded5deb349:84415958fd6fa7a6d9f53770140187fe:865db70d33f6fd1c3bd18ff13c48b0ed$</string>
+            <string>$TexturePacker:SmartUpdate:4a0745769af9d7f66db393dcd411bc6f:7598307fd1d7b130fd5a5c91740ef913:865db70d33f6fd1c3bd18ff13c48b0ed$</string>
             <key>textureFileName</key>
             <string>GameScene.png</string>
         </dict>
