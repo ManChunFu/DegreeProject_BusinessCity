@@ -187,10 +187,31 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">Products/Apple_100.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>25,18,50,35</rect>
+                <key>scale9Paddings</key>
+                <rect>25,18,50,35</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">Products/Banana_100.png</key>
             <key type="filename">Products/Chocolate_IceCream_100.png</key>
             <key type="filename">Products/FrenchHotDog_100.png</key>
             <key type="filename">Products/GrillHotDog_100.png</key>
             <key type="filename">Products/Mango_IceCream_100.png</key>
+            <key type="filename">Products/Mug_100.png</key>
+            <key type="filename">Products/Orange_100.png</key>
+            <key type="filename">Products/Pear_100.png</key>
+            <key type="filename">Products/PictureFrame_100.png</key>
+            <key type="filename">Products/Strawberry_100.png</key>
             <key type="filename">Products/Strawberry_IceCream_100.png</key>
             <key type="filename">Products/Vanilla_IceCream_100.png</key>
             <struct type="IndividualSpriteSettings">
@@ -207,6 +228,36 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">Products/Postcard_100.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>25,15,50,31</rect>
+                <key>scale9Paddings</key>
+                <rect>25,15,50,31</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">Products/Scarf_100.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>25,20,50,39</rect>
+                <key>scale9Paddings</key>
+                <rect>25,20,50,39</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
         </map>
         <key>fileList</key>
         <array>
@@ -216,6 +267,15 @@
             <filename>Products/Vanilla_IceCream_100.png</filename>
             <filename>Products/Mango_IceCream_100.png</filename>
             <filename>Products/Strawberry_IceCream_100.png</filename>
+            <filename>Products/Banana_100.png</filename>
+            <filename>Products/Apple_100.png</filename>
+            <filename>Products/Pear_100.png</filename>
+            <filename>Products/Orange_100.png</filename>
+            <filename>Products/Strawberry_100.png</filename>
+            <filename>Products/PictureFrame_100.png</filename>
+            <filename>Products/Scarf_100.png</filename>
+            <filename>Products/Mug_100.png</filename>
+            <filename>Products/Postcard_100.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

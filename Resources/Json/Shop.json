@@ -99,7 +99,7 @@
       {
         "ProductId": 0,
         "Name": "Banana",
-        "ProductLook": "",
+        "ProductLook": "Banana_100.png",
         "Price": 10,
         "PurchasePrice": 2,
         "Quantity": 20
@@ -107,7 +107,7 @@
       {
         "ProductId": 1,
         "Name": "Apple",
-        "ProductLook": "",
+        "ProductLook": "Apple_100.png",
         "Price": 12,
         "PurchasePrice": 3,
         "Quantity": 20
@@ -115,14 +115,15 @@
       {
         "ProductId": 2,
         "Name": "Orange",
-        "ProductLook": "",
+        "ProductLook": "Orange_100.png",
         "Price": 15,
-        "PurchasePrice": 4
+        "PurchasePrice": 4,
+        "Quantity": 20
       },
       {
         "ProductId": 3,
         "Name": "Strawberry",
-        "ProductLook": "",
+        "ProductLook": "Strawberry_100.png",
         "Price": 20,
         "PurchasePrice": 6,
         "Quantity": 20
@@ -130,7 +131,7 @@
       {
         "ProductId": 4,
         "Name": "Pear",
-        "ProductLook": "",
+        "ProductLook": "Pear_100.png",
         "Price": 15,
         "PurchasePrice": 4,
         "Quantity": 20
@@ -155,7 +156,7 @@
       {
         "ProductId": 0,
         "Name": "Scarf",
-        "ProductLook": "",
+        "ProductLook": "Scarf_100.png",
         "Price": 50,
         "PurchasePrice": 25,
         "Quantity": 20
@@ -163,15 +164,15 @@
       {
         "ProductId": 1,
         "Name": "Mug",
-        "ProductLook": "",
+        "ProductLook": "Mug_100.png",
         "Price": 30,
         "PurchasePrice": 15,
         "Quantity": 20
       },
       {
         "ProductId": 2,
-        "Name": "Post card",
-        "ProductLook": "",
+        "Name": "Postcard",
+        "ProductLook": "Postcard_100.png",
         "Price": 5,
         "PurchasePrice": 1,
         "Quantity": 20
@@ -179,7 +180,7 @@
       {
         "ProductId": 3,
         "Name": "Picture frame",
-        "ProductLook": "",
+        "ProductLook": "PictureFrame_100.png",
         "Price": 20,
         "PurchasePrice": 6,
         "Quantity": 20

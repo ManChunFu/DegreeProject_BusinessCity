@@ -236,6 +236,12 @@
             <key type="filename">../X/Border_Blue_Square.png</key>
             <key type="filename">../X/Border_Brown_Square.png</key>
             <key type="filename">../X/Border_White_Square.png</key>
+            <key type="filename">../X/UIButtonLess50.png</key>
+            <key type="filename">../X/UIButtonLess50_Disable.png</key>
+            <key type="filename">../X/UIButtonLess50_Lit.png</key>
+            <key type="filename">../X/UIButtonMore50.png</key>
+            <key type="filename">../X/UIButtonMore50_Disable.png</key>
+            <key type="filename">../X/UIButtonMore50_Lit.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -388,6 +394,12 @@
             <filename>../X/Brown_Panel_500_BlueLine.png</filename>
             <filename>../X/Border_Black.png</filename>
             <filename>../X/Border_Black_Square.png</filename>
+            <filename>../X/UIButtonMore50.png</filename>
+            <filename>../X/UIButtonMore50_Disable.png</filename>
+            <filename>../X/UIButtonMore50_Lit.png</filename>
+            <filename>../X/UIButtonLess50.png</filename>
+            <filename>../X/UIButtonLess50_Disable.png</filename>
+            <filename>../X/UIButtonLess50_Lit.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
