@@ -49,7 +49,6 @@ private:
 	std::vector<PurchaseProductData*> m_PurchaseProducts;
 	std::vector<cocos2d::Label*> m_CurrentProductQuantityTexts;
 	cocos2d::Vector<cocos2d::MenuItem*> m_WidgetMenu;
-	MouseOverMenuItem* m_ExtendButton = nullptr;
 
 	Shop* m_MyShop = nullptr;
 

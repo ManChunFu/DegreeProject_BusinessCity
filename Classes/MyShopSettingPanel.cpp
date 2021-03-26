@@ -22,7 +22,6 @@ MyShopSettingPanel::~MyShopSettingPanel()
 	m_MyShop = nullptr;
 	m_ProductWidget1 = nullptr;
 	m_ProductWidget2 = nullptr;
-	m_ExtendButton = nullptr;
 
 	m_CurrentProductQuantityTexts.clear();
 
@@ -308,10 +307,13 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 	{
 		if (productIndex > m_PanelLimit)
 		{
-			m_ExtendButton = MouseOverMenuItem::creatMouseOverMenuButton("UIButtonMore50.png", "UIButtonMore50_Lit.png", 
+			auto moreButton = MouseOverMenuItem::creatMouseOverMenuButton("UIButtonMore50.png", "UIButtonMore50_Lit.png", 
 				"UIButtonMore50_Disable.png", CC_CALLBACK_1(MyShopSettingPanel::actionCallback, this));
-			if (m_ExtendButton)
-				displayButtons(m_ExtendButton, Vec2(sceneMidPoint.x - 130.f, 135.f), itemTypes::BUTTON);
+			if (moreButton)
+			{
+				moreButton->itemSelectedData.type = itemTypes::BUTTON;
+				displayButtons(moreButton, Vec2(sceneMidPoint.x - 130.f, 135.f), itemTypes::BUTTON);
+			}
 			break;
 		}
 
@@ -433,6 +435,14 @@ void MyShopSettingPanel::createProductWidget2()
 	{
 		m_ProductWidget2->setPosition(Vec2(panelMidPoint.x - 300.f, panelMidPoint.y - 250.f));
 		m_ThisPanel->addChild(m_ProductWidget2, 1);
+	}
+
+	auto lessButton = MouseOverMenuItem::creatMouseOverMenuButton("UIButtonLess50.png", "UIButtonLess50_Lit.png",
+		"UIButtonLess50_Disable.png", CC_CALLBACK_1(MyShopSettingPanel::actionCallback, this));
+	if (lessButton)
+	{
+		lessButton->itemSelectedData.type = itemTypes::WIDGET_BUTTON;
+		displayButtons(lessButton, Vec2(sceneMidPoint.x - 130.f, 280.f), itemTypes::WIDGET_BUTTON);
 	}
 
 	auto productLength = m_MyShop->m_Products.size();
@@ -598,12 +608,10 @@ void MyShopSettingPanel::actionCallback(cocos2d::Ref* pSender)
 	m_DisplayWidget2 = !m_DisplayWidget2;
 	if (m_DisplayWidget2)
 	{
-		m_ExtendButton->setRotationSkewX(180.f);
 		enableWidget(m_ProductWidget1, false, m_MenuItems, itemTypes::BUTTON);
 		openProductWidget2();
 		return;
 	}
-	m_ExtendButton->setRotationSkewX(0.f);
 	enableWidget(m_ProductWidget2, false, m_WidgetMenu, itemTypes::WIDGET_BUTTON);
 	enableWidget(m_ProductWidget1, true, m_MenuItems, itemTypes::BUTTON);
 }
