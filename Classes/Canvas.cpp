@@ -50,7 +50,7 @@ void Canvas::Init(GameScene* scene, Player* player)
 	setSpriteScale(backgroundSprite, Vec2::ONE);
 
 	m_InfoPanel = new InfoPanel();
-	m_InfoPanel->createPanel(m_GameScene, player, m_SceneMidPoint);
+	m_InfoPanel->openPanel(m_GameScene, m_SceneMidPoint);
 	m_UIPanels.push_back(m_InfoPanel);
 
 	m_GameStartPanel = new GameStartPanel();

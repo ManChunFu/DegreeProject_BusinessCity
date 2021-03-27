@@ -52,7 +52,9 @@ enum class itemTypes
     WOMAN1, WOMAN2, WOMAN3,
     MAN1, MAN2, MAN3,
     BUTTON,
-    WIDGET_BUTTON
+    WIDGET_BUTTON,
+
+    DEFAULT
 };
 struct itemData
 {

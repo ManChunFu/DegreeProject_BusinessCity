@@ -48,10 +48,15 @@ void MyShopSettingPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint
 	}
 
 	m_ThisPanel->setVisible(true);
+	(m_DisplayWidget2) ? enableMenuItems(m_WidgetMenu, true) : enableMenuItems(m_MenuItems, true);
+
 }
 
 void MyShopSettingPanel::closePanel()
 {
+	m_ThisPanel->setVisible(false);
+
+	(m_DisplayWidget2)? enableMenuItems(m_WidgetMenu, false) : enableMenuItems(m_MenuItems, false);
 }
 
 void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
@@ -59,7 +64,7 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 	m_MyShop = GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]];
 
 	// create this panel
-	m_ThisPanel = Sprite::createWithSpriteFrameName("Brown_Panel_500_BlueLine.png");
+	m_ThisPanel = Sprite::createWithSpriteFrameName("Brown_Panel_500_BlueLine_SquareCorner.png");
 	if (!m_ThisPanel)
 		return;
 
@@ -68,6 +73,12 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 	m_Elements.push_back(m_ThisPanel);
 
 	auto panelMidPoint = Vec2(m_ThisPanel->getContentSize().width * 0.5f, m_ThisPanel->getContentSize().height * 0.5f);
+
+	// create close button
+	auto closePanelButton = MouseOverMenuItem::creatMouseOverMenuButton("CloseButton_Normal.png", "CloseButton_Lit.png", "CloseButton_Disable.png",
+		CC_CALLBACK_1(MyShopSettingPanel::closeCallback, this));
+	if (closePanelButton)
+		displayButtons(closePanelButton, Vec2(sceneMidPoint.x + 275.f, sceneMidPoint.y + 225.f), itemTypes::DEFAULT, 0.7f);
 
 	// shop picture, name
 	auto shopPic = Sprite::createWithSpriteFrameName(m_MyShop->m_ShopLook_Normal);
@@ -629,6 +640,11 @@ void MyShopSettingPanel::buyProductCallback(cocos2d::Ref* pSender, unsigned prod
 	m_Player->updateCurrentCashAmout(-totalPurchasePrice);
 }
 
+void MyShopSettingPanel::closeCallback(cocos2d::Ref* pSender)
+{
+	closePanel();
+}
+
 void MyShopSettingPanel::onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event)
 {
 }
@@ -660,6 +676,14 @@ void MyShopSettingPanel::enableWidget(cocos2d::ui::Widget* widget, bool enable, 
 			item->setVisible(enable);
 			item->setEnabled(enable);
 		}
+	}
+}
+void MyShopSettingPanel::enableMenuItems(Vector<MenuItem*>itemList, bool enable)
+{
+	for (auto item : itemList)
+	{
+		item->setVisible(enable);
+		item->setVisible(enable);
 	}
 }
 

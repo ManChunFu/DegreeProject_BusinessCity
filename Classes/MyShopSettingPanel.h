@@ -36,6 +36,7 @@ protected:
 	void increaseProductAmoutCallback(cocos2d::Ref* pSender, unsigned productIndex);
 	void actionCallback(cocos2d::Ref* pSender);
 	void buyProductCallback(cocos2d::Ref* pSender, unsigned productId);
+	void closeCallback(cocos2d::Ref* pSender);
 	void onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event);
 
 private:
@@ -59,7 +60,7 @@ private:
 	unsigned m_ToHour = 17;
 	unsigned m_PanelLimit = 2;
 
-	void displayButtons(MouseOverMenuItem* button, cocos2d::Vec2 pos, cocos2d::itemTypes type, float scale = 0.5f);
+	void displayButtons(MouseOverMenuItem* button, cocos2d::Vec2 pos, cocos2d::itemTypes type = cocos2d::itemTypes::DEFAULT, float scale = 0.5f);
 	void enableWidget(cocos2d::ui::Widget* widget, bool enable, cocos2d::Vector<cocos2d::MenuItem*>itemList, cocos2d::itemTypes type);
-	
+	void enableMenuItems(cocos2d::Vector<cocos2d::MenuItem*>itemList, bool enable);
 };

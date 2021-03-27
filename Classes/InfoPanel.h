@@ -1,25 +1,21 @@
 #pragma once
 
-#include "cocos2d.h"
-#include "2d/CCNode.h"
+#include "UIPanel.h"
 
-class Player;
 class Bank;
 class GameScene;
 class MouseOverMenuItem;
 
-class InfoPanel : public cocos2d::Node
+class InfoPanel : public UIPanel
 {
 public:
-	virtual ~InfoPanel();
+	 ~InfoPanel() override;
 
-	cocos2d::Sprite* m_InfoPanel = nullptr;
-	void createPanel(GameScene* scene, Player* player, cocos2d::Vec2 sceneMidPoint);
+	void openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint) override;
 	void update(float delta);
 
 	void enableBankButton(bool value);
 private:
-	GameScene* m_GameScene = nullptr;
 	cocos2d::Label* m_Saving = nullptr;
 	cocos2d::Sprite* m_TopPanel = nullptr;
 	cocos2d::Sprite* m_BottomPanel = nullptr;
@@ -27,10 +23,9 @@ private:
 	cocos2d::Label* m_WeekDay = nullptr;
 	cocos2d::Label* m_TimeHourDisplay = nullptr;
 	cocos2d::Label* m_TimeMinDisplay = nullptr;
-	cocos2d::Vector<cocos2d::MenuItem*> m_MenuItems;
-	MouseOverMenuItem* m_BankButton = nullptr;
 
 	Bank* m_Bank = nullptr;
+	MouseOverMenuItem* m_BankButton = nullptr;
 
 	float m_ElapsedTime = 0.f;
 	unsigned m_CurrentMinute = 0;

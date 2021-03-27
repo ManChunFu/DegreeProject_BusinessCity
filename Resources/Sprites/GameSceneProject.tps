@@ -277,8 +277,7 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../X/Brown_Panel_500.png</key>
-            <key type="filename">../X/Brown_Panel_500_BlueLine.png</key>
+            <key type="filename">../X/Brown_Panel_500_BlueLine_SquareCorner.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -303,6 +302,9 @@
             <key type="filename">../X/UIButtonCorner40Left_Lit.png</key>
             <key type="filename">../X/UIButtonCorner40_Disabled.png</key>
             <key type="filename">../X/UIButtonCorner40_Lit.png</key>
+            <key type="filename">../X/X_Disable.png</key>
+            <key type="filename">../X/X_Lit.png</key>
+            <key type="filename">../X/X_Normal.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -314,6 +316,23 @@
                 <rect>10,10,20,20</rect>
                 <key>scale9Paddings</key>
                 <rect>10,10,20,20</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../X/CloseButton_Disable.png</key>
+            <key type="filename">../X/CloseButton_Lit.png</key>
+            <key type="filename">../X/CloseButton_Normal.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>5,5,10,10</rect>
+                <key>scale9Paddings</key>
+                <rect>5,5,10,10</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -385,13 +404,11 @@
             <filename>../X/UIButtonCorner40Left_Lit.png</filename>
             <filename>../X/Border_Blue.png</filename>
             <filename>../X/Border_Blue_Square.png</filename>
-            <filename>../X/Brown_Panel_500.png</filename>
             <filename>../X/Border_White_Square.png</filename>
             <filename>../X/Checkbox_Active.png</filename>
             <filename>../X/Checkbox_Normal.png</filename>
             <filename>../X/Checkbox_Normal_Disable.png</filename>
             <filename>../X/Checkbox_Normal_Press.png</filename>
-            <filename>../X/Brown_Panel_500_BlueLine.png</filename>
             <filename>../X/Border_Black.png</filename>
             <filename>../X/Border_Black_Square.png</filename>
             <filename>../X/UIButtonMore50.png</filename>
@@ -400,6 +417,13 @@
             <filename>../X/UIButtonLess50.png</filename>
             <filename>../X/UIButtonLess50_Disable.png</filename>
             <filename>../X/UIButtonLess50_Lit.png</filename>
+            <filename>../X/X_Normal.png</filename>
+            <filename>../X/X_Lit.png</filename>
+            <filename>../X/X_Disable.png</filename>
+            <filename>../X/CloseButton_Disable.png</filename>
+            <filename>../X/CloseButton_Lit.png</filename>
+            <filename>../X/CloseButton_Normal.png</filename>
+            <filename>../X/Brown_Panel_500_BlueLine_SquareCorner.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

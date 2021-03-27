@@ -295,6 +295,23 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">../X/PowerButtonDisable.png</key>
+            <key type="filename">../X/PowerButtonLit.png</key>
+            <key type="filename">../X/PowerButtonNormal.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>10,10,20,20</rect>
+                <key>scale9Paddings</key>
+                <rect>10,10,20,20</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">../X/UIPanelRecBlack80.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -358,6 +375,9 @@
             <filename>../X/UIToggleButton.png</filename>
             <filename>../X/UIToggleButton_Disabled.png</filename>
             <filename>../X/UIToggleButton_Lit.png</filename>
+            <filename>../X/PowerButtonDisable.png</filename>
+            <filename>../X/PowerButtonNormal.png</filename>
+            <filename>../X/PowerButtonLit.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
