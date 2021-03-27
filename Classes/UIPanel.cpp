@@ -1,5 +1,6 @@
 #include "UIPanel.h"
 #include "GameScene.h"
+#include "MouseOverMenuItem.h"
 
 USING_NS_CC;
 
@@ -23,3 +24,15 @@ UIPanel::~UIPanel()
 		m_MenuItems.clear();
 	}
 }
+
+MouseOverMenuItem* UIPanel::displayButtons(MouseOverMenuItem* button, std::function<void(MouseOverMenuItem* overItem, Event* event)> onMouseOver, Vec2 pos, itemTypes type, float scale)
+{
+	button->onMouseOver = onMouseOver;
+	button->setScale(scale);
+	button->setPosition(pos);
+	button->setItemRect(pos, scale);
+
+	return button;
+}
+
+

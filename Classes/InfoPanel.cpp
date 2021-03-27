@@ -12,8 +12,6 @@ USING_NS_CC;
 InfoPanel::~InfoPanel()
 {
 	m_Saving = nullptr;
-	m_TopPanel = nullptr;
-	m_BottomPanel = nullptr;
 	m_WeekCount = nullptr;
 	m_WeekDay = nullptr;
 	m_TimeHourDisplay = nullptr;
@@ -155,10 +153,6 @@ void InfoPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
 			m_ThisPanel, 1);
 	}
 #pragma endregion
-	m_BottomPanel = Sprite::createWithSpriteFrameName("InGamePanel_Black_80.png");
-	m_BottomPanel->setPosition(Vec2(sceneMidPoint.x - 160.f, sceneMidPoint.y - 320.f));
-	m_GameScene->addChild(m_BottomPanel, 1);
-	m_Elements.push_back(m_BottomPanel);
 
 	auto menu = Menu::createWithArray(m_MenuItems);
 	menu->setPosition(Vec2::ZERO);

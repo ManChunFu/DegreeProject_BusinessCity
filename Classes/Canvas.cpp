@@ -1,14 +1,13 @@
 #include "Canvas.h"
 #include "InfoPanel.h"
+#include "ActionPanel.h"
 #include "GameStartPanel.h"
 #include "GameOverPanel.h"
 #include "GameScene.h"
 #include "MyShopSettingPanel.h"
 #include "EPanel.h"
 
-
 USING_NS_CC;
-
 
 Canvas::~Canvas()
 {
@@ -20,6 +19,7 @@ Canvas::~Canvas()
 	m_AddPanels.clear();
 	m_RemovePanels.clear();
 	m_InfoPanel = nullptr;
+	m_ActionPanel = nullptr;
 	m_GameStartPanel = nullptr;
 	m_MyShopPanel = nullptr;
 	m_GameoverPanel = nullptr;
@@ -53,9 +53,14 @@ void Canvas::Init(GameScene* scene, Player* player)
 	m_InfoPanel->openPanel(m_GameScene, m_SceneMidPoint);
 	m_UIPanels.push_back(m_InfoPanel);
 
+	m_ActionPanel = new ActionPanel();
+	m_ActionPanel->openPanel(m_GameScene, m_SceneMidPoint);
+	m_UIPanels.push_back(m_ActionPanel);
+
 	m_GameStartPanel = new GameStartPanel();
 	m_GameStartPanel->createPanel(m_GameScene, m_SceneMidPoint);
-	m_GameStartPanel->onDestroyCall = CC_CALLBACK_1(Canvas::destroyPanel, this, EPanels::MYSHOPSETTING_PANEL);
+	//m_GameStartPanel->onDestroyCall = CC_CALLBACK_1(Canvas::destroyPanel, this, EPanels::MYSHOPSETTING_PANEL);
+	m_GameStartPanel->onDestroyCall = CC_CALLBACK_1(Canvas::destroyPanel, this, EPanels::ACTION_PANEL);
 	m_UIPanels.push_back(m_GameStartPanel);
 }
 
@@ -117,7 +122,11 @@ void Canvas::activePanel(EPanels uiPanel)
 {
 	switch (uiPanel)
 	{
-	case EPanels::INFO_PANEL:
+	//case EPanels::INFO_PANEL:
+	//	m_InfoPanel->enableBankButton(true);
+	//	break;
+	case EPanels::ACTION_PANEL:
+		m_ActionPanel->displayShop();
 		m_InfoPanel->enableBankButton(true);
 		break;
 	case EPanels::GAMEOVER_PANEL:

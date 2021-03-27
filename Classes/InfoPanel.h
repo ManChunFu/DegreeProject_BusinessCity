@@ -17,8 +17,6 @@ public:
 	void enableBankButton(bool value);
 private:
 	cocos2d::Label* m_Saving = nullptr;
-	cocos2d::Sprite* m_TopPanel = nullptr;
-	cocos2d::Sprite* m_BottomPanel = nullptr;
 	cocos2d::Label* m_WeekCount = nullptr;
 	cocos2d::Label* m_WeekDay = nullptr;
 	cocos2d::Label* m_TimeHourDisplay = nullptr;

@@ -7,6 +7,7 @@
 
 class GameScene;
 class InfoPanel;
+class ActionPanel;
 class GameStartPanel;
 class GameOverPanel;
 class MyShopSettingPanel;
@@ -28,6 +29,7 @@ private:
 	std::vector<cocos2d::Ref*> m_RemovePanels;
 	GameScene* m_GameScene = nullptr;
 	InfoPanel* m_InfoPanel = nullptr;
+	ActionPanel* m_ActionPanel = nullptr;
 	GameStartPanel* m_GameStartPanel = nullptr;
 	GameOverPanel* m_GameoverPanel = nullptr;
 	MyShopSettingPanel* m_MyShopPanel = nullptr;
