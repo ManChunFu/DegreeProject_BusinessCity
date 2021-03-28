@@ -24,6 +24,7 @@ InfoPanel::~InfoPanel()
 void InfoPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
 {
 	m_GameScene = scene;
+	m_SceneMidPoint = sceneMidPoint;
 	m_Player = GameData::getInstance().m_Player;
 	m_Player->onCashAmoutChange = CC_CALLBACK_2(InfoPanel::onCurrentCashChange, this);
 
@@ -31,7 +32,7 @@ void InfoPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
 	if (!m_ThisPanel)
 		return;
 
-	GameFunctions::displaySprite(m_ThisPanel, Vec2(sceneMidPoint.x - 160.f, sceneMidPoint.y + 320.f), m_GameScene, 1);
+	GameFunctions::displaySprite(m_ThisPanel, Vec2(m_SceneMidPoint.x - 160.f, m_SceneMidPoint.y + 320.f), m_GameScene, 1);
 	m_Elements.push_back(m_ThisPanel);
 
 	auto topPanelMidPoint = Vec2(m_ThisPanel->getContentSize().width * 0.5f, m_ThisPanel->getContentSize().height * 0.5f);
@@ -218,7 +219,7 @@ void InfoPanel::checkBalanceCallback(cocos2d::Ref* pSender, GameScene* scene)
 {
 	m_IsOpeningSubWindow = !m_IsOpeningSubWindow;
 
-	(m_IsOpeningSubWindow) ? m_Bank->openBankPanel(scene, m_Weeks) : m_Bank->closeBankPanel();
+	(m_IsOpeningSubWindow) ? m_Bank->openBankPanel(scene, m_Weeks, m_SceneMidPoint) : m_Bank->closePanel();
 }
 
 void InfoPanel::onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event)
@@ -231,7 +232,7 @@ void InfoPanel::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::E
 	{
 		if (m_IsOpeningSubWindow)
 		{
-			m_Bank->closeBankPanel();
+			m_Bank->closePanel();
 			m_IsOpeningSubWindow = false;
 		}
 	}

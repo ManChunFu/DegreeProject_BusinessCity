@@ -1,9 +1,7 @@
 #pragma once
 
-#include "cocos2d.h"
+#include "UIPanel.h"
 
-class GameScene;
-class Player;
 class MouseOverMenuItem;
 
 NS_CC_BEGIN;
@@ -13,21 +11,20 @@ namespace ui
 }
 NS_CC_END;
 
-class Bank
+class Bank : public UIPanel
 {
 public:
-	virtual ~Bank();
+	~Bank() override;
 
-	void openBankPanel(GameScene* scene, unsigned currentWeek);
-	void closeBankPanel();
+	void openBankPanel(GameScene* scene, unsigned currentWeek, cocos2d::Vec2 sceneMidPoint);
+	void closePanel() override;
 
 	void update();
-private:
-	GameScene* m_GameScene = nullptr;
-	Player* m_Player = nullptr;
-	std::vector<cocos2d::Node*> m_Elements;
+	
+protected:
+	void createPanel(cocos2d::Vec2 sceneMidPoint) override;
 
-	cocos2d::Sprite* m_BankPanel = nullptr;
+private:
 	cocos2d::Label* m_Weeks = nullptr;
 	cocos2d::Label* m_Shop = nullptr;
 	cocos2d::Label* m_Electricity = nullptr;
@@ -63,8 +60,6 @@ private:
 	unsigned m_RepaymentRemainWeeks = 0;
 	int m_Debt = 0;
 
-	cocos2d::Vector<cocos2d::MenuItem*> m_BankButtons;
-
 	bool m_HasDebt = false;
 
 	int calculateTotalAmoutWeekly();
@@ -79,6 +74,5 @@ private:
 	void resetTakeLoan();
 	void updatePlayerCurrentShopInfo();
 	void onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event);
-	void createBankPanel();
 	void setMenuItemsVisible(bool visible);
 };

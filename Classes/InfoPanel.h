@@ -25,6 +25,8 @@ private:
 	Bank* m_Bank = nullptr;
 	MouseOverMenuItem* m_BankButton = nullptr;
 
+	cocos2d::Vec2 m_SceneMidPoint = cocos2d::Vec2::ZERO;
+
 	float m_ElapsedTime = 0.f;
 	unsigned m_CurrentMinute = 0;
 	unsigned m_CurrentHour = 8;
