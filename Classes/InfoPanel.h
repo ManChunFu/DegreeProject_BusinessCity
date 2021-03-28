@@ -15,6 +15,7 @@ public:
 	void update(float delta);
 
 	void enableBankButton(bool value);
+	void setOpeningSubWindow(bool isOpen) { m_IsOpeningSubWindow = isOpen; }
 private:
 	cocos2d::Label* m_Saving = nullptr;
 	cocos2d::Label* m_WeekCount = nullptr;

@@ -202,7 +202,7 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../X/Bank_Panel_400.png</key>
+            <key type="filename">../X/Bank_Panel_420_SquareCorner.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -211,9 +211,9 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>150,100,300,200</rect>
+                <rect>150,105,300,210</rect>
                 <key>scale9Paddings</key>
-                <rect>150,100,300,200</rect>
+                <rect>150,105,300,210</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -366,7 +366,7 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../X/LongPanelBlack50.png</key>
+            <key type="filename">../X/LongPanelBlack80.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -375,9 +375,9 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>150,18,300,35</rect>
+                <rect>150,20,300,40</rect>
                 <key>scale9Paddings</key>
-                <rect>150,18,300,35</rect>
+                <rect>150,20,300,40</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -385,7 +385,6 @@
         <key>fileList</key>
         <array>
             <filename>GameSceneCityView.png</filename>
-            <filename>../X/Bank_Panel_400.png</filename>
             <filename>../X/Border_Brown.png</filename>
             <filename>../X/Border_Brown_Disabled.png</filename>
             <filename>../X/Border_Brown_Lit.png</filename>
@@ -394,7 +393,6 @@
             <filename>../X/Button100_Disabled.png</filename>
             <filename>../X/Button100_Lit.png</filename>
             <filename>../X/InGamePanel_Black_80.png</filename>
-            <filename>../X/LongPanelBlack50.png</filename>
             <filename>../X/CreditCardBank_100.png</filename>
             <filename>../X/UIButtonCorner40.png</filename>
             <filename>../X/UIButtonCorner40_Disabled.png</filename>
@@ -424,6 +422,8 @@
             <filename>../X/CloseButton_Lit.png</filename>
             <filename>../X/CloseButton_Normal.png</filename>
             <filename>../X/Brown_Panel_500_BlueLine_SquareCorner.png</filename>
+            <filename>../X/Bank_Panel_420_SquareCorner.png</filename>
+            <filename>../X/LongPanelBlack80.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

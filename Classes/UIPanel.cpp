@@ -28,6 +28,7 @@ UIPanel::~UIPanel()
 MouseOverMenuItem* UIPanel::displayButtons(MouseOverMenuItem* button, std::function<void(MouseOverMenuItem* overItem, Event* event)> onMouseOver, Vec2 pos, itemTypes type, float scale)
 {
 	button->onMouseOver = onMouseOver;
+	button->itemSelectedData.type = type;
 	button->setScale(scale);
 	button->setPosition(pos);
 	button->setItemRect(pos, scale);

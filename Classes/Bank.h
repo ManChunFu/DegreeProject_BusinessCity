@@ -2,7 +2,7 @@
 
 #include "UIPanel.h"
 
-class MouseOverMenuItem;
+class InfoPanel;
 
 NS_CC_BEGIN;
 namespace ui
@@ -21,10 +21,20 @@ public:
 
 	void update();
 	
+	void setMyParent(InfoPanel* parentPanel) { m_InfoPanel = parentPanel; };
 protected:
 	void createPanel(cocos2d::Vec2 sceneMidPoint) override;
+	void closeCallback(cocos2d::Ref* pSedner);
+	void addAmoutCallback(cocos2d::Ref* pSender);
+	void reduceAmoutCallback(cocos2d::Ref* pSender);
+	void addWeekCallback(cocos2d::Ref* pSender);
+	void reduceWeekCallback(cocos2d::Ref* pSender);
+	void takeLoan(cocos2d::Ref* pSender);
+	void onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event);
 
 private:
+	InfoPanel* m_InfoPanel = nullptr;
+
 	cocos2d::Label* m_Weeks = nullptr;
 	cocos2d::Label* m_Shop = nullptr;
 	cocos2d::Label* m_Electricity = nullptr;
@@ -64,15 +74,9 @@ private:
 
 	int calculateTotalAmoutWeekly();
 	void updateOverviewAmout(int amout);
-	void addAmoutCallback(cocos2d::Ref* pSender);
-	void reduceAmoutCallback(cocos2d::Ref* pSender);
-	void addWeekCallback(cocos2d::Ref* pSender);
-	void reduceWeekCallback(cocos2d::Ref* pSender);
-	void takeLoan(cocos2d::Ref* pSender);
 	void calculateWeeklyRepayments();
 	void updateDebtDisplay(int amout, unsigned remainWeeks);
 	void resetTakeLoan();
 	void updatePlayerCurrentShopInfo();
-	void onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event);
-	void setMenuItemsVisible(bool visible);
+	void setMenuItemsVisible(bool visible, bool runAll, cocos2d::itemTypes excludeType = cocos2d::itemTypes::DEFAULT);
 };

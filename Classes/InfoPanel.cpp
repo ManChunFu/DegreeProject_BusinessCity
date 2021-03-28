@@ -100,6 +100,7 @@ void InfoPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
 		m_MenuItems.pushBack(m_BankButton);
 
 		m_Bank = new Bank();
+		m_Bank->setMyParent(this);
 	}
 #pragma endregion
 
@@ -181,7 +182,6 @@ void InfoPanel::update(float delta)
 	m_CurrentMinute++;
 	m_ElapsedTime = 0;
 	GameFunctions::updatLabelText_TimeFormat(m_TimeMinDisplay, m_CurrentMinute % 60);
-	m_Bank->update();
 
 	// update hour
 	if (m_CurrentMinute > 59)
@@ -203,7 +203,7 @@ void InfoPanel::update(float delta)
 	if (m_Today > 6)
 	{
 		m_Today = 0;
-		//m_Bank->update();
+		m_Bank->update();
 		m_Weeks++;
 		GameFunctions::updatLabelText_TimeFormat(m_WeekCount, m_Weeks);
 	}
