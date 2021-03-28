@@ -20,13 +20,22 @@ Canvas::~Canvas()
 	}
 	m_UIPanels.clear();
 
+	for (auto panel : m_AddPanels)
+	{
+		delete panel;
+	}
 	m_AddPanels.clear();
+
+	for (auto panel : m_RemovePanels)
+	{
+		delete panel;
+	}
 	m_RemovePanels.clear();
 
 	m_InfoPanel = nullptr;
 	m_ActionPanel = nullptr;
-	m_GameoverPanel = nullptr;
 
+	m_GameoverPanel = nullptr;
 	m_GameScene = nullptr;
 }
 
@@ -95,7 +104,7 @@ void Canvas::gameOver()
 {
 	m_InfoPanel->enableBankButton(false);
 	m_GameoverPanel = new GameOverPanel;
-	m_GameoverPanel->init(m_GameScene, m_SceneMidPoint);
+	m_GameoverPanel->openPanel(m_GameScene, m_SceneMidPoint);
 	m_GameoverPanel->onDestroyCall = CC_CALLBACK_1(Canvas::destroyPanel, this, EPanels::DEFAULT_PANEL);
 	m_AddPanels.push_back(m_GameoverPanel);
 }

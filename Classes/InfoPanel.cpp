@@ -178,7 +178,7 @@ void InfoPanel::update(float delta)
 	// update minute
 	if (m_ElapsedTime < 4)
 		return;
-
+	m_Bank->update();
 	m_CurrentMinute++;
 	m_ElapsedTime = 0;
 	GameFunctions::updatLabelText_TimeFormat(m_TimeMinDisplay, m_CurrentMinute % 60);
