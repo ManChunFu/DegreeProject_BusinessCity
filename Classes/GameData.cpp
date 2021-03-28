@@ -9,13 +9,7 @@ USING_NS_CC;
 
 GameData::~GameData()
 {
-	delete m_Player;
-	m_Player = nullptr;
-	for (auto item : m_Shops)
-	{
-		delete item.second;
-	}
-	m_Shops.clear();
+	reset(true);
 }
 
 void GameData::init()
@@ -52,5 +46,20 @@ void GameData::setShopProductQuantity(unsigned shopId, unsigned productId, unsig
 unsigned GameData::getProductPurchasePrice(unsigned shopId, unsigned productId)
 {
 	return m_Shops[shopId]->m_Products[productId]->m_PurchasePrice;
+}
+
+void GameData::reset(bool all)
+{
+	if (all)
+	{
+		delete m_Player;
+		m_Player = nullptr;
+	}
+
+	for (auto item : m_Shops)
+	{
+		delete item.second;
+	}
+	m_Shops.clear();
 }
 

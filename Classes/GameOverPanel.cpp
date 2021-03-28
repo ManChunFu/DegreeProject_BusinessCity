@@ -4,6 +4,7 @@
 #include "GameFunctions.h"
 #include "GameData.h"
 #include "MainMenuScene.h"
+#include "Player.h"
 
 USING_NS_CC;
 
@@ -13,6 +14,7 @@ GameOverPanel::~GameOverPanel()
 void GameOverPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
 {
 	m_GameScene = scene;
+	m_Player = GameData::getInstance().m_Player;
 
 	m_ThisPanel = Sprite::createWithSpriteFrameName("UIPanelRecBlack80.png");
 	if (!m_ThisPanel)
@@ -65,6 +67,8 @@ void GameOverPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
 void GameOverPanel::restart(cocos2d::Ref* pSender)
 {
 	destroyPanel();
+	GameData::getInstance().reset();
+
 	auto scene = GameScene::createScene();
 	Director::getInstance()->replaceScene(scene);
 }
@@ -72,6 +76,7 @@ void GameOverPanel::restart(cocos2d::Ref* pSender)
 void GameOverPanel::backToMenu(cocos2d::Ref* pSender)
 {
 	destroyPanel();
+	GameData::getInstance().reset(true);
 
 	auto scene = MainMenuScene::createScene();
 	if (scene)
@@ -90,6 +95,8 @@ void GameOverPanel::destroyPanel()
 	}
 	if (onDestroyCall)
 		onDestroyCall;
+
+	m_Player->reset();
 }
 
 

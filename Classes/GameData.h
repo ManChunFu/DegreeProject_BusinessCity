@@ -36,6 +36,8 @@ public:
 	void setShopProductQuantity(unsigned shopId, unsigned productId, unsigned quantity);
 	unsigned getProductPurchasePrice(unsigned shopId, unsigned productId);
 
+	void reset(bool all = false);
+
 	Player* m_Player = nullptr;
 	std::map<unsigned, Shop*> m_Shops;
 	struct colorTypes

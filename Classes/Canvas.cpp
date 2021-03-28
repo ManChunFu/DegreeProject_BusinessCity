@@ -11,9 +11,6 @@ USING_NS_CC;
 
 Canvas::~Canvas()
 {
-	delete m_GameStartPanel;
-	m_GameStartPanel = nullptr;
-
 	for (auto panel : m_UIPanels)
 	{
 		delete panel;
@@ -32,6 +29,7 @@ Canvas::~Canvas()
 	}
 	m_RemovePanels.clear();
 
+	m_GameStartPanel = nullptr;
 	m_InfoPanel = nullptr;
 	m_ActionPanel = nullptr;
 
@@ -92,11 +90,13 @@ void Canvas::update(float deltaTime)
 		{
 			if (m_UIPanels[index] == ref)
 			{
+				delete m_UIPanels[index];
 				m_UIPanels.erase(m_UIPanels.begin() + index);
 				index--;
 			}
 		}
 	}
+
 	m_RemovePanels.clear();
 }
 

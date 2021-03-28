@@ -11,13 +11,13 @@ public:
 	virtual ~Player();
 
 	std::vector<unsigned> m_MyShopIds;
-	
 	const std::string& getName();
 	cocos2d::itemTypes getCharacter();
 	void updateCurrentCashAmout(int cashAmout);
 	int getCurrentCash() { return m_CurrentCashAmout; }
 
 	std::function<void(Player* player, int cashAmout)> onCashAmoutChange;
+	void reset();
 private:
 	const std::string m_PlayerName = "";
 	cocos2d::itemTypes m_PlayerCharacter;
