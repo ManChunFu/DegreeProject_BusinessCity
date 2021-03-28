@@ -114,7 +114,7 @@ void Bank::createPanel(cocos2d::Vec2 sceneMidPoint)
 		CC_CALLBACK_1(Bank::closeCallback, this));
 	if (closePanelButton)
 	{
-		m_MenuItems.pushBack(displayButtons(closePanelButton, CC_CALLBACK_2(Bank::onMouseOver, this), 
+		m_MenuItems.pushBack(displayMenuButton(closePanelButton, CC_CALLBACK_2(Bank::onMouseOver, this), 
 			Vec2(sceneMidPoint.x + 272.f, sceneMidPoint.y + 185.f), itemTypes::DEFAULT, 0.7f));
 	}
 
@@ -285,14 +285,14 @@ void Bank::createPanel(cocos2d::Vec2 sceneMidPoint)
 	auto reduceAmoutButton = MouseOverMenuItem::createLowerButton(CC_CALLBACK_1(Bank::reduceAmoutCallback, this));
 	if (reduceAmoutButton)
 	{
-		m_MenuItems.pushBack(displayButtons(reduceAmoutButton, CC_CALLBACK_2(Bank::onMouseOver, this),
+		m_MenuItems.pushBack(displayMenuButton(reduceAmoutButton, CC_CALLBACK_2(Bank::onMouseOver, this),
 			Vec2(sceneMidPoint.x - 175.f, sceneMidPoint.y - 180.f), itemTypes::BUTTON, 0.5f));
 	}
 
 	auto addAmoutButton = MouseOverMenuItem::createUpperButton(CC_CALLBACK_1(Bank::addAmoutCallback, this));
 	if (addAmoutButton)
 	{
-		m_MenuItems.pushBack(displayButtons(addAmoutButton, CC_CALLBACK_2(Bank::onMouseOver, this),
+		m_MenuItems.pushBack(displayMenuButton(addAmoutButton, CC_CALLBACK_2(Bank::onMouseOver, this),
 			Vec2(sceneMidPoint.x - 255.f, sceneMidPoint.y - 160.f), itemTypes::BUTTON, 0.5f));
 	}
 
@@ -319,14 +319,14 @@ void Bank::createPanel(cocos2d::Vec2 sceneMidPoint)
 	auto reduceWeekButton = MouseOverMenuItem::createLowerButton(CC_CALLBACK_1(Bank::reduceWeekCallback, this));
 	if (reduceWeekButton)
 	{
-		m_MenuItems.pushBack(displayButtons(reduceWeekButton, CC_CALLBACK_2(Bank::onMouseOver, this),
+		m_MenuItems.pushBack(displayMenuButton(reduceWeekButton, CC_CALLBACK_2(Bank::onMouseOver, this),
 			Vec2(sceneMidPoint.x - 85.f, sceneMidPoint.y - 180.f), itemTypes::BUTTON, 0.5f));
 	}
 
 	auto addWeekButton = MouseOverMenuItem::createUpperButton(CC_CALLBACK_1(Bank::addWeekCallback, this));
 	if (addWeekButton)
 	{
-		m_MenuItems.pushBack(displayButtons(addWeekButton, CC_CALLBACK_2(Bank::onMouseOver, this),
+		m_MenuItems.pushBack(displayMenuButton(addWeekButton, CC_CALLBACK_2(Bank::onMouseOver, this),
 			Vec2(sceneMidPoint.x - 115.f, sceneMidPoint.y - 160.f), itemTypes::BUTTON, 0.5f));
 	}
 
@@ -363,7 +363,7 @@ void Bank::createPanel(cocos2d::Vec2 sceneMidPoint)
 		CC_CALLBACK_1(Bank::takeLoan, this));
 	if (applyLoanButton)
 	{
-		m_MenuItems.pushBack(displayButtons(applyLoanButton, CC_CALLBACK_2(Bank::onMouseOver, this),
+		m_MenuItems.pushBack(displayMenuButton(applyLoanButton, CC_CALLBACK_2(Bank::onMouseOver, this),
 			Vec2(sceneMidPoint.x + 220.f, sceneMidPoint.y - 170.f), itemTypes::BUTTON));
 
 		auto takeLoanText = Label::createWithTTF("TAKE LOAN", "fonts/NirmalaB.ttf", 14);

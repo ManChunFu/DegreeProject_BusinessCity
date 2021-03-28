@@ -11,21 +11,22 @@ USING_NS_CC;
 
 Canvas::~Canvas()
 {
+	delete m_GameStartPanel;
+	m_GameStartPanel = nullptr;
+
 	for (auto panel : m_UIPanels)
 	{
 		delete panel;
 	}
 	m_UIPanels.clear();
+
 	m_AddPanels.clear();
 	m_RemovePanels.clear();
+
 	m_InfoPanel = nullptr;
 	m_ActionPanel = nullptr;
-	m_GameStartPanel = nullptr;
-	m_MyShopPanel = nullptr;
 	m_GameoverPanel = nullptr;
 
-	delete m_GameStartPanel;
-	m_GameStartPanel = nullptr;
 	m_GameScene = nullptr;
 }
 
@@ -58,8 +59,7 @@ void Canvas::Init(GameScene* scene, Player* player)
 	m_UIPanels.push_back(m_ActionPanel);
 
 	m_GameStartPanel = new GameStartPanel();
-	m_GameStartPanel->createPanel(m_GameScene, m_SceneMidPoint);
-	//m_GameStartPanel->onDestroyCall = CC_CALLBACK_1(Canvas::destroyPanel, this, EPanels::MYSHOPSETTING_PANEL);
+	m_GameStartPanel->openPanel(m_GameScene, m_SceneMidPoint);
 	m_GameStartPanel->onDestroyCall = CC_CALLBACK_1(Canvas::destroyPanel, this, EPanels::ACTION_PANEL);
 	m_UIPanels.push_back(m_GameStartPanel);
 }
@@ -132,20 +132,8 @@ void Canvas::activePanel(EPanels uiPanel)
 	case EPanels::GAMEOVER_PANEL:
 		break;
 	case EPanels::MYSHOPSETTING_PANEL:
-		createMyShopPanel();
 		break;
 	}
 }
 
-void Canvas::createMyShopPanel()
-{
-	m_MyShopPanel = new MyShopSettingPanel();
-	m_MyShopPanel->openPanel(m_GameScene, m_SceneMidPoint);
-	m_MyShopPanel->onActionCall = CC_CALLBACK_1(Canvas::actionCall, this, EPanels::INFO_PANEL);
-	m_AddPanels.push_back(m_MyShopPanel);
-
-	// ToDo: move this call to its own funciton 
-	m_InfoPanel->enableBankButton(true);
-
-}
 

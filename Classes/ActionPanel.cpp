@@ -38,7 +38,7 @@ void ActionPanel::displayShop()
 		CC_CALLBACK_1(ActionPanel::openShopCallback, this));
 	
 	if (myFirstShopButton)
-		m_MenuItems.pushBack(displayButtons(myFirstShopButton, CC_CALLBACK_2(ActionPanel::onMouseOver, this),
+		m_MenuItems.pushBack(displayMenuButton(myFirstShopButton, CC_CALLBACK_2(ActionPanel::onMouseOver, this),
 			Vec2(m_ThisPanel->getPosition().x * 0.5f, m_ThisPanel->getPosition().y * 0.5f + 13.f), itemTypes::DEFAULT, 0.3f));
 
 	m_ShopButton = new MyShopSettingPanel();

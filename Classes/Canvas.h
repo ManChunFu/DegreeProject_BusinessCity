@@ -32,7 +32,7 @@ private:
 	ActionPanel* m_ActionPanel = nullptr;
 	GameStartPanel* m_GameStartPanel = nullptr;
 	GameOverPanel* m_GameoverPanel = nullptr;
-	MyShopSettingPanel* m_MyShopPanel = nullptr;
+
 	cocos2d::Size m_VisibleSize;
 	cocos2d::Vec2 m_Origin;
 	cocos2d::Vec2 m_SceneMidPoint;
@@ -40,7 +40,6 @@ private:
 	void destroyPanel(cocos2d::Ref* pSender, EPanels uiPanel);
 	void actionCall(cocos2d::Ref* pSender, EPanels uiPanel);
 	void activePanel(EPanels uiPanel);
-	void createMyShopPanel();
 	void setSpriteScale(cocos2d::Sprite* sprite, cocos2d::Vec2 scale);
 	
 };

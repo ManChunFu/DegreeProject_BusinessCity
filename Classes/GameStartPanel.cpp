@@ -8,42 +8,33 @@
 
 USING_NS_CC;
 
-
 GameStartPanel::~GameStartPanel()
-{
-	m_StartupItems.clear(); 
-	m_Elements.clear();
-	m_GameScene = nullptr;
-	m_Player = nullptr;
-}
+{}
 
-void GameStartPanel::createPanel(GameScene* scene, Vec2 sceneMidPoint)
+void GameStartPanel::openPanel(GameScene* scene, Vec2 sceneMidPoint)
 {
 	m_GameScene = scene;
 	m_Player = GameData::getInstance().m_Player;
 
-	auto startupPanel = Sprite::createWithSpriteFrameName("Brown_Panel_400.png");
-	startupPanel->setPosition(sceneMidPoint);
-	m_GameScene->addChild(startupPanel, 2);
-	m_Elements.push_back(startupPanel);
+	m_ThisPanel = Sprite::createWithSpriteFrameName("Brown_Panel_400.png");
+	m_ThisPanel->setPosition(sceneMidPoint);
+	m_GameScene->addChild(m_ThisPanel, 2);
+	m_Elements.push_back(m_ThisPanel);
 
 	auto startupLabel = Label::createWithTTF("CHOOSE YOUR STARTUP", "fonts/NirmalaB.ttf", 20);
 	if (startupLabel)
 	{
 		startupLabel->enableShadow(Color4B::BLACK);
-		GameFunctions::displayLabel(startupLabel, Color4B::WHITE, Vec2(startupPanel->getContentSize().width * 0.5f,
-			startupPanel->getContentSize().height - 25.f), startupPanel, 1);
+		GameFunctions::displayLabel(startupLabel, Color4B::WHITE, Vec2(m_ThisPanel->getContentSize().width * 0.5f,
+			m_ThisPanel->getContentSize().height - 25.f), m_ThisPanel, 1);
 	}
 
 	auto goButton = MouseOverMenuItem::creatMouseOverMenuButton("UIToggleButton.png", "UIToggleButton_Lit.png", "UIToggleButton_Disabled.png",
 		CC_CALLBACK_1(GameStartPanel::goButtonCallback, this));
 	if (goButton)
 	{
-		goButton->onMouseOver = CC_CALLBACK_2(GameStartPanel::onMouseOver, this);
-		goButton->itemSelectedData.type = itemTypes::BUTTON;
-		goButton->setScale(1.5f);
-		goButton->setPosition(sceneMidPoint);
-		goButton->setItemRect(sceneMidPoint, 1.5f);
+		m_MenuItems.pushBack(displayMenuButton(goButton, CC_CALLBACK_2(GameStartPanel::onMouseOver, this),
+			sceneMidPoint, itemTypes::BUTTON, 1.5f));
 
 		goButton->setVisible(false);
 		goButton->setEnabled(false);
@@ -52,8 +43,6 @@ void GameStartPanel::createPanel(GameScene* scene, Vec2 sceneMidPoint)
 		if (goLabel)
 			GameFunctions::displayLabel(goLabel, Color4B::WHITE, Vec2(goButton->getContentSize().width * 0.5f,
 				goButton->getContentSize().height * 0.5f), goButton, 1);
-
-		m_StartupItems.pushBack(goButton);
 	}
 
 #pragma region create startup items
@@ -63,45 +52,39 @@ void GameStartPanel::createPanel(GameScene* scene, Vec2 sceneMidPoint)
 		if (!item.second->m_Startup)
 			continue;
 
-		auto buttomItem = MouseOverMenuItem::creatMouseOverMenuButton(item.second->m_ShopLook_Normal, item.second ->m_ShopLook_Lit, item.second ->m_ShopLook_Disabled,
+		auto buttonItem = MouseOverMenuItem::creatMouseOverMenuButton(item.second->m_ShopLook_Normal, item.second ->m_ShopLook_Lit, item.second ->m_ShopLook_Disabled,
 			CC_CALLBACK_1(GameStartPanel::selectedItemCallback, this, item.first));
 
-		if (!buttomItem)
+		if (!buttonItem)
 			continue;
-			
-		buttomItem->onMouseOver = CC_CALLBACK_2(GameStartPanel::onMouseOver, this);
-		Vec2 buttonPos = Vec2(sceneMidPoint.x + (item.first % 2 == 0 ? -145.f : 145.f), sceneMidPoint.y + (item.first > 1 ? -90.f : 80.f));
-		buttomItem->setScale(0.8f);
-		buttomItem->setPosition(buttonPos);
-		buttomItem->setItemRect(buttonPos, 0.8f);
-
-		auto buttonMidPoint = Vec2(buttomItem->getContentSize().width * 0.5f, buttomItem->getContentSize().height * 0.5f);
+		
+		m_MenuItems.pushBack(displayMenuButton(buttonItem, CC_CALLBACK_2(GameStartPanel::onMouseOver, this),
+			Vec2(sceneMidPoint.x + (item.first % 2 == 0 ? -145.f : 145.f), sceneMidPoint.y + (item.first > 1 ? -90.f : 80.f)),
+			itemTypes::DEFAULT, 0.8f));
+		auto buttonMidPoint = Vec2(buttonItem->getContentSize().width * 0.5f, buttonItem->getContentSize().height * 0.5f);
 
 		auto buttonLabel = Label::createWithTTF(item.second->m_ShopType, "fonts/NirmalaB.ttf", 20);
 		if (buttonLabel)
 			GameFunctions::displayLabel(buttonLabel, Color4B::BLACK, Vec2(buttonMidPoint.x - 130.f, buttonMidPoint.y + 60.f), 
-				buttomItem, 1, true, TextHAlignment::LEFT);
+				buttonItem, 1, true, TextHAlignment::LEFT);
 
 		auto cashSymbol = Label::createWithTTF("$", "fonts/Nirmala.ttf", 20);
 		if (cashSymbol)
 			GameFunctions::displayLabel(cashSymbol, Color4B::BLACK, Vec2(buttonMidPoint.x - 130.f, buttonMidPoint.y + 40.f),
-				buttomItem, 1, true, TextHAlignment::LEFT);
+				buttonItem, 1, true, TextHAlignment::LEFT);
 
 		auto buttonPriceLabel = Label::createWithTTF("", "fonts/NirmalaB.ttf", 20);
 		if (buttonPriceLabel)
 		{
 			GameFunctions::updateLabelText_MoneyFormat(buttonPriceLabel, item.second->m_ShopPrice);
 			GameFunctions::displayLabel(buttonPriceLabel, Color4B::BLACK, Vec2(buttonMidPoint.x - 100.f, buttonMidPoint.y + 40.f), 
-				buttomItem, 1, true, TextHAlignment::LEFT);
+				buttonItem, 1, true, TextHAlignment::LEFT);
 		}
-
-		m_StartupItems.pushBack(buttomItem);
 	}
-
 	
 #pragma endregion
 
-	auto menu = Menu::createWithArray(m_StartupItems);
+	auto menu = Menu::createWithArray(m_MenuItems);
 	menu->setPosition(Vec2::ZERO);
 	m_Elements.push_back(menu);
 
@@ -110,7 +93,7 @@ void GameStartPanel::createPanel(GameScene* scene, Vec2 sceneMidPoint)
 
 void GameStartPanel::goButtonCallback(cocos2d::Ref* pSender)
 {
-	GameData::getInstance().m_Player->updateCurrentCashAmout(-GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]]->m_ShopPrice);
+	m_Player->updateCurrentCashAmout(-GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]]->m_ShopPrice);
 	
 	for (auto element : m_Elements)
 	{
@@ -124,7 +107,7 @@ void GameStartPanel::selectedItemCallback(cocos2d::Ref* pSender, unsigned shopID
 {
 	m_Player->m_MyShopIds.push_back(shopID);
 
-	for (auto item : m_StartupItems)
+	for (auto item : m_MenuItems)
 	{
 		if (item != pSender)
 		{
@@ -144,7 +127,7 @@ void GameStartPanel::selectedItemCallback(cocos2d::Ref* pSender, unsigned shopID
 			item->itemSelectedData.isSelected = false;
 			item->itemSelectedData.selectedLabel->setVisible(false);
 			item->unselected();
-			for (auto item : m_StartupItems)
+			for (auto item : m_MenuItems)
 			{
 				if (item->itemSelectedData.type == itemTypes::BUTTON)
 				{
@@ -169,8 +152,8 @@ void GameStartPanel::selectedItemCallback(cocos2d::Ref* pSender, unsigned shopID
 		item->itemSelectedData.selectedLabel->enableShadow(Color4B::BLACK);
 		item->itemSelectedData.selectedLabel->enableGlow(GameData::getInstance().m_ColorType.LightSteelBlue);
 		item->itemSelectedData.selectedLabel->setRotation(-15.f);
-		GameFunctions::displayLabel(item->itemSelectedData.selectedLabel, GameData::getInstance().m_ColorType.HotPink, Vec2(item->getContentSize().width * 0.5f,
-			item->getContentSize().height * 0.5f - 60.f), item, 1),
+		GameFunctions::displayLabel(item->itemSelectedData.selectedLabel, GameData::getInstance().m_ColorType.HotPink, 
+			Vec2(item->getContentSize().width * 0.5f, item->getContentSize().height * 0.5f - 60.f), item, 1),
 		
 		item->selected();
 	}
