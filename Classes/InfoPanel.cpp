@@ -17,6 +17,7 @@ InfoPanel::~InfoPanel()
 	m_TimeHourDisplay = nullptr;
 	m_TimeMinDisplay = nullptr;
 	m_BankButton = nullptr;
+	delete m_Bank;
 	m_Bank = nullptr;
 }
 

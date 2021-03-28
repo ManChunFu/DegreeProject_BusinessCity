@@ -12,6 +12,7 @@ USING_NS_CC;
 ActionPanel::~ActionPanel()
 {
 	m_MyShop = nullptr;
+	delete m_ShopButton;
 	m_ShopButton = nullptr;
 }
 
@@ -41,6 +42,7 @@ void ActionPanel::displayShop()
 			Vec2(m_ThisPanel->getPosition().x * 0.5f, m_ThisPanel->getPosition().y * 0.5f + 13.f), itemTypes::DEFAULT, 0.3f));
 
 	m_ShopButton = new MyShopSettingPanel();
+	m_ShopButton->setMyParent(this);
 
 	auto menu = Menu::createWithArray(m_MenuItems);
 	menu->setPosition(Vec2::ZERO);
@@ -53,9 +55,9 @@ void ActionPanel::openShopCallback(cocos2d::Ref* pSender)
 	if (!m_ShopButton)
 		return;
 
-	isShopOpen = !isShopOpen;
+	m_IsShopOpen = !m_IsShopOpen;
 
-	(isShopOpen)? m_ShopButton->openPanel(m_GameScene, m_SceneMidPoint) : m_ShopButton->closePanel();
+	(m_IsShopOpen)? m_ShopButton->openPanel(m_GameScene, m_SceneMidPoint) : m_ShopButton->closePanel();
 }
 
 void ActionPanel::onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event)

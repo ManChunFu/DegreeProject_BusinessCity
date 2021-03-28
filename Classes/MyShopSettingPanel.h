@@ -5,6 +5,7 @@
 class Player;
 class MouseOverMenuItem;
 class Shop;
+class ActionPanel;
 struct PurchaseProductData;
 
 NS_CC_BEGIN
@@ -23,7 +24,7 @@ public:
 	void openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint) override;
 	void closePanel() override;
 	std::function<void(cocos2d::Ref* pSender)> onActionCall;
-
+	void setMyParent(ActionPanel* parentPanel) { m_ActionPanel = parentPanel; }
 protected:	
 	void createPanel(cocos2d::Vec2 sceneMidPoint) override;
 	void openProductWidget2();
@@ -52,6 +53,7 @@ private:
 	cocos2d::Vector<cocos2d::MenuItem*> m_WidgetMenu;
 
 	Shop* m_MyShop = nullptr;
+	ActionPanel* m_ActionPanel = nullptr;
 
 	bool m_DisplayWidget2 = false;
 	bool m_OwnerWorkHere = false;
