@@ -1,9 +1,13 @@
 #include "GameLoop.h"
+#include "GameData.h"
+#include "GlobalTime.h"
 
 
-void GameLoop::runGameLoop(bool isRunning)
+GameLoop::GameLoop()
 {
-	if (!isRunning)
-		return;
+	GameData::getInstance().m_GlobalTime->onEveryMinuteChanges = CC_CALLBACK_2(GameLoop::onEveryMinuteChanges, this);
+}
 
+void GameLoop::onEveryMinuteChanges(GlobalTime* globalTime, unsigned minute)
+{
 }

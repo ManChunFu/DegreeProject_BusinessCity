@@ -2,13 +2,17 @@
 
 #include "cocos2d.h"
 
+class GlobalTime;
+
 class GameLoop
 {
 public:
-	virtual ~GameLoop() {};
+	GameLoop();
+	virtual ~GameLoop(){};
 
-	void runGameLoop(bool isRunning);
-	
+protected:
+	void onEveryMinuteChanges(GlobalTime* globalTime, unsigned minute);
+
 private:
 	bool m_IsGameRunning = false;
 };
