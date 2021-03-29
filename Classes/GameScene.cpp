@@ -1,23 +1,24 @@
 #include "GameScene.h"
 #include "2d/CCLayer.h"
-#include <MouseOverMenuItem.h>
 #include "GameData.h"
-#include "GameFunctions.h"
-#include "Bank.h"
+#include "GameLoop.h"
 #include "Player.h"
 #include "Canvas.h"
-#include "GameStartPanel.h"
-#include "InfoPanel.h"
+#include "EGameStates.h"
 #include "cocostudio/SimpleAudioEngine.h"
 using namespace CocosDenshion;
-USING_NS_CC;
 
+USING_NS_CC;
 
 GameScene::~GameScene()
 {
 	m_Player = nullptr;
+
 	delete m_Canvas;
 	m_Canvas = nullptr;
+
+	delete m_GameLoop;
+	m_GameLoop = nullptr;
 }
 
 Scene* GameScene::createScene()
@@ -44,34 +45,37 @@ bool GameScene::init()
 	m_Canvas->Init(this, GameData::getInstance().m_Player);
 #pragma endregion
 
+	// init GameLoop
+	m_GameLoop = new GameLoop();
+
 	// Game time setup
 	this->scheduleUpdate();
+	m_EGameState = EGameStates::RUNNING;
 
 	// set key event
 	auto listener = EventListenerKeyboard::create();
 	listener->onKeyPressed = CC_CALLBACK_2(GameScene::onKeyPressed, this);
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
-	
+
 	return true;
 }
 
 void GameScene::update(float delta)
 {
+	if (m_EGameState != EGameStates::RUNNING)
+		return;
+
+	m_GameLoop->runGameLoop(true);
 	m_Canvas->update(delta);
 }
 
 void GameScene::gameOver()
 {
 	Director::getInstance()->pause();
+	m_EGameState = EGameStates::PAUSE;
 	m_Canvas->gameOver();
 }
 
-
-void GameScene::setSpriteScale(Sprite* sprite, Vec2 scale)
-{
-	sprite->setScaleX((m_VisibleSize.width / sprite->getContentSize().width) * scale.x);
-	sprite->setScaleY((m_VisibleSize.height / sprite->getContentSize().height) * scale.y);
-}
 
 void GameScene::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
 {

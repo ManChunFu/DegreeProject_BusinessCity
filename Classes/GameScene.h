@@ -9,10 +9,10 @@ namespace CocosDenshion
 {
 	class SimpleAudioEngine;
 }
-class MouseOverMenuItem;
-class Bank;
 class Player;
 class Canvas;
+class GameLoop;
+enum struct EGameStates;
 
 class GameScene : public cocos2d::Layer
 {
@@ -26,11 +26,11 @@ public:
 	void update(float delta);
 	void gameOver();
 private:
-	cocos2d::Size m_VisibleSize;	
+	GameLoop* m_GameLoop = nullptr;
 	Canvas* m_Canvas = nullptr;
 	Player* m_Player = nullptr;
+	EGameStates m_EGameState;
 
-	void setSpriteScale(cocos2d::Sprite* sprite, cocos2d::Vec2 scale);
 	void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
 };
 #endif

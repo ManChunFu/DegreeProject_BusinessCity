@@ -10,9 +10,6 @@
     <ClCompile Include="C:\Users\mandy\source\repos\DegreeProject\cocos2d\cocos\precheader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\MouseOverMenuItem.cpp">
-      <Filter>Source Files\Classes</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\MainMenuScene.cpp">
       <Filter>Source Files\Classes\Scenes</Filter>
     </ClCompile>
@@ -27,9 +24,6 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Bank.cpp">
       <Filter>Source Files\Classes\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\GameFunctions.cpp">
-      <Filter>Source Files\Classes</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Shop.cpp">
       <Filter>Source Files\Classes</Filter>
@@ -67,6 +61,18 @@
     <ClCompile Include="..\Classes\GameData.cpp">
       <Filter>Source Files\Classes\Data</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\GlobalTime.cpp">
+      <Filter>Source Files\Classes\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MouseOverMenuItem.cpp">
+      <Filter>Source Files\Classes\Functions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameFunctions.cpp">
+      <Filter>Source Files\Classes\Functions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameLoop.cpp">
+      <Filter>Source Files\Classes\AI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\Users\mandy\source\repos\DegreeProject\Classes\AppDelegate.h">
@@ -96,9 +102,6 @@
     <ClInclude Include="C:\Users\mandy\source\repos\DegreeProject\Resources\res\.gitkeep">
       <Filter>Resources\res</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\MouseOverMenuItem.h">
-      <Filter>Source Files\Classes</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\MainMenuScene.h">
       <Filter>Source Files\Classes\Scenes</Filter>
     </ClInclude>
@@ -113,9 +116,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Bank.h">
       <Filter>Source Files\Classes\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GameFunctions.h">
-      <Filter>Source Files\Classes</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Shop.h">
       <Filter>Source Files\Classes</Filter>
@@ -159,6 +159,21 @@
     <ClInclude Include="..\Classes\PurchaseProductData.h">
       <Filter>Source Files\Classes\Data</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\GlobalTime.h">
+      <Filter>Source Files\Classes\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MouseOverMenuItem.h">
+      <Filter>Source Files\Classes\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameFunctions.h">
+      <Filter>Source Files\Classes\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameLoop.h">
+      <Filter>Source Files\Classes\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EGameStates.h">
+      <Filter>Source Files\Classes\Data</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Users\mandy\source\repos\DegreeProject\CMakeLists.txt" />
@@ -195,6 +210,12 @@
     </Filter>
     <Filter Include="Source Files\Classes\Data">
       <UniqueIdentifier>{35c15115-65bd-46cb-80f3-cc5b1ca7c339}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Classes\Functions">
+      <UniqueIdentifier>{87f88df6-cf05-45c2-9de5-24b4fd54df4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Classes\AI">
+      <UniqueIdentifier>{3c91cc57-59a3-4939-b86f-4b77c72caa18}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

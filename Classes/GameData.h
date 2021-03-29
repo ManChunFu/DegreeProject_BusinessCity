@@ -40,6 +40,7 @@ public:
 
 	Player* m_Player = nullptr;
 	std::map<unsigned, Shop*> m_Shops;
+
 	struct colorTypes
 	{
 		cocos2d::Color4B MediumOrchild = cocos2d::Color4B(186, 85, 211, 255);

@@ -31,7 +31,7 @@ private:
 	float m_ElapsedTime = 0.f;
 	unsigned m_CurrentMinute = 0;
 	unsigned m_CurrentHour = 8;
-	unsigned m_Today = 1;
+	unsigned m_Today = 0;
 	std::string m_WeekDays[7] = { "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY" };
 	unsigned m_Weeks = 1;
 
