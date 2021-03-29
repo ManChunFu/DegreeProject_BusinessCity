@@ -146,7 +146,7 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 	}
 
 	auto hireButton = MouseOverMenuItem::creatMouseOverMenuButton("ButtonBlueNormal.png", "ButtonBlueLit.png", "ButtonBlueDisabled.png",
-		CC_CALLBACK_1(MyShopSettingPanel::actionCallback, this));
+		CC_CALLBACK_1(MyShopSettingPanel::hireCallback, this));
 	if (hireButton)
 	{
 		auto buttonPos = Vec2(sceneMidPoint.x - 50.f, sceneMidPoint.y + 160.f);
@@ -577,6 +577,10 @@ void MyShopSettingPanel::addCallback(cocos2d::Ref* pSender)
 {
 	m_EmployeeCount = GameFunctions::displayLabelText_ClampValue(m_EmployeeCountText, m_EmployeeCount, 1, 0, 5);
 	m_EmployeeCountText->setString(std::to_string(m_EmployeeCount));
+}
+
+void MyShopSettingPanel::hireCallback(cocos2d::Ref* pSender)
+{
 }
 
 void MyShopSettingPanel::reduceTimeCallback(cocos2d::Ref* pSender, bool fromHourButton)

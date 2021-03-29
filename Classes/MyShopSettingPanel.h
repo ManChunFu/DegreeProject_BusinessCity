@@ -30,6 +30,7 @@ protected:
 	void createProductWidget2();
 	void reduceCallback(cocos2d::Ref* pSender);
 	void addCallback(cocos2d::Ref* pSender);
+	void hireCallback(cocos2d::Ref* pSender);
 	void reduceTimeCallback(cocos2d::Ref* pSender, bool fromHourButton);
 	void increaseTimeCallback(cocos2d::Ref* pSender, bool fromHourButton);
 	void reduceProductAmoutCallback(cocos2d::Ref* pSender, unsigned productIndex);
