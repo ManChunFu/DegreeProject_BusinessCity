@@ -814,6 +814,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\GameScene.h" />
     <ClInclude Include="..\Classes\GameStartPanel.h" />
     <ClInclude Include="..\Classes\EGameStates.h" />
+    <ClInclude Include="..\Classes\GameTime.h" />
     <ClInclude Include="..\Classes\GlobalTime.h" />
     <ClInclude Include="..\Classes\InfoPanel.h" />
     <ClInclude Include="..\Classes\MainMenuPlayerSetting.h" />

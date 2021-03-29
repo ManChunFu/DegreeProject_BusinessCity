@@ -2,6 +2,7 @@
 
 #include "UIPanel.h"
 
+class GlobalTime;
 class Bank;
 class GameScene;
 class MouseOverMenuItem;
@@ -12,28 +13,27 @@ public:
 	 ~InfoPanel() override;
 
 	void openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint) override;
-	void update(float delta);
 
 	void enableBankButton(bool value);
 	void setOpeningSubWindow(bool isOpen) { m_IsOpeningSubWindow = isOpen; }
+
+protected:
+	void onEveryMinuteChanges(GlobalTime* globalTime, unsigned minute);
+	void onEveryHourChanges(GlobalTime* globalTime, unsigned hour);
+	void onEveryDayChanges(GlobalTime* globalTime, unsigned day);
+	void onEveryWeekChanges(GlobalTime* globalTime, unsigned week);
+
 private:
 	cocos2d::Label* m_Saving = nullptr;
 	cocos2d::Label* m_WeekCount = nullptr;
 	cocos2d::Label* m_WeekDay = nullptr;
 	cocos2d::Label* m_TimeHourDisplay = nullptr;
 	cocos2d::Label* m_TimeMinDisplay = nullptr;
-
 	Bank* m_Bank = nullptr;
 	MouseOverMenuItem* m_BankButton = nullptr;
 
 	cocos2d::Vec2 m_SceneMidPoint = cocos2d::Vec2::ZERO;
-
-	float m_ElapsedTime = 0.f;
-	unsigned m_CurrentMinute = 0;
-	unsigned m_CurrentHour = 8;
-	unsigned m_Today = 0;
 	std::string m_WeekDays[7] = { "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY" };
-	unsigned m_Weeks = 1;
 
 	bool m_IsOpeningSubWindow = false;
 	void checkBalanceCallback(cocos2d::Ref* pSender, GameScene* scene);

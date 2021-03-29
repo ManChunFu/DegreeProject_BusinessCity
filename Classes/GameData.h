@@ -3,6 +3,7 @@
 
 class Player;
 class Shop;
+class GlobalTime;
 
 class GameData
 {
@@ -38,6 +39,7 @@ public:
 
 	void reset(bool all = false);
 
+	GlobalTime* m_GlobalTime = nullptr;
 	Player* m_Player = nullptr;
 	std::map<unsigned, Shop*> m_Shops;
 

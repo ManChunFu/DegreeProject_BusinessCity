@@ -9,6 +9,7 @@ namespace CocosDenshion
 {
 	class SimpleAudioEngine;
 }
+class GlobalTime;
 class Player;
 class Canvas;
 class GameLoop;
@@ -26,6 +27,7 @@ public:
 	void update(float delta);
 	void gameOver();
 private:
+	GlobalTime* m_GlobalTime = nullptr;
 	GameLoop* m_GameLoop = nullptr;
 	Canvas* m_Canvas = nullptr;
 	Player* m_Player = nullptr;

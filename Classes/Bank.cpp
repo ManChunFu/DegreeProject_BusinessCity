@@ -8,6 +8,8 @@
 #include "Player.h"
 #include "Shop.h"
 #include "InfoPanel.h"
+#include "GlobalTime.h"
+#include "GameTime.h"
 
 USING_NS_CC;
 
@@ -34,9 +36,9 @@ Bank::~Bank()
 	m_RemainWeeksText = nullptr;
 }
 
-void Bank::openBankPanel(GameScene* scene, unsigned currentWeek, Vec2 sceneMidPoint)
+void Bank::openPanel(GameScene* scene, Vec2 sceneMidPoint) 
 {
-	m_CurrentWeek = currentWeek;
+	m_CurrentWeek = GameData::getInstance().m_GlobalTime->m_Gametime->week;
 
 	if (!m_ThisPanel)
 	{

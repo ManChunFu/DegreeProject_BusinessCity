@@ -5,6 +5,8 @@
 #include "Bank.h"
 #include "GameFunctions.h"
 #include "GameData.h"
+#include "GlobalTime.h"
+#include "GameTime.h"
 
 
 USING_NS_CC;
@@ -25,8 +27,16 @@ void InfoPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
 {
 	m_GameScene = scene;
 	m_SceneMidPoint = sceneMidPoint;
+
 	m_Player = GameData::getInstance().m_Player;
 	m_Player->onCashAmoutChange = CC_CALLBACK_2(InfoPanel::onCurrentCashChange, this);
+
+	auto globalTime = GameData::getInstance().m_GlobalTime;
+	globalTime->onEveryMinuteChanges = CC_CALLBACK_2(InfoPanel::onEveryMinuteChanges, this);
+	globalTime->onEveryHourChanges = CC_CALLBACK_2(InfoPanel::onEveryHourChanges, this);
+	globalTime->onEveryDayChanges = CC_CALLBACK_2(InfoPanel::onEveryDayChanges, this);
+	globalTime->onEveryWeekChanges = CC_CALLBACK_2(InfoPanel::onEveryWeekChanges, this);
+
 
 	m_ThisPanel = Sprite::createWithSpriteFrameName("InGamePanel_Black_80.png");
 	if (!m_ThisPanel)
@@ -116,13 +126,13 @@ void InfoPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
 	m_WeekCount = Label::createWithTTF("", "fonts/NirmalaB.ttf", 16);
 	if (m_WeekCount)
 	{
-		GameFunctions::updatLabelText_TimeFormat(m_WeekCount, m_Weeks);
+		GameFunctions::updatLabelText_TimeFormat(m_WeekCount, globalTime->m_Gametime->week);
 		m_WeekCount->enableGlow(GameData::getInstance().m_ColorType.PowderBlue);
 		GameFunctions::displayLabel(m_WeekCount, Color4B::WHITE, Vec2(topPanelMidPoint.x + 580.f, topPanelMidPoint.y + 15.f),
 			m_ThisPanel, 1);
 	}
 
-	m_WeekDay = Label::createWithTTF(m_WeekDays[m_Today], "fonts/NirmalaB.ttf", 14);
+	m_WeekDay = Label::createWithTTF(m_WeekDays[globalTime->m_Gametime->day], "fonts/NirmalaB.ttf", 14);
 	if (m_WeekDay)
 	{
 		m_WeekDay->enableGlow(GameData::getInstance().m_ColorType.DeepPink);
@@ -133,7 +143,7 @@ void InfoPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
 	m_TimeHourDisplay = Label::createWithTTF("", "fonts/NirmalaB.ttf", 30);
 	if (m_TimeHourDisplay)
 	{
-		GameFunctions::updatLabelText_TimeFormat(m_TimeHourDisplay, m_CurrentHour);
+		GameFunctions::updatLabelText_TimeFormat(m_TimeHourDisplay, globalTime->m_Gametime->hour);
 		m_TimeHourDisplay->enableGlow(GameData::getInstance().m_ColorType.PowderBlue);
 		GameFunctions::displayLabel(m_TimeHourDisplay, Color4B::WHITE, Vec2(topPanelMidPoint.x + 530.f, topPanelMidPoint.y - 30.f),
 			m_ThisPanel, 1);
@@ -150,7 +160,7 @@ void InfoPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
 	m_TimeMinDisplay = Label::createWithTTF("", "fonts/NirmalaB.ttf", 30);
 	if (m_TimeMinDisplay)
 	{
-		GameFunctions::updatLabelText_TimeFormat(m_TimeMinDisplay, m_CurrentMinute);
+		GameFunctions::updatLabelText_TimeFormat(m_TimeMinDisplay, globalTime->m_Gametime->minute);
 		m_TimeMinDisplay->enableGlow(GameData::getInstance().m_ColorType.PowderBlue);
 		GameFunctions::displayLabel(m_TimeMinDisplay, Color4B::WHITE, Vec2(topPanelMidPoint.x + 580.f, topPanelMidPoint.y - 30.f),
 			m_ThisPanel, 1);
@@ -162,52 +172,10 @@ void InfoPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
 	m_GameScene->addChild(menu, 2);
 	m_Elements.push_back(menu);
 
-	//setup startup time;
-	m_ElapsedTime = 0;
-
 	// set key event
 	auto listener = EventListenerKeyboard::create();
 	listener->onKeyPressed = CC_CALLBACK_2(InfoPanel::onKeyPressed, this);
 	m_GameScene->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, m_GameScene);
-}
-
-void InfoPanel::update(float delta)
-{
-	m_ElapsedTime += delta;
-
-	// update minute
-	if (m_ElapsedTime < 4)
-		return;
-
-	m_CurrentMinute++;
-	m_ElapsedTime = 0;
-	GameFunctions::updatLabelText_TimeFormat(m_TimeMinDisplay, m_CurrentMinute % 60);
-
-	// update hour
-	if (m_CurrentMinute > 59)
-	{
-		m_CurrentMinute = 0;
-		m_CurrentHour++;
-		GameFunctions::updatLabelText_TimeFormat(m_TimeHourDisplay, m_CurrentHour % 24);
-	}
-
-	// update weekday
-	if (m_CurrentHour > 23)
-	{
-		m_CurrentHour = 0;
-		m_Today++;
-		m_WeekDay->setString(m_WeekDays[m_Today % 7]);
-	}
-
-	// update week
-	if (m_Today > 6)
-	{
-		m_Today = 0;
-		m_Bank->update();
-		m_Weeks++;
-		GameFunctions::updatLabelText_TimeFormat(m_WeekCount, m_Weeks);
-	}
-
 }
 
 void InfoPanel::enableBankButton(bool value)
@@ -215,11 +183,32 @@ void InfoPanel::enableBankButton(bool value)
 	m_BankButton->setEnabled(value);
 }
 
+void InfoPanel::onEveryMinuteChanges(GlobalTime* globalTime, unsigned minute)
+{
+	GameFunctions::updatLabelText_TimeFormat(m_TimeMinDisplay, minute);
+}
+
+void InfoPanel::onEveryHourChanges(GlobalTime* globalTime, unsigned hour)
+{
+	GameFunctions::updatLabelText_TimeFormat(m_TimeHourDisplay, hour);
+}
+
+void InfoPanel::onEveryDayChanges(GlobalTime* globalTime, unsigned day)
+{
+	m_WeekDay->setString(m_WeekDays[day]);
+}
+
+void InfoPanel::onEveryWeekChanges(GlobalTime* globalTime, unsigned week)
+{
+	GameFunctions::updatLabelText_TimeFormat(m_WeekCount, week);
+	m_Bank->update();
+}
+
 void InfoPanel::checkBalanceCallback(cocos2d::Ref* pSender, GameScene* scene)
 {
 	m_IsOpeningSubWindow = !m_IsOpeningSubWindow;
 
-	(m_IsOpeningSubWindow) ? m_Bank->openBankPanel(scene, m_Weeks, m_SceneMidPoint) : m_Bank->closePanel();
+	(m_IsOpeningSubWindow) ? m_Bank->openPanel(scene, m_SceneMidPoint) : m_Bank->closePanel();
 }
 
 void InfoPanel::onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event)

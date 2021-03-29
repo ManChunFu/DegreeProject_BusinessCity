@@ -79,10 +79,10 @@ void Canvas::update(float deltaTime)
 	}
 	m_AddPanels.clear();
 
-	for (auto panel : m_UIPanels)
-	{
-		panel->update(deltaTime);
-	}
+	//for (auto panel : m_UIPanels)
+	//{
+	//	panel->update(deltaTime);
+	//}
 
 	for (unsigned index = 0; index < m_UIPanels.size(); index++)
 	{

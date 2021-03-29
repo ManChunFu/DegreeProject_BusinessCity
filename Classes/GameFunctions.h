@@ -18,7 +18,7 @@ struct GameFunctions
 	
 	static void updateLabelText_MoneyFormat(cocos2d::Label* label, int value, bool minus = false);
 
-	static void updatLabelText_TimeFormat(cocos2d::Label* label, unsigned value);
+	static void updatLabelText_TimeFormat(cocos2d::Label* label, unsigned value, bool run24hCheck = false);
 
 	static unsigned displayLabelText_ClampValue(cocos2d::Label* label, int originValue, int newValue, unsigned minValue, unsigned maxValue);
 

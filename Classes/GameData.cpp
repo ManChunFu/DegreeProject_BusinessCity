@@ -3,6 +3,7 @@
 #include "DataManager.h"
 #include "Shop.h"
 #include "ShopProduct.h"
+#include "GlobalTime.h"
 
 
 USING_NS_CC;
@@ -15,6 +16,8 @@ GameData::~GameData()
 void GameData::init()
 {
 	m_Shops = DataManager::getShops();
+
+	m_GlobalTime = new GlobalTime();
 }
 
 void GameData::registerCharacter(cocos2d::itemTypes type, std::string path)
@@ -26,7 +29,6 @@ void GameData::setPlayer(const std::string& name, cocos2d::itemTypes type)
 {
 	m_Player = new Player(name, type);
 }
-
 
 std::string GameData::getPlayerCharacter(cocos2d::itemTypes playerCharacterType)
 {
@@ -61,5 +63,8 @@ void GameData::reset(bool all)
 		delete item.second;
 	}
 	m_Shops.clear();
+
+	delete m_GlobalTime;
+	m_GlobalTime = nullptr;
 }
 

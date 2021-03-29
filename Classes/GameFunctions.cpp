@@ -60,10 +60,13 @@ void GameFunctions::updateLabelText_MoneyFormat(Label* label, int value, bool mi
 	label->setString(cashStr);
 }
 
-void GameFunctions::updatLabelText_TimeFormat(cocos2d::Label* label, unsigned value)
+void GameFunctions::updatLabelText_TimeFormat(cocos2d::Label* label, unsigned value, bool run24hCheck)
 {
-	if (value == 24)
-		value = 0;
+	if (run24hCheck)
+	{
+		if (value == 24)
+			value = 0;
+	}
 	std::string timeStr = std::to_string(value);
 	label->setString(std::string(2 - timeStr.length(), '0').append(timeStr));
 }

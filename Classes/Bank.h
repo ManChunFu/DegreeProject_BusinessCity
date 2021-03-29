@@ -16,7 +16,7 @@ class Bank : public UIPanel
 public:
 	~Bank() override;
 
-	void openBankPanel(GameScene* scene, unsigned currentWeek, cocos2d::Vec2 sceneMidPoint);
+	void openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint) override;
 	void closePanel() override;
 
 	void update();

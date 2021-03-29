@@ -1,6 +1,7 @@
 #include "GameScene.h"
 #include "2d/CCLayer.h"
 #include "GameData.h"
+#include "GlobalTime.h"
 #include "GameLoop.h"
 #include "Player.h"
 #include "Canvas.h"
@@ -39,6 +40,7 @@ bool GameScene::init()
 
 	//init data
 	GameData::getInstance().init();
+	m_GlobalTime = GameData::getInstance().m_GlobalTime;
 
 #pragma region Create In-Game UI panels
 	m_Canvas = new Canvas;
@@ -65,7 +67,8 @@ void GameScene::update(float delta)
 	if (m_EGameState != EGameStates::RUNNING)
 		return;
 
-	m_GameLoop->runGameLoop(true);
+	m_GlobalTime->update(delta);
+
 	m_Canvas->update(delta);
 }
 

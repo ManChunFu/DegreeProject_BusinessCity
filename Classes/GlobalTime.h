@@ -2,16 +2,22 @@
 
 #include "cocos2d.h"
 
-struct GlobalTime
+struct GameTime;
+
+class GlobalTime
 {
-	virtual ~GlobalTime() {};
+public:
+	GlobalTime();
+	virtual ~GlobalTime();
 
-	//static void update(float delta);
-	//static unsigned getCurrentMinute() { return m_CurrentMinute; }
-	//static unsigned getCurrentHour() { return m_CurrentHour; }
-	//static unsigned getCurrentDay() { return m_Today; }
-	//static unsigned getCurrentWeek() { return m_Weeks; }
+	void update(float delta);
+	
+	std::function<void(GlobalTime* globalTime, unsigned minute)> onEveryMinuteChanges;
+	std::function<void(GlobalTime* globalTime, unsigned hour)> onEveryHourChanges;
+	std::function<void(GlobalTime* globalTime, unsigned day)> onEveryDayChanges;
+	std::function<void(GlobalTime* globalTime, unsigned hour)> onEveryWeekChanges;
 
+	GameTime* m_Gametime = nullptr;
 protected:
 	float m_ElapsedTime = 0.f;
 	unsigned m_CurrentMinute = 0;
