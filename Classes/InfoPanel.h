@@ -15,7 +15,6 @@ public:
 	void openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint) override;
 
 	void enableBankButton(bool value);
-	void setOpeningSubWindow(bool isOpen) { m_IsOpeningSubWindow = isOpen; }
 
 protected:
 	void onEveryMinuteChanges(GlobalTime* globalTime, unsigned minute);
@@ -35,7 +34,6 @@ private:
 	cocos2d::Vec2 m_SceneMidPoint = cocos2d::Vec2::ZERO;
 	std::string m_WeekDays[7] = { "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY" };
 
-	bool m_IsOpeningSubWindow = false;
 	void checkBalanceCallback(cocos2d::Ref* pSender, GameScene* scene);
 	void onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event);
 	void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);

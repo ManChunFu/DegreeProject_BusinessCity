@@ -110,7 +110,6 @@ void InfoPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
 		m_MenuItems.pushBack(m_BankButton);
 
 		m_Bank = new Bank();
-		m_Bank->setMyParent(this);
 	}
 #pragma endregion
 
@@ -206,9 +205,7 @@ void InfoPanel::onEveryWeekChanges(GlobalTime* globalTime, unsigned week)
 
 void InfoPanel::checkBalanceCallback(cocos2d::Ref* pSender, GameScene* scene)
 {
-	m_IsOpeningSubWindow = !m_IsOpeningSubWindow;
-
-	(m_IsOpeningSubWindow) ? m_Bank->openPanel(scene, m_SceneMidPoint) : m_Bank->closePanel();
+	(m_Bank->isPanelOpen()) ? m_Bank->closePanel() : m_Bank->openPanel(scene, m_SceneMidPoint);
 }
 
 void InfoPanel::onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event)
@@ -219,11 +216,8 @@ void InfoPanel::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::E
 {
 	if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE)
 	{
-		if (m_IsOpeningSubWindow)
-		{
+		if (m_Bank->isPanelOpen())
 			m_Bank->closePanel();
-			m_IsOpeningSubWindow = false;
-		}
 	}
 }
 

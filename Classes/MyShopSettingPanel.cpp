@@ -9,7 +9,6 @@
 #include "ui/CocosGUI.h"
 #include "PurchaseProductData.h"
 #include "ui/UIWidget.h"
-#include "ActionPanel.h"
 
 USING_NS_CC;
 
@@ -24,7 +23,6 @@ MyShopSettingPanel::~MyShopSettingPanel()
 	m_ProductWidget1 = nullptr;
 	m_ProductWidget2 = nullptr;
 	m_MyShop = nullptr;
-	m_ActionPanel = nullptr;
 
 	m_CurrentProductQuantityTexts.clear();
 
@@ -39,6 +37,9 @@ MyShopSettingPanel::~MyShopSettingPanel()
 
 void MyShopSettingPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
 {
+	m_IsPanelOpen = true;
+	GameData::getInstance().setTempOpenPanel(this);
+
 	if (!m_ThisPanel)
 	{
 		m_GameScene = scene;
@@ -61,6 +62,9 @@ void MyShopSettingPanel::closePanel()
 
 	(m_DisplayWidget2)? enableMenuItems(m_WidgetMenu, false) : enableMenuItems(m_MenuItems, false);
 
+	m_IsPanelOpen = false;
+
+	GameData::getInstance().m_TempOpenPanel = nullptr;
 }
 
 void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
@@ -647,8 +651,6 @@ void MyShopSettingPanel::buyProductCallback(cocos2d::Ref* pSender, unsigned prod
 void MyShopSettingPanel::closeCallback(cocos2d::Ref* pSender)
 {
 	closePanel();
-	if (m_ActionPanel)
-		m_ActionPanel->setShopOpen(false);
 }
 
 void MyShopSettingPanel::onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event)

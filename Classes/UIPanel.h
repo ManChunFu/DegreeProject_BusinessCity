@@ -15,12 +15,16 @@ public:
 	virtual void openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint) {};
 	virtual void closePanel() {};
 
+	bool isPanelOpen() { return m_IsPanelOpen; }
+
 protected:
 	std::vector<cocos2d::Node*> m_Elements;
 	cocos2d::Vector<cocos2d::MenuItem*> m_MenuItems;
 	GameScene* m_GameScene = nullptr;
 	cocos2d::Sprite* m_ThisPanel = nullptr;
 	Player* m_Player = nullptr;
+
+	bool m_IsPanelOpen = false;
 
 	virtual void createPanel(cocos2d::Vec2 sceneMidPoint) {};
 

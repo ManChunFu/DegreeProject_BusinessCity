@@ -7,15 +7,18 @@
 #include "ui/UIWidget.h"
 #include "Player.h"
 #include "Shop.h"
-#include "InfoPanel.h"
 #include "GlobalTime.h"
 #include "GameTime.h"
 
 USING_NS_CC;
 
+Bank::Bank() 
+{ 
+	m_Player = GameData::getInstance().m_Player; 
+}
+
 Bank::~Bank()
 {
-	m_InfoPanel = nullptr;
 	m_Weeks = nullptr;
 	m_Shop = nullptr;
 	m_Electricity = nullptr;
@@ -38,11 +41,13 @@ Bank::~Bank()
 
 void Bank::openPanel(GameScene* scene, Vec2 sceneMidPoint) 
 {
+	m_IsPanelOpen = true;
+	GameData::getInstance().setTempOpenPanel(this);
+
 	m_CurrentWeek = GameData::getInstance().m_GlobalTime->m_Gametime->week;
 
 	if (!m_ThisPanel)
 	{
-		m_Player = GameData::getInstance().m_Player;
 		updatePlayerCurrentShopInfo();
 		m_GameScene = scene;
 		if (m_GameScene)
@@ -73,13 +78,18 @@ void Bank::closePanel()
 	setMenuItemsVisible(false, true);
 	m_LoanWidget->setVisible(false);
 	m_DisabledPanel->setVisible(false);
+	
+	m_IsPanelOpen = false;
+	GameData::getInstance().m_TempOpenPanel = nullptr;
 }
 
 void Bank::update()
 {
 	// player pays weekly expense
-	if (!m_Player)
+	if (!m_Player->m_MyShopIds.size() < 0)
 		return;
+
+	updatePlayerCurrentShopInfo();
 
 	auto amout = calculateTotalAmoutWeekly();
 	GameData::getInstance().m_Player->updateCurrentCashAmout(amout);
@@ -441,8 +451,6 @@ void Bank::createPanel(cocos2d::Vec2 sceneMidPoint)
 void Bank::closeCallback(cocos2d::Ref* pSedner)
 {
 	closePanel();
-	if (m_InfoPanel)
-		m_InfoPanel->setOpeningSubWindow(false);
 }
 
 int Bank::calculateTotalAmoutWeekly()

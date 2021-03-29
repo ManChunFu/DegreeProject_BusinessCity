@@ -4,6 +4,7 @@
 class Player;
 class Shop;
 class GlobalTime;
+class UIPanel;
 
 class GameData
 {
@@ -37,11 +38,14 @@ public:
 	void setShopProductQuantity(unsigned shopId, unsigned productId, unsigned quantity);
 	unsigned getProductPurchasePrice(unsigned shopId, unsigned productId);
 
+	void setTempOpenPanel(UIPanel* panel);
+
 	void reset(bool all = false);
 
 	GlobalTime* m_GlobalTime = nullptr;
 	Player* m_Player = nullptr;
 	std::map<unsigned, Shop*> m_Shops;
+	UIPanel* m_TempOpenPanel = nullptr;
 
 	struct colorTypes
 	{

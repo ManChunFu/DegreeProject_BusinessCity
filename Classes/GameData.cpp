@@ -4,7 +4,7 @@
 #include "Shop.h"
 #include "ShopProduct.h"
 #include "GlobalTime.h"
-
+#include "UIPanel.h"
 
 USING_NS_CC;
 
@@ -50,6 +50,18 @@ unsigned GameData::getProductPurchasePrice(unsigned shopId, unsigned productId)
 	return m_Shops[shopId]->m_Products[productId]->m_PurchasePrice;
 }
 
+void GameData::setTempOpenPanel(UIPanel* panel)
+{
+	if (m_TempOpenPanel == nullptr)
+	{
+		m_TempOpenPanel = panel;
+		return;
+	}
+
+	m_TempOpenPanel->closePanel();
+	m_TempOpenPanel = panel;
+}
+
 void GameData::reset(bool all)
 {
 	if (all)
@@ -66,5 +78,8 @@ void GameData::reset(bool all)
 
 	delete m_GlobalTime;
 	m_GlobalTime = nullptr;
+
+	delete m_TempOpenPanel;
+	m_TempOpenPanel = nullptr;
 }
 

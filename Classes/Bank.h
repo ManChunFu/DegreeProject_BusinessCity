@@ -2,7 +2,6 @@
 
 #include "UIPanel.h"
 
-class InfoPanel;
 
 NS_CC_BEGIN;
 namespace ui
@@ -14,6 +13,7 @@ NS_CC_END;
 class Bank : public UIPanel
 {
 public:
+	Bank();
 	~Bank() override;
 
 	void openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint) override;
@@ -21,7 +21,6 @@ public:
 
 	void update();
 	
-	void setMyParent(InfoPanel* parentPanel) { m_InfoPanel = parentPanel; };
 protected:
 	void createPanel(cocos2d::Vec2 sceneMidPoint) override;
 	void closeCallback(cocos2d::Ref* pSedner);
@@ -33,8 +32,6 @@ protected:
 	void onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event);
 
 private:
-	InfoPanel* m_InfoPanel = nullptr;
-
 	cocos2d::Label* m_Weeks = nullptr;
 	cocos2d::Label* m_Shop = nullptr;
 	cocos2d::Label* m_Electricity = nullptr;
