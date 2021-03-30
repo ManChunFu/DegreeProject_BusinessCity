@@ -39,6 +39,7 @@ public:
 	unsigned getProductPurchasePrice(unsigned shopId, unsigned productId);
 
 	void setTempOpenPanel(UIPanel* panel);
+	bool isAnyPanelOpen() { return (m_TempOpenPanel != nullptr); };
 
 	void reset(bool all = false);
 

@@ -11,3 +11,9 @@ GameLoop::GameLoop()
 void GameLoop::onEveryMinuteChanges(GlobalTime* globalTime, unsigned minute)
 {
 }
+
+
+bool GameLoop::isShopOPen()
+{
+	return false;
+}

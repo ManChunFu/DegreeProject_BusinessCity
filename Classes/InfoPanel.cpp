@@ -171,10 +171,6 @@ void InfoPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
 	m_GameScene->addChild(menu, 2);
 	m_Elements.push_back(menu);
 
-	// set key event
-	auto listener = EventListenerKeyboard::create();
-	listener->onKeyPressed = CC_CALLBACK_2(InfoPanel::onKeyPressed, this);
-	m_GameScene->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, m_GameScene);
 }
 
 void InfoPanel::enableBankButton(bool value)
@@ -210,15 +206,6 @@ void InfoPanel::checkBalanceCallback(cocos2d::Ref* pSender, GameScene* scene)
 
 void InfoPanel::onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event)
 {
-}
-
-void InfoPanel::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
-{
-	if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE)
-	{
-		if (m_Bank->isPanelOpen())
-			m_Bank->closePanel();
-	}
 }
 
 void InfoPanel::onCurrentCashChange(Player* player, int currentCashAmout)

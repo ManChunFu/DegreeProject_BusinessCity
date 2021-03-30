@@ -5,6 +5,7 @@
 #include "GameLoop.h"
 #include "Player.h"
 #include "Canvas.h"
+#include "UIPanel.h"
 #include "EGameStates.h"
 #include "cocostudio/SimpleAudioEngine.h"
 using namespace CocosDenshion;
@@ -84,7 +85,10 @@ void GameScene::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::E
 {
 	if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE)
 	{
-		Director::getInstance()->end();
+		if (GameData::getInstance().isAnyPanelOpen())
+			GameData::getInstance().m_TempOpenPanel->closePanel();
+		else
+			Director::getInstance()->end();
 	}
 }
 

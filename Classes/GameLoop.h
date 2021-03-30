@@ -14,5 +14,7 @@ protected:
 	void onEveryMinuteChanges(GlobalTime* globalTime, unsigned minute);
 
 private:
-	bool m_IsGameRunning = false;
+	unsigned m_SuccessProbabilityDaily[7] = { 30, 30, 30, 30, 40, 60, 70 };
+
+	bool isShopOPen();
 };
