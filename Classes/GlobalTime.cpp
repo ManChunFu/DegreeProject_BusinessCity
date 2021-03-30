@@ -70,9 +70,7 @@ void GlobalTime::update(float delta)
 
 void GlobalTime::addMinuteEventListener(const onEveryMinuteChanges& changes)
 {
-	_onEveryMinuteChanges = changes;
-
-	Listeners.push_back(_onEveryMinuteChanges);
+	Listeners.push_back(changes);
 }
 
 

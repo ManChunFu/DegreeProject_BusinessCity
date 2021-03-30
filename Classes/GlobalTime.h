@@ -14,16 +14,15 @@ public:
 	
 
 	typedef std::function<void(GlobalTime*, unsigned)> onEveryMinuteChanges;
+	void addMinuteEventListener(const onEveryMinuteChanges& changes);
+
 	std::function<void(GlobalTime* globalTime, unsigned hour)> onEveryHourChanges;
 	std::function<void(GlobalTime* globalTime, unsigned day)> onEveryDayChanges;
-	std::function<void(GlobalTime* globalTime, unsigned hour)> onEveryWeekChanges;
-
-	void addMinuteEventListener(const onEveryMinuteChanges& changes);
+	std::function<void(GlobalTime* globalTime, unsigned week)> onEveryWeekChanges;
 
 	GameTime* m_Gametime = nullptr;
 protected:
 	float m_ElapsedTime = 0.f;
-	onEveryMinuteChanges _onEveryMinuteChanges;
 	std::vector<onEveryMinuteChanges> Listeners;
 };
 
