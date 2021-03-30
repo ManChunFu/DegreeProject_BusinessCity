@@ -1,11 +1,13 @@
 #include "Shop.h"
 #include "ShopProduct.h"
+#include "Player.h"
+
+USING_NS_CC;
 
 constexpr unsigned int stringToInt(const char* str, int h = 0)
 {
 	return !str[h] ? 5381 : (stringToInt(str, h + 1) * 33) ^ str[h];
 }
-
 
 Shop::Shop(rapidjson::Value& json)
 {
@@ -78,4 +80,36 @@ Shop::~Shop()
 	}
 	m_Products.clear();
 }
+
+bool Shop::isShopOpen(unsigned day, unsigned currentHour)
+{
+	if (currentHour < m_ShopOpenHour[0] || currentHour > m_ShopOpenHour[1])
+		return false;
+
+	return m_ShopOpenDay[day];
+}
+
+unsigned Shop::runTrade(unsigned day, Shop* shop)
+{
+	auto randNo = random(0, 100);
+
+	if (randNo < getSucessProbability(day))
+		return 0;
+
+	// run trade quantity
+	auto tradeQuantity = random(1, 4);
+	auto productTypes = (int)m_Products.size() - 1;
+	auto tradeProduct = random(0, productTypes);
+	if (tradeQuantity < m_Products[tradeProduct]->m_Quantity)
+		m_Products[tradeProduct]->m_Quantity -= tradeQuantity;
+
+	// sales income
+	return m_Products[tradeProduct]->m_SalePrice * tradeQuantity;
+}
+
+unsigned Shop::getSucessProbability(unsigned day)
+{
+	return m_SuccessProbabilityDaily[day];
+}
+
 

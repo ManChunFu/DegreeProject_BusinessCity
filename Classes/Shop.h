@@ -19,6 +19,10 @@ public:
 	Shop() {};
 	virtual ~Shop();
 
+	bool isShopOpen(unsigned day, unsigned currentHour);
+	unsigned runTrade(unsigned day, Shop* shop);
+	unsigned getSucessProbability(unsigned day);
+	
 	std::string m_ShopType = "";
 	std::string m_Name = "";
 	ownerTypes m_Owner = ownerTypes::player;
@@ -37,8 +41,12 @@ public:
 	std::vector<ShopProduct*> m_Products;
 	
 	// shop working -> monday to sunday
+	unsigned m_SuccessProbabilityDaily[7] = { 30, 30, 30, 30, 40, 60, 70 };
 	bool m_ShopOpenDay[7] = { true, true, true, true, true, false, false };
 
 	// shop working hour -> from and  to
 	unsigned int m_ShopOpenHour[2] = { 9, 17 };
+
+private:
+	int m_MaxTradePerPerson = 4;
 };
