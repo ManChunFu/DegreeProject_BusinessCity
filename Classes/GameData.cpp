@@ -50,6 +50,17 @@ unsigned GameData::getProductPurchasePrice(unsigned shopId, unsigned productId)
 	return m_Shops[shopId]->m_Products[productId]->m_PurchasePrice;
 }
 
+void GameData::setShopOpenDay(unsigned shopId, unsigned weekday)
+{
+	auto originSetting = m_Shops[shopId]->m_ShopOpenDay[weekday];
+	m_Shops[shopId]->m_ShopOpenDay[weekday] = !originSetting;
+}
+
+void GameData::setShopOpenHour(unsigned shopId, unsigned fromOrTo, unsigned workingHour)
+{
+	m_Shops[shopId]->m_ShopOpenHour[fromOrTo] = workingHour;
+}
+
 void GameData::setTempOpenPanel(UIPanel* panel)
 {
 	if (m_TempOpenPanel == nullptr)

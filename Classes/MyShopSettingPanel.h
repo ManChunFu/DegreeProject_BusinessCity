@@ -7,6 +7,7 @@ class MouseOverMenuItem;
 class Shop;
 struct PurchaseProductData;
 
+
 NS_CC_BEGIN
 namespace ui
 {
@@ -38,6 +39,7 @@ protected:
 	void actionCallback(cocos2d::Ref* pSender);
 	void buyProductCallback(cocos2d::Ref* pSender, unsigned productId);
 	void closeCallback(cocos2d::Ref* pSender);
+	void checkBoxClickCallback(cocos2d::Ref* pSender, unsigned weekday);
 	void onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event);
 
 private:

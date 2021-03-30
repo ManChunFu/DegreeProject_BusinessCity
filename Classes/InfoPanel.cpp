@@ -32,7 +32,7 @@ void InfoPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
 	m_Player->onCashAmoutChange = CC_CALLBACK_2(InfoPanel::onCurrentCashChange, this);
 
 	auto globalTime = GameData::getInstance().m_GlobalTime;
-	globalTime->onEveryMinuteChanges = CC_CALLBACK_2(InfoPanel::onEveryMinuteChanges, this);
+	globalTime->addMinuteEventListener(CC_CALLBACK_2(InfoPanel::onEveryMinuteChanges, this));
 	globalTime->onEveryHourChanges = CC_CALLBACK_2(InfoPanel::onEveryHourChanges, this);
 	globalTime->onEveryDayChanges = CC_CALLBACK_2(InfoPanel::onEveryDayChanges, this);
 	globalTime->onEveryWeekChanges = CC_CALLBACK_2(InfoPanel::onEveryWeekChanges, this);

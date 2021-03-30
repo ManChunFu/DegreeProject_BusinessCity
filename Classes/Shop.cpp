@@ -70,3 +70,12 @@ Shop::Shop(rapidjson::Value& json)
 
 }
 
+Shop::~Shop()
+{
+	for (auto item : m_Products)
+	{
+		delete item;
+	}
+	m_Products.clear();
+}
+

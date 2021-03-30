@@ -211,9 +211,10 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 				fromBoxSprite, 1, true, TextHAlignment::RIGHT);
 		}
 
-		m_FromHourText = Label::createWithTTF("08", "fonts/Nirmala.ttf", 20);
+		m_FromHourText = Label::createWithTTF("", "fonts/Nirmala.ttf", 20);
 		if (m_FromHourText)
 		{
+			GameFunctions::updatLabelText_TimeFormat(m_FromHourText, m_MyShop->m_ShopOpenHour[0], true);
 			m_FromHourText->enableShadow(Color4B::BLACK);
 			GameFunctions::displayLabel(m_FromHourText, Color4B::WHITE, Vec2(fromBoxMidPoint.x - 10.f, fromBoxMidPoint.y + 15.f),
 				fromBoxSprite, 1, true, TextHAlignment::RIGHT);
@@ -253,9 +254,10 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 				toBoxSprite, 1, true, TextHAlignment::RIGHT);
 		}
 
-		m_ToHourText = Label::createWithTTF("17", "fonts/Nirmala.ttf", 20);
+		m_ToHourText = Label::createWithTTF("", "fonts/Nirmala.ttf", 20);
 		if (m_ToHourText)
 		{
+			GameFunctions::updatLabelText_TimeFormat(m_ToHourText, m_MyShop->m_ShopOpenHour[1], true);
 			m_ToHourText->enableShadow(Color4B::BLACK);
 			GameFunctions::displayLabel(m_ToHourText, Color4B::WHITE, Vec2(fromBoxMidPoint.x - 10.f, fromBoxMidPoint.y + 15.f),
 				toBoxSprite, 1, true, TextHAlignment::RIGHT);
@@ -280,8 +282,9 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 	{
 		auto checkbox = ui::CheckBox::create("X/Checkbox_Normal.png", "X/Checkbox_Checked.png");
 		checkbox->setPosition(checkboxPos);
-		checkbox->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {});
-		(index > 4) ? checkbox->setSelected(false) : checkbox->setSelected(true);
+		checkbox->setSelected(m_MyShop->m_ShopOpenDay[index]);
+		checkbox->addClickEventListener(CC_CALLBACK_1(MyShopSettingPanel::checkBoxClickCallback, this, 
+			index));
 
 		m_Weekdays.push_back(checkbox);
 		m_ThisPanel->addChild(checkbox, 1);
@@ -581,6 +584,7 @@ void MyShopSettingPanel::addCallback(cocos2d::Ref* pSender)
 
 void MyShopSettingPanel::hireCallback(cocos2d::Ref* pSender)
 {
+	// TODO: implement hire
 }
 
 void MyShopSettingPanel::reduceTimeCallback(cocos2d::Ref* pSender, bool fromHourButton)
@@ -588,11 +592,14 @@ void MyShopSettingPanel::reduceTimeCallback(cocos2d::Ref* pSender, bool fromHour
 	if (fromHourButton)
 	{
 		m_FromHour = GameFunctions::displayLabelText_ClampValue(m_FromHourText, m_FromHour, -1, 0, 24);
-		GameFunctions::updatLabelText_TimeFormat(m_FromHourText, m_FromHour);
+		GameFunctions::updatLabelText_TimeFormat(m_FromHourText, m_FromHour, true);
+		
+		GameData::getInstance().setShopOpenHour(m_MyShop->m_ShopId, 0, m_FromHour);
 		return;
 	}
 	m_ToHour = GameFunctions::displayLabelText_ClampValue(m_ToHourText, m_ToHour, -1, 0, 24);
-	GameFunctions::updatLabelText_TimeFormat(m_ToHourText, m_ToHour);
+	GameFunctions::updatLabelText_TimeFormat(m_ToHourText, m_ToHour, true);
+	GameData::getInstance().setShopOpenHour(m_MyShop->m_ShopId, 1, m_ToHour);
 }
 
 void MyShopSettingPanel::increaseTimeCallback(cocos2d::Ref* pSender, bool fromHourButton)
@@ -600,12 +607,14 @@ void MyShopSettingPanel::increaseTimeCallback(cocos2d::Ref* pSender, bool fromHo
 	if (fromHourButton)
 	{
 		m_FromHour = GameFunctions::displayLabelText_ClampValue(m_FromHourText, m_FromHour, 1, 0, 24);
-		GameFunctions::updatLabelText_TimeFormat(m_FromHourText, m_FromHour);
+		GameFunctions::updatLabelText_TimeFormat(m_FromHourText, m_FromHour, true);
+
+		GameData::getInstance().setShopOpenHour(m_MyShop->m_ShopId, 0, m_FromHour);
 		return;
 	}
 	m_ToHour = GameFunctions::displayLabelText_ClampValue(m_ToHourText, m_ToHour, 1, 0, 24);
-	GameFunctions::updatLabelText_TimeFormat(m_ToHourText, m_ToHour);
-
+	GameFunctions::updatLabelText_TimeFormat(m_ToHourText, m_ToHour, true);
+	GameData::getInstance().setShopOpenHour(m_MyShop->m_ShopId, 1, m_ToHour);
 }
 
 void MyShopSettingPanel::reduceProductAmoutCallback(cocos2d::Ref* pSender, unsigned productIndex)
@@ -659,6 +668,12 @@ void MyShopSettingPanel::closeCallback(cocos2d::Ref* pSender)
 
 void MyShopSettingPanel::onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event)
 {
+}
+
+
+void MyShopSettingPanel::checkBoxClickCallback(cocos2d::Ref* pSender, unsigned weekday)
+{
+	GameData::getInstance().setShopOpenDay(m_MyShop->m_ShopId, weekday);
 }
 
 void MyShopSettingPanel::displayButtons(MouseOverMenuItem* button, Vec2 pos, itemTypes type, float scale)

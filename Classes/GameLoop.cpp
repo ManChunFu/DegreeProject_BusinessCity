@@ -5,7 +5,7 @@
 
 GameLoop::GameLoop()
 {
-	GameData::getInstance().m_GlobalTime->onEveryMinuteChanges = CC_CALLBACK_2(GameLoop::onEveryMinuteChanges, this);
+	GameData::getInstance().m_GlobalTime->addMinuteEventListener(CC_CALLBACK_2(GameLoop::onEveryMinuteChanges, this));
 }
 
 void GameLoop::onEveryMinuteChanges(GlobalTime* globalTime, unsigned minute)

@@ -30,23 +30,35 @@ public:
 	GameData& operator=(const GameData&& arg) = delete; // Move operator
 
 	void init();
+	void reset(bool all = false);
+
+	GlobalTime* m_GlobalTime = nullptr;
+#pragma region Player
 	void registerCharacter(cocos2d::itemTypes type, std::string path);
 	void setPlayer(const std::string& name, cocos2d::itemTypes type);
 	std::string getPlayerCharacter(cocos2d::itemTypes playerCharacterType);
 
+	Player* m_Player = nullptr;
+#pragma endregion
+
+#pragma region Shop
 	unsigned getProductQuantity(unsigned shopId, unsigned productId);
 	void setShopProductQuantity(unsigned shopId, unsigned productId, unsigned quantity);
 	unsigned getProductPurchasePrice(unsigned shopId, unsigned productId);
+	void setShopOpenDay(unsigned shopId, unsigned weekday);
 
+	/* from = index 0, to = index 1*/
+	void setShopOpenHour(unsigned shopId, unsigned fromOrTo, unsigned workingHour);
+
+	std::map<unsigned, Shop*> m_Shops;
+#pragma endregion
+
+#pragma region Panel
 	void setTempOpenPanel(UIPanel* panel);
 	bool isAnyPanelOpen() { return (m_TempOpenPanel != nullptr); };
-
-	void reset(bool all = false);
-
-	GlobalTime* m_GlobalTime = nullptr;
-	Player* m_Player = nullptr;
-	std::map<unsigned, Shop*> m_Shops;
+	
 	UIPanel* m_TempOpenPanel = nullptr;
+#pragma endregion
 
 	struct colorTypes
 	{
