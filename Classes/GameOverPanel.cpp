@@ -24,7 +24,7 @@ void GameOverPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
 	m_ThisPanel->setScale(0.8f);
 	m_ThisPanel->setPosition(sceneMidPoint);
 	m_GameScene->addChild(m_ThisPanel, 3);
-	m_Elements.push_back(m_ThisPanel);
+	m_Elements.pushBack(m_ThisPanel);
 
 	auto panelMidPoint = Vec2(m_ThisPanel->getContentSize().width * 0.5f, m_ThisPanel->getContentSize().height * 0.5f);
 	auto gameOverText = Label::createWithTTF("GAME OVER", "fonts/BROADW.TTF", 40);
@@ -62,7 +62,7 @@ void GameOverPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
 	auto menu = Menu::createWithArray(m_MenuItems);
 	menu->setPosition(Vec2::ZERO);
 	m_GameScene->addChild(menu, 4);
-	m_Elements.push_back(menu);
+	m_Elements.pushBack(menu);
 }
 
 void GameOverPanel::restart(cocos2d::Ref* pSender)

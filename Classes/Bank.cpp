@@ -117,7 +117,7 @@ void Bank::createPanel(cocos2d::Vec2 sceneMidPoint)
 		return;
 
 	GameFunctions::displaySprite(m_ThisPanel, Vec2(sceneMidPoint), m_GameScene, 1);
-	m_Elements.push_back(m_ThisPanel);
+	m_Elements.pushBack(m_ThisPanel);
 
 	auto panelMidPoint = Vec2(m_ThisPanel->getContentSize().width * 0.5f, m_ThisPanel->getContentSize().height * 0.5f);
 
@@ -445,7 +445,7 @@ void Bank::createPanel(cocos2d::Vec2 sceneMidPoint)
 	auto menu = Menu::createWithArray(m_MenuItems);
 	menu->setPosition(Vec2::ZERO);
 	m_GameScene->addChild(menu, 3);
-	m_Elements.push_back(menu);
+	m_Elements.pushBack(menu);
 }
 
 void Bank::closeCallback(cocos2d::Ref* pSedner)

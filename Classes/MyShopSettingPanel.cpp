@@ -86,7 +86,7 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 
 	m_ThisPanel->setPosition(sceneMidPoint);
 	m_GameScene->addChild(m_ThisPanel, 1);
-	m_Elements.push_back(m_ThisPanel);
+	m_Elements.pushBack(m_ThisPanel);
 
 	auto panelMidPoint = Vec2(m_ThisPanel->getContentSize().width * 0.5f, m_ThisPanel->getContentSize().height * 0.5f);
 
@@ -461,7 +461,7 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 	auto menu = Menu::createWithArray(m_MenuItems);
 	menu->setPosition(Vec2::ZERO);
 	m_GameScene->addChild(menu, 1);
-	m_Elements.push_back(menu);
+	m_Elements.pushBack(menu);
 }
 
 void MyShopSettingPanel::createProductWidget2()
@@ -585,7 +585,7 @@ void MyShopSettingPanel::createProductWidget2()
 
 	auto widgetMenu = Menu::createWithArray(m_WidgetMenu);
 	widgetMenu->setPosition(Vec2::ZERO);
-	m_Elements.push_back(widgetMenu);
+	m_Elements.pushBack(widgetMenu);
 	m_GameScene->addChild(widgetMenu, 1);
 }
 

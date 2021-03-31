@@ -122,9 +122,6 @@ void Canvas::activePanel(EPanels uiPanel)
 {
 	switch (uiPanel)
 	{
-	//case EPanels::INFO_PANEL:
-	//	m_InfoPanel->enableBankButton(true);
-	//	break;
 	case EPanels::ACTION_PANEL:
 		m_ActionPanel->displayShop();
 		m_InfoPanel->enableBankButton(true);

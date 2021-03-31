@@ -44,7 +44,7 @@ void InfoPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
 		return;
 
 	GameFunctions::displaySprite(m_ThisPanel, Vec2(m_SceneMidPoint.x - 160.f, m_SceneMidPoint.y + 320.f), m_GameScene, 1);
-	m_Elements.push_back(m_ThisPanel);
+	m_Elements.pushBack(m_ThisPanel);
 
 	auto topPanelMidPoint = Vec2(m_ThisPanel->getContentSize().width * 0.5f, m_ThisPanel->getContentSize().height * 0.5f);
 
@@ -170,7 +170,7 @@ void InfoPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
 	auto menu = Menu::createWithArray(m_MenuItems);
 	menu->setPosition(Vec2::ZERO);
 	m_GameScene->addChild(menu, 2);
-	m_Elements.push_back(menu);
+	m_Elements.pushBack(menu);
 
 }
 

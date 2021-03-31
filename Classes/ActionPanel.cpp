@@ -28,7 +28,7 @@ void ActionPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
 
 	m_ThisPanel->setPosition(Vec2(m_SceneMidPoint.x - 160.f, m_SceneMidPoint.y - 320.f));
 	m_GameScene->addChild(m_ThisPanel, 1);
-	m_Elements.push_back(m_ThisPanel);
+	m_Elements.pushBack(m_ThisPanel);
 }
 
 void ActionPanel::displayShop()
@@ -46,7 +46,7 @@ void ActionPanel::displayShop()
 	auto menu = Menu::createWithArray(m_MenuItems);
 	menu->setPosition(Vec2::ZERO);
 	m_GameScene->addChild(menu, 2);
-	m_Elements.push_back(menu);
+	m_Elements.pushBack(menu);
 }
 
 void ActionPanel::openShopCallback(cocos2d::Ref* pSender)

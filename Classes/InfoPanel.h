@@ -32,7 +32,7 @@ private:
 	MouseOverMenuItem* m_BankButton = nullptr;
 
 	cocos2d::Vec2 m_SceneMidPoint = cocos2d::Vec2::ZERO;
-	std::string m_WeekDays[7] = { "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY" };
+	std::array<std::string, 7> m_WeekDays = { "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY" };
 
 	void checkBalanceCallback(cocos2d::Ref* pSender, GameScene* scene);
 	void onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event);

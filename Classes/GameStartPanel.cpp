@@ -20,7 +20,7 @@ void GameStartPanel::openPanel(GameScene* scene, Vec2 sceneMidPoint)
 	m_ThisPanel = Sprite::createWithSpriteFrameName("Brown_Panel_400.png");
 	m_ThisPanel->setPosition(sceneMidPoint);
 	m_GameScene->addChild(m_ThisPanel, 2);
-	m_Elements.push_back(m_ThisPanel);
+	m_Elements.pushBack(m_ThisPanel);
 
 	auto startupLabel = Label::createWithTTF("CHOOSE YOUR STARTUP", "fonts/NirmalaB.ttf", 20);
 	if (startupLabel)
@@ -87,7 +87,7 @@ void GameStartPanel::openPanel(GameScene* scene, Vec2 sceneMidPoint)
 
 	auto menu = Menu::createWithArray(m_MenuItems);
 	menu->setPosition(Vec2::ZERO);
-	m_Elements.push_back(menu);
+	m_Elements.pushBack(menu);
 
 	m_GameScene->addChild(menu, 3);
 }
