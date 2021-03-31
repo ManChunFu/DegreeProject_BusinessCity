@@ -25,7 +25,7 @@ void GlobalTime::update(float delta)
 	m_ElapsedTime += delta;
 
 	// update minute
-	if (m_ElapsedTime < 4)
+	if (m_ElapsedTime < 3)
 		return;
 
 	m_Gametime->minute++;

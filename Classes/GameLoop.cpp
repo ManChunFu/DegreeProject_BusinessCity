@@ -23,6 +23,9 @@ GameLoop::~GameLoop()
 
 void GameLoop::onEveryMinuteChanges(GlobalTime* globalTime, unsigned minute)
 {
+	if (m_Player->m_MyShopIds.size() < 1)
+		return;
+
 	auto myShop = GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]];
 	auto gameTime = GameData::getInstance().m_GlobalTime->m_Gametime;
 

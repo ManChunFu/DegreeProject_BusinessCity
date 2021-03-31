@@ -23,3 +23,4 @@ std::map<unsigned, Shop*> DataManager::getShops()
 
 	return shops;
 }
+

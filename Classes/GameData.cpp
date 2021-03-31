@@ -56,6 +56,12 @@ void GameData::setShopOpenDay(unsigned shopId, unsigned weekday)
 	m_Shops[shopId]->m_ShopOpenDay[weekday] = !originSetting;
 }
 
+void GameData::setPlayerWorkHere(unsigned shopId)
+{
+	auto originSetting = m_Shops[shopId]->m_PlayerWorkHere;
+	m_Shops[shopId]->m_PlayerWorkHere = !originSetting;
+}
+
 void GameData::setShopOpenHour(unsigned shopId, unsigned fromOrTo, unsigned workingHour)
 {
 	m_Shops[shopId]->m_ShopOpenHour[fromOrTo] = workingHour;

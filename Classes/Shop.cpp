@@ -83,6 +83,12 @@ Shop::~Shop()
 
 bool Shop::isShopOpen(unsigned day, unsigned currentHour)
 {
+	if (m_IsReplenishing)
+	{
+		ReplenishmentCountDown();
+		return false;
+	}
+
 	if (currentHour < m_ShopOpenHour[0] || currentHour > m_ShopOpenHour[1])
 		return false;
 
@@ -101,7 +107,11 @@ unsigned Shop::runTrade(unsigned day, Shop* shop)
 	auto productTypes = (int)m_Products.size() - 1;
 	auto tradeProduct = random(0, productTypes);
 	if (tradeQuantity < m_Products[tradeProduct]->m_Quantity)
+	{
 		m_Products[tradeProduct]->m_Quantity -= tradeQuantity;
+		if (onQuantityChanges)
+			onQuantityChanges(this, m_Products[tradeProduct]->m_ProductId, m_Products[tradeProduct]->m_Quantity);
+	}
 
 	// sales income
 	return m_Products[tradeProduct]->m_SalePrice * tradeQuantity;
@@ -110,6 +120,19 @@ unsigned Shop::runTrade(unsigned day, Shop* shop)
 unsigned Shop::getSucessProbability(unsigned day)
 {
 	return m_SuccessProbabilityDaily[day];
+}
+
+void Shop::ReplenishmentCountDown()
+{
+	m_ReplenishingCountDown--;
+	if (onCountdownChanges)
+		onCountdownChanges(this, m_ReplenishingCountDown);
+
+	if (m_ReplenishingCountDown == 0)
+	{
+		m_IsReplenishing = false;
+		m_ReplenishingCountDown = 30;
+	}
 }
 
 

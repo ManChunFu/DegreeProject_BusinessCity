@@ -16,13 +16,17 @@ class Shop
 {
 public:
 	Shop(rapidjson::Value& json);
-	Shop() {};
 	virtual ~Shop();
 
 	bool isShopOpen(unsigned day, unsigned currentHour);
 	unsigned runTrade(unsigned day, Shop* shop);
 	unsigned getSucessProbability(unsigned day);
-	
+	bool isReplenishing() { return m_IsReplenishing; }
+	unsigned getCountDown() { return m_ReplenishingCountDown; }
+
+	std::function<void(Shop* shop, unsigned productId, unsigned remainQuantity)> onQuantityChanges;
+	std::function<void(Shop* shop, unsigned countdown)> onCountdownChanges;
+#pragma region ShopData
 	std::string m_ShopType = "";
 	std::string m_Name = "";
 	ownerTypes m_Owner = ownerTypes::player;
@@ -38,8 +42,6 @@ public:
 	unsigned m_TotalSalaryExpense = 0;
 	unsigned m_CommercialCost = 0;
 
-	std::vector<ShopProduct*> m_Products;
-	
 	// shop working -> monday to sunday
 	unsigned m_SuccessProbabilityDaily[7] = { 30, 30, 30, 30, 40, 60, 70 };
 	bool m_ShopOpenDay[7] = { true, true, true, true, true, false, false };
@@ -47,6 +49,15 @@ public:
 	// shop working hour -> from and  to
 	unsigned int m_ShopOpenHour[2] = { 9, 17 };
 
+	bool m_PlayerWorkHere = true;
+	bool m_IsReplenishing = false;
+	unsigned m_ReplenishingCountDown = 30;
+#pragma endregion
+
+	std::vector<ShopProduct*> m_Products;
+
 private:
 	int m_MaxTradePerPerson = 4;
+
+	void ReplenishmentCountDown();
 };

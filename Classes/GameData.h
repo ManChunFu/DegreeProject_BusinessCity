@@ -46,6 +46,7 @@ public:
 	void setShopProductQuantity(unsigned shopId, unsigned productId, unsigned quantity);
 	unsigned getProductPurchasePrice(unsigned shopId, unsigned productId);
 	void setShopOpenDay(unsigned shopId, unsigned weekday);
+	void setPlayerWorkHere(unsigned shopId);
 
 	/* from = index 0, to = index 1*/
 	void setShopOpenHour(unsigned shopId, unsigned fromOrTo, unsigned workingHour);
