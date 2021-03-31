@@ -89,7 +89,7 @@ bool Shop::isShopOpen(unsigned day, unsigned currentHour)
 		return false;
 	}
 
-	if (currentHour < m_ShopOpenHour[0] || currentHour > m_ShopOpenHour[1])
+	if (currentHour < m_ShopOpenHour.first || currentHour > m_ShopOpenHour.second)
 		return false;
 
 	return m_ShopOpenDay[day];

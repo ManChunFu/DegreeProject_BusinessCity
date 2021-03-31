@@ -4,6 +4,7 @@
 
 USING_NS_CC;
 
+
 UIPanel::~UIPanel()
 {
 	if (m_GameScene)
@@ -24,6 +25,7 @@ UIPanel::~UIPanel()
 		m_MenuItems.clear();
 	}
 }
+
 
 MouseOverMenuItem* UIPanel::displayMenuButton(MouseOverMenuItem* button, std::function<void(MouseOverMenuItem* overItem, Event* event)> onMouseOver, Vec2 pos, itemTypes type, float scale)
 {

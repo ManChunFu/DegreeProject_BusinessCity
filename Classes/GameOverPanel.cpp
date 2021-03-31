@@ -5,6 +5,7 @@
 #include "GameData.h"
 #include "MainMenuScene.h"
 #include "Player.h"
+#include "EPanel.h"
 
 USING_NS_CC;
 
@@ -94,7 +95,7 @@ void GameOverPanel::destroyPanel()
 		m_GameScene->removeChild(element);
 	}
 	if (onDestroyCall)
-		onDestroyCall;
+		onDestroyCall(this, EPanels::DEFAULT_PANEL);
 
 	m_Player->reset();
 }

@@ -16,9 +16,9 @@ public:
 	typedef std::function<void(GlobalTime*, unsigned)> onEveryMinuteChanges;
 	void addMinuteEventListener(const onEveryMinuteChanges& changes);
 
-	std::function<void(GlobalTime* globalTime, unsigned hour)> onEveryHourChanges;
-	std::function<void(GlobalTime* globalTime, unsigned day)> onEveryDayChanges;
-	std::function<void(GlobalTime* globalTime, unsigned week)> onEveryWeekChanges;
+	onEveryMinuteChanges onEveryHourChanges;
+	onEveryMinuteChanges onEveryDayChanges;
+	onEveryMinuteChanges onEveryWeekChanges;
 
 	GameTime* m_Gametime = nullptr;
 protected:

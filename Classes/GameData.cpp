@@ -64,7 +64,7 @@ void GameData::setPlayerWorkHere(unsigned shopId)
 
 void GameData::setShopOpenHour(unsigned shopId, unsigned fromOrTo, unsigned workingHour)
 {
-	m_Shops[shopId]->m_ShopOpenHour[fromOrTo] = workingHour;
+	(fromOrTo == 0)? m_Shops[shopId]->m_ShopOpenHour.first = workingHour : m_Shops[shopId]->m_ShopOpenHour.second = workingHour;
 }
 
 void GameData::setTempOpenPanel(UIPanel* panel)

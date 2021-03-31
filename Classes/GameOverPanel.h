@@ -2,6 +2,8 @@
 
 #include "UIPanel.h"
 
+enum class EPanels;
+
 class GameOverPanel : public UIPanel
 {
 public:
@@ -9,7 +11,7 @@ public:
 	
 	void openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint) override;
 
-	std::function<void(cocos2d::Ref* pSender)> onDestroyCall;
+	std::function<void(UIPanel*, EPanels)> onDestroyCall;
 
 private:
 	void restart(cocos2d::Ref* pSender);

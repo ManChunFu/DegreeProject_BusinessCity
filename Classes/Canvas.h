@@ -25,9 +25,9 @@ public:
 	void gameOver();
 
 private:
-	std::vector<UIPanel*> m_UIPanels;
-	std::vector<UIPanel*> m_AddPanels;
-	std::vector<cocos2d::Ref*> m_RemovePanels;
+	cocos2d::Vector<UIPanel*> m_UIPanels;
+	cocos2d::Vector<UIPanel*> m_AddPanels;
+	cocos2d::Vector<UIPanel*> m_RemovePanels;
 	GameScene* m_GameScene = nullptr;
 	InfoPanel* m_InfoPanel = nullptr;
 	ActionPanel* m_ActionPanel = nullptr;
@@ -38,7 +38,7 @@ private:
 	cocos2d::Vec2 m_Origin;
 	cocos2d::Vec2 m_SceneMidPoint;
 	
-	void destroyPanel(cocos2d::Ref* pSender, EPanels uiPanel);
+	void destroyPanel(UIPanel* panel, EPanels uiPanel);
 	void actionCall(cocos2d::Ref* pSender, EPanels uiPanel);
 	void activePanel(EPanels uiPanel);
 	void setSpriteScale(cocos2d::Sprite* sprite, cocos2d::Vec2 scale);

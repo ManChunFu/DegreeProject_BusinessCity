@@ -11,6 +11,7 @@
 
 USING_NS_CC;
 
+
 InfoPanel::~InfoPanel()
 {
 	m_Saving = nullptr;

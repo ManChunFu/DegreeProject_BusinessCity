@@ -43,11 +43,11 @@ public:
 	unsigned m_CommercialCost = 0;
 
 	// shop working -> monday to sunday
-	unsigned m_SuccessProbabilityDaily[7] = { 30, 30, 30, 30, 40, 60, 70 };
-	bool m_ShopOpenDay[7] = { true, true, true, true, true, false, false };
+	std::array<unsigned int, 7> m_SuccessProbabilityDaily = { 30, 30, 30, 30, 40, 60, 70 };
+	std::array<bool, 7> m_ShopOpenDay = { true, true, true, true, true, false, false };
 
 	// shop working hour -> from and  to
-	unsigned int m_ShopOpenHour[2] = { 9, 17 };
+	std::pair<unsigned int, unsigned int> m_ShopOpenHour = std::make_pair( 9, 17 );
 
 	bool m_PlayerWorkHere = true;
 	bool m_IsReplenishing = false;

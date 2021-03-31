@@ -11,22 +11,10 @@ USING_NS_CC;
 
 Canvas::~Canvas()
 {
-	for (auto panel : m_UIPanels)
-	{
-		delete panel;
-	}
 	m_UIPanels.clear();
 
-	for (auto panel : m_AddPanels)
-	{
-		delete panel;
-	}
 	m_AddPanels.clear();
 
-	for (auto panel : m_RemovePanels)
-	{
-		delete panel;
-	}
 	m_RemovePanels.clear();
 
 	m_GameStartPanel = nullptr;
@@ -58,24 +46,27 @@ void Canvas::Init(GameScene* scene, Player* player)
 	setSpriteScale(backgroundSprite, Vec2::ONE);
 
 	m_InfoPanel = new InfoPanel();
+	m_InfoPanel->autorelease();
 	m_InfoPanel->openPanel(m_GameScene, m_SceneMidPoint);
-	m_UIPanels.push_back(m_InfoPanel);
+	m_UIPanels.pushBack(m_InfoPanel);
 
-	m_ActionPanel = new ActionPanel();
+	m_ActionPanel = new ActionPanel;
+	m_ActionPanel->autorelease();
 	m_ActionPanel->openPanel(m_GameScene, m_SceneMidPoint);
-	m_UIPanels.push_back(m_ActionPanel);
+	m_UIPanels.pushBack(m_ActionPanel);
 
-	m_GameStartPanel = new GameStartPanel();
+	m_GameStartPanel = new GameStartPanel;
+	m_GameStartPanel->autorelease();
 	m_GameStartPanel->openPanel(m_GameScene, m_SceneMidPoint);
-	m_GameStartPanel->onDestroyCall = CC_CALLBACK_1(Canvas::destroyPanel, this, EPanels::ACTION_PANEL);
-	m_UIPanels.push_back(m_GameStartPanel);
+	m_GameStartPanel->onDestroyCall = CC_CALLBACK_2(Canvas::destroyPanel, this);
+	m_UIPanels.pushBack(m_GameStartPanel);
 }
 
 void Canvas::update(float deltaTime)
 {
 	for (auto panel : m_AddPanels)
 	{
-		m_UIPanels.push_back(panel);
+		m_UIPanels.pushBack(panel);
 	}
 	m_AddPanels.clear();
 
@@ -84,13 +75,12 @@ void Canvas::update(float deltaTime)
 	//	panel->update(deltaTime);
 	//}
 
-	for (unsigned index = 0; index < m_UIPanels.size(); index++)
+	for (int index = 0; index < m_UIPanels.size(); index++)
 	{
-		for (auto ref : m_RemovePanels)
+		for (auto panel : m_RemovePanels)
 		{
-			if (m_UIPanels[index] == ref)
+			if (m_UIPanels.at(index) == panel)
 			{
-				delete m_UIPanels[index];
 				m_UIPanels.erase(m_UIPanels.begin() + index);
 				index--;
 			}
@@ -104,14 +94,15 @@ void Canvas::gameOver()
 {
 	m_InfoPanel->enableBankButton(false);
 	m_GameoverPanel = new GameOverPanel;
+	m_GameoverPanel->autorelease();
 	m_GameoverPanel->openPanel(m_GameScene, m_SceneMidPoint);
-	m_GameoverPanel->onDestroyCall = CC_CALLBACK_1(Canvas::destroyPanel, this, EPanels::DEFAULT_PANEL);
-	m_AddPanels.push_back(m_GameoverPanel);
+	m_GameoverPanel->onDestroyCall = CC_CALLBACK_2(Canvas::destroyPanel, this);
+	m_AddPanels.pushBack(m_GameoverPanel);
 }
 
-void Canvas::destroyPanel(cocos2d::Ref* pSender, EPanels uiPanel)
+void Canvas::destroyPanel(UIPanel* panel, EPanels uiPanel)
 {
-	m_RemovePanels.push_back(pSender);
+	m_RemovePanels.pushBack(panel);
 
 	if (uiPanel == EPanels::DEFAULT_PANEL)
 		return;

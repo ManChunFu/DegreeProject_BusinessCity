@@ -5,6 +5,7 @@
 #include "Shop.h"
 #include "Player.h"
 #include "GameFunctions.h"
+#include "EPanel.h"
 
 USING_NS_CC;
 
@@ -100,7 +101,7 @@ void GameStartPanel::goButtonCallback(cocos2d::Ref* pSender)
 		m_GameScene->removeChild(element);
 	}
 	if (onDestroyCall)
-		onDestroyCall(this);
+		onDestroyCall(this, EPanels::ACTION_PANEL);
 }
 
 void GameStartPanel::selectedItemCallback(cocos2d::Ref* pSender, unsigned shopID)

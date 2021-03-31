@@ -243,7 +243,7 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 		m_FromHourText = Label::createWithTTF("", "fonts/Nirmala.ttf", 20);
 		if (m_FromHourText)
 		{
-			GameFunctions::updatLabelText_TimeFormat(m_FromHourText, m_MyShop->m_ShopOpenHour[0], true);
+			GameFunctions::updatLabelText_TimeFormat(m_FromHourText, m_MyShop->m_ShopOpenHour.first, true);
 			m_FromHourText->enableShadow(Color4B::BLACK);
 			GameFunctions::displayLabel(m_FromHourText, Color4B::WHITE, Vec2(fromBoxMidPoint.x - 10.f, fromBoxMidPoint.y + 15.f),
 				fromBoxSprite, 1, true, TextHAlignment::RIGHT);
@@ -286,7 +286,7 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 		m_ToHourText = Label::createWithTTF("", "fonts/Nirmala.ttf", 20);
 		if (m_ToHourText)
 		{
-			GameFunctions::updatLabelText_TimeFormat(m_ToHourText, m_MyShop->m_ShopOpenHour[1], true);
+			GameFunctions::updatLabelText_TimeFormat(m_ToHourText, m_MyShop->m_ShopOpenHour.second, true);
 			m_ToHourText->enableShadow(Color4B::BLACK);
 			GameFunctions::displayLabel(m_ToHourText, Color4B::WHITE, Vec2(fromBoxMidPoint.x - 10.f, fromBoxMidPoint.y + 15.f),
 				toBoxSprite, 1, true, TextHAlignment::RIGHT);
