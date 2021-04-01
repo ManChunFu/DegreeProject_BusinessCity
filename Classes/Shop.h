@@ -26,6 +26,7 @@ public:
 
 	std::function<void(Shop* shop, unsigned productId, unsigned remainQuantity)> onQuantityChanges;
 	std::function<void(Shop* shop, unsigned countdown)> onCountdownChanges;
+
 #pragma region ShopData
 	std::string m_ShopType = "";
 	std::string m_Name = "";

@@ -27,7 +27,7 @@ public:
 
 protected:	
 	void createPanel(cocos2d::Vec2 sceneMidPoint) override;
-	void createProductWidget2();
+	void createProductWidget2(cocos2d::Vec2 panelMidPoint, cocos2d::Vec2 sceneMidPoint);
 	void closeCallback(cocos2d::Ref* pSender);
 	void reduceCallback(cocos2d::Ref* pSender);
 	void addCallback(cocos2d::Ref* pSender);
@@ -36,6 +36,8 @@ protected:
 	void reduceTimeCallback(cocos2d::Ref* pSender, bool fromHourButton);
 	void increaseTimeCallback(cocos2d::Ref* pSender, bool fromHourButton);
 	void checkBoxClickCallback(cocos2d::Ref* pSender, unsigned weekday);
+	void reducePriceCallback(cocos2d::Ref* pSender, unsigned productId);
+	void increasePriceCallback(cocos2d::Ref* pSender, unsigned productId);
 	void reduceProductAmoutCallback(cocos2d::Ref* pSender, unsigned productIndex);
 	void increaseProductAmoutCallback(cocos2d::Ref* pSender, unsigned productIndex);
 	void buyProductCallback(cocos2d::Ref* pSender, unsigned productId);

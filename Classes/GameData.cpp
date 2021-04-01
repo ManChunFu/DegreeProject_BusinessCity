@@ -96,7 +96,6 @@ void GameData::reset(bool all)
 	delete m_GlobalTime;
 	m_GlobalTime = nullptr;
 
-	delete m_TempOpenPanel;
 	m_TempOpenPanel = nullptr;
 }
 
