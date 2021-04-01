@@ -58,8 +58,9 @@ private:
 	cocos2d::Label* m_FromHourText = nullptr;
 	cocos2d::Label* m_ToHourText = nullptr;
 	std::vector<cocos2d::ui::CheckBox*> m_Weekdays;
+	cocos2d::Vector<cocos2d::Label*> m_SalePrices;
 	std::vector<PurchaseProductData*> m_PurchaseProducts;
-	std::vector<cocos2d::Label*> m_CurrentProductQuantityTexts;
+	cocos2d::Vector<cocos2d::Label*> m_CurrentProductQuantityTexts;
 	cocos2d::Vector<cocos2d::MenuItem*> m_WidgetMenu;
 
 	Shop* m_MyShop = nullptr;

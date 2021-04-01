@@ -16,27 +16,27 @@ USING_NS_CC;
 
 MyShopSettingPanel::~MyShopSettingPanel()
 {
-	m_EmployeeCountText = nullptr;
-	m_FromHourText = nullptr;
-	m_ToHourText = nullptr;
-	m_Weekdays.clear();
-	m_MyShop = nullptr;
+	m_GameTime = nullptr;
+	m_ProductWidget1 = nullptr;
+	m_ProductWidget2 = nullptr;
 	m_WorkStatesWidget = nullptr;
 	m_WorkStateText = nullptr;
 	m_ReplenishCountdownText = nullptr;
-	m_ProductWidget1 = nullptr;
-	m_ProductWidget2 = nullptr;
+	m_EmployeeCountText = nullptr;
+	m_FromHourText = nullptr;
+	m_ToHourText = nullptr;
 	m_MyShop = nullptr;
 
+	m_Weekdays.clear();
+	m_SalePrices.clear();
 	m_CurrentProductQuantityTexts.clear();
+	m_WidgetMenu.clear();
 
 	for (auto product : m_PurchaseProducts)
 	{
 		delete product;
 	}
 	m_PurchaseProducts.clear();
-
-	m_WidgetMenu.clear();
 }
 
 void MyShopSettingPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
@@ -305,7 +305,7 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 	}
 
 	// weeks
-	std::string weekdays[7] = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" };
+	std::array<std::string, 7> weekdays = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" };
 	auto checkboxPos = Vec2(panelMidPoint.x - 80.f, panelMidPoint.y - 20.f);
 	for (unsigned index = 0; index < 7; index++)
 	{
@@ -400,6 +400,8 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 				productSalePrice->setString(std::to_string(m_MyShop->m_Products[productIndex]->m_SalePrice));
 				GameFunctions::displayLabel(productSalePrice, Color4B::WHITE, (priceBoxSprite->getContentSize() * 0.5),
 					priceBoxSprite, 1);
+
+				m_SalePrices.pushBack(productSalePrice);
 			}
 		}
 
@@ -425,7 +427,7 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 			currentProductCountText->enableShadow(Color4B::BLACK);
 			GameFunctions::displayLabel(currentProductCountText, Color4B::WHITE, Vec2(productSpritePos.x + 330.f, productSpritePos.y),
 				m_ProductWidget1, 1);
-			m_CurrentProductQuantityTexts.push_back(currentProductCountText);
+			m_CurrentProductQuantityTexts.pushBack(currentProductCountText);
 		}
 
 		// purchase product quantity text
@@ -441,7 +443,8 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 				GameFunctions::displayLabel(productCountText, Color4B::WHITE, Vec2(boxSprite->getContentSize().width * 0.5f,
 					boxSprite->getContentSize().height * 0.5f), boxSprite, 1);
 
-				m_PurchaseProducts.push_back(new PurchaseProductData(m_MyShop->m_Products[productIndex]->m_ProductId, productCountText, 20));
+				m_PurchaseProducts.push_back(new PurchaseProductData(m_MyShop->m_Products[productIndex]->m_ProductId, 
+					productCountText, m_MyShop->m_Products[productIndex]->m_SalePrice, 20));
 			}
 		}
 
@@ -576,7 +579,7 @@ void MyShopSettingPanel::createProductWidget2(Vec2 panelMidPoint, Vec2 sceneMidP
 			currentProductCountText->enableShadow(Color4B::BLACK);
 			GameFunctions::displayLabel(currentProductCountText, Color4B::WHITE, Vec2(productSpritePos.x + 330.f, productSpritePos.y),
 				m_ProductWidget2, 1);
-			m_CurrentProductQuantityTexts.push_back(currentProductCountText);
+			m_CurrentProductQuantityTexts.pushBack(currentProductCountText);
 		}
 
 		// purchase product quantity text
@@ -592,7 +595,8 @@ void MyShopSettingPanel::createProductWidget2(Vec2 panelMidPoint, Vec2 sceneMidP
 				GameFunctions::displayLabel(productCountText, Color4B::WHITE, Vec2(boxSprite->getContentSize().width * 0.5f,
 					boxSprite->getContentSize().height * 0.5f), boxSprite, 1);
 
-				m_PurchaseProducts.push_back(new PurchaseProductData(m_MyShop->m_Products[productIndex]->m_ProductId, productCountText, 20));
+				m_PurchaseProducts.push_back(new PurchaseProductData(m_MyShop->m_Products[productIndex]->m_ProductId, 
+					productCountText, m_MyShop->m_Products[productIndex]->m_SalePrice, 20));
 			}
 		}
 
@@ -725,6 +729,7 @@ void MyShopSettingPanel::checkBoxClickCallback(cocos2d::Ref* pSender, unsigned w
 
 void MyShopSettingPanel::reducePriceCallback(cocos2d::Ref* pSender, unsigned productId)
 {
+	
 }
 
 void MyShopSettingPanel::increasePriceCallback(cocos2d::Ref* pSender, unsigned productId)
@@ -756,7 +761,7 @@ void MyShopSettingPanel::buyProductCallback(cocos2d::Ref* pSender, unsigned prod
 	updateShopWorkingState();
 
 	m_MyShop->m_Products[productId]->m_Quantity += m_PurchaseProducts[productId]->purchaseCount;
-	m_CurrentProductQuantityTexts[productId]->setString(std::to_string(m_MyShop->m_Products[productId]->m_Quantity));
+	m_CurrentProductQuantityTexts.at(productId)->setString(std::to_string(m_MyShop->m_Products[productId]->m_Quantity));
 
 	// update shops data
 	GameData::getInstance().setShopProductQuantity(m_MyShop->m_ShopId, productId, m_MyShop->m_Products[productId]->m_Quantity);
@@ -783,7 +788,7 @@ void MyShopSettingPanel::onQuantitytChanges(Shop* shop, unsigned productId, unsi
 {
 	updateShopWorkingState();
 
-	m_CurrentProductQuantityTexts[productId]->setString(std::to_string(remainQuantity));
+	m_CurrentProductQuantityTexts.at(productId)->setString(std::to_string(remainQuantity));
 }
 
 void MyShopSettingPanel::onCountDownChanges(Shop* shop, unsigned countdown)
@@ -845,7 +850,7 @@ void MyShopSettingPanel::updateShopProductData()
 	auto shop = GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]];
 	for (unsigned index = 0; index < m_CurrentProductQuantityTexts.size(); index++)
 	{
-		m_CurrentProductQuantityTexts[index]->setString(std::to_string(shop->m_Products[index]->m_Quantity));
+		m_CurrentProductQuantityTexts.at(index)->setString(std::to_string(shop->m_Products[index]->m_Quantity));
 	}
 
 	updateShopWorkingState();

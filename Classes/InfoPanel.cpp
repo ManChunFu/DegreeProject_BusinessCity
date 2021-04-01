@@ -20,7 +20,6 @@ InfoPanel::~InfoPanel()
 	m_TimeHourDisplay = nullptr;
 	m_TimeMinDisplay = nullptr;
 	m_BankButton = nullptr;
-	delete m_Bank;
 	m_Bank = nullptr;
 }
 
@@ -111,6 +110,8 @@ void InfoPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
 		m_MenuItems.pushBack(m_BankButton);
 
 		m_Bank = new Bank();
+		m_Bank->autorelease();
+		m_ThisPanel->addChild(m_Bank, 1);
 	}
 #pragma endregion
 

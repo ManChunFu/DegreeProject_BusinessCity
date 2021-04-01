@@ -12,7 +12,6 @@ USING_NS_CC;
 ActionPanel::~ActionPanel()
 {
 	m_MyShop = nullptr;
-	delete m_ShopButton;
 	m_ShopButton = nullptr;
 }
 
@@ -42,6 +41,8 @@ void ActionPanel::displayShop()
 			Vec2(m_ThisPanel->getPosition().x * 0.5f, m_ThisPanel->getContentSize().height * 0.5f - 5.f), itemTypes::DEFAULT, 0.3f));
 
 	m_ShopButton = new MyShopSettingPanel();
+	m_ShopButton->autorelease();
+	m_ThisPanel->addChild(m_ShopButton, 1);
 
 	auto menu = Menu::createWithArray(m_MenuItems);
 	menu->setPosition(Vec2::ZERO);
