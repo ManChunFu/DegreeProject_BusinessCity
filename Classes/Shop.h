@@ -24,6 +24,15 @@ public:
 	bool isReplenishing() { return m_IsReplenishing; }
 	unsigned getCountDown() { return m_ReplenishingCountDown; }
 
+	unsigned getProductQuantity(unsigned productId);
+	void setShopProductQuantity(unsigned productId, unsigned quantity);
+	unsigned getProductPurchasePrice(unsigned productId);
+	void setShopOpenDay(unsigned weekday);
+	void setPlayerWorkHere();
+
+	/* from = first, to = second */
+	void setShopOpenHour(unsigned fromOrTo, unsigned workingHour);
+
 	std::function<void(Shop* shop, unsigned productId, unsigned remainQuantity)> onQuantityChanges;
 	std::function<void(Shop* shop, unsigned countdown)> onCountdownChanges;
 

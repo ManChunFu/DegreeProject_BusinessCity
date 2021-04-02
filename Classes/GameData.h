@@ -41,18 +41,7 @@ public:
 	Player* m_Player = nullptr;
 #pragma endregion
 
-#pragma region Shop
-	unsigned getProductQuantity(unsigned shopId, unsigned productId);
-	void setShopProductQuantity(unsigned shopId, unsigned productId, unsigned quantity);
-	unsigned getProductPurchasePrice(unsigned shopId, unsigned productId);
-	void setShopOpenDay(unsigned shopId, unsigned weekday);
-	void setPlayerWorkHere(unsigned shopId);
-
-	/* from = index 0, to = index 1*/
-	void setShopOpenHour(unsigned shopId, unsigned fromOrTo, unsigned workingHour);
-
 	std::map<unsigned, Shop*> m_Shops;
-#pragma endregion
 
 #pragma region Panel
 	void setTempOpenPanel(UIPanel* panel);

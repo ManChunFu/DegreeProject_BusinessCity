@@ -156,7 +156,7 @@
     <ClInclude Include="..\Classes\GameData.h">
       <Filter>Source Files\Classes\Data</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\PurchaseProductData.h">
+    <ClInclude Include="..\Classes\ProductData.h">
       <Filter>Source Files\Classes\Data</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GlobalTime.h">

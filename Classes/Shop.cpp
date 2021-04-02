@@ -122,6 +122,38 @@ unsigned Shop::getSucessProbability(unsigned day)
 	return m_SuccessProbabilityDaily[day];
 }
 
+unsigned Shop::getProductQuantity(unsigned productId)
+{
+	return m_Products[productId]->m_Quantity;
+}
+
+void Shop::setShopProductQuantity(unsigned productId, unsigned quantity)
+{
+	m_Products[productId]->m_Quantity = quantity;
+}
+
+unsigned Shop::getProductPurchasePrice(unsigned productId)
+{
+	return m_Products[productId]->m_PurchasePrice;
+}
+
+void Shop::setShopOpenDay(unsigned weekday)
+{
+	auto originSetting = m_ShopOpenDay[weekday];
+	m_ShopOpenDay[weekday] = !originSetting;
+}
+
+void Shop::setPlayerWorkHere()
+{
+	auto originSetting = m_PlayerWorkHere;
+	m_PlayerWorkHere = !originSetting;
+}
+
+void Shop::setShopOpenHour(unsigned fromOrTo, unsigned workingHour)
+{
+	(fromOrTo == 0) ? m_ShopOpenHour.first = workingHour : m_ShopOpenHour.second = workingHour;
+}
+
 void Shop::ReplenishmentCountDown()
 {
 	m_ReplenishingCountDown--;

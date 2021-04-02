@@ -35,38 +35,6 @@ std::string GameData::getPlayerCharacter(cocos2d::itemTypes playerCharacterType)
 	return std::string(m_CharacterSpriteMap[playerCharacterType]);
 }
 
-unsigned GameData::getProductQuantity(unsigned shopId, unsigned productId)
-{
-	return m_Shops[shopId]->m_Products[productId]->m_Quantity;
-}
-
-void GameData::setShopProductQuantity(unsigned shopId, unsigned productId, unsigned quantity)
-{
-	m_Shops[shopId]->m_Products[productId]->m_Quantity = quantity;
-}
-
-unsigned GameData::getProductPurchasePrice(unsigned shopId, unsigned productId)
-{
-	return m_Shops[shopId]->m_Products[productId]->m_PurchasePrice;
-}
-
-void GameData::setShopOpenDay(unsigned shopId, unsigned weekday)
-{
-	auto originSetting = m_Shops[shopId]->m_ShopOpenDay[weekday];
-	m_Shops[shopId]->m_ShopOpenDay[weekday] = !originSetting;
-}
-
-void GameData::setPlayerWorkHere(unsigned shopId)
-{
-	auto originSetting = m_Shops[shopId]->m_PlayerWorkHere;
-	m_Shops[shopId]->m_PlayerWorkHere = !originSetting;
-}
-
-void GameData::setShopOpenHour(unsigned shopId, unsigned fromOrTo, unsigned workingHour)
-{
-	(fromOrTo == 0)? m_Shops[shopId]->m_ShopOpenHour.first = workingHour : m_Shops[shopId]->m_ShopOpenHour.second = workingHour;
-}
-
 void GameData::setTempOpenPanel(UIPanel* panel)
 {
 	if (m_TempOpenPanel == nullptr)

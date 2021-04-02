@@ -6,7 +6,7 @@ class GameTime;
 class Player;
 class MouseOverMenuItem;
 class Shop;
-struct PurchaseProductData;
+struct ProductData;
 
 NS_CC_BEGIN
 namespace ui
@@ -58,8 +58,7 @@ private:
 	cocos2d::Label* m_FromHourText = nullptr;
 	cocos2d::Label* m_ToHourText = nullptr;
 	std::vector<cocos2d::ui::CheckBox*> m_Weekdays;
-	std::vector<PurchaseProductData*> m_PurchaseProducts;
-	cocos2d::Vector<cocos2d::Label*> m_CurrentProductQuantityTexts;
+	std::vector<ProductData*> m_ProductDatas;
 	cocos2d::Vector<cocos2d::MenuItem*> m_WidgetMenu;
 
 	Shop* m_MyShop = nullptr;
