@@ -28,7 +28,7 @@ MyShopSettingPanel::~MyShopSettingPanel()
 	m_MyShop = nullptr;
 
 	m_Weekdays.clear();
-	m_SalePrices.clear();
+	//m_SalePrices.clear();
 	m_CurrentProductQuantityTexts.clear();
 	m_WidgetMenu.clear();
 
@@ -388,21 +388,19 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 			GameFunctions::displayLabel(productName, Color4B::BLACK, Vec2(productSpritePos.x + 50.f, productSpritePos.y - 10.f),
 				m_ProductWidget1, 1, true, TextHAlignment::LEFT);
 
-		// product sale price text
+		// product sale price box
 		auto priceBoxSprite = Sprite::createWithSpriteFrameName("Border_Black_Square.png");
 		if (priceBoxSprite)
-		{
 			GameFunctions::displaySprite(priceBoxSprite, Vec2(productSpritePos.x + 250.f, productSpritePos.y), m_ProductWidget1, 1);
 
-			auto productSalePrice = Label::createWithTTF("", "fonts/Nirmala.ttf", 15);
-			if (productSalePrice)
-			{
-				productSalePrice->setString(std::to_string(m_MyShop->m_Products[productIndex]->m_SalePrice));
-				GameFunctions::displayLabel(productSalePrice, Color4B::WHITE, (priceBoxSprite->getContentSize() * 0.5),
-					priceBoxSprite, 1);
-
-				m_SalePrices.pushBack(productSalePrice);
-			}
+		// product sale price text
+		auto productSalePrice = Label::createWithTTF("", "fonts/Nirmala.ttf", 15);
+		if (productSalePrice)
+		{
+			productSalePrice->enableShadow(Color4B::BLACK);
+			productSalePrice->setString(std::to_string(m_MyShop->m_Products[productIndex]->m_SalePrice));
+			GameFunctions::displayLabel(productSalePrice, Color4B::WHITE, (priceBoxSprite->getContentSize() * 0.5),
+				priceBoxSprite, 1);
 		}
 
 		// price reduce increase buttons
@@ -433,20 +431,20 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 		// purchase product quantity text
 		auto boxSprite = Sprite::createWithSpriteFrameName("Border_Black_Square.png");
 		if (boxSprite)
-		{
 			GameFunctions::displaySprite(boxSprite, Vec2(productSpritePos.x + 410.f, productSpritePos.y), m_ProductWidget1, 1);
 
-			auto productCountText = Label::createWithTTF("20", "fonts/Nirmala.ttf", 15);
-			if (productCountText)
-			{
-				productCountText->enableShadow(Color4B::BLACK);
-				GameFunctions::displayLabel(productCountText, Color4B::WHITE, Vec2(boxSprite->getContentSize().width * 0.5f,
-					boxSprite->getContentSize().height * 0.5f), boxSprite, 1);
-
-				m_PurchaseProducts.push_back(new PurchaseProductData(m_MyShop->m_Products[productIndex]->m_ProductId, 
-					productCountText, m_MyShop->m_Products[productIndex]->m_SalePrice, 20));
-			}
+		// product purchase qauntity text
+		auto productCountText = Label::createWithTTF(std::to_string(m_MinPurchaseQTY), "fonts/Nirmala.ttf", 15);
+		if (productCountText)
+		{
+			productCountText->enableShadow(Color4B::BLACK);
+			GameFunctions::displayLabel(productCountText, Color4B::WHITE, Vec2(boxSprite->getContentSize().width * 0.5f,
+				boxSprite->getContentSize().height * 0.5f), boxSprite, 1);
 		}
+
+		// add to productdata class
+		m_PurchaseProducts.push_back(new PurchaseProductData(m_MyShop->m_Products[productIndex]->m_ProductId,
+			productSalePrice, productCountText, m_MyShop->m_Products[productIndex]->m_SalePrice, 20));
 
 		// product QTY reduce increase buttons
 		for (unsigned index = 0; index < 2; index++)
@@ -457,11 +455,11 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 			if (productButton)
 			{
 				productButton->itemSelectedData.type = itemTypes::BUTTON;
-				displayButtons(productButton, (index % 2 == 0) ? Vec2(productButtonPos.x +160.f, productButtonPos.y) :
-					Vec2(productButtonPos.x +130.f, productButtonPos.y + 20.f), itemTypes::BUTTON);
+				displayButtons(productButton, (index % 2 == 0) ? Vec2(productButtonPos.x + 160.f, productButtonPos.y) :
+					Vec2(productButtonPos.x + 130.f, productButtonPos.y + 20.f), itemTypes::BUTTON);
 			}
 		}
-		
+
 		// set for next item pos;
 		productButtonPos.y -= 40.f;
 
@@ -542,19 +540,19 @@ void MyShopSettingPanel::createProductWidget2(Vec2 panelMidPoint, Vec2 sceneMidP
 			GameFunctions::displayLabel(productName, Color4B::BLACK, Vec2(productSpritePos.x + 50.f, productSpritePos.y - 10.f),
 				m_ProductWidget2, 1, true, TextHAlignment::LEFT);
 
-		// product sale price text
+		// product sale price box
 		auto priceBoxSprite = Sprite::createWithSpriteFrameName("Border_Black_Square.png");
 		if (priceBoxSprite)
-		{
 			GameFunctions::displaySprite(priceBoxSprite, Vec2(productSpritePos.x + 250.f, productSpritePos.y), m_ProductWidget2, 1);
 
-			auto productSalePrice = Label::createWithTTF("", "fonts/Nirmala.ttf", 15);
-			if (productSalePrice)
-			{
-				productSalePrice->setString(std::to_string(m_MyShop->m_Products[productIndex]->m_SalePrice));
-				GameFunctions::displayLabel(productSalePrice, Color4B::WHITE, (priceBoxSprite->getContentSize() * 0.5),
-					priceBoxSprite, 1);
-			}
+		// product sale price text
+		auto productSalePrice = Label::createWithTTF("", "fonts/Nirmala.ttf", 15);
+		if (productSalePrice)
+		{
+			productSalePrice->enableShadow(Color4B::BLACK);
+			productSalePrice->setString(std::to_string(m_MyShop->m_Products[productIndex]->m_SalePrice));
+			GameFunctions::displayLabel(productSalePrice, Color4B::WHITE, (priceBoxSprite->getContentSize() * 0.5),
+				priceBoxSprite, 1);
 		}
 
 		// price reduce increase buttons
@@ -582,23 +580,22 @@ void MyShopSettingPanel::createProductWidget2(Vec2 panelMidPoint, Vec2 sceneMidP
 			m_CurrentProductQuantityTexts.pushBack(currentProductCountText);
 		}
 
-		// purchase product quantity text
+		// purchase product quantity box
 		auto boxSprite = Sprite::createWithSpriteFrameName("Border_Black_Square.png");
 		if (boxSprite)
-		{
 			GameFunctions::displaySprite(boxSprite, Vec2(productSpritePos.x + 410.f, productSpritePos.y), m_ProductWidget2, 1);
 
-			auto productCountText = Label::createWithTTF("20", "fonts/Nirmala.ttf", 15);
-			if (productCountText)
-			{
-				productCountText->enableShadow(Color4B::BLACK);
-				GameFunctions::displayLabel(productCountText, Color4B::WHITE, Vec2(boxSprite->getContentSize().width * 0.5f,
-					boxSprite->getContentSize().height * 0.5f), boxSprite, 1);
-
-				m_PurchaseProducts.push_back(new PurchaseProductData(m_MyShop->m_Products[productIndex]->m_ProductId, 
-					productCountText, m_MyShop->m_Products[productIndex]->m_SalePrice, 20));
-			}
+		//product purchase quantity text
+		auto productCountText = Label::createWithTTF(std::to_string(m_MinPurchaseQTY), "fonts/Nirmala.ttf", 15);
+		if (productCountText)
+		{
+			productCountText->enableShadow(Color4B::BLACK);
+			GameFunctions::displayLabel(productCountText, Color4B::WHITE, Vec2(boxSprite->getContentSize() * 0.5f), boxSprite, 1);
 		}
+
+		// add to product data class
+		m_PurchaseProducts.push_back(new PurchaseProductData(m_MyShop->m_Products[productIndex]->m_ProductId,
+			productSalePrice, productCountText, m_MyShop->m_Products[productIndex]->m_SalePrice, 20));
 
 		// product QTY reduce increase buttons
 		for (unsigned index = 0; index < 2; index++)
@@ -616,7 +613,6 @@ void MyShopSettingPanel::createProductWidget2(Vec2 panelMidPoint, Vec2 sceneMidP
 
 		// set for next item pos;
 		productButtonPos.y -= 40.f;
-
 
 		// buy button
 		auto buyButton = MouseOverMenuItem::creatMouseOverMenuButton(CC_CALLBACK_1(MyShopSettingPanel::buyProductCallback, this,
@@ -729,11 +725,21 @@ void MyShopSettingPanel::checkBoxClickCallback(cocos2d::Ref* pSender, unsigned w
 
 void MyShopSettingPanel::reducePriceCallback(cocos2d::Ref* pSender, unsigned productId)
 {
-	
+	m_PurchaseProducts[productId]->productSalePrice = GameFunctions::displayLabelText_ClampValue(
+		m_PurchaseProducts[productId]->productPriceText, m_PurchaseProducts[productId]->productSalePrice, 
+		-m_MinPriceChangesEachTime, 0, m_MAxPrice);
+	m_PurchaseProducts[productId]->productPriceText->setString(std::to_string(m_PurchaseProducts[productId]->productSalePrice));
+
+
 }
 
 void MyShopSettingPanel::increasePriceCallback(cocos2d::Ref* pSender, unsigned productId)
 {
+	m_PurchaseProducts[productId]->productId = productId;
+	m_PurchaseProducts[productId]->productSalePrice = GameFunctions::displayLabelText_ClampValue(
+		m_PurchaseProducts[productId]->productPriceText, m_PurchaseProducts[productId]->productSalePrice,
+		m_MinPriceChangesEachTime, 0, m_MAxPrice);
+	m_PurchaseProducts[productId]->productPriceText->setString(std::to_string(m_PurchaseProducts[productId]->productSalePrice));
 }
 
 void MyShopSettingPanel::reduceProductAmoutCallback(cocos2d::Ref* pSender, unsigned productIndex)
@@ -741,7 +747,7 @@ void MyShopSettingPanel::reduceProductAmoutCallback(cocos2d::Ref* pSender, unsig
 	m_PurchaseProducts[productIndex]->productId = productIndex;
 	m_PurchaseProducts[productIndex]->purchaseCount = GameFunctions::displayLabelText_ClampValue(
 		m_PurchaseProducts[productIndex]->productCountText,
-		m_PurchaseProducts[productIndex]->purchaseCount, -20, 0, 100);
+		m_PurchaseProducts[productIndex]->purchaseCount, -m_MinPurchaseQTY, m_MinPurchaseQTY, m_MaxPurchaseQTY);
 	m_PurchaseProducts[productIndex]->productCountText->setString(std::to_string(m_PurchaseProducts[productIndex]->purchaseCount));
 }
 
@@ -750,7 +756,7 @@ void MyShopSettingPanel::increaseProductAmoutCallback(cocos2d::Ref* pSender, uns
 	m_PurchaseProducts[productIndex]->productId = productIndex;
 	m_PurchaseProducts[productIndex]->purchaseCount = GameFunctions::displayLabelText_ClampValue(
 		m_PurchaseProducts[productIndex]->productCountText,
-		m_PurchaseProducts[productIndex]->purchaseCount, 20, 0, 100);
+		m_PurchaseProducts[productIndex]->purchaseCount, m_MinPurchaseQTY, m_MinPurchaseQTY, m_MaxPurchaseQTY);
 	m_PurchaseProducts[productIndex]->productCountText->setString(std::to_string(m_PurchaseProducts[productIndex]->purchaseCount));
 }
 

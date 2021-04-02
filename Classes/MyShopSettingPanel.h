@@ -58,7 +58,6 @@ private:
 	cocos2d::Label* m_FromHourText = nullptr;
 	cocos2d::Label* m_ToHourText = nullptr;
 	std::vector<cocos2d::ui::CheckBox*> m_Weekdays;
-	cocos2d::Vector<cocos2d::Label*> m_SalePrices;
 	std::vector<PurchaseProductData*> m_PurchaseProducts;
 	cocos2d::Vector<cocos2d::Label*> m_CurrentProductQuantityTexts;
 	cocos2d::Vector<cocos2d::MenuItem*> m_WidgetMenu;
@@ -71,7 +70,11 @@ private:
 	unsigned m_FromHour = 8;
 	unsigned m_ToHour = 17;
 	unsigned m_PanelLimit = 2;
-	std::string m_WorkStates[3] = { "Open", "Close", "Replenish Stock" };
+	unsigned m_MinPriceChangesEachTime = 5;
+	unsigned m_MAxPrice = 500;
+	unsigned m_MinPurchaseQTY = 20;
+	unsigned m_MaxPurchaseQTY = 100;
+	std::array<std::string, 3> m_WorkStates = { "Open", "Close", "Replenish Stock" };
 
 	void enableWidget(cocos2d::ui::Widget* widget, bool enable, cocos2d::Vector<cocos2d::MenuItem*>itemList, cocos2d::itemTypes type);
 	void enableMenuItems(cocos2d::Vector<cocos2d::MenuItem*>itemList, bool enable);
