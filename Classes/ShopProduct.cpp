@@ -25,6 +25,7 @@ ShopProduct::ShopProduct(rapidjson::Value& json)
 			break;
 		case stringToInt("Price"):
 			m_SalePrice = itr->value.GetInt();
+			m_CurrentPrice = m_SalePrice;
 			break;
 		case stringToInt("PurchasePrice"):
 			m_PurchasePrice = itr->value.GetInt();
@@ -35,3 +36,19 @@ ShopProduct::ShopProduct(rapidjson::Value& json)
 		}
 	}
 }
+
+void ShopProduct::setProductQuantity(unsigned quantity)
+{
+	m_Quantity = quantity;
+}
+
+void ShopProduct::increaseProductQuantity(unsigned amout)
+{
+	m_Quantity += amout;
+}
+
+void ShopProduct::setCurrentSalePrice(unsigned price)
+{
+	m_CurrentPrice = price;
+}
+

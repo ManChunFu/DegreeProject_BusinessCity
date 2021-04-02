@@ -106,15 +106,15 @@ unsigned Shop::runTrade(unsigned day, Shop* shop)
 	auto tradeQuantity = random(1, 4);
 	auto productTypes = (int)m_Products.size() - 1;
 	auto tradeProduct = random(0, productTypes);
-	if (tradeQuantity < m_Products[tradeProduct]->m_Quantity)
+	if (tradeQuantity < m_Products[tradeProduct]->getProductQuantity())
 	{
-		m_Products[tradeProduct]->m_Quantity -= tradeQuantity;
+		m_Products[tradeProduct]->increaseProductQuantity(-tradeQuantity);
 		if (onQuantityChanges)
-			onQuantityChanges(this, m_Products[tradeProduct]->m_ProductId, m_Products[tradeProduct]->m_Quantity);
+			onQuantityChanges(this, m_Products[tradeProduct]->getProductId(), m_Products[tradeProduct]->getProductQuantity());
 	}
 
 	// sales income
-	return m_Products[tradeProduct]->m_SalePrice * tradeQuantity;
+	return m_Products[tradeProduct]->getCurrentSalePrice() * tradeQuantity;
 }
 
 unsigned Shop::getSucessProbability(unsigned day)
@@ -124,17 +124,52 @@ unsigned Shop::getSucessProbability(unsigned day)
 
 unsigned Shop::getProductQuantity(unsigned productId)
 {
-	return m_Products[productId]->m_Quantity;
+	return m_Products[productId]->getProductQuantity();
 }
 
 void Shop::setShopProductQuantity(unsigned productId, unsigned quantity)
 {
-	m_Products[productId]->m_Quantity = quantity;
+	m_Products[productId]->setProductQuantity(quantity);
+}
+
+void Shop::increaseProductQuantity(unsigned productId, unsigned amout)
+{
+	m_Products[productId]->increaseProductQuantity(amout);
 }
 
 unsigned Shop::getProductPurchasePrice(unsigned productId)
 {
-	return m_Products[productId]->m_PurchasePrice;
+	return m_Products[productId]->getProductPurchasePrice();
+}
+
+unsigned Shop::getProductSalePrice(unsigned productId)
+{
+	return m_Products[productId]->getSalePrice();
+}
+
+unsigned Shop::getCurrentSalePrice(unsigned productId)
+{
+	return m_Products[productId]->getCurrentSalePrice();
+}
+
+void Shop::setCurrentSalePrice(unsigned productId, unsigned price)
+{
+	m_Products[productId]->setCurrentSalePrice(price);
+}
+
+unsigned Shop::getProductId(unsigned productId)
+{
+	return m_Products[productId]->getProductId();
+}
+
+std::string Shop::getProductName(unsigned productId)
+{
+	return m_Products[productId]->getProductName();
+}
+
+std::string Shop::getProductSprite(unsigned productId)
+{
+	return m_Products[productId]->getProductSprite();
 }
 
 void Shop::setShopOpenDay(unsigned weekday)
