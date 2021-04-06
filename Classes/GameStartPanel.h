@@ -10,7 +10,7 @@ public:
 	~GameStartPanel() override;
 	void openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint) override;
 
-	std::function<void(UIPanel*)> onDestroyCall;
+	std::function<void(UIPanel*, unsigned, EPanels)> onDestroyCall;
 private:
 	unsigned m_SelectedShopId = 0;
 	void selectedItemCallback(cocos2d::Ref* pSender, unsigned shopId);

@@ -22,7 +22,8 @@ public:
 	static MouseOverMenuItem* create(const std::string& normalImage, const std::string& overImage, const std::string& disabledImage, const cocos2d::ccMenuCallback& callback);
 	static MouseOverMenuItem* create(Node* normalSprite, Node* overSprite, Node* disabledSprite, const cocos2d::ccMenuCallback& callback);
 
-	std::function<void(MouseOverMenuItem* overItem,cocos2d::Event* event)> onMouseOver;
+	typedef std::function<void(MouseOverMenuItem*, cocos2d::Event*)> onMouseOver;
+	onMouseOver m_OnMouseOver;
 	void setItemRect(cocos2d::Vec2& pos, float scale = 1.f);
 protected:
 	cocos2d::EventListenerMouse* m_MouseListener;

@@ -13,11 +13,8 @@ GlobalTime::~GlobalTime()
 	delete m_Gametime;
 	m_Gametime = nullptr;
 
-	for (unsigned index = 0; index < Listeners.size(); index++)
-	{
-		Listeners.erase(Listeners.begin() + index);
-	}
-	Listeners.clear();
+	m_MinuteListeners.clear();
+	m_HourListeners.clear();
 }
 
 void GlobalTime::update(float delta)
@@ -57,20 +54,32 @@ void GlobalTime::update(float delta)
 				onEveryDayChanges(this, m_Gametime->day);
 		}
 
-		if (onEveryHourChanges)
-			onEveryHourChanges(this, m_Gametime->hour);
+		if (m_HourListeners.size() > 0)
+		{
+			for (auto listener : m_HourListeners)
+			{
+				listener(this, m_Gametime->hour);
+			}
+		}
 	}
 
-	if (Listeners.size() > 0)
+	if (m_MinuteListeners.size() > 0)
 	{
-		for (auto listener : Listeners)
+		for (auto listener : m_MinuteListeners)
+		{
 			listener(this, m_Gametime->minute);
+		}
 	}
 }
 
-void GlobalTime::addMinuteEventListener(const onEveryMinuteChanges& changes)
+void GlobalTime::addMinuteEventListener(const onTimeChanges& changes)
 {
-	Listeners.push_back(changes);
+	m_MinuteListeners.push_back(changes);
+}
+
+void GlobalTime::addHourEventListener(const onTimeChanges& changes)
+{
+	m_HourListeners.push_back(changes);
 }
 
 

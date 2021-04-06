@@ -83,7 +83,7 @@ bool MainMenuScene::init()
 	if (!startButtonItem)
 		return false;
 
-	startButtonItem->onMouseOver = CC_CALLBACK_2(MainMenuScene::onMouseOver, this);
+	startButtonItem->m_OnMouseOver = CC_CALLBACK_2(MainMenuScene::onMouseOver, this);
 	Vec2 startButtonPos = Vec2(label->getPositionX(), label->getPositionY() - 200.f);
 	startButtonItem->setPosition(startButtonPos);
 	startButtonItem->setItemRect(startButtonPos);
@@ -102,7 +102,7 @@ bool MainMenuScene::init()
 	if (!quitButtonItem)
 		return false;
 
-	quitButtonItem->onMouseOver = CC_CALLBACK_2(MainMenuScene::onMouseOver, this);
+	quitButtonItem->m_OnMouseOver = CC_CALLBACK_2(MainMenuScene::onMouseOver, this);
 	Vec2 quitButtonPos = Vec2(startButtonPos.x, startButtonPos.y - 100.f);
 	quitButtonItem->setPosition(quitButtonPos);
 	quitButtonItem->setItemRect(quitButtonPos);

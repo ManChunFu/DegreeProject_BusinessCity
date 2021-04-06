@@ -13,16 +13,18 @@ public:
 	void update(float delta);
 	
 
-	typedef std::function<void(GlobalTime*, unsigned)> onEveryMinuteChanges;
-	void addMinuteEventListener(const onEveryMinuteChanges& changes);
+	typedef std::function<void(GlobalTime*, unsigned)> onTimeChanges;
+	
+	void addMinuteEventListener(const onTimeChanges& changes);
+	void addHourEventListener(const onTimeChanges& changes);
 
-	onEveryMinuteChanges onEveryHourChanges;
-	onEveryMinuteChanges onEveryDayChanges;
-	onEveryMinuteChanges onEveryWeekChanges;
+	onTimeChanges onEveryDayChanges;
+	onTimeChanges onEveryWeekChanges;
 
 	GameTime* m_Gametime = nullptr;
 protected:
 	float m_ElapsedTime = 0.f;
-	std::vector<onEveryMinuteChanges> Listeners;
+	std::vector<onTimeChanges> m_MinuteListeners;
+	std::vector<onTimeChanges> m_HourListeners;
 };
 

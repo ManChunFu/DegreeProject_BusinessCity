@@ -103,10 +103,10 @@ void MouseOverMenuItem::onMouseMove(Event* event)
 	if (m_ItemRect.containsPoint(locationInNode))
 	{
 		selected();
-		if (onMouseOver && !m_IsHovering)
+		if (m_OnMouseOver && !m_IsHovering)
 		{
 			m_IsHovering = true;
-			onMouseOver(this, event);
+			m_OnMouseOver(this, event);
 		}
 	}
 	else

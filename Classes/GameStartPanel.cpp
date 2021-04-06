@@ -95,14 +95,14 @@ void GameStartPanel::openPanel(GameScene* scene, Vec2 sceneMidPoint)
 void GameStartPanel::goButtonCallback(cocos2d::Ref* pSender)
 {
 	m_Player->m_MyShopIds.push_back(m_SelectedShopId);
-	m_Player->updateCurrentCashAmout(-GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]]->m_ShopPrice);
+	m_Player->updateCurrentCashAmout(-GameData::getInstance().m_Shops[m_SelectedShopId]->m_ShopPrice);
 	
 	for (auto element : m_Elements)
 	{
 		m_GameScene->removeChild(element);
 	}
 	if (onDestroyCall)
-		onDestroyCall(this);
+		onDestroyCall(this, m_SelectedShopId, EPanels::ACTION_PANEL);
 }
 
 void GameStartPanel::selectedItemCallback(cocos2d::Ref* pSender, unsigned shopId)

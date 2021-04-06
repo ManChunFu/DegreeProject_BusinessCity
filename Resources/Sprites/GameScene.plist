@@ -334,18 +334,18 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>GameSceneCityView.png</key>
+            <key>GameSceneCity1924x1080.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{1920,1080}</string>
+                <string>{1924,1080}</string>
                 <key>spriteSourceSize</key>
-                <string>{1920,1080}</string>
+                <string>{1924,1080}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{1920,1080}}</string>
+                <string>{{1,1},{1924,1080}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -616,9 +616,9 @@
             <key>realTextureFileName</key>
             <string>GameScene.png</string>
             <key>size</key>
-            <string>{1922,1672}</string>
+            <string>{1926,1672}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:6f94c8b96f11fe59fc943eb1f886f912:9c328837bb003c9f4197fb8428133d7c:865db70d33f6fd1c3bd18ff13c48b0ed$</string>
+            <string>$TexturePacker:SmartUpdate:a60787042259e2eacef9d54b144db345:e17f1284dc138b44fd49341145d75970:865db70d33f6fd1c3bd18ff13c48b0ed$</string>
             <key>textureFileName</key>
             <string>GameScene.png</string>
         </dict>

@@ -24,21 +24,6 @@ public:
 	void setRunForErrand();
 	unsigned getCountDown() { return m_ReplenishingCountDown; }
 
-	unsigned getProductQuantity(unsigned productId);
-	void setShopProductQuantity(unsigned productId, unsigned quantity);
-	void increaseProductQuantity(unsigned productId, unsigned amout);
-
-	unsigned getProductPurchasePrice(unsigned productId);
-	unsigned getProductSalePrice(unsigned productId);
-	unsigned getCurrentSalePrice(unsigned productId);
-	void setCurrentSalePrice(unsigned productId, unsigned price);
-
-	unsigned getProductId(unsigned productId);
-	std::string getProductName(unsigned productId);
-	std::string getProductSprite(unsigned productId);
-
-	unsigned getProductsSize() { return m_Products.size(); }
-
 	void setPlayerWorkHere();
 	unsigned int isAnyoneAtStore();
 	unsigned getEmployeeCount() { return m_Employees; }
@@ -51,7 +36,7 @@ public:
 
 	std::function<void(unsigned productId, unsigned remainQuantity)> onQuantityChanges;
 	std::function<void(unsigned countdown)> onCountdownChanges;
-
+	std::function<void(bool isShopOpen)> onShopStateChanges;
 #pragma region ShopData
 	std::string m_ShopType = "";
 	std::string m_Name = "";
@@ -80,6 +65,24 @@ public:
 	bool m_IsReplenishing = false;
 	unsigned m_ReplenishingCountDown = 30;
 #pragma endregion
+
+#pragma region ShopProducts
+	unsigned getProductQuantity(unsigned productId);
+	void setShopProductQuantity(unsigned productId, unsigned quantity);
+	void increaseProductQuantity(unsigned productId, unsigned amout);
+
+	unsigned getProductPurchasePrice(unsigned productId);
+	unsigned getProductSalePrice(unsigned productId);
+	unsigned getCurrentSalePrice(unsigned productId);
+	void setCurrentSalePrice(unsigned productId, unsigned price);
+
+	unsigned getProductId(unsigned productId);
+	std::string getProductName(unsigned productId);
+	std::string getProductSprite(unsigned productId);
+
+	unsigned getProductsSize() { return m_Products.size(); }
+#pragma endregion
+
 protected:
 	std::vector<ShopProduct*> m_Products;
 

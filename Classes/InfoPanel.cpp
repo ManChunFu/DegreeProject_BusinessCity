@@ -33,7 +33,7 @@ void InfoPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
 
 	auto globalTime = GameData::getInstance().m_GlobalTime;
 	globalTime->addMinuteEventListener(CC_CALLBACK_2(InfoPanel::onEveryMinuteChanges, this));
-	globalTime->onEveryHourChanges = CC_CALLBACK_2(InfoPanel::onEveryHourChanges, this);
+	globalTime->addHourEventListener(CC_CALLBACK_2(InfoPanel::onEveryHourChanges, this));
 	globalTime->onEveryDayChanges = CC_CALLBACK_2(InfoPanel::onEveryDayChanges, this);
 	globalTime->onEveryWeekChanges = CC_CALLBACK_2(InfoPanel::onEveryWeekChanges, this);
 
@@ -94,7 +94,7 @@ void InfoPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
 		CC_CALLBACK_1(InfoPanel::checkBalanceCallback, this, scene));
 	if (m_BankButton)
 	{
-		m_BankButton->onMouseOver = CC_CALLBACK_2(InfoPanel::onMouseOver, this);
+		m_BankButton->m_OnMouseOver = CC_CALLBACK_2(InfoPanel::onMouseOver, this);
 		auto bankPos = Vec2(m_ThisPanel->getPosition().x + 445.f, m_ThisPanel->getPosition().y);
 		m_BankButton->setPosition(bankPos);
 		m_BankButton->setScale(0.7f);

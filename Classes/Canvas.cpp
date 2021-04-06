@@ -37,7 +37,7 @@ void Canvas::Init(GameScene* scene, Player* player)
 	m_VisibleSize = Director::getInstance()->getVisibleSize();
 	m_Origin = Director::getInstance()->getVisibleOrigin();
 
-	auto backgroundSprite = Sprite::createWithSpriteFrameName("GameSceneCityView.png");
+	auto backgroundSprite = Sprite::createWithSpriteFrameName("GameSceneCity1924x1080.png");
 	if (!backgroundSprite)
 		return;
 
@@ -58,7 +58,7 @@ void Canvas::Init(GameScene* scene, Player* player)
 	m_GameStartPanel = new GameStartPanel;
 	m_GameStartPanel->autorelease();
 	m_GameStartPanel->openPanel(m_GameScene, m_SceneMidPoint);
-	m_GameStartPanel->onDestroyCall = CC_CALLBACK_1(Canvas::destroyPanel, this, EPanels::ACTION_PANEL, 0);
+	m_GameStartPanel->onDestroyCall = CC_CALLBACK_3(Canvas::destroyPanel, this);
 	m_UIPanels.pushBack(m_GameStartPanel);
 }
 
@@ -96,11 +96,11 @@ void Canvas::gameOver()
 	m_GameoverPanel = new GameOverPanel;
 	m_GameoverPanel->autorelease();
 	m_GameoverPanel->openPanel(m_GameScene, m_SceneMidPoint);
-	m_GameoverPanel->onDestroyCall = CC_CALLBACK_1(Canvas::destroyPanel, this, EPanels::DEFAULT_PANEL, 0);
+	m_GameoverPanel->onDestroyCall = CC_CALLBACK_1(Canvas::destroyPanel, this, 0, EPanels::DEFAULT_PANEL);
 	m_AddPanels.pushBack(m_GameoverPanel);
 }
 
-void Canvas::destroyPanel(UIPanel* panel, EPanels uiPanel, unsigned shopId)
+void Canvas::destroyPanel(UIPanel* panel, unsigned shopId, EPanels uiPanel)
 {
 	m_RemovePanels.pushBack(panel);
 
@@ -116,6 +116,7 @@ void Canvas::activePanel(EPanels uiPanel, unsigned shopId)
 	{
 	case EPanels::ACTION_PANEL:
 		m_ActionPanel->displayShop(shopId);
+		m_ActionPanel->displayShopOptions();
 		m_InfoPanel->enableBankButton(true);
 		break;
 	case EPanels::GAMEOVER_PANEL:

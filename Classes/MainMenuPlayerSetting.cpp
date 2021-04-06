@@ -98,7 +98,7 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 		return;
 
 	woman1Item->itemSelectedData.type = itemTypes::WOMAN1;
-	woman1Item->onMouseOver = CC_CALLBACK_2(MainMenuPlayerSetting::onMouseOver, this);
+	woman1Item->m_OnMouseOver = CC_CALLBACK_2(MainMenuPlayerSetting::onMouseOver, this);
 	Vec2 woman1Pos = Vec2(sceneMidPoint.x - 100.f, sceneMidPoint.y + 60.f);
 	woman1Item->setScale(0.4f);
 	woman1Item->setPosition(woman1Pos);
@@ -114,7 +114,7 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 		return;
 
 	woman2Item->itemSelectedData.type = itemTypes::WOMAN2;
-	woman2Item->onMouseOver = CC_CALLBACK_2(MainMenuPlayerSetting::onMouseOver, this);
+	woman2Item->m_OnMouseOver = CC_CALLBACK_2(MainMenuPlayerSetting::onMouseOver, this);
 	Vec2 woman2Pos = Vec2(sceneMidPoint.x, sceneMidPoint.y + 60.f);
 	woman2Item->setScale(0.4f);
 	woman2Item->setPosition(woman2Pos);
@@ -130,7 +130,7 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 		return;
 
 	woman3Item->itemSelectedData.type = itemTypes::WOMAN3;
-	woman3Item->onMouseOver = CC_CALLBACK_2(MainMenuPlayerSetting::onMouseOver, this);
+	woman3Item->m_OnMouseOver = CC_CALLBACK_2(MainMenuPlayerSetting::onMouseOver, this);
 	Vec2 woman3Pos = Vec2(sceneMidPoint.x + 100.f, sceneMidPoint.y + 60.f);
 	woman3Item->setScale(0.4f);
 	woman3Item->setPosition(woman3Pos);
@@ -146,7 +146,7 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	if (!man1Item)
 		return;
 
-	man1Item->onMouseOver = CC_CALLBACK_2(MainMenuPlayerSetting::onMouseOver, this);
+	man1Item->m_OnMouseOver = CC_CALLBACK_2(MainMenuPlayerSetting::onMouseOver, this);
 	Vec2 man1Pos = Vec2(sceneMidPoint.x - 100.f, sceneMidPoint.y - 40.f);
 	man1Item->setScale(0.4f);
 	man1Item->setPosition(man1Pos);
@@ -162,7 +162,7 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 		return;
 
 	man2Item->itemSelectedData.type = itemTypes::MAN2;
-	man2Item->onMouseOver = CC_CALLBACK_2(MainMenuPlayerSetting::onMouseOver, this);
+	man2Item->m_OnMouseOver = CC_CALLBACK_2(MainMenuPlayerSetting::onMouseOver, this);
 	Vec2 man2Pos = Vec2(sceneMidPoint.x, sceneMidPoint.y - 40.f);
 	man2Item->setScale(0.4f);
 	man2Item->setPosition(man2Pos);
@@ -178,7 +178,7 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 		return;
 
 	man3Item->itemSelectedData.type = itemTypes::MAN3;
-	man3Item->onMouseOver = CC_CALLBACK_2(MainMenuPlayerSetting::onMouseOver, this);
+	man3Item->m_OnMouseOver = CC_CALLBACK_2(MainMenuPlayerSetting::onMouseOver, this);
 	Vec2 man3Pos = Vec2(sceneMidPoint.x + 100.f, sceneMidPoint.y - 40.f);
 	man3Item->setScale(0.4f);
 	man3Item->setPosition(man3Pos);
@@ -197,7 +197,7 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	if (playItem)
 	{
 		playItem->itemSelectedData.type = itemTypes::BUTTON;
-		playItem->onMouseOver = CC_CALLBACK_2(MainMenuPlayerSetting::onMouseOver, this);
+		playItem->m_OnMouseOver = CC_CALLBACK_2(MainMenuPlayerSetting::onMouseOver, this);
 		Vec2 playPos = Vec2(sceneMidPoint.x - 80.f, sceneMidPoint.y - 160.f);
 		playItem->setScale(0.8f);
 		playItem->setPosition(playPos);
@@ -217,7 +217,7 @@ void MainMenuPlayerSetting::createPlayerSettingWindow()
 	if (cancelItem)
 	{
 		cancelItem->itemSelectedData.type = itemTypes::BUTTON;
-		cancelItem->onMouseOver = CC_CALLBACK_2(MainMenuPlayerSetting::onMouseOver, this);
+		cancelItem->m_OnMouseOver = CC_CALLBACK_2(MainMenuPlayerSetting::onMouseOver, this);
 		Vec2 cancelPos = Vec2(sceneMidPoint.x + 80.f, sceneMidPoint.y - 160.f);
 		cancelItem->setScale(0.8f);
 		cancelItem->setPosition(cancelPos);

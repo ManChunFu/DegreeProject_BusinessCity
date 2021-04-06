@@ -49,7 +49,7 @@ void MyShopSettingPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint
 		m_Player = GameData::getInstance().m_Player;
 
 		if (m_GameScene && m_Player)
-			createPanel(sceneMidPoint);
+			createPanel(sceneMidPoint, shopId);
 
 		return;
 	}
@@ -72,7 +72,7 @@ void MyShopSettingPanel::closePanel()
 
 void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopId)
 {
-	m_MyShop = GameData::getInstance().m_Shops[m_Player->m_MyShopIds[shopId]];
+	m_MyShop = GameData::getInstance().m_Shops[shopId];
 	m_MyShop->onQuantityChanges = CC_CALLBACK_2(MyShopSettingPanel::onQuantitytChanges, this);
 	m_MyShop->onCountdownChanges = CC_CALLBACK_1(MyShopSettingPanel::onCountDownChanges, this);
 
@@ -835,7 +835,7 @@ void MyShopSettingPanel::onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event
 
 void MyShopSettingPanel::displayButtons(MouseOverMenuItem* button, Vec2 pos, itemTypes type, float scale)
 {
-	button->onMouseOver = CC_CALLBACK_2(MyShopSettingPanel::onMouseOver, this);
+	button->m_OnMouseOver = CC_CALLBACK_2(MyShopSettingPanel::onMouseOver, this);
 	button->setScale(scale);
 	button->setPosition(pos);
 	button->setItemRect(pos, scale);
