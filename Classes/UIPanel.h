@@ -7,12 +7,13 @@ class GameScene;
 class Player;
 class MouseOverMenuItem;
 
-class UIPanel : public cocos2d::Node 
+class UIPanel : public cocos2d::Node
 {
 public:
 	virtual ~UIPanel();
 
 	virtual void openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint) {};
+	virtual void openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint, unsigned shopId = 0) {};
 	virtual void closePanel() {};
 
 	bool isPanelOpen() { return m_IsPanelOpen; }
@@ -26,7 +27,7 @@ protected:
 
 	bool m_IsPanelOpen = false;
 
-	virtual void createPanel(cocos2d::Vec2 sceneMidPoint) {};
+	virtual void createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopId = 0) {};
 
 	MouseOverMenuItem* displayMenuButton(MouseOverMenuItem* button, std::function<void(MouseOverMenuItem* overItem, cocos2d::Event* event)> onMouseOver, cocos2d::Vec2 pos, cocos2d::itemTypes type = cocos2d::itemTypes::DEFAULT, float scale = 1.f);
 };

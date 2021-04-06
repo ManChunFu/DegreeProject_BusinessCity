@@ -37,7 +37,7 @@ MyShopSettingPanel::~MyShopSettingPanel()
 	m_ProductDatas.clear();
 }
 
-void MyShopSettingPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
+void MyShopSettingPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint, unsigned shopId)
 {
 	m_IsPanelOpen = true;
 	GameData::getInstance().setTempOpenPanel(this);
@@ -70,11 +70,11 @@ void MyShopSettingPanel::closePanel()
 	GameData::getInstance().m_TempOpenPanel = nullptr;
 }
 
-void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
+void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopId)
 {
-	m_MyShop = GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]];
-	m_MyShop->onQuantityChanges = CC_CALLBACK_3(MyShopSettingPanel::onQuantitytChanges, this);
-	m_MyShop->onCountdownChanges = CC_CALLBACK_2(MyShopSettingPanel::onCountDownChanges, this);
+	m_MyShop = GameData::getInstance().m_Shops[m_Player->m_MyShopIds[shopId]];
+	m_MyShop->onQuantityChanges = CC_CALLBACK_2(MyShopSettingPanel::onQuantitytChanges, this);
+	m_MyShop->onCountdownChanges = CC_CALLBACK_1(MyShopSettingPanel::onCountDownChanges, this);
 
 	// create this panel
 	m_ThisPanel = Sprite::createWithSpriteFrameName("Brown_Panel_700x500_BlueLine.png");
@@ -120,14 +120,26 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 #pragma region Hire Employee button
 	auto employeeText = Label::createWithTTF("Employees", "fonts/NirmalaB.ttf", 20);
 	if (employeeText)
-		GameFunctions::displayLabel(employeeText, Color4B::BLACK, Vec2(textAligmentLeft, panelMidPoint.y + 150.f),
+		GameFunctions::displayLabel(employeeText, Color4B::BLACK, Vec2(textAligmentLeft, panelMidPoint.y + 140.f),
 			m_ThisPanel, 1, true, TextHAlignment::LEFT);
 
-	auto boxSprite = Sprite::createWithSpriteFrameName("Border_Black_Square.png");
+	auto atStoreText = Label::createWithTTF("At Store", "fonts/NirmalaB.ttf", 15);
+	if (atStoreText)
+		GameFunctions::displayLabel(atStoreText, Color4B::BLACK, Vec2(panelMidPoint.x - 200.f, panelMidPoint.y + 170.f),
+			m_ThisPanel, 1, true, TextHAlignment::LEFT);
 
+	m_EmployeeAtStoreText = Label::createWithTTF(std::to_string(m_MyShop->getEmployeeCount()), "fonts/NirmalaB.ttf", 20);
+	if (m_EmployeeAtStoreText)
+	{
+		m_EmployeeAtStoreText->enableShadow(Color4B::BLACK);
+		GameFunctions::displayLabel(m_EmployeeAtStoreText, Color4B::WHITE, Vec2(panelMidPoint.x - 170.f, panelMidPoint.y + 165.f),
+			m_ThisPanel, 1, true, TextHAlignment::RIGHT);
+	}
+
+	auto boxSprite = Sprite::createWithSpriteFrameName("Border_Black_Square.png");
 	if (boxSprite)
 	{
-		GameFunctions::displaySprite(boxSprite, Vec2(panelMidPoint.x - 170.f, panelMidPoint.y + 160.f), m_ThisPanel, 1);
+		GameFunctions::displaySprite(boxSprite, Vec2(panelMidPoint.x - 120.f, panelMidPoint.y + 150.f), m_ThisPanel, 1);
 
 		m_EmployeeCountText = Label::createWithTTF("", "fonts/Nirmala.ttf", 20);
 		if (m_EmployeeCountText)
@@ -145,8 +157,8 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 			: MouseOverMenuItem::createUpperButton(CC_CALLBACK_1(MyShopSettingPanel::addCallback, this));
 		if (employeeButton)
 		{
-			displayButtons(employeeButton, (index % 2 == 0) ? Vec2(sceneMidPoint.x - 155.f, sceneMidPoint.y + 150.f) :
-				Vec2(sceneMidPoint.x - 185.f, sceneMidPoint.y + 170.f), itemTypes::BUTTON);
+			displayButtons(employeeButton, (index % 2 == 0) ? Vec2(sceneMidPoint.x - 105.f, sceneMidPoint.y + 140.f) :
+				Vec2(sceneMidPoint.x - 135.f, sceneMidPoint.y + 160.f), itemTypes::BUTTON);
 		}
 	}
 
@@ -154,16 +166,15 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint)
 		CC_CALLBACK_1(MyShopSettingPanel::hireCallback, this));
 	if (hireButton)
 	{
-		displayButtons(hireButton, Vec2(sceneMidPoint.x - 95.f, sceneMidPoint.y + 160.f), itemTypes::DEFAULT, 0.7f);
+		displayButtons(hireButton, Vec2(sceneMidPoint.x - 50.f, sceneMidPoint.y + 150.f), itemTypes::DEFAULT, 0.7f);
 
 		auto hireText = Label::createWithTTF("HIRE", "fonts/NirmalaB.ttf", 20);
 		if (hireText)
-			GameFunctions::displayLabel(hireText, GameData::getInstance().m_ColorType.Taro, Vec2(hireButton->getContentSize().width * 0.5f,
-				hireButton->getContentSize().height * 0.5f), hireButton, 1);
+			GameFunctions::displayLabel(hireText, GameData::getInstance().m_ColorType.Taro, hireButton->getContentSize()* 0.5f, hireButton, 1);
 
-		auto salaryText = Label::createWithTTF("$500/Person", "fonts/Nirmala.ttf", 15);
+		auto salaryText = Label::createWithTTF("$500 / Person", "fonts/Nirmala.ttf", 15);
 		if (salaryText)
-			GameFunctions::displayLabel(salaryText, Color4B::BLACK, Vec2(panelMidPoint.x - 45.f, panelMidPoint.y + 150.f),
+			GameFunctions::displayLabel(salaryText, Color4B::BLACK, Vec2(panelMidPoint.x, panelMidPoint.y + 140.f),
 				m_ThisPanel, 1, true, TextHAlignment::LEFT);
 
 	}
@@ -668,7 +679,10 @@ void MyShopSettingPanel::addCallback(cocos2d::Ref* pSender)
 
 void MyShopSettingPanel::hireCallback(cocos2d::Ref* pSender)
 {
-	// TODO: implement hire
+	//update shop data
+	m_MyShop->addEmployee(m_EmployeeCount);
+	m_EmployeeAtStoreText->setString(std::to_string(m_MyShop->getEmployeeCount()));
+	m_EmployeeCountText->setString(std::to_string(m_EmployeeCount = 0));
 }
 
 void MyShopSettingPanel::workHereCallback(cocos2d::Ref* pSender)
@@ -684,11 +698,16 @@ void MyShopSettingPanel::reduceTimeCallback(cocos2d::Ref* pSender, bool fromHour
 		GameFunctions::updatLabelText_TimeFormat(m_FromHourText, m_FromHour, true);
 
 		m_MyShop->setShopOpenHour(0, m_FromHour);
+
+		updateShopWorkingState();
+
 		return;
 	}
 	m_ToHour = GameFunctions::displayLabelText_ClampValue(m_ToHourText, m_ToHour, -1, 0, 24);
 	GameFunctions::updatLabelText_TimeFormat(m_ToHourText, m_ToHour, true);
 	m_MyShop->setShopOpenHour(1, m_ToHour);
+
+	updateShopWorkingState();
 }
 
 void MyShopSettingPanel::increaseTimeCallback(cocos2d::Ref* pSender, bool fromHourButton)
@@ -699,16 +718,22 @@ void MyShopSettingPanel::increaseTimeCallback(cocos2d::Ref* pSender, bool fromHo
 		GameFunctions::updatLabelText_TimeFormat(m_FromHourText, m_FromHour, true);
 
 		m_MyShop->setShopOpenHour(0, m_FromHour);
+
+		updateShopWorkingState();
+
 		return;
 	}
 	m_ToHour = GameFunctions::displayLabelText_ClampValue(m_ToHourText, m_ToHour, 1, 0, 24);
 	GameFunctions::updatLabelText_TimeFormat(m_ToHourText, m_ToHour, true);
 	m_MyShop->setShopOpenHour(1, m_ToHour);
+
+	updateShopWorkingState();
 }
 
 void MyShopSettingPanel::checkBoxClickCallback(cocos2d::Ref* pSender, unsigned weekday)
 {
 	m_MyShop->setShopOpenDay(weekday);
+	updateShopWorkingState();
 }
 
 void MyShopSettingPanel::reducePriceCallback(cocos2d::Ref* pSender, unsigned productId)
@@ -754,9 +779,7 @@ void MyShopSettingPanel::increaseProductAmoutCallback(cocos2d::Ref* pSender, uns
 
 void MyShopSettingPanel::buyProductCallback(cocos2d::Ref* pSender, unsigned productId)
 {
-	// setup work state
-	m_MyShop->m_IsReplenishing = true;
-	updateShopWorkingState();
+	m_MyShop->setRunForErrand();
 
 	//update shop data
 	m_MyShop->increaseProductQuantity(productId, m_ProductDatas[productId]->purchaseCount);
@@ -765,6 +788,13 @@ void MyShopSettingPanel::buyProductCallback(cocos2d::Ref* pSender, unsigned prod
 	// update player current cash amout
 	auto totalPurchasePrice = m_MyShop->getProductPurchasePrice(productId) * m_ProductDatas[productId]->purchaseCount;
 	m_Player->updateCurrentCashAmout(-totalPurchasePrice);
+
+	// setup work state
+	if (m_MyShop->isReplenishing())
+	{
+		enableBuyButtons(false);
+		updateShopWorkingState();
+	}
 }
 
 void MyShopSettingPanel::openWidget2Callback(cocos2d::Ref* pSender)
@@ -780,14 +810,14 @@ void MyShopSettingPanel::openWidget2Callback(cocos2d::Ref* pSender)
 	enableWidget(m_ProductWidget1, true, m_MenuItems, itemTypes::BUTTON);
 }
 
-void MyShopSettingPanel::onQuantitytChanges(Shop* shop, unsigned productId, unsigned remainQuantity)
+void MyShopSettingPanel::onQuantitytChanges(unsigned productId, unsigned remainQuantity)
 {
 	updateShopWorkingState();
 
 	m_ProductDatas[productId]->productCurrentQTYText->setString(std::to_string(remainQuantity));
 }
 
-void MyShopSettingPanel::onCountDownChanges(Shop* shop, unsigned countdown)
+void MyShopSettingPanel::onCountDownChanges(unsigned countdown)
 {
 	m_ReplenishCountdownText->setString(std::to_string(countdown));
 
@@ -795,6 +825,7 @@ void MyShopSettingPanel::onCountDownChanges(Shop* shop, unsigned countdown)
 	{
 		m_WorkStateText->setString(m_WorkStates[0]);
 		m_ReplenishCountdownText->setVisible(false);
+		enableBuyButtons(true);
 	}
 }
 
@@ -841,6 +872,24 @@ void MyShopSettingPanel::enableMenuItems(Vector<MenuItem*>itemList, bool enable)
 	}
 }
 
+void MyShopSettingPanel::enableBuyButtons(bool enable)
+{
+	for (auto button : m_MenuItems)
+	{
+		if (button->itemSelectedData.type == itemTypes::BUTTON)
+			button->setEnabled(enable);
+	}
+
+	if (m_WidgetMenu.size() < 0)
+		return;
+
+	for (auto button : m_WidgetMenu)
+	{
+		if (button->itemSelectedData.type == itemTypes::WIDGET_BUTTON)
+			button->setEnabled(enable);
+	}
+}
+
 void MyShopSettingPanel::updateShopProductData()
 {
 	auto shop = GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]];
@@ -850,6 +899,8 @@ void MyShopSettingPanel::updateShopProductData()
 		m_ProductDatas[index]->productCurrentQTYText->setString(std::to_string(shop->getProductQuantity(index)));
 	}
 
+	m_EmployeeAtStoreText->setString(std::to_string(shop->getEmployeeCount()));
+
 	updateShopWorkingState();
 }
 
@@ -858,9 +909,6 @@ void MyShopSettingPanel::updateShopWorkingState()
 	m_WorkStateText->setString(getWorkState());
 
 	(m_MyShop->isReplenishing() ? m_ReplenishCountdownText->setVisible(true) : m_ReplenishCountdownText->setVisible(false));
-
-	if (!m_WorkStatesWidget->isVisible())
-		m_WorkStatesWidget->setVisible(true);
 }
 
 std::string MyShopSettingPanel::getWorkState()

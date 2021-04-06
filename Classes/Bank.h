@@ -22,7 +22,7 @@ public:
 	void update();
 	
 protected:
-	void createPanel(cocos2d::Vec2 sceneMidPoint) override;
+	void createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopId = 0) override;
 	void closeCallback(cocos2d::Ref* pSedner);
 	void addAmoutCallback(cocos2d::Ref* pSender);
 	void reduceAmoutCallback(cocos2d::Ref* pSender);

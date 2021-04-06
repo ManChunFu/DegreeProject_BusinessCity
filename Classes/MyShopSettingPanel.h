@@ -21,12 +21,12 @@ class MyShopSettingPanel : public UIPanel
 public:
 	~MyShopSettingPanel() override;
 
-	void openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint) override;
+	void openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint, unsigned shopId = 0) override;
 	void closePanel() override;
 	std::function<void(cocos2d::Ref* pSender)> onActionCall;
 
 protected:	
-	void createPanel(cocos2d::Vec2 sceneMidPoint) override;
+	void createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopId = 0) override;
 	void createProductWidget2(cocos2d::Vec2 panelMidPoint, cocos2d::Vec2 sceneMidPoint);
 	void closeCallback(cocos2d::Ref* pSender);
 	void reduceCallback(cocos2d::Ref* pSender);
@@ -42,8 +42,8 @@ protected:
 	void increaseProductAmoutCallback(cocos2d::Ref* pSender, unsigned productIndex);
 	void buyProductCallback(cocos2d::Ref* pSender, unsigned productId);
 	void openWidget2Callback(cocos2d::Ref* pSender);
-	void onQuantitytChanges(Shop* shop, unsigned productId, unsigned remainQuantity);
-	void onCountDownChanges(Shop* shop, unsigned countdown);
+	void onQuantitytChanges(unsigned productId, unsigned remainQuantity);
+	void onCountDownChanges(unsigned countdown);
 
 	void onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event);
 
@@ -54,6 +54,7 @@ private:
 	cocos2d::ui::Widget* m_WorkStatesWidget = nullptr;
 	cocos2d::Label* m_WorkStateText = nullptr;
 	cocos2d::Label* m_ReplenishCountdownText = nullptr;
+	cocos2d::Label* m_EmployeeAtStoreText = nullptr;
 	cocos2d::Label* m_EmployeeCountText = nullptr;
 	cocos2d::Label* m_FromHourText = nullptr;
 	cocos2d::Label* m_ToHourText = nullptr;
@@ -78,6 +79,7 @@ private:
 	void enableWidget(cocos2d::ui::Widget* widget, bool enable, cocos2d::Vector<cocos2d::MenuItem*>itemList, cocos2d::itemTypes type);
 	void enableMenuItems(cocos2d::Vector<cocos2d::MenuItem*>itemList, bool enable);
 	void displayButtons(MouseOverMenuItem* button, cocos2d::Vec2 pos, cocos2d::itemTypes type = cocos2d::itemTypes::DEFAULT, float scale = 0.5f);
+	void enableBuyButtons(bool enable);
 	void updateShopProductData();
 	void updateShopWorkingState();
 	std::string getWorkState();

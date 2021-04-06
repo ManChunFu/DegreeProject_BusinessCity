@@ -39,7 +39,7 @@ Bank::~Bank()
 	m_RemainWeeksText = nullptr;
 }
 
-void Bank::openPanel(GameScene* scene, Vec2 sceneMidPoint) 
+void Bank::openPanel(GameScene* scene, Vec2 sceneMidPoint)
 {
 	m_IsPanelOpen = true;
 	GameData::getInstance().setTempOpenPanel(this);
@@ -109,7 +109,7 @@ void Bank::update()
 	}
 }
 
-void Bank::createPanel(cocos2d::Vec2 sceneMidPoint)
+void Bank::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopId)
 {
 	// create Bank panel
 	m_ThisPanel = Sprite::createWithSpriteFrameName("Bank_Panel_420_SquareCorner.png");
@@ -556,11 +556,12 @@ void Bank::updatePlayerCurrentShopInfo()
 	if (m_Player->m_MyShopIds.size() < 0)
 		return;
 
-	m_ShopName = GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]]->m_Name;
-	m_ElectricityFee = GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]]->m_Electricity;
-	m_WaterFee = GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]]->m_Water;
-	m_SalaryExpense = GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]]->m_TotalSalaryExpense;
-	m_commercialFee = GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]]->m_CommercialCost;
+	auto shop = GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]];
+	m_ShopName = shop->m_Name;
+	m_ElectricityFee = shop->m_Electricity;
+	m_WaterFee = shop->m_Water;
+	m_SalaryExpense = shop->m_TotalSalaryExpense;
+	m_commercialFee = shop->m_CommercialCost;
 }
 
 void Bank::onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event)

@@ -11,7 +11,7 @@ public:
 	~ActionPanel() override;
 
 	void openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint) override;
-	void displayShop();
+	void displayShop(unsigned shopId);
 
 protected:
 	void openShopCallback(cocos2d::Ref* pSender);

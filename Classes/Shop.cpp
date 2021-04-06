@@ -89,6 +89,9 @@ bool Shop::isShopOpen(unsigned day, unsigned currentHour)
 		return false;
 	}
 
+	if (m_Employees == 0 && !m_PlayerWorkHere)
+		return false;
+
 	if (currentHour < m_ShopOpenHour.first || currentHour > m_ShopOpenHour.second)
 		return false;
 
@@ -99,27 +102,47 @@ unsigned Shop::runTrade(unsigned day, Shop* shop)
 {
 	auto randNo = random(0, 100);
 
-	if (randNo < getSucessProbability(day))
-		return 0;
-
-	// run trade quantity
-	auto tradeQuantity = random(1, 4);
+	// random a product
 	auto productTypes = (int)m_Products.size() - 1;
 	auto tradeProduct = random(0, productTypes);
+
+	// check if it is succeed to sale
+	if (getSucessProbability(m_Products[tradeProduct], day) < randNo)
+		return 0;
+
+	// run random trade quantity
+	auto tradeQuantity = random(1, 4);
+	
+	// make sure the shop still have enough stock
 	if (tradeQuantity < m_Products[tradeProduct]->getProductQuantity())
 	{
+		// update shop product qty
 		m_Products[tradeProduct]->increaseProductQuantity(-tradeQuantity);
 		if (onQuantityChanges)
-			onQuantityChanges(this, m_Products[tradeProduct]->getProductId(), m_Products[tradeProduct]->getProductQuantity());
+			onQuantityChanges(m_Products[tradeProduct]->getProductId(), m_Products[tradeProduct]->getProductQuantity());
+
+		// sales income
+		return m_Products[tradeProduct]->getCurrentSalePrice() * tradeQuantity;
 	}
 
-	// sales income
-	return m_Products[tradeProduct]->getCurrentSalePrice() * tradeQuantity;
+	return 0;
 }
 
-unsigned Shop::getSucessProbability(unsigned day)
+void Shop::setRunForErrand()
 {
-	return m_SuccessProbabilityDaily[day];
+	if (m_IsReplenishing)
+		return;
+
+	m_StaffRunForErrandCount++;
+	if (isAnyoneAtStore() == m_StaffRunForErrandCount)
+		m_IsReplenishing = true;
+}
+
+unsigned Shop::getSucessProbability(ShopProduct* product, unsigned day)
+{
+	auto difference = product->getCurrentSalePrice() / product->getSalePrice();
+
+	return m_SuccessProbabilityDaily[day] * difference;
 }
 
 unsigned Shop::getProductQuantity(unsigned productId)
@@ -184,6 +207,20 @@ void Shop::setPlayerWorkHere()
 	m_PlayerWorkHere = !originSetting;
 }
 
+unsigned int Shop::isAnyoneAtStore()
+{
+	auto staffs = m_Employees;
+	if (m_PlayerWorkHere)
+		staffs += 1;
+
+	return staffs;
+}
+
+void Shop::addEmployee(unsigned person)
+{
+	m_Employees += person;
+}
+
 void Shop::setShopOpenHour(unsigned fromOrTo, unsigned workingHour)
 {
 	(fromOrTo == 0) ? m_ShopOpenHour.first = workingHour : m_ShopOpenHour.second = workingHour;
@@ -193,12 +230,13 @@ void Shop::ReplenishmentCountDown()
 {
 	m_ReplenishingCountDown--;
 	if (onCountdownChanges)
-		onCountdownChanges(this, m_ReplenishingCountDown);
+		onCountdownChanges(m_ReplenishingCountDown);
 
 	if (m_ReplenishingCountDown == 0)
 	{
 		m_IsReplenishing = false;
 		m_ReplenishingCountDown = 30;
+		m_StaffRunForErrandCount = 0;
 	}
 }
 

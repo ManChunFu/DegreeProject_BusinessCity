@@ -11,7 +11,7 @@ public:
 	
 	void openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint) override;
 
-	std::function<void(UIPanel*, EPanels)> onDestroyCall;
+	std::function<void(UIPanel*)> onDestroyCall;
 
 private:
 	void restart(cocos2d::Ref* pSender);

@@ -38,9 +38,8 @@ private:
 	cocos2d::Vec2 m_Origin;
 	cocos2d::Vec2 m_SceneMidPoint;
 	
-	void destroyPanel(UIPanel* panel, EPanels uiPanel);
-	void actionCall(cocos2d::Ref* pSender, EPanels uiPanel);
-	void activePanel(EPanels uiPanel);
+	void destroyPanel(UIPanel* panel, EPanels uiPanel, unsigned shopId);
+	void activePanel(EPanels uiPanel, unsigned shopId);
 	void setSpriteScale(cocos2d::Sprite* sprite, cocos2d::Vec2 scale);
 	
 };

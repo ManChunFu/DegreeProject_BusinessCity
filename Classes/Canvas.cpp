@@ -58,7 +58,7 @@ void Canvas::Init(GameScene* scene, Player* player)
 	m_GameStartPanel = new GameStartPanel;
 	m_GameStartPanel->autorelease();
 	m_GameStartPanel->openPanel(m_GameScene, m_SceneMidPoint);
-	m_GameStartPanel->onDestroyCall = CC_CALLBACK_2(Canvas::destroyPanel, this);
+	m_GameStartPanel->onDestroyCall = CC_CALLBACK_1(Canvas::destroyPanel, this, EPanels::ACTION_PANEL, 0);
 	m_UIPanels.pushBack(m_GameStartPanel);
 }
 
@@ -96,34 +96,26 @@ void Canvas::gameOver()
 	m_GameoverPanel = new GameOverPanel;
 	m_GameoverPanel->autorelease();
 	m_GameoverPanel->openPanel(m_GameScene, m_SceneMidPoint);
-	m_GameoverPanel->onDestroyCall = CC_CALLBACK_2(Canvas::destroyPanel, this);
+	m_GameoverPanel->onDestroyCall = CC_CALLBACK_1(Canvas::destroyPanel, this, EPanels::DEFAULT_PANEL, 0);
 	m_AddPanels.pushBack(m_GameoverPanel);
 }
 
-void Canvas::destroyPanel(UIPanel* panel, EPanels uiPanel)
+void Canvas::destroyPanel(UIPanel* panel, EPanels uiPanel, unsigned shopId)
 {
 	m_RemovePanels.pushBack(panel);
 
 	if (uiPanel == EPanels::DEFAULT_PANEL)
 		return;
 
-	activePanel(uiPanel);
+	activePanel(uiPanel, shopId);
 }
 
-void Canvas::actionCall(cocos2d::Ref* pSender, EPanels uiPanel)
-{
-	if (uiPanel == EPanels::DEFAULT_PANEL)
-		return;
-
-	activePanel(uiPanel);
-}
-
-void Canvas::activePanel(EPanels uiPanel)
+void Canvas::activePanel(EPanels uiPanel, unsigned shopId)
 {
 	switch (uiPanel)
 	{
 	case EPanels::ACTION_PANEL:
-		m_ActionPanel->displayShop();
+		m_ActionPanel->displayShop(shopId);
 		m_InfoPanel->enableBankButton(true);
 		break;
 	case EPanels::GAMEOVER_PANEL:

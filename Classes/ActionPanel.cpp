@@ -30,9 +30,9 @@ void ActionPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
 	m_Elements.pushBack(m_ThisPanel);
 }
 
-void ActionPanel::displayShop()
+void ActionPanel::displayShop(unsigned shopId)
 {
-	m_MyShop = GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]];
+	m_MyShop = GameData::getInstance().m_Shops[m_Player->m_MyShopIds[shopId]];
 	auto myFirstShopButton = MouseOverMenuItem::creatMouseOverMenuButton(m_MyShop->m_ShopLook_Normal, m_MyShop->m_ShopLook_Lit, m_MyShop->m_ShopLook_Disabled,
 		CC_CALLBACK_1(ActionPanel::openShopCallback, this));
 	

@@ -21,6 +21,7 @@ public:
 	bool isShopOpen(unsigned day, unsigned currentHour);
 	unsigned runTrade(unsigned day, Shop* shop);
 	bool isReplenishing() { return m_IsReplenishing; }
+	void setRunForErrand();
 	unsigned getCountDown() { return m_ReplenishingCountDown; }
 
 	unsigned getProductQuantity(unsigned productId);
@@ -39,14 +40,17 @@ public:
 	unsigned getProductsSize() { return m_Products.size(); }
 
 	void setPlayerWorkHere();
+	unsigned int isAnyoneAtStore();
+	unsigned getEmployeeCount() { return m_Employees; }
+	void addEmployee(unsigned person);
 
 	void setShopOpenDay(unsigned weekday);
 	/* from = first, to = second */
 	void setShopOpenHour(unsigned fromOrTo, unsigned workingHour);
 
 
-	std::function<void(Shop* shop, unsigned productId, unsigned remainQuantity)> onQuantityChanges;
-	std::function<void(Shop* shop, unsigned countdown)> onCountdownChanges;
+	std::function<void(unsigned productId, unsigned remainQuantity)> onQuantityChanges;
+	std::function<void(unsigned countdown)> onCountdownChanges;
 
 #pragma region ShopData
 	std::string m_ShopType = "";
@@ -61,11 +65,12 @@ public:
 	unsigned m_Electricity = 0;
 	unsigned m_Water = 0;
 	unsigned m_Employees = 0;
+	unsigned m_StaffRunForErrandCount = 0;
 	unsigned m_TotalSalaryExpense = 0;
 	unsigned m_CommercialCost = 0;
 
 	// shop working -> monday to sunday
-	std::array<unsigned int, 7> m_SuccessProbabilityDaily = { 20, 20, 20, 20, 30, 50, 60 };
+	std::array<unsigned int, 7> m_SuccessProbabilityDaily = { 30, 30, 30, 30, 40, 50, 60 };
 	std::array<bool, 7> m_ShopOpenDay = { true, true, true, true, true, false, false };
 
 	// shop working hour -> from and  to
@@ -81,6 +86,6 @@ protected:
 private:
 	int m_MaxTradePerPerson = 4;
 
-	unsigned getSucessProbability(unsigned day);
+	unsigned getSucessProbability(ShopProduct* product, unsigned day);
 	void ReplenishmentCountDown();
 };

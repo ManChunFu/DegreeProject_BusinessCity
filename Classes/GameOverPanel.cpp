@@ -95,7 +95,7 @@ void GameOverPanel::destroyPanel()
 		m_GameScene->removeChild(element);
 	}
 	if (onDestroyCall)
-		onDestroyCall(this, EPanels::DEFAULT_PANEL);
+		onDestroyCall(this);
 
 	m_Player->reset();
 }
