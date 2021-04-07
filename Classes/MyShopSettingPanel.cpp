@@ -72,6 +72,7 @@ void MyShopSettingPanel::closePanel()
 
 void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopId)
 {
+	GameData::getInstance().m_GlobalTime->addHourEventListener(CC_CALLBACK_2(MyShopSettingPanel::onEveryHourChanges, this));
 	m_MyShop = GameData::getInstance().m_Shops[shopId];
 	m_MyShop->onQuantityChanges = CC_CALLBACK_2(MyShopSettingPanel::onQuantitytChanges, this);
 	m_MyShop->onCountdownChanges = CC_CALLBACK_1(MyShopSettingPanel::onCountDownChanges, this);
@@ -823,10 +824,14 @@ void MyShopSettingPanel::onCountDownChanges(unsigned countdown)
 
 	if (countdown == 0)
 	{
-		m_WorkStateText->setString(m_WorkStates[0]);
-		m_ReplenishCountdownText->setVisible(false);
+		updateShopWorkingState();
 		enableBuyButtons(true);
 	}
+}
+
+void MyShopSettingPanel::onEveryHourChanges(GlobalTime* globalTime, unsigned hour)
+{
+	updateShopWorkingState();
 }
 
 void MyShopSettingPanel::onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event)

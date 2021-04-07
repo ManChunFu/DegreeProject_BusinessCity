@@ -13,7 +13,6 @@ USING_NS_CC;
 GameLoop::GameLoop()
 {
 	GameData::getInstance().m_GlobalTime->addMinuteEventListener(CC_CALLBACK_2(GameLoop::onEveryMinuteChanges, this));
-	GameData::getInstance().m_GlobalTime->addHourEventListener(CC_CALLBACK_2(GameLoop::onEveryHourChanges, this));
 	m_Player = GameData::getInstance().m_Player;
 }
 
@@ -39,9 +38,5 @@ void GameLoop::onEveryMinuteChanges(GlobalTime* globalTime, unsigned minute)
 	}
 }
 
-void GameLoop::onEveryHourChanges(GlobalTime* globalTime, unsigned hour)
-{
-	
-}
 
 

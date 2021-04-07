@@ -3,6 +3,7 @@
 #include "UIPanel.h"
 
 class GameTime;
+class GlobalTime;
 class Player;
 class MouseOverMenuItem;
 class Shop;
@@ -44,6 +45,7 @@ protected:
 	void openWidget2Callback(cocos2d::Ref* pSender);
 	void onQuantitytChanges(unsigned productId, unsigned remainQuantity);
 	void onCountDownChanges(unsigned countdown);
+	void onEveryHourChanges(GlobalTime* globalTime, unsigned hour);
 
 	void onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event);
 

@@ -229,15 +229,21 @@ void Shop::setShopOpenHour(unsigned fromOrTo, unsigned workingHour)
 void Shop::ReplenishmentCountDown()
 {
 	m_ReplenishingCountDown--;
-	if (onCountdownChanges)
-		onCountdownChanges(m_ReplenishingCountDown);
 
 	if (m_ReplenishingCountDown == 0)
 	{
 		m_IsReplenishing = false;
+		if (onCountdownChanges)
+			onCountdownChanges(m_ReplenishingCountDown);
+
 		m_ReplenishingCountDown = 30;
 		m_StaffRunForErrandCount = 0;
+
+		return;
 	}
+	
+	if (onCountdownChanges)
+		onCountdownChanges(m_ReplenishingCountDown);
 }
 
 

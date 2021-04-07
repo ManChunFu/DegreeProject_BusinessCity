@@ -15,7 +15,6 @@ public:
 
 protected:
 	void onEveryMinuteChanges(GlobalTime* globalTime, unsigned minute);
-	void onEveryHourChanges(GlobalTime* globalTime, unsigned hour);
 private:
 	Player* m_Player = nullptr;
 	
