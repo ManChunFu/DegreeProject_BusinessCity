@@ -45,10 +45,10 @@ void Bank::openPanel(GameScene* scene, Vec2 sceneMidPoint)
 	GameData::getInstance().setTempOpenPanel(this);
 
 	m_CurrentWeek = GameData::getInstance().m_GlobalTime->m_Gametime->week;
+	updatePlayerCurrentShopInfo();
 
 	if (!m_ThisPanel)
 	{
-		updatePlayerCurrentShopInfo();
 		m_GameScene = scene;
 		if (m_GameScene)
 			createPanel(sceneMidPoint);
@@ -560,7 +560,7 @@ void Bank::updatePlayerCurrentShopInfo()
 	m_ShopName = shop->m_Name;
 	m_ElectricityFee = shop->m_Electricity;
 	m_WaterFee = shop->m_Water;
-	m_SalaryExpense = shop->m_TotalSalaryExpense;
+	m_SalaryExpense = shop->getTotalSalaryExpense();
 	m_commercialFee = shop->m_CommercialCost;
 }
 

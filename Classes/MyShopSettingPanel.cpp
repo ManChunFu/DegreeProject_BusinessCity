@@ -23,6 +23,7 @@ MyShopSettingPanel::~MyShopSettingPanel()
 	m_WorkStateText = nullptr;
 	m_ReplenishCountdownText = nullptr;
 	m_EmployeeCountText = nullptr;
+	m_EmployeeSalaryText = nullptr;
 	m_FromHourText = nullptr;
 	m_ToHourText = nullptr;
 	m_MyShop = nullptr;
@@ -86,7 +87,7 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopI
 	m_GameScene->addChild(m_ThisPanel, 1);
 	m_Elements.pushBack(m_ThisPanel);
 
-	auto panelMidPoint = Vec2(m_ThisPanel->getContentSize().width * 0.5f, m_ThisPanel->getContentSize().height * 0.5f);
+	auto panelMidPoint = Vec2(m_ThisPanel->getContentSize() * 0.5f);
 
 	// create close button
 	auto closePanelButton = MouseOverMenuItem::creatMouseOverMenuButton("CloseButton_Normal.png", "CloseButton_Lit.png", "CloseButton_Disable.png",
@@ -173,14 +174,24 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopI
 		if (hireText)
 			GameFunctions::displayLabel(hireText, GameData::getInstance().m_ColorType.Taro, hireButton->getContentSize()* 0.5f, hireButton, 1);
 
-		auto salaryText = Label::createWithTTF("$500 / Person", "fonts/Nirmala.ttf", 15);
-		if (salaryText)
-			GameFunctions::displayLabel(salaryText, Color4B::BLACK, Vec2(panelMidPoint.x, panelMidPoint.y + 140.f),
+		auto cashSymbol = Label::createWithTTF("$", "fonts/Nirmala.ttf", 15);
+		if (cashSymbol)
+			GameFunctions::displayLabel(cashSymbol, Color4B::BLACK, Vec2(panelMidPoint.x, panelMidPoint.y + 140.f),
+				m_ThisPanel, 1, true, TextHAlignment::LEFT);
+
+		m_EmployeeSalaryText = Label::createWithTTF(std::to_string(m_MyShop->m_SalaryPerEmployee), "fonts/Nirmala.ttf", 15);
+		if (m_EmployeeSalaryText)
+			GameFunctions::displayLabel(m_EmployeeSalaryText, Color4B::BLACK, Vec2(panelMidPoint.x + 15.f, panelMidPoint.y + 140.f),
+				m_ThisPanel, 1, true, TextHAlignment::LEFT);
+
+		auto personText = Label::createWithTTF("/ Person", "fonts/Nirmala.ttf", 15);
+		if (personText)
+			GameFunctions::displayLabel(personText, Color4B::BLACK, Vec2(panelMidPoint.x + 45.f, panelMidPoint.y + 140.f),
 				m_ThisPanel, 1, true, TextHAlignment::LEFT);
 
 	}
 #pragma endregion
-
+	
 #pragma region Work here checkbox
 	auto workHereText = Label::createWithTTF("I Work Here", "fonts/NirmalaB.ttf", 20);
 	if (workHereText)

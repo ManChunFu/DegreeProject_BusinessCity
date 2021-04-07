@@ -58,6 +58,7 @@ private:
 	cocos2d::Label* m_ReplenishCountdownText = nullptr;
 	cocos2d::Label* m_EmployeeAtStoreText = nullptr;
 	cocos2d::Label* m_EmployeeCountText = nullptr;
+	cocos2d::Label* m_EmployeeSalaryText = nullptr;
 	cocos2d::Label* m_FromHourText = nullptr;
 	cocos2d::Label* m_ToHourText = nullptr;
 	std::vector<cocos2d::ui::CheckBox*> m_Weekdays;

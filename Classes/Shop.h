@@ -28,6 +28,7 @@ public:
 	unsigned int isAnyoneAtStore();
 	unsigned getEmployeeCount() { return m_Employees; }
 	void addEmployee(unsigned person);
+	unsigned getTotalSalaryExpense() { return m_Employees * m_SalaryPerEmployee; }
 
 	void setShopOpenDay(unsigned weekday);
 	/* from = first, to = second */
@@ -50,8 +51,8 @@ public:
 	unsigned m_Electricity = 0;
 	unsigned m_Water = 0;
 	unsigned m_Employees = 0;
+	unsigned m_SalaryPerEmployee = 0;
 	unsigned m_StaffRunForErrandCount = 0;
-	unsigned m_TotalSalaryExpense = 0;
 	unsigned m_CommercialCost = 0;
 
 	// shop working -> monday to sunday

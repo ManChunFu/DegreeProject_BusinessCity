@@ -11,7 +11,7 @@
     "ElectricityCost": 200,
     "WaterCost": 50,
     "Employees": 0,
-    "TotalSalary": 0,
+    "SalaryPerEmployee": 500,
     "CommercialCost": 0,
     "Products": [
       {
@@ -44,7 +44,7 @@
     "ElectricityCost": 400,
     "WaterCost": 50,
     "Employees": 0,
-    "TotalSalary": 0,
+    "SalaryPerEmployee": 500,
     "CommercialCost": 0,
     "Products": [
       {
@@ -93,7 +93,7 @@
     "ElectricityCost": 100,
     "WaterCost": 100,
     "Employees": 0,
-    "TotalSalary": 0,
+    "SalaryPerEmployee": 500,
     "CommercialCost": 0,
     "Products": [
       {
@@ -150,7 +150,7 @@
     "ElectricityCost": 100,
     "WaterCost": 50,
     "Employees": 0,
-    "TotalSalary": 0,
+    "SalaryPerEmployee": 500,
     "CommercialCost": 0,
     "Products": [
       {
