@@ -803,6 +803,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   <ItemGroup>
     <ClInclude Include="..\Classes\ActionPanel.h" />
     <ClInclude Include="..\Classes\Bank.h" />
+    <ClInclude Include="..\Classes\BasicExpenseData.h" />
     <ClInclude Include="..\Classes\Canvas.h" />
     <ClInclude Include="..\Classes\DataManager.h" />
     <ClInclude Include="..\Classes\EPanel.h" />
@@ -824,6 +825,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\ProductData.h" />
     <ClInclude Include="..\Classes\ShopProduct.h" />
     <ClInclude Include="..\Classes\Shop.h" />
+    <ClInclude Include="..\Classes\ShopUI.h" />
+    <ClInclude Include="..\Classes\TotalExpense.h" />
     <ClInclude Include="..\Classes\UIPanel.h" />
     <ClInclude Include="C:\Users\mandy\source\repos\DegreeProject\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\MainMenuScene.h" />
@@ -831,6 +834,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\Users\mandy\source\repos\DegreeProject\proj.win32\resource.h" />
     <ClCompile Include="..\Classes\ActionPanel.cpp" />
     <ClCompile Include="..\Classes\Bank.cpp" />
+    <ClCompile Include="..\Classes\BasicExpenseData.cpp" />
     <ClCompile Include="..\Classes\Canvas.cpp" />
     <ClCompile Include="..\Classes\DataManager.cpp" />
     <ClCompile Include="..\Classes\GameData.cpp" />
@@ -848,6 +852,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\Classes\Player.cpp" />
     <ClCompile Include="..\Classes\ShopProduct.cpp" />
     <ClCompile Include="..\Classes\Shop.cpp" />
+    <ClCompile Include="..\Classes\TotalExpense.cpp" />
     <ClCompile Include="..\Classes\UIPanel.cpp" />
     <ClCompile Include="C:\Users\mandy\source\repos\DegreeProject\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\MainMenuScene.cpp" />

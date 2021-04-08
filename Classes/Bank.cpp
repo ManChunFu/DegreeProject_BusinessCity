@@ -5,22 +5,31 @@
 #include <ui/UITextField.h>
 #include "MouseOverMenuItem.h"
 #include "ui/UIWidget.h"
+#include "ui/CocosGUI.h"
 #include "Player.h"
 #include "Shop.h"
 #include "GlobalTime.h"
 #include "GameTime.h"
+#include "TotalExpense.h"
+#include "BasicExpenseData.h"
 
 USING_NS_CC;
 
 Bank::Bank() 
 { 
 	m_Player = GameData::getInstance().m_Player; 
+	m_TotalShopExpense = new TotalExpense();
 }
 
 Bank::~Bank()
 {
+	delete m_TotalShopExpense;
+	m_TotalShopExpense = nullptr;
+
+	m_ShopButtons.clear();
+	m_ShopWidgets.clear();
+
 	m_Weeks = nullptr;
-	m_Shop = nullptr;
 	m_Electricity = nullptr;
 	m_Water = nullptr;
 	m_Salary = nullptr;
@@ -45,7 +54,6 @@ void Bank::openPanel(GameScene* scene, Vec2 sceneMidPoint)
 	GameData::getInstance().setTempOpenPanel(this);
 
 	m_CurrentWeek = GameData::getInstance().m_GlobalTime->m_Gametime->week;
-	updatePlayerCurrentShopInfo();
 
 	if (!m_ThisPanel)
 	{
@@ -56,8 +64,9 @@ void Bank::openPanel(GameScene* scene, Vec2 sceneMidPoint)
 		return;
 	}
 
-	m_ThisPanel->setVisible(true);
 	GameFunctions::updatLabelText_TimeFormat(m_Weeks, m_CurrentWeek);
+	updatePlayerCurrentShopInfo();
+	m_ThisPanel->setVisible(true);
 
 	if (m_HasDebt)
 	{
@@ -91,6 +100,7 @@ void Bank::update()
 
 	updatePlayerCurrentShopInfo();
 
+	// TODO: remove salesincome from amout
 	auto amout = calculateTotalAmoutWeekly();
 	GameData::getInstance().m_Player->updateCurrentCashAmout(amout);
 
@@ -158,14 +168,25 @@ void Bank::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopId)
 	}
 #pragma endregion
 
-#pragma region Create weekly expense
-	m_Shop = Label::createWithTTF("", "fonts/NirmalaB.ttf", 15);
-
-	if (m_Shop)
+#pragma region GetDataFromPlayerFirstTime
+	auto shops = GameData::getInstance().m_Shops;
+	auto shopsCount = m_Player->m_MyShopIds.size();
+	auto shopIds = m_Player->m_MyShopIds;
+	for (unsigned index = 0; index < shopsCount; index++)
 	{
-		m_Shop->setString(m_ShopName);
-		m_Shop->enableGlow(Color4B::WHITE);
-		GameFunctions::displayLabel(m_Shop, Color4B::BLACK, Vec2(panelMidPoint.x, panelMidPoint.y + 120.f),
+		auto shop = shops[shopIds[index]];
+		m_TotalShopExpense->m_ShopsBasicExpense.push_back(new BasicExpenseData(shop->m_Electricity, shop->m_Water,
+			shop->getTotalSalaryExpense(), shop->m_CommercialCost, shop->m_SalesIncome));
+	}
+#pragma endregion
+
+#pragma region Create weekly expense
+	auto totalLabel = Label::createWithTTF("Total", "fonts/NirmalaB.ttf", 15);
+
+	if (totalLabel)
+	{
+		totalLabel->enableGlow(Color4B::WHITE);
+		GameFunctions::displayLabel(totalLabel, Color4B::BLACK, Vec2(panelMidPoint.x, panelMidPoint.y + 120.f),
 			m_ThisPanel, 1);
 
 		// electricity
@@ -177,7 +198,7 @@ void Bank::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopId)
 		m_Electricity = Label::createWithTTF("", "fonts/Nirmala.ttf", 20);
 		if (m_Electricity)
 		{
-			GameFunctions::updateLabelText_MoneyFormat(m_Electricity, m_ElectricityFee, true);
+			GameFunctions::updateLabelText_MoneyFormat(m_Electricity, m_TotalShopExpense->getTotalElCosts(), true);
 			GameFunctions::displayLabel(m_Electricity, Color4B::BLACK, Vec2(panelMidPoint.x + 20.f, panelMidPoint.y + 110.f),
 				m_ThisPanel, 1, true, TextHAlignment::RIGHT);
 		}
@@ -191,7 +212,7 @@ void Bank::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopId)
 		m_Water = Label::createWithTTF("", "fonts/Nirmala.ttf", 20);
 		if (m_Water)
 		{
-			GameFunctions::updateLabelText_MoneyFormat(m_Water, m_WaterFee, true);
+			GameFunctions::updateLabelText_MoneyFormat(m_Water, m_TotalShopExpense->getTotalWaterCosts(), true);
 			GameFunctions::displayLabel(m_Water, Color4B::BLACK, Vec2(panelMidPoint.x + 20.f, panelMidPoint.y + 80.f),
 				m_ThisPanel, 1, true, TextHAlignment::RIGHT);
 		}
@@ -205,54 +226,54 @@ void Bank::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopId)
 		m_Salary = Label::createWithTTF("", "fonts/Nirmala.ttf", 20);
 		if (m_Salary)
 		{
-			GameFunctions::updateLabelText_MoneyFormat(m_Salary, m_SalaryExpense, true);
+			GameFunctions::updateLabelText_MoneyFormat(m_Salary, m_TotalShopExpense->getTotalSalaryCosts(), true);
 			GameFunctions::displayLabel(m_Salary, Color4B::BLACK, Vec2(panelMidPoint.x + 20.f, panelMidPoint.y + 50.f),
 				m_ThisPanel, 1, true, TextHAlignment::RIGHT);
 		}
 
-		// loan
-		auto loanLabel = Label::createWithTTF("Loan", "fonts/Nirmala.ttf", 20);
-		if (loanLabel)
-			GameFunctions::displayLabel(loanLabel, Color4B::BLACK, Vec2(panelMidPoint.x - 250.f, panelMidPoint.y + 10.f),
-				m_ThisPanel, 1);
-
-		auto loanDetailLabel = Label::createWithTTF("(weekly repayments)", "fonts/Nirmala.ttf", 15);
-		if (loanDetailLabel)
-			GameFunctions::displayLabel(loanDetailLabel, Color4B::BLACK, Vec2(panelMidPoint.x - 160.f, panelMidPoint.y + 8.f),
-				m_ThisPanel, 1);
-
-		m_PaybackWeekly = Label::createWithTTF("", "fonts/Nirmala.ttf", 20);
-		if (m_PaybackWeekly)
-			GameFunctions::displayLabel(m_PaybackWeekly, Color4B::BLACK, Vec2(panelMidPoint.x + 20.f, panelMidPoint.y + 20.f),
-				m_ThisPanel, 1, true, TextHAlignment::RIGHT);
-
 		// commerical
 		auto commericalLabel = Label::createWithTTF("Commercial", "fonts/Nirmala.ttf", 20);
 		if (commericalLabel)
-			GameFunctions::displayLabel(commericalLabel, Color4B::BLACK, Vec2(panelMidPoint.x - 220.f, panelMidPoint.y - 20.f),
+			GameFunctions::displayLabel(commericalLabel, Color4B::BLACK, Vec2(panelMidPoint.x - 220.f, panelMidPoint.y + 10.f),
 				m_ThisPanel, 1);
 
 		m_Commercial = Label::createWithTTF("", "fonts/Nirmala.ttf", 20);
 		if (m_Commercial)
 		{
-			GameFunctions::updateLabelText_MoneyFormat(m_Commercial, m_commercialFee, true);
-			GameFunctions::displayLabel(m_Commercial, Color4B::BLACK, Vec2(panelMidPoint.x + 20.f, panelMidPoint.y - 10.f),
+			GameFunctions::updateLabelText_MoneyFormat(m_Commercial, m_TotalShopExpense->getCommercialCosts(), true);
+			GameFunctions::displayLabel(m_Commercial, Color4B::BLACK, Vec2(panelMidPoint.x + 20.f, panelMidPoint.y + 20.f),
 				m_ThisPanel, 1, true, TextHAlignment::RIGHT);
 		}
 
 		// sales
 		auto salesLabel = Label::createWithTTF("Sales Income", "fonts/Nirmala.ttf", 20);
 		if (salesLabel)
-			GameFunctions::displayLabel(salesLabel, Color4B::BLACK, Vec2(panelMidPoint.x - 215.f, panelMidPoint.y - 50.f),
+			GameFunctions::displayLabel(salesLabel, Color4B::BLACK, Vec2(panelMidPoint.x - 215.f, panelMidPoint.y - 20.f),
 				m_ThisPanel, 1);
 
 		m_Sales = Label::createWithTTF("", "fonts/Nirmala.ttf", 20);
 		if (m_Sales)
 		{
-			GameFunctions::updateLabelText_MoneyFormat(m_Sales, m_SalesIncome);
-			GameFunctions::displayLabel(m_Sales, Color4B::BLACK, Vec2(panelMidPoint.x + 20.f, panelMidPoint.y - 40.f),
+			GameFunctions::updateLabelText_MoneyFormat(m_Sales, m_TotalShopExpense->getTotalSalesIncome());
+			GameFunctions::displayLabel(m_Sales, Color4B::BLACK, Vec2(panelMidPoint.x + 20.f, panelMidPoint.y - 10.f),
 				m_ThisPanel, 1, true, TextHAlignment::RIGHT);
 		}
+
+		// loan
+		auto loanLabel = Label::createWithTTF("Loan", "fonts/Nirmala.ttf", 20);
+		if (loanLabel)
+			GameFunctions::displayLabel(loanLabel, Color4B::BLACK, Vec2(panelMidPoint.x - 250.f, panelMidPoint.y - 50.f),
+				m_ThisPanel, 1);
+
+		auto loanDetailLabel = Label::createWithTTF("(weekly repayments)", "fonts/Nirmala.ttf", 15);
+		if (loanDetailLabel)
+			GameFunctions::displayLabel(loanDetailLabel, Color4B::BLACK, Vec2(panelMidPoint.x - 160.f, panelMidPoint.y -52.f),
+				m_ThisPanel, 1);
+
+		m_PaybackWeekly = Label::createWithTTF("--", "fonts/Nirmala.ttf", 20);
+		if (m_PaybackWeekly)
+			GameFunctions::displayLabel(m_PaybackWeekly, Color4B::BLACK, Vec2(panelMidPoint.x + 20.f, panelMidPoint.y - 40.f),
+				m_ThisPanel, 1, true, TextHAlignment::RIGHT);
 
 		auto totalLabel = Label::createWithTTF("TOTAL", "fonts/NirmalaB.ttf", 20);
 		if (totalLabel)
@@ -262,11 +283,16 @@ void Bank::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopId)
 		m_Total = Label::createWithTTF("", "fonts/NirmalaB.ttf", 20);
 		if (m_Total)
 		{
-			updateOverviewAmout(calculateTotalAmoutWeekly());
+			updateOverviewAmout(m_Total, calculateTotalAmoutWeekly());
 			GameFunctions::displayLabel(m_Total, Color4B::BLACK, Vec2(panelMidPoint.x + 20.f, panelMidPoint.y - 95.f),
 				m_ThisPanel, 1, true, TextHAlignment::RIGHT);
 		}
 	}
+
+	// create new shop balance
+	m_NewShopPos = Vec2(panelMidPoint.x + 245.f, panelMidPoint.y + 118.f);
+	createNewShopBalance(0, panelMidPoint);
+
 #pragma endregion
 
 #pragma region Create Loan Button
@@ -448,21 +474,147 @@ void Bank::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopId)
 	m_Elements.pushBack(menu);
 }
 
+void Bank::createNewShopBalance(unsigned shopIndex, cocos2d::Vec2 panelMidPoint)
+{
+	auto shopName = GameData::getInstance().m_Shops[m_Player->m_MyShopIds[shopIndex]]->m_Name;
+
+	// create shop balance button
+	auto newShopButton = ui::CheckBox::create("Sprites/Checkboxes/Button_Green_20_Beta.png", "");
+	if (newShopButton)
+	{
+		newShopButton->setPosition(m_NewShopPos);
+		newShopButton->addClickEventListener(CC_CALLBACK_1(Bank::onOpenBalanceCallback, this, shopIndex));
+		m_ThisPanel->addChild(newShopButton, 2);
+		m_ShopButtons.push_back(newShopButton);
+
+		auto shopNameText = Label::createWithTTF(shopName, "fonts/NirmalaB.ttf", 12);
+		if (shopNameText)
+			GameFunctions::displayLabel(shopNameText, Color4B::WHITE, newShopButton->getContentSize() * 0.5f, newShopButton, 1);
+	}
+
+	m_NewShopPos.y -= 30.f;
+
+	// create shop widget
+	auto newShopBalanceWidget = ui::Widget::create();
+	newShopBalanceWidget->setPosition(Vec2::ZERO);
+	m_ThisPanel->addChild(newShopBalanceWidget, 1);
+	m_ShopWidgets.pushBack(newShopBalanceWidget);
+	newShopBalanceWidget->setVisible(false);
+
+	// create widget background
+	auto backgroundWidget = Sprite::create("Sprites/Checkboxes/WidgetBG_Red_501.png");
+	if (backgroundWidget)
+		GameFunctions::displaySprite(backgroundWidget, Vec2(panelMidPoint.x +170.f, panelMidPoint.y + 6.f), newShopBalanceWidget, 0);
+
+#pragma region Create weekly expense
+	auto shopBasicExpense = m_TotalShopExpense->m_ShopsBasicExpense[shopIndex];
+	auto shopExpensePos = Vec2(panelMidPoint.x + 130.f, panelMidPoint.y + 120.f);
+	auto shop = Label::createWithTTF("", "fonts/NirmalaB.ttf", 15);
+	if (shop)
+	{
+		shop->setString(shopName);
+		shop->enableGlow(Color4B::WHITE);
+		GameFunctions::displayLabel(shop, Color4B::BLACK, Vec2(shopExpensePos.x -10.f, shopExpensePos.y), newShopBalanceWidget, 1);
+
+		// electricity
+		auto electricityLabel = Label::createWithTTF("", "fonts/Nirmala.ttf", 20);
+		if (electricityLabel)
+		{
+			GameFunctions::updateLabelText_MoneyFormat(electricityLabel, shopBasicExpense->m_EletricityCost, true);
+			GameFunctions::displayLabel(electricityLabel, Color4B::BLACK, Vec2(shopExpensePos.x, shopExpensePos.y - 10.f),
+				newShopBalanceWidget, 1, true, TextHAlignment::RIGHT);
+			m_TotalShopExpense->m_ShopsBasicExpense[shopIndex]->m_ElLabel = electricityLabel;
+		}
+
+		// water
+		auto waterLabel = Label::createWithTTF("", "fonts/Nirmala.ttf", 20);
+		if (waterLabel)
+		{
+			GameFunctions::updateLabelText_MoneyFormat(waterLabel, shopBasicExpense->m_WaterCost, true);
+			GameFunctions::displayLabel(waterLabel, Color4B::BLACK, Vec2(shopExpensePos.x, shopExpensePos.y -40.f),
+				newShopBalanceWidget, 1, true, TextHAlignment::RIGHT);
+
+			m_TotalShopExpense->m_ShopsBasicExpense[shopIndex]->m_WaterLabel = waterLabel;
+		}
+
+		// salary
+		auto salaryLabel = Label::createWithTTF("", "fonts/Nirmala.ttf", 20);
+		if (salaryLabel)
+		{
+			GameFunctions::updateLabelText_MoneyFormat(salaryLabel, shopBasicExpense->m_SalaryCost, true);
+			GameFunctions::displayLabel(salaryLabel, Color4B::BLACK, Vec2(shopExpensePos.x, shopExpensePos.y - 70.f),
+				newShopBalanceWidget, 1, true, TextHAlignment::RIGHT);
+
+			m_TotalShopExpense->m_ShopsBasicExpense[shopIndex]->m_SalaryLabel = salaryLabel;
+		}
+
+		// commerical
+		auto commercialLabel = Label::createWithTTF("", "fonts/Nirmala.ttf", 20);
+		if (commercialLabel)
+		{
+			GameFunctions::updateLabelText_MoneyFormat(commercialLabel, shopBasicExpense->m_ADCost, true);
+			GameFunctions::displayLabel(commercialLabel, Color4B::BLACK, Vec2(shopExpensePos.x, shopExpensePos.y - 90.f),
+				newShopBalanceWidget, 1, true, TextHAlignment::RIGHT);
+
+			m_TotalShopExpense->m_ShopsBasicExpense[shopIndex]->m_ADLabel = commercialLabel;
+		}
+
+		// sales
+		auto salesLabel = Label::createWithTTF("", "fonts/Nirmala.ttf", 20);
+		if (salesLabel)
+		{
+			GameFunctions::updateLabelText_MoneyFormat(salesLabel, shopBasicExpense->m_SalesIncome);
+			GameFunctions::displayLabel(salesLabel, Color4B::BLACK, Vec2(shopExpensePos.x, shopExpensePos.y - 120.f),
+				newShopBalanceWidget, 1, true, TextHAlignment::RIGHT);
+
+			m_TotalShopExpense->m_ShopsBasicExpense[shopIndex]->m_SalesLabel = salesLabel;
+		}
+
+		// total
+		auto totalLabel = Label::createWithTTF("", "fonts/NirmalaB.ttf", 20);
+		if (totalLabel)
+		{
+			updateOverviewAmout(totalLabel, shopBasicExpense->getBalance());
+			GameFunctions::displayLabel(totalLabel, Color4B::BLACK, Vec2(shopExpensePos.x, shopExpensePos.y - 215.f),
+				newShopBalanceWidget, 1, true, TextHAlignment::RIGHT);
+
+			m_TotalShopExpense->m_ShopsBasicExpense[shopIndex]->m_TotalLabel = totalLabel;
+		}
+	}
+#pragma endregion
+}
+
+
 void Bank::closeCallback(cocos2d::Ref* pSedner)
 {
 	closePanel();
 }
 
+void Bank::onOpenBalanceCallback(cocos2d::Ref* pSender, unsigned shopWidgetIndex)
+{
+	for (unsigned index = 0; index < m_ShopWidgets.size(); index++)
+	{
+		if (index == shopWidgetIndex)
+		{
+			m_ShopButtons.at(index)->setEnabled(false);
+			m_ShopWidgets.at(index)->setVisible(true);
+			continue;
+		}
+		m_ShopButtons.at(index)->setEnabled(true);
+		m_ShopWidgets.at(index)->setVisible(false);
+	}
+}
+
 int Bank::calculateTotalAmoutWeekly()
 {
-	auto amout = m_SalesIncome - m_ElectricityFee - m_WaterFee - m_SalaryExpense - m_commercialFee;
+	auto amout = m_TotalShopExpense->getTotalBalance();
 	if (m_HasDebt)
 		amout -= m_Repayments;
 
 	return amout;
 }
 
-void Bank::updateOverviewAmout(int amout)
+void Bank::updateOverviewAmout(Label* total, int amout)
 {
 	bool isMinus = false;
 	if (amout < 0)
@@ -470,7 +622,7 @@ void Bank::updateOverviewAmout(int amout)
 		isMinus = true;
 		amout *= -1;
 	}
-	GameFunctions::updateLabelText_MoneyFormat(m_Total, amout, isMinus);
+	GameFunctions::updateLabelText_MoneyFormat(total, amout, isMinus);
 }
 
 void Bank::addAmoutCallback(cocos2d::Ref* pSender)
@@ -508,7 +660,7 @@ void Bank::resetTakeLoan()
 	m_LoanWidget->setVisible(true);
 	setMenuItemsVisible(true, true);
 	GameFunctions::updateLabelText_MoneyFormat(m_PaybackWeekly, 0, true);
-	updateOverviewAmout(calculateTotalAmoutWeekly());
+	updateOverviewAmout(m_Total, calculateTotalAmoutWeekly());
 	m_DisabledPanel->setVisible(false);
 }
 
@@ -547,21 +699,58 @@ void Bank::updateDebtDisplay(int amout, unsigned remainWeeks)
 	// update weekly overview account
 	GameFunctions::updateLabelText_MoneyFormat(m_PaybackWeekly, m_Repayments, true);
 
-	updateOverviewAmout(calculateTotalAmoutWeekly());
+	updateOverviewAmout(m_Total, calculateTotalAmoutWeekly());
 }
 
 void Bank::updatePlayerCurrentShopInfo()
 {
-	// to do: update to multiple shops 
-	if (m_Player->m_MyShopIds.size() < 0)
+	auto myShopsSize = m_Player->m_MyShopIds.size();
+	if (myShopsSize < 0)
 		return;
 
-	auto shop = GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]];
-	m_ShopName = shop->m_Name;
-	m_ElectricityFee = shop->m_Electricity;
-	m_WaterFee = shop->m_Water;
-	m_SalaryExpense = shop->getTotalSalaryExpense();
-	m_commercialFee = shop->m_CommercialCost;
+	auto myShopsIds = m_Player->m_MyShopIds;
+	auto shops = GameData::getInstance().m_Shops;
+	auto shopIndex = 0;
+	auto shopsExpenseSize = m_TotalShopExpense->m_ShopsBasicExpense.size();
+	if (myShopsSize > shopsExpenseSize)
+		shopIndex = shopsExpenseSize - 1;
+
+	for (unsigned index = 0; index < myShopsSize; index++)
+	{
+		auto shop = shops[m_Player->m_MyShopIds[index]];
+		if (index <= shopIndex)
+		{
+			auto shopBasicExpense = m_TotalShopExpense->m_ShopsBasicExpense[index];
+			// update value
+			shopBasicExpense->m_EletricityCost = shop->m_Electricity;
+			shopBasicExpense->m_WaterCost = shop->m_Water;
+			shopBasicExpense->m_SalaryCost = shop->getTotalSalaryExpense();
+			shopBasicExpense->m_ADCost = shop->m_CommercialCost;
+			shopBasicExpense->m_SalesIncome = shop->m_SalesIncome;
+
+			// update text
+			GameFunctions::updateLabelText_MoneyFormat(shopBasicExpense->m_ElLabel, shopBasicExpense->m_EletricityCost, true);
+			GameFunctions::updateLabelText_MoneyFormat(shopBasicExpense->m_WaterLabel, shopBasicExpense->m_WaterCost, true);
+			GameFunctions::updateLabelText_MoneyFormat(shopBasicExpense->m_SalaryLabel, shopBasicExpense->m_SalaryCost, true);
+			GameFunctions::updateLabelText_MoneyFormat(shopBasicExpense->m_ADLabel, shopBasicExpense->m_ADCost, true);
+			GameFunctions::updateLabelText_MoneyFormat(shopBasicExpense->m_SalesLabel, shopBasicExpense->m_SalesIncome);
+			updateOverviewAmout(shopBasicExpense->m_TotalLabel, shopBasicExpense->getBalance());
+			continue;
+		}
+
+		// add new
+		m_TotalShopExpense->m_ShopsBasicExpense.push_back(new BasicExpenseData(shop->m_Electricity, shop->m_Water, 
+			shop->getTotalSalaryExpense(), shop->m_CommercialCost, shop->m_SalesIncome));
+		createNewShopBalance(index, m_ThisPanel->getContentSize() * 0.5f);
+	}
+	
+	// update total
+	GameFunctions::updateLabelText_MoneyFormat(m_Electricity, m_TotalShopExpense->getTotalElCosts(), true);
+	GameFunctions::updateLabelText_MoneyFormat(m_Water, m_TotalShopExpense->getTotalWaterCosts(), true);
+	GameFunctions::updateLabelText_MoneyFormat(m_Salary, m_TotalShopExpense->getTotalSalaryCosts(), true);
+	GameFunctions::updateLabelText_MoneyFormat(m_Commercial, m_TotalShopExpense->getCommercialCosts(), true);
+	GameFunctions::updateLabelText_MoneyFormat(m_Sales, m_TotalShopExpense->getTotalSalesIncome());
+	updateOverviewAmout(m_Total, m_TotalShopExpense->getTotalBalance());
 }
 
 void Bank::onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event)
@@ -588,3 +777,4 @@ void Bank::setMenuItemsVisible(bool visible, bool runAll, itemTypes Type)
 		}
 	}
 }
+

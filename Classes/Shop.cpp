@@ -1,6 +1,7 @@
 #include "Shop.h"
 #include "ShopProduct.h"
 #include "Player.h"
+#include "ShopUI.h"
 
 USING_NS_CC;
 
@@ -70,6 +71,7 @@ Shop::Shop(rapidjson::Value& json)
 		}
 	}
 
+	m_ShopUI = new ShopUI();
 }
 
 Shop::~Shop()
@@ -122,7 +124,7 @@ unsigned Shop::runTrade(unsigned day, Shop* shop)
 			onQuantityChanges(m_Products[tradeProduct]->getProductId(), m_Products[tradeProduct]->getProductQuantity());
 
 		// sales income
-		return m_Products[tradeProduct]->getCurrentSalePrice() * tradeQuantity;
+		return m_SalesIncome += m_Products[tradeProduct]->getCurrentSalePrice() * tradeQuantity;
 	}
 
 	return 0;

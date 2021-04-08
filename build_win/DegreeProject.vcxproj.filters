@@ -73,6 +73,12 @@
     <ClCompile Include="..\Classes\GameLoop.cpp">
       <Filter>Source Files\Classes\AI</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\BasicExpenseData.cpp">
+      <Filter>Source Files\Classes\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TotalExpense.cpp">
+      <Filter>Source Files\Classes\Data</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\Users\mandy\source\repos\DegreeProject\Classes\AppDelegate.h">
@@ -175,6 +181,15 @@
       <Filter>Source Files\Classes\Data</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GameTime.h">
+      <Filter>Source Files\Classes\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BasicExpenseData.h">
+      <Filter>Source Files\Classes\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TotalExpense.h">
+      <Filter>Source Files\Classes\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ShopUI.h">
       <Filter>Source Files\Classes\Data</Filter>
     </ClInclude>
   </ItemGroup>

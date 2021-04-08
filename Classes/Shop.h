@@ -11,6 +11,7 @@ enum ownerTypes
 };
 
 class ShopProduct;
+struct ShopUI;
 
 class Shop
 {
@@ -54,6 +55,7 @@ public:
 	unsigned m_SalaryPerEmployee = 0;
 	unsigned m_StaffRunForErrandCount = 0;
 	unsigned m_CommercialCost = 0;
+	unsigned m_SalesIncome = 0;
 
 	// shop working -> monday to sunday
 	std::array<unsigned int, 7> m_SuccessProbabilityDaily = { 30, 30, 30, 30, 40, 50, 60 };
@@ -65,6 +67,11 @@ public:
 	bool m_PlayerWorkHere = true;
 	bool m_IsReplenishing = false;
 	unsigned m_ReplenishingCountDown = 30;
+#pragma endregion
+
+#pragma region ShopUI
+	ShopUI* m_ShopUI = nullptr;
+
 #pragma endregion
 
 #pragma region ShopProducts
