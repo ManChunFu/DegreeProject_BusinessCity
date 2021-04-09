@@ -70,7 +70,7 @@ private:
 
 	bool m_HasDebt = false;
 
-	int calculateTotalAmoutWeekly();
+	int calculateTotalAmoutWeekly(bool removeSalesIncome = false);
 	void updateOverviewAmout(cocos2d::Label* total,int amout);
 	void calculateWeeklyRepayments();
 	void updateDebtDisplay(int amout, unsigned remainWeeks);

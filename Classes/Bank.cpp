@@ -100,8 +100,7 @@ void Bank::update()
 
 	updatePlayerCurrentShopInfo();
 
-	// TODO: remove salesincome from amout
-	auto amout = calculateTotalAmoutWeekly();
+	auto amout = calculateTotalAmoutWeekly(true);
 	GameData::getInstance().m_Player->updateCurrentCashAmout(amout);
 
 	if (m_Player->getCurrentCash() < 0)
@@ -588,7 +587,6 @@ void Bank::createNewShopBalance(unsigned shopIndex, cocos2d::Vec2 panelMidPoint)
 #pragma endregion
 }
 
-
 void Bank::closeCallback(cocos2d::Ref* pSedner)
 {
 	closePanel();
@@ -610,9 +608,10 @@ void Bank::onOpenBalanceCallback(cocos2d::Ref* pSender, unsigned shopWidgetIndex
 	}
 }
 
-int Bank::calculateTotalAmoutWeekly()
+int Bank::calculateTotalAmoutWeekly(bool removeSalesIncome)
 {
-	auto amout = m_TotalShopExpense->getTotalBalance();
+	auto amout = removeSalesIncome ? m_TotalShopExpense->getTotalCosts() : m_TotalShopExpense->getTotalBalance();
+
 	if (m_HasDebt)
 		amout -= m_Repayments;
 
