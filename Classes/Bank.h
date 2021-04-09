@@ -32,6 +32,7 @@ protected:
 	void addWeekCallback(cocos2d::Ref* pSender);
 	void reduceWeekCallback(cocos2d::Ref* pSender);
 	void takeLoan(cocos2d::Ref* pSender);
+	void onSalesIncomeChanges(unsigned shopId, unsigned totalSales);
 	void onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event);
 
 private:

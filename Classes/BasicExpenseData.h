@@ -4,10 +4,11 @@
 
 struct BasicExpenseData
 {
-	BasicExpenseData(unsigned eletricityCost, unsigned waterCost, unsigned salaryCost, unsigned ADCost, unsigned salesIncome);
+	BasicExpenseData(unsigned shopId, unsigned eletricityCost, unsigned waterCost, unsigned salaryCost, unsigned ADCost, unsigned salesIncome);
 
 	virtual ~BasicExpenseData();
 
+	unsigned m_ShopId = 0;
 	unsigned m_EletricityCost = 0;
 	unsigned m_WaterCost = 0;
 	unsigned m_SalaryCost = 0;

@@ -174,8 +174,9 @@ void Bank::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopId)
 	for (unsigned index = 0; index < shopsCount; index++)
 	{
 		auto shop = shops[shopIds[index]];
-		m_TotalShopExpense->m_ShopsBasicExpense.push_back(new BasicExpenseData(shop->m_Electricity, shop->m_Water,
+		m_TotalShopExpense->m_ShopsBasicExpense.push_back(new BasicExpenseData(shop->m_ShopId, shop->m_Electricity, shop->m_Water,
 			shop->getTotalSalaryExpense(), shop->m_CommercialCost, shop->m_SalesIncome));
+		shop->onSalesIncomeChanges = CC_CALLBACK_2(Bank::onSalesIncomeChanges, this);
 	}
 #pragma endregion
 
@@ -680,6 +681,21 @@ void Bank::takeLoan(cocos2d::Ref* pSender)
 	updateDebtDisplay(m_LoanAmout, m_PaybackWeeks);
 }
 
+void Bank::onSalesIncomeChanges(unsigned shopId, unsigned totalSales)
+{
+	for (auto shop : m_TotalShopExpense->m_ShopsBasicExpense)
+	{
+		if (shop->m_ShopId == shopId)
+		{
+			shop->m_SalesIncome = totalSales;
+			GameFunctions::updateLabelText_MoneyFormat(shop->m_SalesLabel, totalSales);
+			updateOverviewAmout(shop->m_TotalLabel, shop->getBalance());
+		}
+	}
+	GameFunctions::updateLabelText_MoneyFormat(m_Sales, m_TotalShopExpense->getTotalSalesIncome());
+	updateOverviewAmout(m_Total, m_TotalShopExpense->getTotalBalance());
+}
+
 void Bank::calculateWeeklyRepayments()
 {
 	auto rate = ((float)(m_PaybackWeeks) * 2 / 100);
@@ -745,8 +761,11 @@ void Bank::updatePlayerCurrentShopInfo()
 		}
 
 		// add new
-		m_TotalShopExpense->m_ShopsBasicExpense.push_back(new BasicExpenseData(shop->m_Electricity, shop->m_Water, 
+		m_TotalShopExpense->m_ShopsBasicExpense.push_back(new BasicExpenseData(shop->m_ShopId, shop->m_Electricity, shop->m_Water, 
 			shop->getTotalSalaryExpense(), shop->m_CommercialCost, shop->m_SalesIncome));
+
+		shop->onSalesIncomeChanges = CC_CALLBACK_2(Bank::onSalesIncomeChanges, this);
+
 		createNewShopBalance(index, m_ThisPanel->getContentSize() * 0.5f);
 	}
 	

@@ -1,7 +1,6 @@
 #include "Shop.h"
 #include "ShopProduct.h"
 #include "Player.h"
-#include "ShopUI.h"
 
 USING_NS_CC;
 
@@ -122,7 +121,11 @@ unsigned Shop::runTrade(unsigned day, Shop* shop)
 			onQuantityChanges(m_Products[tradeProduct]->getProductId(), m_Products[tradeProduct]->getProductQuantity());
 
 		// sales income
-		return m_SalesIncome += m_Products[tradeProduct]->getCurrentSalePrice() * tradeQuantity;
+		m_SalesIncome += m_Products[tradeProduct]->getCurrentSalePrice() * tradeQuantity;
+		if (onSalesIncomeChanges)
+			onSalesIncomeChanges(m_ShopId, m_SalesIncome);
+
+		return m_SalesIncome;
 	}
 
 	return 0;

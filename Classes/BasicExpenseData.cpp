@@ -2,8 +2,9 @@
 
 USING_NS_CC;
 
-BasicExpenseData::BasicExpenseData(unsigned eletricityCost, unsigned waterCost, unsigned salaryCost, unsigned ADCost, unsigned salesIncome)
+BasicExpenseData::BasicExpenseData(unsigned shopId, unsigned eletricityCost, unsigned waterCost, unsigned salaryCost, unsigned ADCost, unsigned salesIncome)
 {
+	m_ShopId = shopId;
 	m_EletricityCost = eletricityCost;
 	m_WaterCost = waterCost;
 	m_SalaryCost = salaryCost;

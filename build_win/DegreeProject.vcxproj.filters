@@ -19,9 +19,6 @@
     <ClCompile Include="..\Classes\MainMenuPlayerSetting.cpp">
       <Filter>Source Files\Classes\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\GameManager.cpp">
-      <Filter>Source Files\Classes</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Bank.cpp">
       <Filter>Source Files\Classes\Scenes</Filter>
     </ClCompile>
@@ -116,9 +113,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\MainMenuPlayerSetting.h">
       <Filter>Source Files\Classes\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GameManager.h">
-      <Filter>Source Files\Classes</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Bank.h">
       <Filter>Source Files\Classes\Scenes</Filter>
