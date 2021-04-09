@@ -70,8 +70,6 @@ Shop::Shop(rapidjson::Value& json)
 			break;
 		}
 	}
-
-	m_ShopUI = new ShopUI();
 }
 
 Shop::~Shop()

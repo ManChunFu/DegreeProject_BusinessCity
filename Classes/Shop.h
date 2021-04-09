@@ -69,11 +69,6 @@ public:
 	unsigned m_ReplenishingCountDown = 30;
 #pragma endregion
 
-#pragma region ShopUI
-	ShopUI* m_ShopUI = nullptr;
-
-#pragma endregion
-
 #pragma region ShopProducts
 	unsigned getProductQuantity(unsigned productId);
 	void setShopProductQuantity(unsigned productId, unsigned quantity);
