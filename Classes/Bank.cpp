@@ -64,8 +64,8 @@ void Bank::openPanel(GameScene* scene, Vec2 sceneMidPoint)
 		return;
 	}
 
-	GameFunctions::updatLabelText_TimeFormat(m_Weeks, m_CurrentWeek);
 	updatePlayerCurrentShopInfo();
+	GameFunctions::updatLabelText_TimeFormat(m_Weeks, m_CurrentWeek);
 	m_ThisPanel->setVisible(true);
 
 	if (m_HasDebt)
@@ -291,7 +291,10 @@ void Bank::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopId)
 
 	// create new shop balance
 	m_NewShopPos = Vec2(panelMidPoint.x + 245.f, panelMidPoint.y + 118.f);
-	createNewShopBalance(0, panelMidPoint);
+	for (unsigned index = 0; index < m_TotalShopExpense->m_ShopsBasicExpense.size(); index++)
+	{
+		createNewShopBalance(index, panelMidPoint);
+	}
 
 #pragma endregion
 
@@ -712,14 +715,16 @@ void Bank::updatePlayerCurrentShopInfo()
 
 	auto myShopsIds = m_Player->m_MyShopIds;
 	auto shops = GameData::getInstance().m_Shops;
-	auto shopIndex = 0;
 	auto shopsExpenseSize = m_TotalShopExpense->m_ShopsBasicExpense.size();
+	auto shopIndex = 0;
 	if (myShopsSize > shopsExpenseSize)
 		shopIndex = shopsExpenseSize - 1;
+	else
+		shopIndex = myShopsSize;
 
 	for (unsigned index = 0; index < myShopsSize; index++)
 	{
-		auto shop = shops[m_Player->m_MyShopIds[index]];
+		auto shop = shops[myShopsIds[index]];
 		if (index <= shopIndex)
 		{
 			auto shopBasicExpense = m_TotalShopExpense->m_ShopsBasicExpense[index];
