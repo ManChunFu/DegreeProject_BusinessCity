@@ -479,7 +479,7 @@ void Bank::createNewShopBalance(unsigned shopIndex, cocos2d::Vec2 panelMidPoint)
 	auto shopName = GameData::getInstance().m_Shops[m_Player->m_MyShopIds[shopIndex]]->m_Name;
 
 	// create shop balance button
-	auto newShopButton = ui::CheckBox::create("Sprites/Checkboxes/Button_Green_20_Beta.png", "");
+	auto newShopButton = ui::CheckBox::create("Sprites/Checkboxes/Button_Red.png", "Sprites/Checkboxes/Button_Selected.png");
 	if (newShopButton)
 	{
 		newShopButton->setPosition(m_NewShopPos);
@@ -487,12 +487,13 @@ void Bank::createNewShopBalance(unsigned shopIndex, cocos2d::Vec2 panelMidPoint)
 		m_ThisPanel->addChild(newShopButton, 2);
 		m_ShopButtons.push_back(newShopButton);
 
-		auto shopNameText = Label::createWithTTF(shopName, "fonts/NirmalaB.ttf", 12);
+		auto shopNameText = Label::createWithTTF(shopName, "fonts/NirmalaB.ttf", 11);
 		if (shopNameText)
 			GameFunctions::displayLabel(shopNameText, Color4B::WHITE, newShopButton->getContentSize() * 0.5f, newShopButton, 1);
 	}
 
-	m_NewShopPos.y -= 30.f;
+	// for next shop pos
+	m_NewShopPos.y -= 35.f;
 
 	// create shop widget
 	auto newShopBalanceWidget = ui::Widget::create();
@@ -502,7 +503,7 @@ void Bank::createNewShopBalance(unsigned shopIndex, cocos2d::Vec2 panelMidPoint)
 	newShopBalanceWidget->setVisible(false);
 
 	// create widget background
-	auto backgroundWidget = Sprite::create("Sprites/Checkboxes/WidgetBG_Red_501.png");
+	auto backgroundWidget = Sprite::createWithSpriteFrameName("WidgetBG_Brown.png");
 	if (backgroundWidget)
 		GameFunctions::displaySprite(backgroundWidget, Vec2(panelMidPoint.x +170.f, panelMidPoint.y + 6.f), newShopBalanceWidget, 0);
 
@@ -513,15 +514,15 @@ void Bank::createNewShopBalance(unsigned shopIndex, cocos2d::Vec2 panelMidPoint)
 	if (shop)
 	{
 		shop->setString(shopName);
-		shop->enableGlow(Color4B::WHITE);
-		GameFunctions::displayLabel(shop, Color4B::BLACK, Vec2(shopExpensePos.x -10.f, shopExpensePos.y), newShopBalanceWidget, 1);
+		shop->enableGlow(Color4B::BLACK);
+		GameFunctions::displayLabel(shop, Color4B::WHITE, Vec2(shopExpensePos.x -10.f, shopExpensePos.y), newShopBalanceWidget, 1);
 
 		// electricity
 		auto electricityLabel = Label::createWithTTF("", "fonts/Nirmala.ttf", 20);
 		if (electricityLabel)
 		{
 			GameFunctions::updateLabelText_MoneyFormat(electricityLabel, shopBasicExpense->m_EletricityCost, true);
-			GameFunctions::displayLabel(electricityLabel, Color4B::BLACK, Vec2(shopExpensePos.x, shopExpensePos.y - 10.f),
+			GameFunctions::displayLabel(electricityLabel, Color4B::WHITE, Vec2(shopExpensePos.x, shopExpensePos.y - 10.f),
 				newShopBalanceWidget, 1, true, TextHAlignment::RIGHT);
 			m_TotalShopExpense->m_ShopsBasicExpense[shopIndex]->m_ElLabel = electricityLabel;
 		}
@@ -531,7 +532,7 @@ void Bank::createNewShopBalance(unsigned shopIndex, cocos2d::Vec2 panelMidPoint)
 		if (waterLabel)
 		{
 			GameFunctions::updateLabelText_MoneyFormat(waterLabel, shopBasicExpense->m_WaterCost, true);
-			GameFunctions::displayLabel(waterLabel, Color4B::BLACK, Vec2(shopExpensePos.x, shopExpensePos.y -40.f),
+			GameFunctions::displayLabel(waterLabel, Color4B::WHITE, Vec2(shopExpensePos.x, shopExpensePos.y -40.f),
 				newShopBalanceWidget, 1, true, TextHAlignment::RIGHT);
 
 			m_TotalShopExpense->m_ShopsBasicExpense[shopIndex]->m_WaterLabel = waterLabel;
@@ -542,7 +543,7 @@ void Bank::createNewShopBalance(unsigned shopIndex, cocos2d::Vec2 panelMidPoint)
 		if (salaryLabel)
 		{
 			GameFunctions::updateLabelText_MoneyFormat(salaryLabel, shopBasicExpense->m_SalaryCost, true);
-			GameFunctions::displayLabel(salaryLabel, Color4B::BLACK, Vec2(shopExpensePos.x, shopExpensePos.y - 70.f),
+			GameFunctions::displayLabel(salaryLabel, Color4B::WHITE, Vec2(shopExpensePos.x, shopExpensePos.y - 70.f),
 				newShopBalanceWidget, 1, true, TextHAlignment::RIGHT);
 
 			m_TotalShopExpense->m_ShopsBasicExpense[shopIndex]->m_SalaryLabel = salaryLabel;
@@ -553,7 +554,7 @@ void Bank::createNewShopBalance(unsigned shopIndex, cocos2d::Vec2 panelMidPoint)
 		if (commercialLabel)
 		{
 			GameFunctions::updateLabelText_MoneyFormat(commercialLabel, shopBasicExpense->m_ADCost, true);
-			GameFunctions::displayLabel(commercialLabel, Color4B::BLACK, Vec2(shopExpensePos.x, shopExpensePos.y - 90.f),
+			GameFunctions::displayLabel(commercialLabel, Color4B::WHITE, Vec2(shopExpensePos.x, shopExpensePos.y - 100.f),
 				newShopBalanceWidget, 1, true, TextHAlignment::RIGHT);
 
 			m_TotalShopExpense->m_ShopsBasicExpense[shopIndex]->m_ADLabel = commercialLabel;
@@ -564,7 +565,7 @@ void Bank::createNewShopBalance(unsigned shopIndex, cocos2d::Vec2 panelMidPoint)
 		if (salesLabel)
 		{
 			GameFunctions::updateLabelText_MoneyFormat(salesLabel, shopBasicExpense->m_SalesIncome);
-			GameFunctions::displayLabel(salesLabel, Color4B::BLACK, Vec2(shopExpensePos.x, shopExpensePos.y - 120.f),
+			GameFunctions::displayLabel(salesLabel, Color4B::WHITE, Vec2(shopExpensePos.x, shopExpensePos.y - 130.f),
 				newShopBalanceWidget, 1, true, TextHAlignment::RIGHT);
 
 			m_TotalShopExpense->m_ShopsBasicExpense[shopIndex]->m_SalesLabel = salesLabel;
@@ -575,7 +576,7 @@ void Bank::createNewShopBalance(unsigned shopIndex, cocos2d::Vec2 panelMidPoint)
 		if (totalLabel)
 		{
 			updateOverviewAmout(totalLabel, shopBasicExpense->getBalance());
-			GameFunctions::displayLabel(totalLabel, Color4B::BLACK, Vec2(shopExpensePos.x, shopExpensePos.y - 215.f),
+			GameFunctions::displayLabel(totalLabel, Color4B::WHITE, Vec2(shopExpensePos.x, shopExpensePos.y - 215.f),
 				newShopBalanceWidget, 1, true, TextHAlignment::RIGHT);
 
 			m_TotalShopExpense->m_ShopsBasicExpense[shopIndex]->m_TotalLabel = totalLabel;
@@ -596,12 +597,13 @@ void Bank::onOpenBalanceCallback(cocos2d::Ref* pSender, unsigned shopWidgetIndex
 	{
 		if (index == shopWidgetIndex)
 		{
-			m_ShopButtons.at(index)->setEnabled(false);
-			m_ShopWidgets.at(index)->setVisible(true);
+			(m_ShopWidgets.at(index)->isVisible()) ? m_ShopWidgets.at(index)->setVisible(false) :
+				m_ShopWidgets.at(index)->setVisible(true);
+
 			continue;
 		}
-		m_ShopButtons.at(index)->setEnabled(true);
 		m_ShopWidgets.at(index)->setVisible(false);
+		m_ShopButtons.at(index)->setSelected(false);
 	}
 }
 
