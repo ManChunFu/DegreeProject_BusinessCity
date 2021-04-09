@@ -824,7 +824,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\ProductData.h" />
     <ClInclude Include="..\Classes\ShopProduct.h" />
     <ClInclude Include="..\Classes\Shop.h" />
-    <ClInclude Include="..\Classes\ShopUI.h" />
     <ClInclude Include="..\Classes\TotalExpense.h" />
     <ClInclude Include="..\Classes\UIPanel.h" />
     <ClInclude Include="C:\Users\mandy\source\repos\DegreeProject\Classes\AppDelegate.h" />

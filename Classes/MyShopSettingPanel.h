@@ -28,6 +28,8 @@ public:
 
 protected:	
 	void createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopId = 0) override;
+	void onOpenTabCallback(cocos2d::Ref* pSender, unsigned tabIndex);
+
 	void createProductWidget2(cocos2d::Vec2 panelMidPoint, cocos2d::Vec2 sceneMidPoint);
 	void closeCallback(cocos2d::Ref* pSender);
 	void reduceCallback(cocos2d::Ref* pSender);
@@ -51,6 +53,8 @@ protected:
 
 private:
 	GameTime* m_GameTime = nullptr;
+	std::vector<std::pair<cocos2d::ui::CheckBox*, cocos2d::ui::Widget*>> m_PanelTabs;
+
 	cocos2d::ui::Widget* m_ProductWidget1 = nullptr;
 	cocos2d::ui::Widget* m_ProductWidget2 = nullptr;
 	cocos2d::ui::Widget* m_WorkStatesWidget = nullptr;
@@ -72,7 +76,7 @@ private:
 	unsigned m_EmployeeCount = 0;
 	unsigned m_FromHour = 8;
 	unsigned m_ToHour = 17;
-	unsigned m_PanelLimit = 2;
+	unsigned m_PanelLimit = 3;
 	unsigned m_MinPriceChangesEachTime = 5;
 	unsigned m_MAxPrice = 500;
 	unsigned m_MinPurchaseQTY = 20;

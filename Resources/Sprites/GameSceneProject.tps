@@ -187,6 +187,21 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">CheckBoxes/PanelBG_SquareLineBlue.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>138,81,275,161</rect>
+                <key>scale9Paddings</key>
+                <rect>138,81,275,161</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">CheckBoxes/WidgetBG_Brown.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -292,7 +307,7 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../X/Brown_Panel_700x500_BlueLine.png</key>
+            <key type="filename">../X/Brown_Panel_600x500.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -301,9 +316,9 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>175,125,350,250</rect>
+                <rect>150,125,300,250</rect>
                 <key>scale9Paddings</key>
-                <rect>175,125,350,250</rect>
+                <rect>150,125,300,250</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -396,6 +411,26 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">../X/UIButtonLess50_PointLeft.png</key>
+            <key type="filename">../X/UIButtonLess50_PointLeft_Disable.png</key>
+            <key type="filename">../X/UIButtonLess50_PointLeft_Lit.png</key>
+            <key type="filename">../X/UIButtonMore50_PointRight.png</key>
+            <key type="filename">../X/UIButtonMore50_PointRight_Disable.png</key>
+            <key type="filename">../X/UIButtonMore50_PointRight_Lit.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>13,13,25,25</rect>
+                <key>scale9Paddings</key>
+                <rect>13,13,25,25</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
         </map>
         <key>fileList</key>
         <array>
@@ -437,9 +472,16 @@
             <filename>../X/CloseButton_Normal.png</filename>
             <filename>../X/Bank_Panel_420_SquareCorner.png</filename>
             <filename>../X/LongPanelBlack80.png</filename>
-            <filename>../X/Brown_Panel_700x500_BlueLine.png</filename>
             <filename>GameSceneCity1924x1080.png</filename>
             <filename>CheckBoxes/WidgetBG_Brown.png</filename>
+            <filename>../X/Brown_Panel_600x500.png</filename>
+            <filename>CheckBoxes/PanelBG_SquareLineBlue.png</filename>
+            <filename>../X/UIButtonMore50_PointRight.png</filename>
+            <filename>../X/UIButtonMore50_PointRight_Lit.png</filename>
+            <filename>../X/UIButtonMore50_PointRight_Disable.png</filename>
+            <filename>../X/UIButtonLess50_PointLeft_Disable.png</filename>
+            <filename>../X/UIButtonLess50_PointLeft_Lit.png</filename>
+            <filename>../X/UIButtonLess50_PointLeft.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

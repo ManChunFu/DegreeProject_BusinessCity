@@ -183,9 +183,6 @@
     <ClInclude Include="..\Classes\TotalExpense.h">
       <Filter>Source Files\Classes\Data</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\ShopUI.h">
-      <Filter>Source Files\Classes\Data</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Users\mandy\source\repos\DegreeProject\CMakeLists.txt" />
