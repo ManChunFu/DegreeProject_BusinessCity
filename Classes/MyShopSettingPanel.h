@@ -17,6 +17,7 @@ namespace ui
 }
 NS_CC_END
 
+class ShopAdmin;
 class MyShopSettingPanel : public UIPanel
 {
 public:
@@ -36,9 +37,6 @@ protected:
 	void addCallback(cocos2d::Ref* pSender);
 	void hireCallback(cocos2d::Ref* pSender);
 	void workHereCallback(cocos2d::Ref* pSender);
-	void reduceTimeCallback(cocos2d::Ref* pSender, bool fromHourButton);
-	void increaseTimeCallback(cocos2d::Ref* pSender, bool fromHourButton);
-	void checkBoxClickCallback(cocos2d::Ref* pSender, unsigned weekday);
 	void reducePriceCallback(cocos2d::Ref* pSender, unsigned productId);
 	void increasePriceCallback(cocos2d::Ref* pSender, unsigned productId);
 	void reduceProductAmoutCallback(cocos2d::Ref* pSender, unsigned productIndex);
@@ -51,31 +49,35 @@ protected:
 
 	void onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event);
 
+	void onWorkDayChanges(unsigned weekday);
+	void onWorkHourChanges(unsigned workhour);
+
+	std::vector<std::pair<cocos2d::ui::CheckBox*, cocos2d::ui::Widget*>> m_PanelTabs;
+	Shop* m_MyShop = nullptr;
 private:
 	GameTime* m_GameTime = nullptr;
-	std::vector<std::pair<cocos2d::ui::CheckBox*, cocos2d::ui::Widget*>> m_PanelTabs;
+	ShopAdmin* m_ShopAdmin = nullptr;
 
 	cocos2d::ui::Widget* m_ProductWidget1 = nullptr;
 	cocos2d::ui::Widget* m_ProductWidget2 = nullptr;
 	cocos2d::ui::Widget* m_WorkStatesWidget = nullptr;
-	cocos2d::Label* m_WorkStateText = nullptr;
+	cocos2d::Label* m_ShopStateText = nullptr;
+	cocos2d::Label* m_PlayerWorkHereText = nullptr;
+	std::array<std::string, 2> m_PlayerWorkHereArray = { "No", "Yes" };
+	cocos2d::Label* m_FromHourText = nullptr;
+	cocos2d::Label* m_ToHourText = nullptr;
+
 	cocos2d::Label* m_ReplenishCountdownText = nullptr;
 	cocos2d::Label* m_EmployeeAtStoreText = nullptr;
 	cocos2d::Label* m_EmployeeCountText = nullptr;
 	cocos2d::Label* m_EmployeeSalaryText = nullptr;
-	cocos2d::Label* m_FromHourText = nullptr;
-	cocos2d::Label* m_ToHourText = nullptr;
-	std::vector<cocos2d::ui::CheckBox*> m_Weekdays;
 	std::vector<ProductData*> m_ProductDatas;
 	cocos2d::Vector<cocos2d::MenuItem*> m_WidgetMenu;
 
-	Shop* m_MyShop = nullptr;
 
 	bool m_DisplayWidget2 = false;
 	bool m_OwnerWorkHere = false;
 	unsigned m_EmployeeCount = 0;
-	unsigned m_FromHour = 8;
-	unsigned m_ToHour = 17;
 	unsigned m_PanelLimit = 3;
 	unsigned m_MinPriceChangesEachTime = 5;
 	unsigned m_MAxPrice = 500;

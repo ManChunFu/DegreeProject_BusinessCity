@@ -11,18 +11,22 @@
 #include "ui/UIWidget.h"
 #include "GlobalTime.h"
 #include "GameTime.h"
+#include "ShopAdmin.h"
 
 USING_NS_CC;
 
 MyShopSettingPanel::~MyShopSettingPanel()
 {
 	m_GameTime = nullptr;
+	delete m_ShopAdmin;
+	m_ShopAdmin = nullptr;
 	m_PanelTabs.clear();
 
 	m_ProductWidget1 = nullptr;
 	m_ProductWidget2 = nullptr;
-	m_WorkStatesWidget = nullptr;
-	m_WorkStateText = nullptr;
+	//m_WorkStatesWidget = nullptr;
+	m_ShopStateText = nullptr;
+	m_PlayerWorkHereText = nullptr;
 	m_ReplenishCountdownText = nullptr;
 	m_EmployeeCountText = nullptr;
 	m_EmployeeSalaryText = nullptr;
@@ -30,7 +34,6 @@ MyShopSettingPanel::~MyShopSettingPanel()
 	m_ToHourText = nullptr;
 	m_MyShop = nullptr;
 
-	m_Weekdays.clear();
 	m_WidgetMenu.clear();
 
 	for (auto product : m_ProductDatas)
@@ -153,8 +156,10 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopI
 
 	m_PanelTabs.at(0).first->setSelected(true);
 #pragma endregion
+
 	auto darkCyanColor = GameData::getInstance().m_ColorType.DarkCyan;
 	auto contentTextPos = Vec2(panelMidPoint.x - 240.f, panelMidPoint.y + 60.f);
+
 #pragma region Create overview content
 	std::array<std::string, 3> overviewLefTitles = { "Shop State", "Employees", "Products" };
 	for (unsigned index = 0; index < 3; index++)
@@ -170,14 +175,32 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopI
 	contentTextPos.y = panelMidPoint.y + 60.f;
 
 	// shop state
-	m_WorkStateText = Label::createWithTTF("", "fonts/Nirmala.ttf", 16);
-	if (m_WorkStateText)
+	m_ShopStateText = Label::createWithTTF("", "fonts/Nirmala.ttf", 16);
+	if (m_ShopStateText)
 	{
-		m_WorkStateText->setString(getWorkState());
-		m_WorkStateText->enableShadow(darkCyanColor);
-		GameFunctions::displayLabel(m_WorkStateText, Color4B::WHITE, Vec2(panelMidPoint.x - 150.f, contentTextPos.y),
+		m_ShopStateText->setString(getWorkState());
+		m_ShopStateText->enableShadow(darkCyanColor);
+		GameFunctions::displayLabel(m_ShopStateText, Color4B::WHITE, Vec2(panelMidPoint.x - 150.f, contentTextPos.y),
 			m_PanelTabs.at(0).second, 1, true, TextHAlignment::LEFT);
 	}
+
+#pragma region work states
+	m_WorkStatesWidget = ui::Widget::create();
+	m_WorkStatesWidget->setPosition(Vec2::ZERO);
+	m_PanelTabs.at(0).second->addChild(m_WorkStatesWidget, 1);
+
+	m_ReplenishCountdownText = Label::createWithTTF("30", "fonts/NirmalaB.ttf", 16);
+	if (m_ReplenishCountdownText)
+	{
+		if (m_MyShop->isReplenishing())
+			m_ReplenishCountdownText->setString(std::to_string(m_MyShop->getCountDown()));
+
+		m_ReplenishCountdownText->enableGlow(Color4B::BLACK);
+		GameFunctions::displayLabel(m_ReplenishCountdownText, Color4B::RED, Vec2(panelMidPoint.x - 70.f, contentTextPos.y +20.f),
+			m_WorkStatesWidget, 1, true, TextHAlignment::RIGHT);
+	}
+#pragma endregion
+
 
 	// employee count
 	m_EmployeeCountText = Label::createWithTTF("", "fonts/Nirmala.ttf", 16);
@@ -235,6 +258,16 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopI
 			m_PanelTabs.at(0).second, 1, true, TextHAlignment::LEFT);
 	}
 
+	// playerWorkHere
+	m_PlayerWorkHereText = Label::createWithTTF("", "fonts/Nirmala.ttf", 16);
+	if (m_PlayerWorkHereText)
+	{
+		m_PlayerWorkHereText->setString(m_PlayerWorkHereArray[m_MyShop->m_PlayerWorkHere]);
+		m_PlayerWorkHereText->enableShadow(darkCyanColor);
+		GameFunctions::displayLabel(m_PlayerWorkHereText, Color4B::WHITE, Vec2(panelMidPoint.x + 130.f, contentTextPos.y - 30.f),
+			m_PanelTabs.at(0).second, 1, true, TextHAlignment::LEFT);
+	}
+
 #pragma region Shop Products
 	m_ProductWidget1 = ui::Widget::create();
 	m_ProductWidget1->setPosition(Vec2::ZERO);
@@ -243,12 +276,12 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopI
 	auto dash = Label::createWithTTF("--------------------------------------------------------", "fonts/Nirmala.ttf", 20);
 	if (dash)
 	{
-		dash->enableGlow (darkCyanColor);
-		GameFunctions::displayLabel(dash, Color4B::WHITE, Vec2(panelMidPoint.x - 240.f, panelMidPoint.y -15.f), 
+		dash->enableGlow(darkCyanColor);
+		GameFunctions::displayLabel(dash, Color4B::WHITE, Vec2(panelMidPoint.x - 240.f, panelMidPoint.y - 15.f),
 			m_PanelTabs.at(0).second, 1, true, TextHAlignment::LEFT);
 	}
 
-	auto titlePos = Vec2(panelMidPoint.x -110.f, panelMidPoint.y - 20.f);
+	auto titlePos = Vec2(panelMidPoint.x - 110.f, panelMidPoint.y - 20.f);
 	std::array<std::string, 3> productContentTitles = { "Name", "Sale Price", "Quantity" };
 	for (unsigned index = 0; index < 3; index++)
 	{
@@ -258,8 +291,8 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopI
 			title->enableGlow(Color4B::BLACK);
 			GameFunctions::displayLabel(title, Color4B::WHITE, titlePos, m_PanelTabs.at(0).second, 1);
 		}
-		
-		titlePos.x += index == 0? 180.f : 80.f;
+
+		titlePos.x += index == 0 ? 180.f : 80.f;
 	}
 
 	auto productLength = m_MyShop->getProductsSize();
@@ -315,11 +348,19 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopI
 			GameFunctions::displayLabel(currentProductCountText, Color4B::WHITE, Vec2(productSpritePos.x + 330.f, productSpritePos.y),
 				m_ProductWidget1, 1);
 		}
-
-#pragma endregion
 		productSpritePos.y -= 40.f;
 	}
+#pragma endregion
 
+#pragma endregion Shop Products
+
+#pragma endregion Create overiew content
+
+#pragma region Administration
+	m_ShopAdmin = new ShopAdmin();
+	m_ShopAdmin->createAdmin(m_MyShop, m_PanelTabs.at(1).second, panelMidPoint);
+	m_ShopAdmin->onWorkDayChanges = CC_CALLBACK_1(MyShopSettingPanel::onWorkDayChanges, this);
+	m_ShopAdmin->onWorkHourChanges = CC_CALLBACK_1(MyShopSettingPanel::onWorkHourChanges, this);
 #pragma endregion
 
 	//#pragma region Hire Employee button
@@ -409,147 +450,8 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopI
 	//	m_ThisPanel->addChild(workHereCheckbox, 1);
 	//#pragma endregion
 	//
-	//#pragma region work states
-	//	m_WorkStatesWidget = ui::Widget::create();
-	//	m_WorkStatesWidget->setPosition(Vec2::ZERO);
-	//	m_ThisPanel->addChild(m_WorkStatesWidget, 1);
-	//
-	//	m_WorkStateText = Label::createWithTTF("", "fonts/NirmalaB.ttf", 20);
-	//	if (m_WorkStateText)
-	//	{
-	//		m_WorkStateText->setString(getWorkState());
-	//		GameFunctions::displayLabel(m_WorkStateText, Color4B::GREEN, Vec2(panelMidPoint.x - 130, panelMidPoint.y + 100.f),
-	//			m_WorkStatesWidget, 1, true, TextHAlignment::LEFT);
-	//	}
-	//
-	//	m_ReplenishCountdownText = Label::createWithTTF("", "fonts/NirmalaB.ttf", 20);
-	//	if (m_ReplenishCountdownText)
-	//	{
-	//		if (m_MyShop->isReplenishing())
-	//			m_ReplenishCountdownText->setString(std::to_string(m_MyShop->getCountDown()));
-	//
-	//		GameFunctions::displayLabel(m_ReplenishCountdownText, Color4B::RED, Vec2(panelMidPoint.x + 70.f, panelMidPoint.y + 125.f),
-	//			m_WorkStatesWidget, 1, true, TextHAlignment::RIGHT);
-	//	}
-	//#pragma endregion
-	//
-	//#pragma region work schedule
-	//	auto workScheduleText = Label::createWithTTF("Work Schedule", "fonts/NirmalaB.ttf", 20);
-	//	if (workScheduleText)
-	//		GameFunctions::displayLabel(workScheduleText, Color4B::BLACK, Vec2(textAligmentLeft, panelMidPoint.y + 40.f),
-	//			m_ThisPanel, 1, true, TextHAlignment::LEFT);
-	//
-	//	// from
-	//	auto fromText = Label::createWithTTF("From", "fonts/Nirmala.ttf", 18);
-	//	if (fromText)
-	//	{
-	//		fromText->enableItalics();
-	//		GameFunctions::displayLabel(fromText, Color4B::BLACK, Vec2(panelMidPoint.x - 100.f, panelMidPoint.y + 40.f),
-	//			m_ThisPanel, 1, true, TextHAlignment::LEFT);
-	//	}
-	//
-	//	auto fromBoxSprite = Sprite::createWithSpriteFrameName("Border_Black.png");
-	//	auto fromBoxMidPoint = Vec2(fromBoxSprite->getContentSize().width * 0.5f, fromBoxSprite->getContentSize().height * 0.5f);
-	//	if (fromBoxSprite)
-	//	{
-	//		GameFunctions::displaySprite(fromBoxSprite, Vec2(panelMidPoint.x, panelMidPoint.y + 50.f), m_ThisPanel, 1);
-	//
-	//		auto minuteText = Label::createWithTTF(": 00", "fonts/Nirmala.ttf", 20);
-	//		if (minuteText)
-	//		{
-	//			minuteText->enableShadow(Color4B::BLACK);
-	//			GameFunctions::displayLabel(minuteText, Color4B::WHITE, Vec2(fromBoxMidPoint.x + 30.f, fromBoxMidPoint.y + 15.f),
-	//				fromBoxSprite, 1, true, TextHAlignment::RIGHT);
-	//		}
-	//
-	//		m_FromHourText = Label::createWithTTF("", "fonts/Nirmala.ttf", 20);
-	//		if (m_FromHourText)
-	//		{
-	//			GameFunctions::updatLabelText_TimeFormat(m_FromHourText, m_MyShop->m_ShopOpenHour.first, true);
-	//			m_FromHourText->enableShadow(Color4B::BLACK);
-	//			GameFunctions::displayLabel(m_FromHourText, Color4B::WHITE, Vec2(fromBoxMidPoint.x - 10.f, fromBoxMidPoint.y + 15.f),
-	//				fromBoxSprite, 1, true, TextHAlignment::RIGHT);
-	//		}
-	//	}
-	//
-	//	for (unsigned index = 0; index < 2; index++)
-	//	{
-	//		auto fromButton = (index % 2 == 0) ? MouseOverMenuItem::createLowerButton(CC_CALLBACK_1(MyShopSettingPanel::reduceTimeCallback, this, true))
-	//			: MouseOverMenuItem::createUpperButton(CC_CALLBACK_1(MyShopSettingPanel::increaseTimeCallback, this, true));
-	//		if (fromButton)
-	//		{
-	//			displayButtons(fromButton, (index % 2 == 0) ? Vec2(sceneMidPoint.x + 33.f, sceneMidPoint.y + 40.f) :
-	//				Vec2(sceneMidPoint.x - 33.f, sceneMidPoint.y + 60.f), itemTypes::BUTTON);
-	//		}
-	//	}
-	//
-	//	// to
-	//	auto toText = Label::createWithTTF("To", "fonts/Nirmala.ttf", 18);
-	//	if (toText)
-	//	{
-	//		toText->enableItalics();
-	//		GameFunctions::displayLabel(toText, Color4B::BLACK, Vec2(panelMidPoint.x + 70.f, panelMidPoint.y + 40.f),
-	//			m_ThisPanel, 1, true, TextHAlignment::LEFT);
-	//	}
-	//
-	//	auto toBoxSprite = Sprite::createWithSpriteFrameName("Border_Black.png");
-	//	if (toBoxSprite)
-	//	{
-	//		GameFunctions::displaySprite(toBoxSprite, Vec2(panelMidPoint.x + 150.f, panelMidPoint.y + 50.f), m_ThisPanel, 1);
-	//
-	//		auto toMinuteText = Label::createWithTTF(": 00", "fonts/Nirmala.ttf", 20);
-	//		if (toMinuteText)
-	//		{
-	//			toMinuteText->enableShadow(Color4B::BLACK);
-	//			GameFunctions::displayLabel(toMinuteText, Color4B::WHITE, Vec2(fromBoxMidPoint.x + 30.f, fromBoxMidPoint.y + 15.f),
-	//				toBoxSprite, 1, true, TextHAlignment::RIGHT);
-	//		}
-	//
-	//		m_ToHourText = Label::createWithTTF("", "fonts/Nirmala.ttf", 20);
-	//		if (m_ToHourText)
-	//		{
-	//			GameFunctions::updatLabelText_TimeFormat(m_ToHourText, m_MyShop->m_ShopOpenHour.second, true);
-	//			m_ToHourText->enableShadow(Color4B::BLACK);
-	//			GameFunctions::displayLabel(m_ToHourText, Color4B::WHITE, Vec2(fromBoxMidPoint.x - 10.f, fromBoxMidPoint.y + 15.f),
-	//				toBoxSprite, 1, true, TextHAlignment::RIGHT);
-	//		}
-	//	}
-	//
-	//	for (unsigned index = 0; index < 2; index++)
-	//	{
-	//		auto toButton = (index % 2 == 0) ? MouseOverMenuItem::createLowerButton(CC_CALLBACK_1(MyShopSettingPanel::reduceTimeCallback, this, false))
-	//			: MouseOverMenuItem::createUpperButton(CC_CALLBACK_1(MyShopSettingPanel::increaseTimeCallback, this, false));
-	//		if (toButton)
-	//		{
-	//			displayButtons(toButton, (index % 2 == 0) ? Vec2(sceneMidPoint.x + 183.f, sceneMidPoint.y + 40.f) :
-	//				Vec2(sceneMidPoint.x + 117.f, sceneMidPoint.y + 60.f), itemTypes::BUTTON);
-	//		}
-	//	}
-	//
-	//	// weeks
-	//	std::array<std::string, 7> weekdays = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" };
-	//	auto checkboxPos = Vec2(panelMidPoint.x - 80.f, panelMidPoint.y - 20.f);
-	//	for (unsigned index = 0; index < 7; index++)
-	//	{
-	//		auto checkbox = ui::CheckBox::create("X/Checkbox_Normal.png", "X/Checkbox_Checked.png");
-	//		checkbox->setPosition(checkboxPos);
-	//		checkbox->setSelected(m_MyShop->m_ShopOpenDay[index]);
-	//		checkbox->addClickEventListener(CC_CALLBACK_1(MyShopSettingPanel::checkBoxClickCallback, this,
-	//			index));
-	//
-	//		m_Weekdays.push_back(checkbox);
-	//		m_ThisPanel->addChild(checkbox, 1);
-	//		checkboxPos.x += 50.f;
-	//
-	//		auto text = Label::createWithTTF(weekdays[index], "fonts/Nirmala.ttf", 15);
-	//		if (text)
-	//			GameFunctions::displayLabel(text, Color4B::BLACK, Vec2(checkbox->getContentSize().width * 0.5f,
-	//				checkbox->getContentSize().height + 10.f), checkbox, 1);
-	//	}
-	//#pragma endregion
-	//
 
-	//#pragma endregion
+
 
 	auto menu = Menu::createWithArray(m_MenuItems);
 	menu->setPosition(Vec2::ZERO);
@@ -579,20 +481,20 @@ void MyShopSettingPanel::createProductWidget2(Vec2 panelMidPoint, Vec2 sceneMidP
 	if (m_ProductWidget2)
 	{
 		m_ProductWidget2->setPosition(Vec2::ZERO);
-		m_ThisPanel->addChild(m_ProductWidget2, 1);
+		m_PanelTabs.at(0).second->addChild(m_ProductWidget2, 1);
 	}
 
-	auto lessButton = MouseOverMenuItem::creatMouseOverMenuButton("UIButtonLess50.png", "UIButtonLess50_Lit.png",
-		"UIButtonLess50_Disable.png", CC_CALLBACK_1(MyShopSettingPanel::openWidget2Callback, this));
+	auto lessButton = MouseOverMenuItem::creatMouseOverMenuButton("UIButtonLess50_PointLeft.png", "UIButtonLess50_PointLeft_Lit.png",
+		"UIButtonLess50_PointLeft_Disable.png", CC_CALLBACK_1(MyShopSettingPanel::openWidget2Callback, this));
 	if (lessButton)
 	{
 		lessButton->itemSelectedData.type = itemTypes::WIDGET_BUTTON;
-		displayButtons(lessButton, Vec2(sceneMidPoint.x - 160.f, 280.f), itemTypes::WIDGET_BUTTON);
+		displayButtons(lessButton, Vec2(sceneMidPoint.x - 230.f, sceneMidPoint.y - 100.f), itemTypes::WIDGET_BUTTON);
 	}
 
 	auto productLength = m_MyShop->getProductsSize();
-	auto productSpritePos = Vec2(panelMidPoint.x - 290.f, panelMidPoint.y - 115.f);
-	auto productButtonPos = Vec2(sceneMidPoint.x - 25.f, sceneMidPoint.y - 125.f);
+	auto productSpritePos = Vec2(panelMidPoint.x - 180.f, panelMidPoint.y - 50.f);
+	auto darkCyanColor = GameData::getInstance().m_ColorType.DarkCyan;
 
 #pragma region create product pics, name, quantity and buy button
 	for (unsigned productIndex = m_PanelLimit + 1; productIndex < productLength; productIndex++)
@@ -605,36 +507,20 @@ void MyShopSettingPanel::createProductWidget2(Vec2 panelMidPoint, Vec2 sceneMidP
 		// product name
 		auto productName = Label::createWithTTF(m_MyShop->getProductName(productIndex), "fonts/Nirmala.ttf", 15);
 		if (productName)
-			GameFunctions::displayLabel(productName, Color4B::BLACK, Vec2(productSpritePos.x + 50.f, productSpritePos.y - 10.f),
+		{
+			productName->enableShadow(darkCyanColor);
+			GameFunctions::displayLabel(productName, Color4B::WHITE, Vec2(productSpritePos.x + 50.f, productSpritePos.y - 10.f),
 				m_ProductWidget2, 1, true, TextHAlignment::LEFT);
-
-		// product sale price box
-		auto priceBoxSprite = Sprite::createWithSpriteFrameName("Border_Black_Square.png");
-		if (priceBoxSprite)
-			GameFunctions::displaySprite(priceBoxSprite, Vec2(productSpritePos.x + 250.f, productSpritePos.y), m_ProductWidget2, 1);
+		}
 
 		// product sale price text
 		auto productSalePrice = Label::createWithTTF("", "fonts/Nirmala.ttf", 15);
 		if (productSalePrice)
 		{
-			productSalePrice->enableShadow(Color4B::BLACK);
+			productSalePrice->enableShadow(darkCyanColor);
 			productSalePrice->setString(std::to_string(m_MyShop->getProductSalePrice(productIndex)));
-			GameFunctions::displayLabel(productSalePrice, Color4B::WHITE, (priceBoxSprite->getContentSize() * 0.5),
-				priceBoxSprite, 1);
-		}
-
-		// price reduce increase buttons
-		for (unsigned index = 0; index < 2; index++)
-		{
-			auto priceButton = (index % 2 == 0) ? MouseOverMenuItem::createLowerButton(CC_CALLBACK_1(
-				MyShopSettingPanel::reducePriceCallback, this, productIndex)) : MouseOverMenuItem::createUpperButton(
-					CC_CALLBACK_1(MyShopSettingPanel::increasePriceCallback, this, productIndex));
-			if (priceButton)
-			{
-				priceButton->itemSelectedData.type = itemTypes::WIDGET_BUTTON;
-				displayButtons(priceButton, (index % 2 == 0) ? productButtonPos :
-					Vec2(productButtonPos.x - 30.f, productButtonPos.y + 20.f), itemTypes::WIDGET_BUTTON);
-			}
+			GameFunctions::displayLabel(productSalePrice, Color4B::WHITE, Vec2(productSpritePos.x + 250.f, productSpritePos.y),
+				m_ProductWidget2, 1);
 		}
 
 		// product quantity text in shop
@@ -642,79 +528,141 @@ void MyShopSettingPanel::createProductWidget2(Vec2 panelMidPoint, Vec2 sceneMidP
 			"fonts/Nirmala.ttf", 15);
 		if (currentProductCountText)
 		{
-			currentProductCountText->enableShadow(Color4B::BLACK);
+			currentProductCountText->enableShadow(darkCyanColor);
 			GameFunctions::displayLabel(currentProductCountText, Color4B::WHITE, Vec2(productSpritePos.x + 330.f, productSpritePos.y),
 				m_ProductWidget2, 1);
 		}
 
-		// purchase product quantity box
-		auto boxSprite = Sprite::createWithSpriteFrameName("Border_Black_Square.png");
-		if (boxSprite)
-			GameFunctions::displaySprite(boxSprite, Vec2(productSpritePos.x + 410.f, productSpritePos.y), m_ProductWidget2, 1);
-
-		//product purchase quantity text
-		auto productCountText = Label::createWithTTF(std::to_string(m_MinPurchaseQTY), "fonts/Nirmala.ttf", 15);
-		if (productCountText)
-		{
-			productCountText->enableShadow(Color4B::BLACK);
-			GameFunctions::displayLabel(productCountText, Color4B::WHITE, Vec2(boxSprite->getContentSize() * 0.5f), boxSprite, 1);
-		}
-
-		// add to product data class
-		m_ProductDatas.push_back(new ProductData(m_MyShop->getProductId(productIndex), productSalePrice,
-			currentProductCountText, productCountText, m_MyShop->getProductSalePrice(productIndex), m_MinPurchaseQTY));
-
-		// product QTY reduce increase buttons
-		for (unsigned index = 0; index < 2; index++)
-		{
-			auto productButton = (index % 2 == 0) ? MouseOverMenuItem::createLowerButton(CC_CALLBACK_1(
-				MyShopSettingPanel::reduceProductAmoutCallback, this, productIndex)) : MouseOverMenuItem::createUpperButton(
-					CC_CALLBACK_1(MyShopSettingPanel::increaseProductAmoutCallback, this, productIndex));
-			if (productButton)
-			{
-				productButton->itemSelectedData.type = itemTypes::WIDGET_BUTTON;
-				displayButtons(productButton, (index % 2 == 0) ? Vec2(productButtonPos.x + 160.f, productButtonPos.y) :
-					Vec2(productButtonPos.x + 130.f, productButtonPos.y + 20.f), itemTypes::WIDGET_BUTTON);
-			}
-		}
-
-		// set for next item pos;
-		productButtonPos.y -= 40.f;
-
-		// buy button
-		auto buyButton = MouseOverMenuItem::creatMouseOverMenuButton(CC_CALLBACK_1(MyShopSettingPanel::buyProductCallback, this,
-			productIndex));
-		if (buyButton)
-		{
-			displayButtons(buyButton, Vec2(panelMidPoint.x + 480.f, productSpritePos.y + 110.f), itemTypes::WIDGET_BUTTON, 0.7f);
-			buyButton->itemSelectedData.type = itemTypes::WIDGET_BUTTON;
-
-			auto buyText = Label::createWithTTF("BUY", "fonts/NirmalaB.ttf", 20);
-			if (buyText)
-				GameFunctions::displayLabel(buyText, GameData::getInstance().m_ColorType.Taro, Vec2(buyButton->getContentSize().width * 0.5f,
-					buyButton->getContentSize().height * 0.5f), buyButton, 1);
-		}
-
-		// productPurchasePrice
-		auto cashSymbol = Label::createWithTTF("$", "fonts/NirmalaB.ttf", 18);
-		if (cashSymbol)
-			GameFunctions::displayLabel(cashSymbol, Color4B::BLACK, Vec2(panelMidPoint.x + 240.f, productSpritePos.y - 10.f),
-				m_ProductWidget2, 1, true, TextHAlignment::LEFT);
-
-		auto purchasePriceText = Label::createWithTTF(std::to_string(m_MyShop->getProductPurchasePrice(productIndex)),
-			"fonts/NirmalaB.ttf", 18);
-		if (purchasePriceText)
-			GameFunctions::displayLabel(purchasePriceText, Color4B::BLACK, Vec2(panelMidPoint.x + 270.f, productSpritePos.y + 15.f),
-				m_ProductWidget2, 1, true, TextHAlignment::RIGHT);
-
-		auto pieceText = Label::createWithTTF("/ PCS", "fonts/NirmalaB.ttf", 16);
-		if (pieceText)
-			GameFunctions::displayLabel(pieceText, Color4B::BLACK, Vec2(panelMidPoint.x + 275.f, productSpritePos.y - 6.f),
-				m_ProductWidget2, 1, true, TextHAlignment::LEFT);
-
 #pragma endregion
 		productSpritePos.y -= 40.f;
 	}
+
+
+	//	auto productLength = m_MyShop->getProductsSize();
+	//	auto productSpritePos = Vec2(panelMidPoint.x - 290.f, panelMidPoint.y - 115.f);
+	//	auto productButtonPos = Vec2(sceneMidPoint.x - 25.f, sceneMidPoint.y - 125.f);
+	//
+	//#pragma region create product pics, name, quantity and buy button
+	//	for (unsigned productIndex = m_PanelLimit + 1; productIndex < productLength; productIndex++)
+	//	{
+	//		// product pic
+	//		auto productSprite = Sprite::createWithSpriteFrameName(m_MyShop->getProductSprite(productIndex));
+	//		if (productSprite)
+	//			GameFunctions::displaySprite(productSprite, productSpritePos, m_ProductWidget2, 1, 0.5f, 0.5f);
+	//
+	//		// product name
+	//		auto productName = Label::createWithTTF(m_MyShop->getProductName(productIndex), "fonts/Nirmala.ttf", 15);
+	//		if (productName)
+	//			GameFunctions::displayLabel(productName, Color4B::BLACK, Vec2(productSpritePos.x + 50.f, productSpritePos.y - 10.f),
+	//				m_ProductWidget2, 1, true, TextHAlignment::LEFT);
+	//
+	//		// product sale price box
+	//		auto priceBoxSprite = Sprite::createWithSpriteFrameName("Border_Black_Square.png");
+	//		if (priceBoxSprite)
+	//			GameFunctions::displaySprite(priceBoxSprite, Vec2(productSpritePos.x + 250.f, productSpritePos.y), m_ProductWidget2, 1);
+	//
+	//		// product sale price text
+	//		auto productSalePrice = Label::createWithTTF("", "fonts/Nirmala.ttf", 15);
+	//		if (productSalePrice)
+	//		{
+	//			productSalePrice->enableShadow(Color4B::BLACK);
+	//			productSalePrice->setString(std::to_string(m_MyShop->getProductSalePrice(productIndex)));
+	//			GameFunctions::displayLabel(productSalePrice, Color4B::WHITE, (priceBoxSprite->getContentSize() * 0.5),
+	//				priceBoxSprite, 1);
+	//		}
+	//
+	//		// price reduce increase buttons
+	//		for (unsigned index = 0; index < 2; index++)
+	//		{
+	//			auto priceButton = (index % 2 == 0) ? MouseOverMenuItem::createLowerButton(CC_CALLBACK_1(
+	//				MyShopSettingPanel::reducePriceCallback, this, productIndex)) : MouseOverMenuItem::createUpperButton(
+	//					CC_CALLBACK_1(MyShopSettingPanel::increasePriceCallback, this, productIndex));
+	//			if (priceButton)
+	//			{
+	//				priceButton->itemSelectedData.type = itemTypes::WIDGET_BUTTON;
+	//				displayButtons(priceButton, (index % 2 == 0) ? productButtonPos :
+	//					Vec2(productButtonPos.x - 30.f, productButtonPos.y + 20.f), itemTypes::WIDGET_BUTTON);
+	//			}
+	//		}
+	//
+	//		// product quantity text in shop
+	//		auto currentProductCountText = Label::createWithTTF(std::to_string(m_MyShop->getProductQuantity(productIndex)),
+	//			"fonts/Nirmala.ttf", 15);
+	//		if (currentProductCountText)
+	//		{
+	//			currentProductCountText->enableShadow(Color4B::BLACK);
+	//			GameFunctions::displayLabel(currentProductCountText, Color4B::WHITE, Vec2(productSpritePos.x + 330.f, productSpritePos.y),
+	//				m_ProductWidget2, 1);
+	//		}
+	//
+	//		// purchase product quantity box
+	//		auto boxSprite = Sprite::createWithSpriteFrameName("Border_Black_Square.png");
+	//		if (boxSprite)
+	//			GameFunctions::displaySprite(boxSprite, Vec2(productSpritePos.x + 410.f, productSpritePos.y), m_ProductWidget2, 1);
+	//
+	//		//product purchase quantity text
+	//		auto productCountText = Label::createWithTTF(std::to_string(m_MinPurchaseQTY), "fonts/Nirmala.ttf", 15);
+	//		if (productCountText)
+	//		{
+	//			productCountText->enableShadow(Color4B::BLACK);
+	//			GameFunctions::displayLabel(productCountText, Color4B::WHITE, Vec2(boxSprite->getContentSize() * 0.5f), boxSprite, 1);
+	//		}
+	//
+	//		// add to product data class
+	//		m_ProductDatas.push_back(new ProductData(m_MyShop->getProductId(productIndex), productSalePrice,
+	//			currentProductCountText, productCountText, m_MyShop->getProductSalePrice(productIndex), m_MinPurchaseQTY));
+	//
+	//		// product QTY reduce increase buttons
+	//		for (unsigned index = 0; index < 2; index++)
+	//		{
+	//			auto productButton = (index % 2 == 0) ? MouseOverMenuItem::createLowerButton(CC_CALLBACK_1(
+	//				MyShopSettingPanel::reduceProductAmoutCallback, this, productIndex)) : MouseOverMenuItem::createUpperButton(
+	//					CC_CALLBACK_1(MyShopSettingPanel::increaseProductAmoutCallback, this, productIndex));
+	//			if (productButton)
+	//			{
+	//				productButton->itemSelectedData.type = itemTypes::WIDGET_BUTTON;
+	//				displayButtons(productButton, (index % 2 == 0) ? Vec2(productButtonPos.x + 160.f, productButtonPos.y) :
+	//					Vec2(productButtonPos.x + 130.f, productButtonPos.y + 20.f), itemTypes::WIDGET_BUTTON);
+	//			}
+	//		}
+	//
+	//		// set for next item pos;
+	//		productButtonPos.y -= 40.f;
+	//
+	//		// buy button
+	//		auto buyButton = MouseOverMenuItem::creatMouseOverMenuButton(CC_CALLBACK_1(MyShopSettingPanel::buyProductCallback, this,
+	//			productIndex));
+	//		if (buyButton)
+	//		{
+	//			displayButtons(buyButton, Vec2(panelMidPoint.x + 480.f, productSpritePos.y + 110.f), itemTypes::WIDGET_BUTTON, 0.7f);
+	//			buyButton->itemSelectedData.type = itemTypes::WIDGET_BUTTON;
+	//
+	//			auto buyText = Label::createWithTTF("BUY", "fonts/NirmalaB.ttf", 20);
+	//			if (buyText)
+	//				GameFunctions::displayLabel(buyText, GameData::getInstance().m_ColorType.Taro, Vec2(buyButton->getContentSize().width * 0.5f,
+	//					buyButton->getContentSize().height * 0.5f), buyButton, 1);
+	//		}
+	//
+	//		// productPurchasePrice
+	//		auto cashSymbol = Label::createWithTTF("$", "fonts/NirmalaB.ttf", 18);
+	//		if (cashSymbol)
+	//			GameFunctions::displayLabel(cashSymbol, Color4B::BLACK, Vec2(panelMidPoint.x + 240.f, productSpritePos.y - 10.f),
+	//				m_ProductWidget2, 1, true, TextHAlignment::LEFT);
+	//
+	//		auto purchasePriceText = Label::createWithTTF(std::to_string(m_MyShop->getProductPurchasePrice(productIndex)),
+	//			"fonts/NirmalaB.ttf", 18);
+	//		if (purchasePriceText)
+	//			GameFunctions::displayLabel(purchasePriceText, Color4B::BLACK, Vec2(panelMidPoint.x + 270.f, productSpritePos.y + 15.f),
+	//				m_ProductWidget2, 1, true, TextHAlignment::RIGHT);
+	//
+	//		auto pieceText = Label::createWithTTF("/ PCS", "fonts/NirmalaB.ttf", 16);
+	//		if (pieceText)
+	//			GameFunctions::displayLabel(pieceText, Color4B::BLACK, Vec2(panelMidPoint.x + 275.f, productSpritePos.y - 6.f),
+	//				m_ProductWidget2, 1, true, TextHAlignment::LEFT);
+	//
+	//#pragma endregion
+	//		productSpritePos.y -= 40.f;
+	//	}
 
 	auto widgetMenu = Menu::createWithArray(m_WidgetMenu);
 	widgetMenu->setPosition(Vec2::ZERO);
@@ -752,51 +700,6 @@ void MyShopSettingPanel::workHereCallback(cocos2d::Ref* pSender)
 	m_MyShop->setPlayerWorkHere();
 }
 
-void MyShopSettingPanel::reduceTimeCallback(cocos2d::Ref* pSender, bool fromHourButton)
-{
-	if (fromHourButton)
-	{
-		m_FromHour = GameFunctions::displayLabelText_ClampValue(m_FromHourText, m_FromHour, -1, 0, 24);
-		GameFunctions::updatLabelText_TimeFormat(m_FromHourText, m_FromHour, true);
-
-		m_MyShop->setShopOpenHour(0, m_FromHour);
-
-		updateShopWorkingState();
-
-		return;
-	}
-	m_ToHour = GameFunctions::displayLabelText_ClampValue(m_ToHourText, m_ToHour, -1, 0, 24);
-	GameFunctions::updatLabelText_TimeFormat(m_ToHourText, m_ToHour, true);
-	m_MyShop->setShopOpenHour(1, m_ToHour);
-
-	updateShopWorkingState();
-}
-
-void MyShopSettingPanel::increaseTimeCallback(cocos2d::Ref* pSender, bool fromHourButton)
-{
-	if (fromHourButton)
-	{
-		m_FromHour = GameFunctions::displayLabelText_ClampValue(m_FromHourText, m_FromHour, 1, 0, 24);
-		GameFunctions::updatLabelText_TimeFormat(m_FromHourText, m_FromHour, true);
-
-		m_MyShop->setShopOpenHour(0, m_FromHour);
-
-		updateShopWorkingState();
-
-		return;
-	}
-	m_ToHour = GameFunctions::displayLabelText_ClampValue(m_ToHourText, m_ToHour, 1, 0, 24);
-	GameFunctions::updatLabelText_TimeFormat(m_ToHourText, m_ToHour, true);
-	m_MyShop->setShopOpenHour(1, m_ToHour);
-
-	updateShopWorkingState();
-}
-
-void MyShopSettingPanel::checkBoxClickCallback(cocos2d::Ref* pSender, unsigned weekday)
-{
-	m_MyShop->setShopOpenDay(weekday);
-	updateShopWorkingState();
-}
 
 void MyShopSettingPanel::reducePriceCallback(cocos2d::Ref* pSender, unsigned productId)
 {
@@ -899,6 +802,16 @@ void MyShopSettingPanel::onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event
 {
 }
 
+void MyShopSettingPanel::onWorkDayChanges(unsigned weekday)
+{
+	updateShopWorkingState();
+}
+
+void MyShopSettingPanel::onWorkHourChanges(unsigned workhour)
+{
+	updateShopWorkingState();
+}
+
 void MyShopSettingPanel::displayButtons(MouseOverMenuItem* button, Vec2 pos, itemTypes type, float scale)
 {
 	button->m_OnMouseOver = CC_CALLBACK_2(MyShopSettingPanel::onMouseOver, this);
@@ -972,7 +885,7 @@ void MyShopSettingPanel::updateShopProductData()
 
 void MyShopSettingPanel::updateShopWorkingState()
 {
-	m_WorkStateText->setString(getWorkState());
+	m_ShopStateText->setString(getWorkState());
 
 	(m_MyShop->isReplenishing() ? m_ReplenishCountdownText->setVisible(true) : m_ReplenishCountdownText->setVisible(false));
 }
