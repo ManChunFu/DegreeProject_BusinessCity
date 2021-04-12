@@ -147,7 +147,6 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopI
 			auto tabWidget = ui::Widget::create();
 			tabWidget->setPosition(Vec2::ZERO);
 			m_ThisPanel->addChild(tabWidget, 1);
-
 			m_PanelTabs.push_back(std::make_pair(tabButton, tabWidget));
 
 			tabPos.x += 105.f;
@@ -189,7 +188,7 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopI
 	m_WorkStatesWidget->setPosition(Vec2::ZERO);
 	m_PanelTabs.at(0).second->addChild(m_WorkStatesWidget, 1);
 
-	m_ReplenishCountdownText = Label::createWithTTF("30", "fonts/NirmalaB.ttf", 16);
+	m_ReplenishCountdownText = Label::createWithTTF("", "fonts/NirmalaB.ttf", 16);
 	if (m_ReplenishCountdownText)
 	{
 		if (m_MyShop->isReplenishing())
@@ -200,7 +199,6 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopI
 			m_WorkStatesWidget, 1, true, TextHAlignment::RIGHT);
 	}
 #pragma endregion
-
 
 	// employee count
 	m_EmployeeCountText = Label::createWithTTF("", "fonts/Nirmala.ttf", 16);
@@ -233,7 +231,7 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopI
 	m_FromHourText = Label::createWithTTF("", "fonts/Nirmala.ttf", 16);
 	if (m_FromHourText)
 	{
-		GameFunctions::updatLabelText_TimeFormat(m_FromHourText, m_MyShop->m_ShopOpenHour.first, true);
+		GameFunctions::updatLabelText_TimeFormat(m_FromHourText, m_MyShop->m_ShopOpenHour[0].first, true);
 		m_FromHourText->enableShadow(darkCyanColor);
 		GameFunctions::displayLabel(m_FromHourText, Color4B::WHITE, Vec2(panelMidPoint.x + 130.f, contentTextPos.y),
 			m_PanelTabs.at(0).second, 1, true, TextHAlignment::LEFT);
@@ -252,7 +250,7 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopI
 	m_ToHourText = Label::createWithTTF("", "fonts/Nirmala.ttf", 16);
 	if (m_ToHourText)
 	{
-		GameFunctions::updatLabelText_TimeFormat(m_ToHourText, m_MyShop->m_ShopOpenHour.second, true);
+		GameFunctions::updatLabelText_TimeFormat(m_ToHourText, m_MyShop->m_ShopOpenHour[0].second, true);
 		m_ToHourText->enableShadow(darkCyanColor);
 		GameFunctions::displayLabel(m_ToHourText, Color4B::WHITE, Vec2(panelMidPoint.x + 180.f, contentTextPos.y),
 			m_PanelTabs.at(0).second, 1, true, TextHAlignment::LEFT);
@@ -358,7 +356,7 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopI
 
 #pragma region Administration
 	m_ShopAdmin = new ShopAdmin();
-	m_ShopAdmin->createAdmin(m_MyShop, m_PanelTabs.at(1).second, panelMidPoint);
+	m_ShopAdmin->createAdmin(m_GameScene, m_MyShop, m_PanelTabs.at(1).second, panelMidPoint, sceneMidPoint);
 	m_ShopAdmin->onWorkDayChanges = CC_CALLBACK_1(MyShopSettingPanel::onWorkDayChanges, this);
 	m_ShopAdmin->onWorkHourChanges = CC_CALLBACK_1(MyShopSettingPanel::onWorkHourChanges, this);
 #pragma endregion
@@ -465,9 +463,13 @@ void MyShopSettingPanel::onOpenTabCallback(cocos2d::Ref* pSender, unsigned tabIn
 	{
 		if (index == tabIndex)
 		{
-			(m_PanelTabs.at(index).second->isVisible()) ? m_PanelTabs.at(index).second->setVisible(false) :
-				m_PanelTabs.at(index).second->setVisible(true);
+			if (m_PanelTabs.at(index).second->isVisible())
+			{
+				m_PanelTabs.at(index).second->setVisible(false);
+				return;
+			}
 
+			m_PanelTabs.at(index).second->setVisible(true);
 			continue;
 		}
 		m_PanelTabs.at(index).second->setVisible(false);
@@ -700,24 +702,11 @@ void MyShopSettingPanel::workHereCallback(cocos2d::Ref* pSender)
 	m_MyShop->setPlayerWorkHere();
 }
 
-
 void MyShopSettingPanel::reducePriceCallback(cocos2d::Ref* pSender, unsigned productId)
 {
 	m_ProductDatas[productId]->productSalePrice = GameFunctions::displayLabelText_ClampValue(
 		m_ProductDatas[productId]->productPriceText, m_ProductDatas[productId]->productSalePrice,
 		-m_MinPriceChangesEachTime, 0, m_MAxPrice);
-	m_ProductDatas[productId]->productPriceText->setString(std::to_string(m_ProductDatas[productId]->productSalePrice));
-
-	// update shop data
-	m_MyShop->setCurrentSalePrice(productId, m_ProductDatas[productId]->productSalePrice);
-}
-
-void MyShopSettingPanel::increasePriceCallback(cocos2d::Ref* pSender, unsigned productId)
-{
-	m_ProductDatas[productId]->productId = productId;
-	m_ProductDatas[productId]->productSalePrice = GameFunctions::displayLabelText_ClampValue(
-		m_ProductDatas[productId]->productPriceText, m_ProductDatas[productId]->productSalePrice,
-		m_MinPriceChangesEachTime, 0, m_MAxPrice);
 	m_ProductDatas[productId]->productPriceText->setString(std::to_string(m_ProductDatas[productId]->productSalePrice));
 
 	// update shop data
@@ -809,6 +798,8 @@ void MyShopSettingPanel::onWorkDayChanges(unsigned weekday)
 
 void MyShopSettingPanel::onWorkHourChanges(unsigned workhour)
 {
+	m_FromHourText->setString(std::to_string(m_MyShop->m_ShopOpenHour[m_GameTime->day].first));
+	m_ToHourText->setString(std::to_string(m_MyShop->m_ShopOpenHour[m_GameTime->day].second));
 	updateShopWorkingState();
 }
 

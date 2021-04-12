@@ -18,6 +18,7 @@ public:
 
 	bool isPanelOpen() { return m_IsPanelOpen; }
 
+	virtual void enableMenuItmes(bool enable) {};
 protected:
 	cocos2d::Vector<cocos2d::Node*> m_Elements;
 	cocos2d::Vector<cocos2d::MenuItem*> m_MenuItems;
@@ -29,5 +30,6 @@ protected:
 
 	virtual void createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopId = 0) {};
 
-	MouseOverMenuItem* displayMenuButton(MouseOverMenuItem* button, std::function<void(MouseOverMenuItem* overItem, cocos2d::Event* event)> onMouseOver, cocos2d::Vec2 pos, cocos2d::itemTypes type = cocos2d::itemTypes::DEFAULT, float scale = 1.f);
+	MouseOverMenuItem* displayMenuButton(MouseOverMenuItem* button, std::function<void(MouseOverMenuItem* overItem, cocos2d::Event* event)> onMouseOver, 
+		cocos2d::Vec2 pos, cocos2d::itemTypes type = cocos2d::itemTypes::DEFAULT, float scale = 1.f, cocos2d::Vec2 parentPos = cocos2d::Vec2::ZERO);
 };

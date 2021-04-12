@@ -53,6 +53,7 @@ protected:
 	void onWorkHourChanges(unsigned workhour);
 
 	std::vector<std::pair<cocos2d::ui::CheckBox*, cocos2d::ui::Widget*>> m_PanelTabs;
+
 	Shop* m_MyShop = nullptr;
 private:
 	GameTime* m_GameTime = nullptr;

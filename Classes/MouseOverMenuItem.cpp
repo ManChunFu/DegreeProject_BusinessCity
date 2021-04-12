@@ -29,6 +29,28 @@ MouseOverMenuItem* MouseOverMenuItem::createLowerButton(const cocos2d::ccMenuCal
 	return nullptr;
 }
 
+MouseOverMenuItem* MouseOverMenuItem::createIncreaseButton(const cocos2d::ccMenuCallback& callback)
+{
+	auto spriteNormal = Sprite::createWithSpriteFrameName("UIButtonLess50.png");
+	auto spriteSelected = Sprite::createWithSpriteFrameName("UIButtonLess50_Lit.png");
+	auto spriteDisabled = Sprite::createWithSpriteFrameName("UIButtonLess50_Disable.png");
+
+	if (spriteNormal && spriteSelected && spriteDisabled)
+		return create(spriteNormal, spriteSelected, spriteDisabled, callback);
+	return nullptr;
+}
+
+MouseOverMenuItem* MouseOverMenuItem::createDecreaseButton(const cocos2d::ccMenuCallback& callback)
+{
+	auto spriteNormal = Sprite::createWithSpriteFrameName("UIButtonMore50.png");
+	auto spriteSelected = Sprite::createWithSpriteFrameName("UIButtonMore50_Lit.png");
+	auto spriteDisabled = Sprite::createWithSpriteFrameName("UIButtonMore50_Disable.png");
+
+	if (spriteNormal && spriteSelected && spriteDisabled)
+		return create(spriteNormal, spriteSelected, spriteDisabled, callback);
+	return nullptr;
+}
+
 MouseOverMenuItem* MouseOverMenuItem::creatMouseOverMenuButton(const std::string& normalPath, const std::string& selectedPath, const std::string& disabledPath, const ccMenuCallback& callback)
 {
 	auto spriteNormal = Sprite::createWithSpriteFrameName(normalPath);
@@ -83,10 +105,15 @@ MouseOverMenuItem* MouseOverMenuItem::create(Node* normalSprite, Node* overSprit
 	return nullptr;
 }
 
-void MouseOverMenuItem::setItemRect(Vec2& pos, float scale)
+void MouseOverMenuItem::setItemRect(Vec2& pos, float scale, Vec2 parentPos)
 {
 	float x = pos.x - getContentSize().width * 0.5f * scale;
 	float y = pos.y - getContentSize().height * 0.5f * scale;
+	if (parentPos != Vec2::ZERO)
+	{
+		x += parentPos.x;
+		y += parentPos.y;
+	}
 	m_ItemRect = Rect(x, y, getContentSize().width * scale, getContentSize().height * scale);
 	
 }

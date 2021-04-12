@@ -91,10 +91,15 @@ bool Shop::isShopOpen(unsigned day, unsigned currentHour)
 	if (m_Employees == 0 && !m_PlayerWorkHere)
 		return false;
 
-	if (currentHour < m_ShopOpenHour.first || currentHour > m_ShopOpenHour.second)
-		return false;
+	if (m_ShopOpenDay[day])
+	{
+		if (currentHour < m_ShopOpenHour[day].first || currentHour > m_ShopOpenHour[day].second)
+			return false;
+		
+		return true;
+	}
 
-	return m_ShopOpenDay[day];
+	return false;
 }
 
 unsigned Shop::runTrade(unsigned day, Shop* shop)
@@ -224,9 +229,9 @@ void Shop::addEmployee(unsigned person)
 	m_Employees += person;
 }
 
-void Shop::setShopOpenHour(unsigned fromOrTo, unsigned workingHour)
+void Shop::setShopOpenHour(unsigned weekday, unsigned fromOrTo, unsigned workingHour)
 {
-	(fromOrTo == 0) ? m_ShopOpenHour.first = workingHour : m_ShopOpenHour.second = workingHour;
+	(fromOrTo == 0) ? m_ShopOpenHour[weekday].first = workingHour : m_ShopOpenHour[weekday].second = workingHour;
 }
 
 void Shop::ReplenishmentCountDown()

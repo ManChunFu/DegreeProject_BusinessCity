@@ -33,7 +33,7 @@ public:
 
 	void setShopOpenDay(unsigned weekday);
 	/* from = first, to = second */
-	void setShopOpenHour(unsigned fromOrTo, unsigned workingHour);
+	void setShopOpenHour(unsigned weekday, unsigned fromOrTo, unsigned workingHour);
 
 
 	std::function<void(unsigned productId, unsigned remainQuantity)> onQuantityChanges;
@@ -62,7 +62,9 @@ public:
 	std::array<bool, 7> m_ShopOpenDay = { true, true, true, true, true, false, false };
 
 	// shop working hour -> from and  to
-	std::pair<unsigned int, unsigned int> m_ShopOpenHour = std::make_pair( 9, 17 );
+	std::array<std::pair<unsigned int, unsigned int>, 7> m_ShopOpenHour = {
+		std::make_pair(9, 17), std::make_pair(9, 17), std::make_pair(9, 17), std::make_pair(9, 17), std::make_pair(9, 17),
+		std::make_pair(14, 20), std::make_pair(14, 19)};
 
 	bool m_PlayerWorkHere = true;
 	bool m_IsReplenishing = false;

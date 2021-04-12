@@ -75,7 +75,16 @@ unsigned GameFunctions::displayLabelText_ClampValue(cocos2d::Label* label, int o
 {
 	originValue += newValue;
 	originValue = clampf(originValue, minValue, maxValue);
-	GameFunctions::updateLabelText_MoneyFormat(label, originValue);
+	updateLabelText_MoneyFormat(label, originValue);
+	return originValue;
+}
+
+unsigned GameFunctions::displayLabelText_ClampValueTime(cocos2d::Label* label, int originValue, int newValue, unsigned minValue, unsigned maxValue)
+{
+	originValue += newValue;
+	originValue = clampf(originValue, minValue, maxValue);
+	updatLabelText_TimeFormat(label, originValue, true);
+	
 	return originValue;
 }
 

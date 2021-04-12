@@ -22,4 +22,6 @@ struct GameFunctions
 
 	static unsigned displayLabelText_ClampValue(cocos2d::Label* label, int originValue, int newValue, unsigned minValue, unsigned maxValue);
 
+	static unsigned displayLabelText_ClampValueTime(cocos2d::Label* label, int originValue, int newValue, unsigned minValue, unsigned maxValue);
+
 };
