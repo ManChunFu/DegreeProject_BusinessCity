@@ -81,7 +81,7 @@ public:
 	unsigned getCurrentSalePrice(unsigned productId);
 	void setCurrentSalePrice(unsigned productId, unsigned price);
 
-	unsigned getProductId(unsigned productId);
+	unsigned getProductId(unsigned shopId);
 	std::string getProductName(unsigned productId);
 	std::string getProductSprite(unsigned productId);
 

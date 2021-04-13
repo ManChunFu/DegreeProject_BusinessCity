@@ -5,9 +5,9 @@
 #include "ui/CocosGUI.h"
 #include "Shop.h"
 #include "MouseOverMenuItem.h"
-#include "GameScene.h"
 #include "GlobalTime.h"
 #include "GameTime.h"
+#include "ShopProductAdmin.h"
 
 
 USING_NS_CC;
@@ -21,9 +21,8 @@ ShopAdmin::~ShopAdmin()
 	m_GameTime = nullptr;
 }
 
-void ShopAdmin::createAdmin(GameScene* gameScene, Shop* shop, ui::Widget* adminWidget, Vec2 panelMidPoint, Vec2 sceneMidPoint)
+void ShopAdmin::createAdmin(Shop* shop, ui::Widget* adminWidget, Vec2 panelMidPoint)
 {
-	m_GameScene = gameScene;
 	m_GameTime = GameData::getInstance().m_GlobalTime->m_Gametime;
 
 	// only overview widget is visible when the panel is open
@@ -149,42 +148,6 @@ void ShopAdmin::createAdmin(GameScene* gameScene, Shop* shop, ui::Widget* adminW
 		boxPos.y -= 70.f;
 	}
 
-
-
-	//auto toBoxSprite = Sprite::createWithSpriteFrameName("Border_Black.png");
-	//if (toBoxSprite)
-	//{
-	//	GameFunctions::displaySprite(toBoxSprite, Vec2(panelMidPoint.x + 150.f, panelMidPoint.y + 50.f), m_ThisPanel, 1);
-
-	//	auto toMinuteText = Label::createWithTTF(": 00", "fonts/Nirmala.ttf", 20);
-	//	if (toMinuteText)
-	//	{
-	//		toMinuteText->enableShadow(Color4B::BLACK);
-	//		GameFunctions::displayLabel(toMinuteText, Color4B::WHITE, Vec2(fromBoxMidPoint.x + 30.f, fromBoxMidPoint.y + 15.f),
-	//			toBoxSprite, 1, true, TextHAlignment::RIGHT);
-	//	}
-
-	//	m_ToHourText = Label::createWithTTF("", "fonts/Nirmala.ttf", 20);
-	//	if (m_ToHourText)
-	//	{
-	//		GameFunctions::updatLabelText_TimeFormat(m_ToHourText, m_MyShop->m_ShopOpenHour.second, true);
-	//		m_ToHourText->enableShadow(Color4B::BLACK);
-	//		GameFunctions::displayLabel(m_ToHourText, Color4B::WHITE, Vec2(fromBoxMidPoint.x - 10.f, fromBoxMidPoint.y + 15.f),
-	//			toBoxSprite, 1, true, TextHAlignment::RIGHT);
-	//	}
-	//}
-
-	//for (unsigned index = 0; index < 2; index++)
-	//{
-	//	auto toButton = (index % 2 == 0) ? MouseOverMenuItem::createLowerButton(CC_CALLBACK_1(ShopAdmin::reduceTimeCallback, this, false))
-	//		: MouseOverMenuItem::createUpperButton(CC_CALLBACK_1(ShopAdmin::increaseTimeCallback, this, false));
-	//	if (toButton)
-	//	{
-	//		//displayButtons(toButton, (index % 2 == 0) ? Vec2(sceneMidPoint.x + 183.f, sceneMidPoint.y + 40.f) :
-	//		//	Vec2(sceneMidPoint.x + 117.f, sceneMidPoint.y + 60.f), itemTypes::BUTTON);
-	//	}
-	//}
-
 #pragma endregion work hours
 
 #pragma endregion
@@ -192,6 +155,12 @@ void ShopAdmin::createAdmin(GameScene* gameScene, Shop* shop, ui::Widget* adminW
 	auto menu = Menu::createWithArray(m_MenuItems);
 	menu->setPosition(Vec2::ZERO);
 	m_AdminTabs.at(0).second->addChild(menu, 1);
+
+#pragma region create productAdmin 
+	m_ShopProductAdmin = new ShopProductAdmin();
+	m_ShopProductAdmin->createShopProductAdmin(m_MyShop, m_AdminTabs.at(1).second, panelMidPoint);
+#pragma endregion
+
 }
 
 void ShopAdmin::update()

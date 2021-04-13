@@ -188,9 +188,9 @@ void Shop::setCurrentSalePrice(unsigned productId, unsigned price)
 	m_Products[productId]->setCurrentSalePrice(price);
 }
 
-unsigned Shop::getProductId(unsigned productId)
+unsigned Shop::getProductId(unsigned shopId)
 {
-	return m_Products[productId]->getProductId();
+	return m_Products[shopId]->getProductId();
 }
 
 std::string Shop::getProductName(unsigned productId)

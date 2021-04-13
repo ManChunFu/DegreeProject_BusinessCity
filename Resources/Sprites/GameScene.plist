@@ -229,6 +229,51 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
+            <key>ButtonBlueDisable50_30.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{50,30}</string>
+                <key>spriteSourceSize</key>
+                <string>{50,30}</string>
+                <key>textureRect</key>
+                <string>{{1997,1501},{50,30}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>ButtonBlueLit50_30.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{50,30}</string>
+                <key>spriteSourceSize</key>
+                <string>{50,30}</string>
+                <key>textureRect</key>
+                <string>{{1743,1365},{50,30}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ButtonBlueNormal50_30.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{50,30}</string>
+                <key>spriteSourceSize</key>
+                <string>{50,30}</string>
+                <key>textureRect</key>
+                <string>{{1895,1303},{50,30}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
             <key>Checkbox_Active.png</key>
             <dict>
                 <key>aliases</key>
@@ -690,9 +735,24 @@
                 <key>spriteSourceSize</key>
                 <string>{30,30}</string>
                 <key>textureRect</key>
-                <string>{{1997,1501},{30,30}}</string>
+                <string>{{1795,1365},{30,30}}</string>
                 <key>textureRotated</key>
                 <false/>
+            </dict>
+            <key>WhiteBox50_30.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{48,30}</string>
+                <key>spriteSourceSize</key>
+                <string>{50,30}</string>
+                <key>textureRect</key>
+                <string>{{1997,1553},{48,30}}</string>
+                <key>textureRotated</key>
+                <true/>
             </dict>
             <key>WidgetBG_Brown.png</key>
             <dict>
@@ -768,7 +828,7 @@
             <key>size</key>
             <string>{2028,1650}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:b0f5e96bc9e2bc6faafb6acd234882f0:7756023dd0dad4072949c6ee50b0c2b9:865db70d33f6fd1c3bd18ff13c48b0ed$</string>
+            <string>$TexturePacker:SmartUpdate:32ac5d2038798b89596eb5c288e3c061:e26d14787a25198b98a9eef43649878b:865db70d33f6fd1c3bd18ff13c48b0ed$</string>
             <key>textureFileName</key>
             <string>GameScene.png</string>
         </dict>

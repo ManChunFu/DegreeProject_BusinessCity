@@ -187,6 +187,21 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">CheckBoxes/AdminBG_Blue.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>170,83,340,165</rect>
+                <key>scale9Paddings</key>
+                <rect>170,83,340,165</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">CheckBoxes/PanelBG_SquareLineBlue.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -199,6 +214,42 @@
                 <rect>138,81,275,161</rect>
                 <key>scale9Paddings</key>
                 <rect>138,81,275,161</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">CheckBoxes/WhiteBox.png</key>
+            <key type="filename">../X/UIButtonLess50_PointLeft.png</key>
+            <key type="filename">../X/UIButtonLess50_PointLeft_Disable.png</key>
+            <key type="filename">../X/UIButtonLess50_PointLeft_Lit.png</key>
+            <key type="filename">../X/UIButtonMore50_PointRight.png</key>
+            <key type="filename">../X/UIButtonMore50_PointRight_Disable.png</key>
+            <key type="filename">../X/UIButtonMore50_PointRight_Lit.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>13,13,25,25</rect>
+                <key>scale9Paddings</key>
+                <rect>13,13,25,25</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">CheckBoxes/WhiteBox50_30.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>13,8,25,15</rect>
+                <key>scale9Paddings</key>
+                <rect>13,8,25,15</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -411,26 +462,6 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../X/UIButtonLess50_PointLeft.png</key>
-            <key type="filename">../X/UIButtonLess50_PointLeft_Disable.png</key>
-            <key type="filename">../X/UIButtonLess50_PointLeft_Lit.png</key>
-            <key type="filename">../X/UIButtonMore50_PointRight.png</key>
-            <key type="filename">../X/UIButtonMore50_PointRight_Disable.png</key>
-            <key type="filename">../X/UIButtonMore50_PointRight_Lit.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>13,13,25,25</rect>
-                <key>scale9Paddings</key>
-                <rect>13,13,25,25</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
         </map>
         <key>fileList</key>
         <array>
@@ -482,6 +513,9 @@
             <filename>../X/UIButtonLess50_PointLeft_Disable.png</filename>
             <filename>../X/UIButtonLess50_PointLeft_Lit.png</filename>
             <filename>../X/UIButtonLess50_PointLeft.png</filename>
+            <filename>CheckBoxes/AdminBG_Blue.png</filename>
+            <filename>CheckBoxes/WhiteBox.png</filename>
+            <filename>CheckBoxes/WhiteBox50_30.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

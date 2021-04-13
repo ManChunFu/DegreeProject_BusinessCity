@@ -14,7 +14,7 @@ class MouseOverMenuItem;
 class MyShopSettingPanel;
 class Shop;
 class GameTime;
-class GameScene;
+class ShopProductAdmin;
 
 class ShopAdmin : public UIPanel
 {
@@ -22,11 +22,13 @@ public:
 	virtual ~ShopAdmin();
 
 	std::vector<std::pair<cocos2d::ui::CheckBox*, cocos2d::ui::Widget*>> m_AdminTabs;
-	void createAdmin(GameScene* gameScene, Shop* shop, cocos2d::ui::Widget* adminWidget, cocos2d::Vec2 panelMidPoint, cocos2d::Vec2 sceneMidPoint);
+	void createAdmin(Shop* shop, cocos2d::ui::Widget* adminWidget, cocos2d::Vec2 panelMidPoint);
 
 	void update();
 	std::function<void(unsigned weekday)> onWorkDayChanges;
 	std::function<void(unsigned workhour)> onWorkHourChanges;
+
+	ShopProductAdmin* m_ShopProductAdmin = nullptr;
 protected:
 	void onOpenTabCallback(cocos2d::Ref* pSender, unsigned tabIndex);
 	void checkBoxClickCallback(cocos2d::Ref* pSender, unsigned week);
