@@ -56,6 +56,7 @@ public:
 	unsigned m_StaffRunForErrandCount = 0;
 	unsigned m_CommercialCost = 0;
 	unsigned m_SalesIncome = 0;
+	std::array<unsigned int, 2> m_UpgradeableTo;
 
 	// shop working -> monday to sunday
 	std::array<unsigned int, 7> m_SuccessProbabilityDaily = { 30, 30, 30, 30, 40, 50, 60 };

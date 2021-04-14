@@ -134,7 +134,7 @@ void ShopAdmin::createAdmin(Shop* shop, ui::Widget* adminWidget, Vec2 panelMidPo
 				if (button)
 				{
 					m_MenuItems.pushBack(displayMenuButton(button, CC_CALLBACK_2(ShopAdmin::onMouseOver, this), ((buttonIndex % 2 == 0) ?
-						Vec2(boxPos.x, boxPos.y - 20.f) : Vec2(boxPos.x, boxPos.y + 20.f)), itemTypes::BUTTON, 0.5f, Vec2(330.f, 110.f)));
+						Vec2(boxPos.x, boxPos.y - 20.f) : Vec2(boxPos.x, boxPos.y + 20.f)), itemTypes::BUTTON, 0.5f, true));
 				}
 
 				if (!m_Weekdays[weekdayIndex]->isSelected())

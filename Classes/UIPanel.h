@@ -31,5 +31,9 @@ protected:
 	virtual void createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopId = 0) {};
 
 	MouseOverMenuItem* displayMenuButton(MouseOverMenuItem* button, std::function<void(MouseOverMenuItem* overItem, cocos2d::Event* event)> onMouseOver, 
-		cocos2d::Vec2 pos, cocos2d::itemTypes type = cocos2d::itemTypes::DEFAULT, float scale = 1.f, cocos2d::Vec2 parentPos = cocos2d::Vec2::ZERO);
+		cocos2d::Vec2 pos, cocos2d::itemTypes type = cocos2d::itemTypes::DEFAULT, float scale = 1.f, bool addParentPos = false, 
+		cocos2d::Vec2 parentPos = cocos2d::Vec2::ZERO);
+
+private:
+	cocos2d::Vec2 m_ParentPosition = cocos2d::Vec2(330.f, 110.f);
 };

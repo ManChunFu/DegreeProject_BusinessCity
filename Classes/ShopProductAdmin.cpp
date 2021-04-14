@@ -130,7 +130,7 @@ void ShopProductAdmin::buyProductCallback(cocos2d::Ref* pSender, unsigned produc
 	if (onProductAmoutChanges)
 		onProductAmoutChanges(productId, m_Shop->getProductQuantity(productId));
 
-	// setup work state
+	// buy button stats
 	if (m_Shop->isReplenishing())
 	{
 		//enableBuyButtons(false);
@@ -165,7 +165,7 @@ void ShopProductAdmin::createProductWidget(cocos2d::ui::Widget* parentWidget, co
 		{
 			button->itemSelectedData.type = itemTypes::WIDGET_BUTTON;
 			buttonList.pushBack(displayMenuButton(button, CC_CALLBACK_2(ShopProductAdmin::onMouseOver, this),
-				Vec2(panelMidPoint.x, panelMidPoint.y - 150.f), itemTypes::WIDGET_BUTTON, 0.5f, Vec2(330.f, 110.f)));
+				Vec2(panelMidPoint.x, panelMidPoint.y - 150.f), itemTypes::WIDGET_BUTTON, 0.5f, true));
 		}
 	}
 	for (unsigned productIndex = startIndex; productIndex < productLength; productIndex++)
@@ -177,7 +177,7 @@ void ShopProductAdmin::createProductWidget(cocos2d::ui::Widget* parentWidget, co
 			{
 				button->itemSelectedData.type = itemTypes::BUTTON;
 				buttonList.pushBack(displayMenuButton(button, CC_CALLBACK_2(ShopProductAdmin::onMouseOver, this),
-					Vec2(panelMidPoint.x, panelMidPoint.y - 150.f), itemTypes::BUTTON, 0.5f, Vec2(330.f, 110.f)));
+					Vec2(panelMidPoint.x, panelMidPoint.y - 150.f), itemTypes::BUTTON, 0.5f, true));
 				if (moreButton)
 				{
 					m_ProductWidget2 = ui::Widget::create();
@@ -227,7 +227,7 @@ void ShopProductAdmin::createProductWidget(cocos2d::ui::Widget* parentWidget, co
 			{
 				buttonList.pushBack(displayMenuButton(button, CC_CALLBACK_2(ShopProductAdmin::onMouseOver, this), (buttonIndex % 2 == 0) ?
 					Vec2(productSpritePos.x + 155.f, productSpritePos.y) : Vec2(productSpritePos.x + 205.f, productSpritePos.y),
-					itemTypes::WIDGET_BUTTON, 0.5f, Vec2(330.f, 110.f)));
+					itemTypes::WIDGET_BUTTON, 0.5f, true));
 			}
 		}
 
@@ -266,7 +266,7 @@ void ShopProductAdmin::createProductWidget(cocos2d::ui::Widget* parentWidget, co
 			{
 				buttonList.pushBack(displayMenuButton(button, CC_CALLBACK_2(ShopProductAdmin::onMouseOver, this), (buttonIndex % 2 == 0) ?
 					Vec2(productSpritePos.x + 275.f, productSpritePos.y) : Vec2(productSpritePos.x + 325.f, productSpritePos.y),
-					itemTypes::BUTTON, 0.5f, Vec2(330.f, 110.f)));
+					itemTypes::BUTTON, 0.5f, true));
 			}
 		}
 
@@ -282,7 +282,7 @@ void ShopProductAdmin::createProductWidget(cocos2d::ui::Widget* parentWidget, co
 		if (buyButton)
 		{
 			buttonList.pushBack(displayMenuButton(buyButton, CC_CALLBACK_2(ShopProductAdmin::onMouseOver, this), Vec2(productSpritePos.x + 365.f,
-				productSpritePos.y), itemTypes::BUTTON, 1.f, Vec2(330.f, 110.f)));
+				productSpritePos.y), itemTypes::BUTTON, 1.f, true));
 
 			auto buyText = Label::createWithTTF("Buy", "fonts/NirmalaB.ttf", 16);
 			if (buyText)

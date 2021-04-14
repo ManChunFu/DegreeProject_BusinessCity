@@ -13,6 +13,7 @@
 #include "GameTime.h"
 #include "ShopAdmin.h"
 #include "ShopProductAdmin.h"
+#include "ShopUpgrade.h"
 
 USING_NS_CC;
 
@@ -23,7 +24,7 @@ MyShopSettingPanel::~MyShopSettingPanel()
 
 	m_ProductWidget1 = nullptr;
 	m_ProductWidget2 = nullptr;
-	//m_WorkStatesWidget = nullptr;
+	m_WorkStatesWidget = nullptr;
 	m_ShopStateText = nullptr;
 	m_PlayerWorkHereText = nullptr;
 	m_ReplenishCountdownText = nullptr;
@@ -95,7 +96,7 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopI
 		CC_CALLBACK_1(MyShopSettingPanel::closeCallback, this));
 	if (closePanelButton)
 		displayMenuButton(closePanelButton, CC_CALLBACK_2(MyShopSettingPanel::onMouseOver, this),
-			Vec2(panelMidPoint.x + 275.f, panelMidPoint.y + 222.f), itemTypes::DEFAULT, 0.7f, Vec2(330.f, 110.f));
+			Vec2(panelMidPoint.x + 275.f, panelMidPoint.y + 222.f), itemTypes::DEFAULT, 0.7f, true);
 
 	auto closeMenu = Menu::create(closePanelButton, NULL);
 	closeMenu->setPosition(Vec2::ZERO);
@@ -307,7 +308,7 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopI
 			{
 				moreButton->itemSelectedData.type = itemTypes::BUTTON;
 				m_MenuItems.pushBack(displayMenuButton(moreButton, CC_CALLBACK_2(MyShopSettingPanel::onMouseOver, this),
-					Vec2(productSpritePos.x + 380.f, productSpritePos.y +100.f), itemTypes::BUTTON, 0.5f, Vec2(330.f, 110.f)));
+					Vec2(productSpritePos.x + 380.f, productSpritePos.y +100.f), itemTypes::BUTTON, 0.5f, true));
 				createProductWidget2(panelMidPoint);
 				//enableWidget(m_ProductWidget2, false, m_WidgetMenu, itemTypes::WIDGET_BUTTON);
 			}
@@ -367,6 +368,14 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopI
 	shopAdmin->onWorkHourChanges = CC_CALLBACK_1(MyShopSettingPanel::onWorkHourChanges, this);
 	shopAdmin->m_ShopProductAdmin->onProductPriceChanges = CC_CALLBACK_2(MyShopSettingPanel::onProductPriceChanges, this);
 	shopAdmin->m_ShopProductAdmin->onProductAmoutChanges = CC_CALLBACK_2(MyShopSettingPanel::onProductAmoutChanges, this);
+#pragma endregion
+
+#pragma region Upgrade
+	if (!m_MyShop->m_UpgradeableTo.empty())
+	{
+		auto shopUpgrade = new ShopUpgrade();
+		shopUpgrade->createShopUpgrade(m_MyShop, m_PanelTabs.at(2).second, panelMidPoint);
+	}
 #pragma endregion
 
 	//#pragma region Hire Employee button
@@ -503,7 +512,7 @@ void MyShopSettingPanel::createProductWidget2(Vec2 panelMidPoint)
 	{
 		lessButton->itemSelectedData.type = itemTypes::WIDGET_BUTTON;
 		m_WidgetMenu.pushBack(displayMenuButton(lessButton, CC_CALLBACK_2(MyShopSettingPanel::onMouseOver, this),
-			Vec2(productSpritePos.x - 50.f, productSpritePos.y - 60.f), itemTypes::WIDGET_BUTTON, 0.5f, Vec2(330.f, 110.f)));
+			Vec2(productSpritePos.x - 50.f, productSpritePos.y - 60.f), itemTypes::WIDGET_BUTTON, 0.5f, true));
 	}
 #pragma region create product pics, name, quantity and buy button
 	for (unsigned productIndex = m_PanelLimit + 1; productIndex < productLength; productIndex++)

@@ -202,6 +202,24 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">CheckBoxes/ButtonBlueDisable50_30.png</key>
+            <key type="filename">CheckBoxes/ButtonBlueLit50_30.png</key>
+            <key type="filename">CheckBoxes/ButtonBlueNormal50_30.png</key>
+            <key type="filename">CheckBoxes/WhiteBox50_30.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>13,8,25,15</rect>
+                <key>scale9Paddings</key>
+                <rect>13,8,25,15</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">CheckBoxes/PanelBG_SquareLineBlue.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -235,21 +253,6 @@
                 <rect>13,13,25,25</rect>
                 <key>scale9Paddings</key>
                 <rect>13,13,25,25</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">CheckBoxes/WhiteBox50_30.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>13,8,25,15</rect>
-                <key>scale9Paddings</key>
-                <rect>13,8,25,15</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -516,6 +519,9 @@
             <filename>CheckBoxes/AdminBG_Blue.png</filename>
             <filename>CheckBoxes/WhiteBox.png</filename>
             <filename>CheckBoxes/WhiteBox50_30.png</filename>
+            <filename>CheckBoxes/ButtonBlueNormal50_30.png</filename>
+            <filename>CheckBoxes/ButtonBlueLit50_30.png</filename>
+            <filename>CheckBoxes/ButtonBlueDisable50_30.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

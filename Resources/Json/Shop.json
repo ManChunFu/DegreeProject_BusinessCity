@@ -6,7 +6,7 @@
     "Name": "Super Hotdog",
     "ShopLookNormal": "HotdogStand.png",
     "ShopLookLit": "HotdogStand_Lit.png",
-    "ShopLookDisabled" : "HotdogStand_Disabled.png",
+    "ShopLookDisabled": "HotdogStand_Disabled.png",
     "ShopPrice": 20000,
     "ElectricityCost": 200,
     "WaterCost": 50,
@@ -30,6 +30,10 @@
         "PurchasePrice": 3,
         "Quantity": 20
       }
+    ],
+    "UpgradableTo": [
+      4,
+      5
     ]
   },
   {
@@ -79,6 +83,10 @@
         "PurchasePrice": 8,
         "Quantity": 20
       }
+    ],
+    "UpgradableTo": [
+      6,
+      7
     ]
   },
   {
@@ -136,6 +144,10 @@
         "PurchasePrice": 4,
         "Quantity": 20
       }
+    ],
+    "UpgradableTo": [
+      8,
+      9
     ]
   },
   {
@@ -185,6 +197,386 @@
         "PurchasePrice": 6,
         "Quantity": 20
       }
+    ],
+    "UpgradableTo": [
+      10,
+      11
+    ]
+  },
+  {
+    "ShopId": 4,
+    "Startup": false,
+    "Type": "Fastfood Restaurant",
+    "Name": "Food Away",
+    "ShopLookNormal": "Fastfood2.png",
+    "ShopLookLit": "Fastfood2_Lit.png",
+    "ShopLookDisabled": "Fastfood2_Disable.png",
+    "ShopPrice": 400000,
+    "ElectricityCost": 800,
+    "WaterCost": 300,
+    "Employees": 0,
+    "SalaryPerEmployee": 700,
+    "CommercialCost": 0,
+    "Products": [
+      {
+        "ProductId": 0,
+        "Name": "Biff Burger",
+        "ProductLook": "BiffBurger.png",
+        "Price": 95,
+        "PurchasePrice": 55,
+        "Quantity": 20
+      },
+      {
+        "ProductId": 1,
+        "Name": "Bacon Burger",
+        "ProductLook": "BaconBurger.png",
+        "Price": 80,
+        "PurchasePrice": 40,
+        "Quantity": 20
+      },
+      {
+        "ProductId": 2,
+        "Name": "Salami Burger",
+        "ProductLook": "SalamiBurger.png",
+        "Price": 90,
+        "PurchasePrice": 50,
+        "Quantity": 20
+      },
+      {
+        "ProductId": 3,
+        "Name": "Chicken Burger",
+        "ProductLook": "ChickenBurger.png",
+        "Price": 70,
+        "PurchasePrice": 30,
+        "Quantity": 20
+      },
+      {
+        "ProductId": 4,
+        "Name": "Fries",
+        "ProductLook": "Fries.png",
+        "Price": 40,
+        "PurchasePrice": 10,
+        "Quantity": 20
+      },
+      {
+        "ProductId": 5,
+        "Name": "Coke",
+        "ProductLook": "Coke.png",
+        "Price": 25,
+        "PurchasePrice": 5,
+        "Quantity": 20
+      }
+    ],
+    "UpgradableTo": [
+      5
+    ]
+  },
+  {
+    "ShopId": 5,
+    "Startup": false,
+    "Type": "Pizzeria",
+    "Name": "Rosa Bella",
+    "ShopLookNormal": "Pizzeria.png",
+    "ShopLookLit": "Pizzeria_Lit.png",
+    "ShopLookDisabled": "Pizzeria_Disable.png",
+    "ShopPrice": 900000,
+    "ElectricityCost": 1200,
+    "WaterCost": 600,
+    "Employees": 0,
+    "SalaryPerEmployee": 1300,
+    "CommercialCost": 0,
+    "Products": [
+      {
+        "ProductId": 0,
+        "Name": "Magerita",
+        "ProductLook": "Magerita.png",
+        "Price": 100,
+        "PurchasePrice": 60,
+        "Quantity": 20
+      },
+      {
+        "ProductId": 1,
+        "Name": "Hawaiian",
+        "ProductLook": "Hawaiian.png",
+        "Price": 120,
+        "PurchasePrice": 80,
+        "Quantity": 20
+      },
+      {
+        "ProductId": 2,
+        "Name": "Pepperoni",
+        "ProductLook": "Pepperoni.png",
+        "Price": 130,
+        "PurchasePrice": 90,
+        "Quantity": 20
+      },
+      {
+        "ProductId": 3,
+        "Name": "Mushroom",
+        "ProductLook": "Mushroom.png",
+        "Price": 120,
+        "PurchasePrice": 80,
+        "Quantity": 20
+      },
+      {
+        "ProductId": 4,
+        "Name": "Carbonara",
+        "ProductLook": "Carbonara.png",
+        "Price": 130,
+        "PurchasePrice": 90,
+        "Quantity": 20
+      },
+      {
+        "ProductId": 5,
+        "Name": "Bolognese",
+        "ProductLook": "Bolognese.png",
+        "Price": 140,
+        "PurchasePrice": 100,
+        "Quantity": 20
+      },
+      {
+        "ProductId": 6,
+        "Name": "Vegetarion",
+        "ProductLook": "Vegetarian.png",
+        "Price": 120,
+        "PurchasePrice": 80,
+        "Quantity": 20
+      },
+      {
+        "ProductId": 7,
+        "Name": "Meat Feast",
+        "ProductLook": "MeatFeast.png",
+        "Price": 160,
+        "PurchasePrice": 120,
+        "Quantity": 20
+      },
+      {
+        "ProductId": 8,
+        "Name": "Seafood",
+        "ProductLook": "Seafood.png",
+        "Price": 180,
+        "PurchasePrice": 140,
+        "Quantity": 20
+      }
+    ],
+    "UpgradableTo": [
+
+    ]
+  },
+  {
+    "ShopId": 6,
+    "Startup": false,
+    "Type": "Ice Cream Shop",
+    "Name": "Gelato",
+    "ShopLookNormal": "",
+    "ShopLookLit": "",
+    "ShopLookDisabled": "",
+    "ShopPrice": 40000,
+    "ElectricityCost": 1000,
+    "WaterCost": 200,
+    "Employees": 0,
+    "SalaryPerEmployee": 650,
+    "CommercialCost": 0,
+    "Products": [
+      {
+        "ProductId": 0,
+        "Name": "",
+        "ProductLook": "",
+        "Price": 20,
+        "PurchasePrice": 4,
+        "Quantity": 20
+      },
+      {
+        "ProductId": 1,
+        "Name": "",
+        "ProductLook": "",
+        "Price": 18,
+        "PurchasePrice": 3,
+        "Quantity": 20
+      }
+    ],
+    "UpgradableTo": [
+      7
+    ]
+  },
+  {
+    "ShopId": 7,
+    "Startup": false,
+    "Type": "Coffee Shop",
+    "Name": "Expresso",
+    "ShopLookNormal": "",
+    "ShopLookLit": "",
+    "ShopLookDisabled": "",
+    "ShopPrice": 1000000,
+    "ElectricityCost": 1500,
+    "WaterCost": 600,
+    "Employees": 0,
+    "SalaryPerEmployee": 1300,
+    "CommercialCost": 0,
+    "Products": [
+      {
+        "ProductId": 0,
+        "Name": "",
+        "ProductLook": "",
+        "Price": 20,
+        "PurchasePrice": 4,
+        "Quantity": 20
+      },
+      {
+        "ProductId": 1,
+        "Name": "",
+        "ProductLook": "",
+        "Price": 18,
+        "PurchasePrice": 3,
+        "Quantity": 20
+      }
+    ],
+    "UpgradableTo": [
+
+    ]
+  },
+  {
+    "ShopId": 8,
+    "Startup": false,
+    "Type": "Fruit & Veg Shop",
+    "Name": "Fresh Corner",
+    "ShopLookNormal": "",
+    "ShopLookLit": "",
+    "ShopLookDisabled": "",
+    "ShopPrice": 300000,
+    "ElectricityCost": 600,
+    "WaterCost": 350,
+    "Employees": 0,
+    "SalaryPerEmployee": 600,
+    "CommercialCost": 0,
+    "Products": [
+      {
+        "ProductId": 0,
+        "Name": "",
+        "ProductLook": "",
+        "Price": 20,
+        "PurchasePrice": 4,
+        "Quantity": 20
+      },
+      {
+        "ProductId": 1,
+        "Name": "",
+        "ProductLook": "",
+        "Price": 18,
+        "PurchasePrice": 3,
+        "Quantity": 20
+      }
+    ],
+    "UpgradableTo": [
+      9
+    ]
+  },
+  {
+    "ShopId": 9,
+    "Startup": false,
+    "Type": "Grocery store",
+    "Name": "i Market",
+    "ShopLookNormal": "",
+    "ShopLookLit": "",
+    "ShopLookDisabled": "",
+    "ShopPrice": 800000,
+    "ElectricityCost": 1000,
+    "WaterCost": 450,
+    "Employees": 0,
+    "SalaryPerEmployee": 750,
+    "CommercialCost": 0,
+    "Products": [
+      {
+        "ProductId": 0,
+        "Name": "",
+        "ProductLook": "",
+        "Price": 20,
+        "PurchasePrice": 4,
+        "Quantity": 20
+      },
+      {
+        "ProductId": 1,
+        "Name": "",
+        "ProductLook": "",
+        "Price": 18,
+        "PurchasePrice": 3,
+        "Quantity": 20
+      }
+    ],
+    "UpgradableTo": [
+      
+    ]
+  },
+  {
+    "ShopId": 10,
+    "Startup": false,
+    "Type": "Tourist boutique",
+    "Name": "Souvenir",
+    "ShopLookNormal": "",
+    "ShopLookLit": "",
+    "ShopLookDisabled": "",
+    "ShopPrice": 350000,
+    "ElectricityCost": 500,
+    "WaterCost": 150,
+    "Employees": 0,
+    "SalaryPerEmployee": 650,
+    "CommercialCost": 0,
+    "Products": [
+      {
+        "ProductId": 0,
+        "Name": "",
+        "ProductLook": "",
+        "Price": 20,
+        "PurchasePrice": 4,
+        "Quantity": 20
+      },
+      {
+        "ProductId": 1,
+        "Name": "",
+        "ProductLook": "",
+        "Price": 18,
+        "PurchasePrice": 3,
+        "Quantity": 20
+      }
+    ],
+    "UpgradableTo": [
+      11
+    ]
+  },
+  {
+    "ShopId": 11,
+    "Startup": false,
+    "Type": "Design & Deco boutique",
+    "Name": "Comfort",
+    "ShopLookNormal": "",
+    "ShopLookLit": "",
+    "ShopLookDisabled": "",
+    "ShopPrice": 1500000,
+    "ElectricityCost": 1000,
+    "WaterCost": 400,
+    "Employees": 0,
+    "SalaryPerEmployee": 1100,
+    "CommercialCost": 0,
+    "Products": [
+      {
+        "ProductId": 0,
+        "Name": "",
+        "ProductLook": "",
+        "Price": 20,
+        "PurchasePrice": 4,
+        "Quantity": 20
+      },
+      {
+        "ProductId": 1,
+        "Name": "",
+        "ProductLook": "",
+        "Price": 18,
+        "PurchasePrice": 3,
+        "Quantity": 20
+      }
+    ],
+    "UpgradableTo": [
+
     ]
   }
 ]

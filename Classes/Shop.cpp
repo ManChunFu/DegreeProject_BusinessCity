@@ -67,6 +67,16 @@ Shop::Shop(rapidjson::Value& json)
 				}
 			}
 			break;
+		case stringToInt("UpgradableTo"):
+			if (itr->value.IsArray())
+			{
+				auto upgradable = itr->value.GetArray();
+				for (int index = 0; index < itr->value.Size(); index++)
+				{
+					m_UpgradeableTo[index] = upgradable[index].GetInt();
+				}
+			}
+			break;
 		}
 	}
 }
