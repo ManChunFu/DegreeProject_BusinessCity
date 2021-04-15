@@ -43,6 +43,8 @@ bool GameScene::init()
 	GameData::getInstance().init();
 	m_GlobalTime = GameData::getInstance().m_GlobalTime;
 
+	m_Player = GameData::getInstance().m_Player;
+
 #pragma region Create In-Game UI panels
 	m_Canvas = new Canvas;
 	m_Canvas->Init(this, GameData::getInstance().m_Player);
@@ -71,6 +73,7 @@ void GameScene::update(float delta)
 	m_GlobalTime->update(delta);
 
 	m_Canvas->update(delta);
+
 }
 
 void GameScene::gameOver()
@@ -90,6 +93,9 @@ void GameScene::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::E
 		else
 			Director::getInstance()->end();
 	}
+
+	if (keyCode == EventKeyboard::KeyCode::KEY_0)
+		m_Player->updateCurrentCashAmout(50000);
 }
 
 

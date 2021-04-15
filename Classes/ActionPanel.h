@@ -18,6 +18,7 @@ protected:
 	void openShopCallback(cocos2d::Ref* pSender, unsigned shopIndex, unsigned shopId);
 	void onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event);
 	void checkShopCallback(cocos2d::Ref* pSender, unsigned shopId);
+	void onShopChanges(unsigned shopId);
 private:
 	MyShopSettingPanel* m_ShopButton = nullptr;
 	cocos2d::Vector<MyShopSettingPanel*> m_MyShopList;

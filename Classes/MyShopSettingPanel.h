@@ -24,7 +24,7 @@ public:
 	void openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint, unsigned shopId = 0) override;
 	void closePanel() override;
 	std::function<void(cocos2d::Ref* pSender)> onActionCall;
-
+	std::function<void(unsigned shopId)> onShopChanges;
 protected:	
 	void createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopId = 0) override;
 	void onOpenTabCallback(cocos2d::Ref* pSender, unsigned tabIndex);
@@ -46,8 +46,7 @@ protected:
 	void onWorkHourChanges(unsigned workhour);
 	void onProductPriceChanges(unsigned productId, unsigned price);
 	void onProductAmoutChanges(unsigned productId, unsigned amout);
-
-
+	void onUpgradeChanges(unsigned productId);
 private:
 	GameTime* m_GameTime = nullptr;
 	Shop* m_MyShop = nullptr;

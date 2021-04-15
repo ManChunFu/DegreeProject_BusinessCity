@@ -6,6 +6,7 @@
 #include "MouseOverMenuItem.h"
 #include "GameData.h"
 #include "GameFunctions.h"
+#include "GameScene.h"
 
 USING_NS_CC;
 
@@ -16,11 +17,11 @@ ShopUpgrade::~ShopUpgrade()
 	m_ShopLockWidget = nullptr;
 	m_MessageText = nullptr;
 	m_MessageWidgets.clear();
-	m_TempButton = nullptr;
 }
 
-void ShopUpgrade::createShopUpgrade(Shop* shop, ui::Widget* parentWidget, Vec2 panelMidPoint)
+void ShopUpgrade::createShopUpgrade(GameScene* gameScene, Shop* shop, ui::Widget* parentWidget, Vec2 panelMidPoint)
 {
+	m_GameScene = gameScene;
 	m_Player = GameData::getInstance().m_Player;
 	m_Shop = shop;
 	parentWidget->setVisible(false);
@@ -37,11 +38,11 @@ void ShopUpgrade::createShopUpgrade(Shop* shop, ui::Widget* parentWidget, Vec2 p
 		if (upgradeShopSprite)
 			GameFunctions::displaySprite(upgradeShopSprite, spritePos, parentWidget, 1, 0.5f, 0.5f);
 
-		m_ShopLockWidget = ui::Widget::create();
-		parentWidget->addChild(m_ShopLockWidget, 2);
-
 		if (index == 0)
 		{
+			m_ShopLockWidget = ui::Widget::create();
+			parentWidget->addChild(m_ShopLockWidget, 2);
+
 			auto upgradableShopSprite = MouseOverMenuItem::creatMouseOverMenuButton("Lock_100.png", "Lock_100_Lit.png", "Lock_100_Disable.png",
 				CC_CALLBACK_1(ShopUpgrade::upgradeCallback, this, index));
 			if (upgradableShopSprite)
@@ -103,7 +104,8 @@ void ShopUpgrade::createShopUpgrade(Shop* shop, ui::Widget* parentWidget, Vec2 p
 		}
 
 		auto upgradeShop = allShops[m_Shop->m_UpgradeableTo[index]];
-		auto staffText = Label::createWithTTF(std::to_string(upgradeShop->m_RequiredEmployees), "fonts/Nirmala.ttf", 16);
+		m_RequiredStaffCounts.at(index) = upgradeShop->m_RequiredEmployees;
+		auto staffText = Label::createWithTTF(std::to_string(m_RequiredStaffCounts.at(index)), "fonts/Nirmala.ttf", 16);
 		if (staffText)
 		{
 			staffText->enableShadow(darkCyanColor);
@@ -117,7 +119,7 @@ void ShopUpgrade::createShopUpgrade(Shop* shop, ui::Widget* parentWidget, Vec2 p
 #pragma region create message panel
 	// message
 	m_ThisPanel = Sprite::create("Sprites/CheckBoxes/Panel_Blue_80.png");
-	m_ThisPanel->setPosition(panelMidPoint.x + 170.f, panelMidPoint.y - 40.f);
+	m_ThisPanel->setPosition(panelMidPoint);
 	parentWidget->addChild(m_ThisPanel, 2);
 	m_ThisPanel->setVisible(false);
 	auto messagePos = Vec2(30.f, m_ThisPanel->getContentSize().height * 0.5f + 20.f);
@@ -150,13 +152,14 @@ void ShopUpgrade::createShopUpgrade(Shop* shop, ui::Widget* parentWidget, Vec2 p
 						TextHAlignment::LEFT);
 				}
 
-				auto button = MouseOverMenuItem::creatMouseOverMenuButton((contentIndex == 0) ? CC_CALLBACK_1(ShopUpgrade::proceedUpgradeCallback, this) :
-					CC_CALLBACK_1(ShopUpgrade::cancelUpgradeCallback, this));
+				auto button = (contentIndex == 0) ? MouseOverMenuItem::creatMouseOverMenuButton(CC_CALLBACK_1(
+					ShopUpgrade::proceedUpgradeCallback, this, m_Shop->m_UpgradeableTo[contentIndex])) : MouseOverMenuItem::creatMouseOverMenuButton(CC_CALLBACK_1(
+						ShopUpgrade::cancelUpgradeCallback, this));
 				if (button)
 				{
 					m_MenuItems.pushBack(displayMenuButton(button, CC_CALLBACK_2(ShopUpgrade::onMouseOver, this), (contentIndex == 0) ?
 						Vec2(messagePos.x + 30.f, messagePos.y - 70.f) : Vec2(messagePos.x + 120.f, messagePos.y - 40.f),
-						itemTypes::BUTTON, 0.7f, true, Vec2(710.f, 220.f)));
+						itemTypes::BUTTON, 0.7f, true, Vec2(540.f, 260.f)));
 					auto buttonText = Label::createWithTTF(buttonTexts[contentIndex], "fonts/NirmalaB.ttf", 20);
 					if (buttonText)
 					{
@@ -183,7 +186,7 @@ void ShopUpgrade::createShopUpgrade(Shop* shop, ui::Widget* parentWidget, Vec2 p
 			if (okButton)
 			{
 				displayMenuButton(okButton, CC_CALLBACK_2(ShopUpgrade::onMouseOver, this), Vec2(messagePos.x + 70.f, messagePos.y -10.f),
-					itemTypes::DEFAULT, 0.7f, true, Vec2(710.f, 220.f));
+					itemTypes::DEFAULT, 0.7f, true, Vec2(540.f, 260.f));
 
 				auto okText = Label::createWithTTF("OK", "fonts/NirmalaB.ttf", 16);
 				if (okText)
@@ -204,25 +207,27 @@ void ShopUpgrade::createShopUpgrade(Shop* shop, ui::Widget* parentWidget, Vec2 p
 	m_MessageWidgets.at(EMessages::E_Qualified)->addChild(menuButtons, 1);
 
 #pragma endregion
-
 }
 
 void ShopUpgrade::upgradeCallback(cocos2d::Ref* pSender, unsigned shopId)
 {
-	if (GameData::getInstance().isPopupOpen())
+	if (m_ThisPanel->isVisible())
 		return;
 
-	if (m_Player->getCurrentCash() > m_ShopUpgradePrices[shopId])
-	{
-		m_ShopLockWidget->setVisible(false);
+	if (m_Player->getCurrentCash() > m_ShopUpgradePrices[shopId] /*&& m_Shop->getEmployeeCount() >= m_RequiredStaffCounts.at(shopId)*/)
 		showMessage(true);
-	}
 	else
 		showMessage(false);
 }
 
-void ShopUpgrade::proceedUpgradeCallback(cocos2d::Ref* pSender)
+void ShopUpgrade::proceedUpgradeCallback(cocos2d::Ref* pSender, unsigned shopId)
 {
+	m_ShopLockWidget->setVisible(false);
+	m_ShopLockWidget->setEnabled(false);
+	m_ThisPanel->setVisible(false);
+
+	if (onUpgradeChanges)
+		onUpgradeChanges(shopId);
 }
 
 void ShopUpgrade::cancelUpgradeCallback(cocos2d::Ref* pSender)

@@ -374,7 +374,8 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopI
 	if (!m_MyShop->m_UpgradeableTo.empty())
 	{
 		auto shopUpgrade = new ShopUpgrade();
-		shopUpgrade->createShopUpgrade(m_MyShop, m_PanelTabs.at(2).second, panelMidPoint);
+		shopUpgrade->createShopUpgrade(m_GameScene, m_MyShop, m_PanelTabs.at(2).second, panelMidPoint);
+		shopUpgrade->onUpgradeChanges = CC_CALLBACK_1(MyShopSettingPanel::onUpgradeChanges, this);
 	}
 #pragma endregion
 
@@ -652,6 +653,12 @@ void MyShopSettingPanel::onProductPriceChanges(unsigned productId, unsigned pric
 void MyShopSettingPanel::onProductAmoutChanges(unsigned productId, unsigned amout)
 {
 	m_ProductQTYTexts.at(productId)->setString(std::to_string(amout));
+}
+
+void MyShopSettingPanel::onUpgradeChanges(unsigned productId)
+{
+	if (onShopChanges)
+		onShopChanges(productId);
 }
 
 void MyShopSettingPanel::updateShopProductData()

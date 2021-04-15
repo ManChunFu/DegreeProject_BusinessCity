@@ -18,10 +18,12 @@ class ShopUpgrade : public UIPanel
 public:
 	virtual ~ShopUpgrade();
 
-	void createShopUpgrade(Shop* shop, cocos2d::ui::Widget* parentWidget, cocos2d::Vec2 panelMidPoint);
+	void createShopUpgrade(GameScene* gameScene, Shop* shop, cocos2d::ui::Widget* parentWidget, cocos2d::Vec2 panelMidPoint);
+
+	std::function<void(unsigned shopId)> onUpgradeChanges;
 protected:
 	void upgradeCallback(cocos2d::Ref* pSender, unsigned shopId);
-	void proceedUpgradeCallback(cocos2d::Ref* pSender);
+	void proceedUpgradeCallback(cocos2d::Ref* pSender, unsigned shopId);
 	void cancelUpgradeCallback(cocos2d::Ref* pSender);
 	void onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event);
 
@@ -37,7 +39,8 @@ private:
 	cocos2d::Vector<cocos2d::ui::Widget*> m_MessageWidgets;
 	std::array<std::string, 2> m_Messages = { "Upgrade Failed", "Upgrade Successful" };
 	cocos2d::Label* m_MessageText = nullptr;
-	MouseOverMenuItem* m_TempButton = nullptr;
+
+	std::array<unsigned int, 2> m_RequiredStaffCounts;
 
 	std::string GetShopUpgradePrice(unsigned shopId);
 	void showMessage(bool success);

@@ -39,7 +39,7 @@ void ActionPanel::displayShop(unsigned shopId)
 		CC_CALLBACK_1(ActionPanel::openShopCallback, this, m_ShopIndex, shopId));
 	
 	if (myShopButton)
-		m_MenuItems.pushBack(displayMenuButton(myShopButton, CC_CALLBACK_2(ActionPanel::onMouseOver, this), m_DisplayShopPos, 
+		m_MenuItems.pushBack(displayMenuButton(myShopButton, CC_CALLBACK_2(ActionPanel::onMouseOver, this), m_DisplayShopPos,
 			itemTypes::DEFAULT, 0.3f));
 
 	auto menu = Menu::create(myShopButton, NULL);
@@ -48,6 +48,7 @@ void ActionPanel::displayShop(unsigned shopId)
 	m_Elements.pushBack(menu);
 
 	auto shopButton = new MyShopSettingPanel();
+	shopButton->onShopChanges = CC_CALLBACK_1(ActionPanel::onShopChanges, this);
 	shopButton->autorelease();
 	m_ThisPanel->addChild(shopButton, 1);
 	m_MyShopList.pushBack(shopButton);
@@ -78,6 +79,13 @@ void ActionPanel::checkShopCallback(cocos2d::Ref* pSender, unsigned shopId)
 	m_Player->m_MyShopIds.push_back(shopId);
 	m_ShopIndex++;
 	displayShop(shopId);
+}
+
+void ActionPanel::onShopChanges(unsigned shopId)
+{
+	auto shopUpgradeSprite = Sprite::createWithSpriteFrameName(GameData::getInstance().m_Shops[shopId]->m_ShopLook_Normal);
+	if (shopUpgradeSprite)
+		GameFunctions::displaySprite(shopUpgradeSprite, m_DisplayShopPos, m_ThisPanel, 1, 0.3f, 0.3f);
 }
 
 void ActionPanel::displayShopOptions()
