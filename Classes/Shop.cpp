@@ -50,6 +50,9 @@ Shop::Shop(rapidjson::Value& json)
 		case stringToInt("Employees"):
 			m_Employees = itr->value.GetInt();
 			break;
+		case stringToInt("RequiredEmployees"):
+			m_RequiredEmployees = itr->value.GetInt();
+			break;
 		case stringToInt("SalaryPerEmployee"):
 			m_SalaryPerEmployee = itr->value.GetInt();
 			break;

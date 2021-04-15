@@ -52,6 +52,7 @@ public:
 	unsigned m_Electricity = 0;
 	unsigned m_Water = 0;
 	unsigned m_Employees = 0;
+	unsigned m_RequiredEmployees = 0;
 	unsigned m_SalaryPerEmployee = 0;
 	unsigned m_StaffRunForErrandCount = 0;
 	unsigned m_CommercialCost = 0;

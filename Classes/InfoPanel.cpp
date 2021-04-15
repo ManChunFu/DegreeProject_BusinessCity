@@ -203,6 +203,9 @@ void InfoPanel::onEveryWeekChanges(GlobalTime* globalTime, unsigned week)
 
 void InfoPanel::checkBalanceCallback(cocos2d::Ref* pSender, GameScene* scene)
 {
+	if (GameData::getInstance().isPopupOpen())
+		return;
+
 	(m_Bank->isPanelOpen()) ? m_Bank->closePanel() : m_Bank->openPanel(scene, m_SceneMidPoint);
 }
 

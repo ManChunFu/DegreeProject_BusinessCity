@@ -566,6 +566,9 @@ void MyShopSettingPanel::createProductWidget2(Vec2 panelMidPoint)
 
 void MyShopSettingPanel::closeCallback(cocos2d::Ref* pSender)
 {
+	if (GameData::getInstance().isPopupOpen())
+		return;
+
 	closePanel();
 }
 

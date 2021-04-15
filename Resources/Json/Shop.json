@@ -11,6 +11,7 @@
     "ElectricityCost": 200,
     "WaterCost": 50,
     "Employees": 0,
+    "RequiredEmployees": 0,
     "SalaryPerEmployee": 500,
     "CommercialCost": 0,
     "Products": [
@@ -48,6 +49,7 @@
     "ElectricityCost": 400,
     "WaterCost": 50,
     "Employees": 0,
+    "RequiredEmployees": 0,
     "SalaryPerEmployee": 500,
     "CommercialCost": 0,
     "Products": [
@@ -101,6 +103,7 @@
     "ElectricityCost": 100,
     "WaterCost": 100,
     "Employees": 0,
+    "RequiredEmployees": 0,
     "SalaryPerEmployee": 500,
     "CommercialCost": 0,
     "Products": [
@@ -162,6 +165,7 @@
     "ElectricityCost": 100,
     "WaterCost": 50,
     "Employees": 0,
+    "RequiredEmployees": 0,
     "SalaryPerEmployee": 500,
     "CommercialCost": 0,
     "Products": [
@@ -215,6 +219,7 @@
     "ElectricityCost": 800,
     "WaterCost": 300,
     "Employees": 0,
+    "RequiredEmployees": 2,
     "SalaryPerEmployee": 700,
     "CommercialCost": 0,
     "Products": [
@@ -283,6 +288,7 @@
     "ElectricityCost": 1200,
     "WaterCost": 600,
     "Employees": 0,
+    "RequiredEmployees": 4,
     "SalaryPerEmployee": 1300,
     "CommercialCost": 0,
     "Products": [
@@ -375,6 +381,7 @@
     "ElectricityCost": 1000,
     "WaterCost": 200,
     "Employees": 0,
+    "RequiredEmployees": 2,
     "SalaryPerEmployee": 650,
     "CommercialCost": 0,
     "Products": [
@@ -411,6 +418,7 @@
     "ElectricityCost": 1500,
     "WaterCost": 600,
     "Employees": 0,
+    "RequiredEmployees": 4,
     "SalaryPerEmployee": 1300,
     "CommercialCost": 0,
     "Products": [
@@ -447,6 +455,7 @@
     "ElectricityCost": 600,
     "WaterCost": 350,
     "Employees": 0,
+    "RequiredEmployees": 2,
     "SalaryPerEmployee": 600,
     "CommercialCost": 0,
     "Products": [
@@ -483,6 +492,7 @@
     "ElectricityCost": 1000,
     "WaterCost": 450,
     "Employees": 0,
+    "RequiredEmployees": 4,
     "SalaryPerEmployee": 750,
     "CommercialCost": 0,
     "Products": [
@@ -504,7 +514,7 @@
       }
     ],
     "UpgradableTo": [
-      
+
     ]
   },
   {
@@ -519,6 +529,7 @@
     "ElectricityCost": 500,
     "WaterCost": 150,
     "Employees": 0,
+    "RequiredEmployees": 2,
     "SalaryPerEmployee": 650,
     "CommercialCost": 0,
     "Products": [
@@ -555,6 +566,7 @@
     "ElectricityCost": 1000,
     "WaterCost": 400,
     "Employees": 0,
+    "RequiredEmployees": 4,
     "SalaryPerEmployee": 1100,
     "CommercialCost": 0,
     "Products": [

@@ -31,8 +31,10 @@ public:
 
 	void init();
 	void reset(bool all = false);
-
+	void notifyPopupOpen(bool isOpen) { m_IsPopupOpen = isOpen; }
+	bool isPopupOpen() { return m_IsPopupOpen; }
 	GlobalTime* m_GlobalTime = nullptr;
+
 #pragma region Player
 	void registerCharacter(cocos2d::itemTypes type, std::string path);
 	void setPlayer(const std::string& name, cocos2d::itemTypes type);
@@ -80,5 +82,5 @@ public:
 	colorTypes m_ColorType;
 private:
 	std::map<cocos2d::itemTypes, const std::string> m_CharacterSpriteMap;
-
+	bool m_IsPopupOpen = false;
 };

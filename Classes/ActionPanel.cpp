@@ -57,6 +57,9 @@ void ActionPanel::displayShop(unsigned shopId)
 
 void ActionPanel::openShopCallback(cocos2d::Ref* pSender, unsigned shopIndex, unsigned shopId)
 {
+	if (GameData::getInstance().isPopupOpen())
+		return;
+
 	if (m_MyShopList.size() < 0)
 		return;
 
