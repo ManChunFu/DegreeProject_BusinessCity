@@ -22,8 +22,6 @@ MyShopSettingPanel::~MyShopSettingPanel()
 	m_GameTime = nullptr;
 	m_PanelTabs.clear();
 
-	m_ProductWidget1 = nullptr;
-	m_ProductWidget2 = nullptr;
 	m_WorkStatesWidget = nullptr;
 	m_ShopStateText = nullptr;
 	m_PlayerWorkHereText = nullptr;
@@ -36,8 +34,7 @@ MyShopSettingPanel::~MyShopSettingPanel()
 
 	m_ProductPriceTexts.clear();
 	m_ProductQTYTexts.clear();
-	m_WidgetMenu.clear();
-
+	m_ProductWidgets.clear();
 }
 
 void MyShopSettingPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint, unsigned shopId)
@@ -265,9 +262,10 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopI
 	}
 
 #pragma region Shop Products
-	m_ProductWidget1 = ui::Widget::create();
-	m_ProductWidget1->setPosition(Vec2::ZERO);
-	m_PanelTabs.at(0).second->addChild(m_ProductWidget1, 1);
+	auto productWidget = ui::Widget::create();
+	productWidget->setPosition(Vec2::ZERO);
+	m_PanelTabs.at(EPanelTabs::E_Overview).second->addChild(productWidget, 1);
+	m_ProductWidgets.push_back(productWidget);
 
 	auto dash = Label::createWithTTF("--------------------------------------------------------", "fonts/Nirmala.ttf", 20);
 	if (dash)
@@ -291,69 +289,70 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopI
 		titlePos.x += index == 0 ? 180.f : 80.f;
 	}
 
-	auto productLength = m_MyShop->getProductsSize();
-	auto productSpritePos = Vec2(panelMidPoint.x - 180.f, panelMidPoint.y - 50.f);
-
-	for (unsigned productIndex = 0; productIndex < productLength; productIndex++)
-	{
-		if (productIndex > m_PanelLimit)
-		{
-			auto moreButton = MouseOverMenuItem::creatMouseOverMenuButton("UIButtonMore50_PointRight.png", "UIButtonMore50_PointRight_Lit.png",
-				"UIButtonMore50_PointRight_Disable.png", CC_CALLBACK_1(MyShopSettingPanel::openWidget2Callback, this));
-			if (moreButton)
-			{
-				moreButton->itemSelectedData.type = itemTypes::BUTTON;
-				m_MenuItems.pushBack(displayMenuButton(moreButton, CC_CALLBACK_2(MyShopSettingPanel::onMouseOver, this),
-					Vec2(productSpritePos.x + 380.f, productSpritePos.y +100.f), itemTypes::BUTTON, 0.5f, true));
-				createProductWidget2(panelMidPoint);
-				//enableWidget(m_ProductWidget2, false, m_WidgetMenu, itemTypes::WIDGET_BUTTON);
-			}
-			break;
-		}
-
-#pragma region create product pics, name, quantity and buy button
-		// product pic
-		auto productSprite = Sprite::createWithSpriteFrameName(m_MyShop->getProductSprite(productIndex));
-		if (productSprite)
-			GameFunctions::displaySprite(productSprite, productSpritePos, m_ProductWidget1, 1, 0.5f, 0.5f);
-
-		// product name
-		auto productName = Label::createWithTTF(m_MyShop->getProductName(productIndex), "fonts/Nirmala.ttf", 15);
-		if (productName)
-		{
-			productName->enableShadow(darkCyanColor);
-			GameFunctions::displayLabel(productName, Color4B::WHITE, Vec2(productSpritePos.x + 50.f, productSpritePos.y - 10.f),
-				m_ProductWidget1, 1, true, TextHAlignment::LEFT);
-		}
-
-		// product sale price text
-		auto productSalePrice = Label::createWithTTF("", "fonts/Nirmala.ttf", 15);
-		if (productSalePrice)
-		{
-			productSalePrice->enableShadow(darkCyanColor);
-			productSalePrice->setString(std::to_string(m_MyShop->getProductSalePrice(productIndex)));
-			GameFunctions::displayLabel(productSalePrice, Color4B::WHITE, Vec2(productSpritePos.x + 250.f, productSpritePos.y),
-				m_ProductWidget1, 1);
-
-			m_ProductPriceTexts.pushBack(productSalePrice);
-		}
-
-		// product quantity text in shop
-		auto currentProductCountText = Label::createWithTTF(std::to_string(m_MyShop->getProductQuantity(productIndex)),
-			"fonts/Nirmala.ttf", 15);
-		if (currentProductCountText)
-		{
-			currentProductCountText->enableShadow(darkCyanColor);
-			GameFunctions::displayLabel(currentProductCountText, Color4B::WHITE, Vec2(productSpritePos.x + 330.f, productSpritePos.y),
-				m_ProductWidget1, 1);
-
-			m_ProductQTYTexts.pushBack(currentProductCountText);
-		}
-		productSpritePos.y -= 40.f;
-	}
-#pragma endregion
-
-#pragma endregion Shop Products
+	createProductOverview(productWidget, 0, m_PanelLimit, panelMidPoint);
+//	auto productLength = m_MyShop->getProductsSize();
+//	auto productSpritePos = Vec2(panelMidPoint.x - 180.f, panelMidPoint.y - 50.f);
+//
+//	for (unsigned productIndex = 0; productIndex < productLength; productIndex++)
+//	{
+//		if (productIndex > m_PanelLimit)
+//		{
+//			auto moreButton = MouseOverMenuItem::creatMouseOverMenuButton("UIButtonMore50_PointRight.png", "UIButtonMore50_PointRight_Lit.png",
+//				"UIButtonMore50_PointRight_Disable.png", CC_CALLBACK_1(MyShopSettingPanel::openWidget2Callback, this));
+//			if (moreButton)
+//			{
+//				moreButton->itemSelectedData.type = itemTypes::BUTTON;
+//				m_MenuItems.pushBack(displayMenuButton(moreButton, CC_CALLBACK_2(MyShopSettingPanel::onMouseOver, this),
+//					Vec2(productSpritePos.x + 380.f, productSpritePos.y +100.f), itemTypes::BUTTON, 0.5f, true));
+//				createProductWidget2(panelMidPoint);
+//				//enableWidget(m_ProductWidget2, false, m_WidgetMenu, itemTypes::WIDGET_BUTTON);
+//			}
+//			break;
+//		}
+//
+//#pragma region create product pics, name, quantity and buy button
+//		// product pic
+//		auto productSprite = Sprite::createWithSpriteFrameName(m_MyShop->getProductSprite(productIndex));
+//		if (productSprite)
+//			GameFunctions::displaySprite(productSprite, productSpritePos, m_ProductWidget1, 1, 0.5f, 0.5f);
+//
+//		// product name
+//		auto productName = Label::createWithTTF(m_MyShop->getProductName(productIndex), "fonts/Nirmala.ttf", 15);
+//		if (productName)
+//		{
+//			productName->enableShadow(darkCyanColor);
+//			GameFunctions::displayLabel(productName, Color4B::WHITE, Vec2(productSpritePos.x + 50.f, productSpritePos.y - 10.f),
+//				m_ProductWidget1, 1, true, TextHAlignment::LEFT);
+//		}
+//
+//		// product sale price text
+//		auto productSalePrice = Label::createWithTTF("", "fonts/Nirmala.ttf", 15);
+//		if (productSalePrice)
+//		{
+//			productSalePrice->enableShadow(darkCyanColor);
+//			productSalePrice->setString(std::to_string(m_MyShop->getProductSalePrice(productIndex)));
+//			GameFunctions::displayLabel(productSalePrice, Color4B::WHITE, Vec2(productSpritePos.x + 250.f, productSpritePos.y),
+//				m_ProductWidget1, 1);
+//
+//			m_ProductPriceTexts.pushBack(productSalePrice);
+//		}
+//
+//		// product quantity text in shop
+//		auto currentProductCountText = Label::createWithTTF(std::to_string(m_MyShop->getProductQuantity(productIndex)),
+//			"fonts/Nirmala.ttf", 15);
+//		if (currentProductCountText)
+//		{
+//			currentProductCountText->enableShadow(darkCyanColor);
+//			GameFunctions::displayLabel(currentProductCountText, Color4B::WHITE, Vec2(productSpritePos.x + 330.f, productSpritePos.y),
+//				m_ProductWidget1, 1);
+//
+//			m_ProductQTYTexts.pushBack(currentProductCountText);
+//		}
+//		productSpritePos.y -= 40.f;
+//	}
+//#pragma endregion
+//
+//#pragma endregion Shop Products
 
 #pragma endregion Create overiew content
 
@@ -464,9 +463,6 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopI
 	//
 
 
-	auto menu = Menu::createWithArray(m_MenuItems);
-	menu->setPosition(Vec2::ZERO);
-	m_ProductWidget1->addChild(menu, 1);
 }
 
 void MyShopSettingPanel::onOpenTabCallback(cocos2d::Ref* pSender, unsigned tabIndex)
@@ -489,77 +485,77 @@ void MyShopSettingPanel::onOpenTabCallback(cocos2d::Ref* pSender, unsigned tabIn
 	}
 }
 
-void MyShopSettingPanel::createProductWidget2(Vec2 panelMidPoint)
-{
-	m_ProductWidget2 = ui::Widget::create();
-	if (m_ProductWidget2)
-	{
-		m_ProductWidget2->setPosition(Vec2::ZERO);
-		m_PanelTabs.at(0).second->addChild(m_ProductWidget2, 1);
-	}
-	m_ProductWidget2->setVisible(false);
-
-	auto productLength = m_MyShop->getProductsSize();
-	auto productSpritePos = Vec2(panelMidPoint.x - 180.f, panelMidPoint.y - 50.f);
-	auto darkCyanColor = GameData::getInstance().m_ColorType.DarkCyan;
-
-	auto lessButton = MouseOverMenuItem::creatMouseOverMenuButton("UIButtonLess50_PointLeft.png", "UIButtonLess50_PointLeft_Lit.png",
-		"UIButtonLess50_PointLeft_Disable.png", CC_CALLBACK_1(MyShopSettingPanel::openWidget2Callback, this));
-	if (lessButton)
-	{
-		lessButton->itemSelectedData.type = itemTypes::WIDGET_BUTTON;
-		m_WidgetMenu.pushBack(displayMenuButton(lessButton, CC_CALLBACK_2(MyShopSettingPanel::onMouseOver, this),
-			Vec2(productSpritePos.x - 50.f, productSpritePos.y - 60.f), itemTypes::WIDGET_BUTTON, 0.5f, true));
-	}
-#pragma region create product pics, name, quantity and buy button
-	for (unsigned productIndex = m_PanelLimit + 1; productIndex < productLength; productIndex++)
-	{
-		// product pic
-		auto productSprite = Sprite::createWithSpriteFrameName(m_MyShop->getProductSprite(productIndex));
-		if (productSprite)
-			GameFunctions::displaySprite(productSprite, productSpritePos, m_ProductWidget2, 1, 0.5f, 0.5f);
-
-		// product name
-		auto productName = Label::createWithTTF(m_MyShop->getProductName(productIndex), "fonts/Nirmala.ttf", 15);
-		if (productName)
-		{
-			productName->enableShadow(darkCyanColor);
-			GameFunctions::displayLabel(productName, Color4B::WHITE, Vec2(productSpritePos.x + 50.f, productSpritePos.y - 10.f),
-				m_ProductWidget2, 1, true, TextHAlignment::LEFT);
-		}
-
-		// product sale price text
-		auto productSalePrice = Label::createWithTTF("", "fonts/Nirmala.ttf", 15);
-		if (productSalePrice)
-		{
-			productSalePrice->enableShadow(darkCyanColor);
-			productSalePrice->setString(std::to_string(m_MyShop->getProductSalePrice(productIndex)));
-			GameFunctions::displayLabel(productSalePrice, Color4B::WHITE, Vec2(productSpritePos.x + 250.f, productSpritePos.y),
-				m_ProductWidget2, 1);
-
-			m_ProductPriceTexts.pushBack(productSalePrice);
-		}
-
-		// product quantity text in shop
-		auto currentProductCountText = Label::createWithTTF(std::to_string(m_MyShop->getProductQuantity(productIndex)),
-			"fonts/Nirmala.ttf", 15);
-		if (currentProductCountText)
-		{
-			currentProductCountText->enableShadow(darkCyanColor);
-			GameFunctions::displayLabel(currentProductCountText, Color4B::WHITE, Vec2(productSpritePos.x + 330.f, productSpritePos.y),
-				m_ProductWidget2, 1);
-
-			m_ProductQTYTexts.pushBack(currentProductCountText);
-		}
-
-#pragma endregion
-		productSpritePos.y -= 40.f;
-	}
-
-	auto widgetMenu = Menu::createWithArray(m_WidgetMenu);
-	widgetMenu->setPosition(Vec2::ZERO);
-	m_ProductWidget2->addChild(widgetMenu, 1);
-}
+//void MyShopSettingPanel::createProductWidget2(Vec2 panelMidPoint)
+//{
+	//m_ProductWidget2 = ui::Widget::create();
+	//if (m_ProductWidget2)
+//	{
+//		m_ProductWidget2->setPosition(Vec2::ZERO);
+//		m_PanelTabs.at(0).second->addChild(m_ProductWidget2, 1);
+//	}
+//	m_ProductWidget2->setVisible(false);
+//
+//	auto productLength = m_MyShop->getProductsSize();
+//	auto productSpritePos = Vec2(panelMidPoint.x - 180.f, panelMidPoint.y - 50.f);
+//	auto darkCyanColor = GameData::getInstance().m_ColorType.DarkCyan;
+//
+//	auto lessButton = MouseOverMenuItem::creatMouseOverMenuButton("UIButtonLess50_PointLeft.png", "UIButtonLess50_PointLeft_Lit.png",
+//		"UIButtonLess50_PointLeft_Disable.png", CC_CALLBACK_1(MyShopSettingPanel::openProductWidgetCallback, this));
+//	if (lessButton)
+//	{
+//		lessButton->itemSelectedData.type = itemTypes::WIDGET_BUTTON;
+//		m_WidgetMenu.pushBack(displayMenuButton(lessButton, CC_CALLBACK_2(MyShopSettingPanel::onMouseOver, this),
+//			Vec2(productSpritePos.x - 50.f, productSpritePos.y - 60.f), itemTypes::WIDGET_BUTTON, 0.5f, true));
+//	}
+//#pragma region create product pics, name, quantity and buy button
+//	for (unsigned productIndex = m_PanelLimit + 1; productIndex < productLength; productIndex++)
+//	{
+//		// product pic
+//		auto productSprite = Sprite::createWithSpriteFrameName(m_MyShop->getProductSprite(productIndex));
+//		if (productSprite)
+//			GameFunctions::displaySprite(productSprite, productSpritePos, m_ProductWidget2, 1, 0.5f, 0.5f);
+//
+//		// product name
+//		auto productName = Label::createWithTTF(m_MyShop->getProductName(productIndex), "fonts/Nirmala.ttf", 15);
+//		if (productName)
+//		{
+//			productName->enableShadow(darkCyanColor);
+//			GameFunctions::displayLabel(productName, Color4B::WHITE, Vec2(productSpritePos.x + 50.f, productSpritePos.y - 10.f),
+//				m_ProductWidget2, 1, true, TextHAlignment::LEFT);
+//		}
+//
+//		// product sale price text
+//		auto productSalePrice = Label::createWithTTF("", "fonts/Nirmala.ttf", 15);
+//		if (productSalePrice)
+//		{
+//			productSalePrice->enableShadow(darkCyanColor);
+//			productSalePrice->setString(std::to_string(m_MyShop->getProductSalePrice(productIndex)));
+//			GameFunctions::displayLabel(productSalePrice, Color4B::WHITE, Vec2(productSpritePos.x + 250.f, productSpritePos.y),
+//				m_ProductWidget2, 1);
+//
+//			m_ProductPriceTexts.pushBack(productSalePrice);
+//		}
+//
+//		// product quantity text in shop
+//		auto currentProductCountText = Label::createWithTTF(std::to_string(m_MyShop->getProductQuantity(productIndex)),
+//			"fonts/Nirmala.ttf", 15);
+//		if (currentProductCountText)
+//		{
+//			currentProductCountText->enableShadow(darkCyanColor);
+//			GameFunctions::displayLabel(currentProductCountText, Color4B::WHITE, Vec2(productSpritePos.x + 330.f, productSpritePos.y),
+//				m_ProductWidget2, 1);
+//
+//			m_ProductQTYTexts.pushBack(currentProductCountText);
+//		}
+//
+//#pragma endregion
+//		productSpritePos.y -= 40.f;
+//	}
+//
+//	auto widgetMenu = Menu::createWithArray(m_WidgetMenu);
+//	widgetMenu->setPosition(Vec2::ZERO);
+//	m_ProductWidget2->addChild(widgetMenu, 1);
+//}
 
 void MyShopSettingPanel::closeCallback(cocos2d::Ref* pSender)
 {
@@ -594,17 +590,22 @@ void MyShopSettingPanel::workHereCallback(cocos2d::Ref* pSender)
 	m_MyShop->setPlayerWorkHere();
 }
 
-void MyShopSettingPanel::openWidget2Callback(cocos2d::Ref* pSender)
+void MyShopSettingPanel::openProductWidgetCallback(cocos2d::Ref* pSender, unsigned widgetIndex)
 {
-	if (m_ProductWidget1->isVisible())
+	for (unsigned index = 0; index < m_ProductWidgets.size(); ++index)
 	{
-		m_ProductWidget1->setVisible(false);
-		m_ProductWidget2->setVisible(true);
-		return;
+		if (index == widgetIndex)
+		{
+			if (m_ProductWidgets.at(index)->isVisible())
+			{
+				m_ProductWidgets.at(index)->setVisible(false);
+				continue;
+			}
+			m_ProductWidgets.at(index)->setVisible(true);
+			continue;
+		}
+		m_ProductWidgets.at(index)->setVisible(false);
 	}
-
-	m_ProductWidget1->setVisible(true);
-	m_ProductWidget2->setVisible(false);
 }
 
 void MyShopSettingPanel::onQuantitytChanges(unsigned productId, unsigned remainQuantity)
@@ -695,4 +696,93 @@ std::string MyShopSettingPanel::getWorkState()
 	}
 
 	return m_WorkStates[0];
+}
+
+void MyShopSettingPanel::createProductOverview(ui::Widget* productWidget, unsigned startIndex, unsigned panelLimit, Vec2 panelMidPoint)
+{
+	auto productLength = m_MyShop->getProductsSize();
+	auto productSpritePos = Vec2(panelMidPoint.x - 180.f, panelMidPoint.y - 50.f);
+	auto darkCyanColor = GameData::getInstance().m_ColorType.DarkCyan;
+
+	if (startIndex > 0)
+	{
+		auto lessButton = MouseOverMenuItem::creatMouseOverMenuButton("UIButtonLess50_PointLeft.png", "UIButtonLess50_PointLeft_Lit.png",
+			"UIButtonLess50_PointLeft_Disable.png", CC_CALLBACK_1(MyShopSettingPanel::openProductWidgetCallback, this, m_ProductWidgets.size() -2));
+		if (lessButton)
+		{
+			lessButton->itemSelectedData.type = itemTypes::WIDGET_BUTTON;
+			displayMenuButton(lessButton, CC_CALLBACK_2(MyShopSettingPanel::onMouseOver, this), Vec2(productSpritePos.x - 50.f, 
+				productSpritePos.y - 60.f), itemTypes::WIDGET_BUTTON, 0.5f, true);
+
+			auto lessMenu = Menu::create(lessButton, NULL);
+			lessMenu->setPosition(Vec2::ZERO);
+			productWidget->addChild(lessMenu, 1);
+		}
+	}
+	
+	for (unsigned productIndex = startIndex; productIndex < productLength; productIndex++)
+	{
+		if (productIndex > panelLimit)
+		{
+			auto moreButton = MouseOverMenuItem::creatMouseOverMenuButton("UIButtonMore50_PointRight.png", "UIButtonMore50_PointRight_Lit.png",
+				"UIButtonMore50_PointRight_Disable.png", CC_CALLBACK_1(MyShopSettingPanel::openProductWidgetCallback, this, m_ProductWidgets.size()));
+			if (moreButton)
+			{
+				moreButton->itemSelectedData.type = itemTypes::BUTTON;
+				displayMenuButton(moreButton, CC_CALLBACK_2(MyShopSettingPanel::onMouseOver, this),
+					Vec2(productSpritePos.x + 380.f, productSpritePos.y + 100.f), itemTypes::BUTTON, 0.5f, true);
+
+				auto buttonMenu = Menu::create(moreButton, NULL);
+				buttonMenu->setPosition(Vec2::ZERO);
+				productWidget->addChild(buttonMenu, 1);
+
+				auto nextWidget = ui::Widget::create();
+				nextWidget->setPosition(Vec2::ZERO);
+				m_PanelTabs.at(EPanelTabs::E_Overview).second->addChild(nextWidget, 1);
+				m_ProductWidgets.push_back(nextWidget);
+				createProductOverview(nextWidget, panelLimit + 1, m_PanelLimit *= 2, panelMidPoint);
+				nextWidget->setVisible(false);
+			}
+			break;
+		}
+
+		// product pic
+		auto productSprite = Sprite::createWithSpriteFrameName(m_MyShop->getProductSprite(productIndex));
+		if (productSprite)
+			GameFunctions::displaySprite(productSprite, productSpritePos, productWidget, 1, 0.5f, 0.5f);
+
+		// product name
+		auto productName = Label::createWithTTF(m_MyShop->getProductName(productIndex), "fonts/Nirmala.ttf", 15);
+		if (productName)
+		{
+			productName->enableShadow(darkCyanColor);
+			GameFunctions::displayLabel(productName, Color4B::WHITE, Vec2(productSpritePos.x + 50.f, productSpritePos.y - 10.f),
+				productWidget, 1, true, TextHAlignment::LEFT);
+		}
+
+		// product sale price text
+		auto productSalePrice = Label::createWithTTF("", "fonts/Nirmala.ttf", 15);
+		if (productSalePrice)
+		{
+			productSalePrice->enableShadow(darkCyanColor);
+			productSalePrice->setString(std::to_string(m_MyShop->getProductSalePrice(productIndex)));
+			GameFunctions::displayLabel(productSalePrice, Color4B::WHITE, Vec2(productSpritePos.x + 250.f, productSpritePos.y),
+				productWidget, 1);
+
+			m_ProductPriceTexts.pushBack(productSalePrice);
+		}
+
+		// product quantity text in shop
+		auto currentProductCountText = Label::createWithTTF(std::to_string(m_MyShop->getProductQuantity(productIndex)),
+			"fonts/Nirmala.ttf", 15);
+		if (currentProductCountText)
+		{
+			currentProductCountText->enableShadow(darkCyanColor);
+			GameFunctions::displayLabel(currentProductCountText, Color4B::WHITE, Vec2(productSpritePos.x + 330.f, productSpritePos.y),
+				productWidget, 1);
+
+			m_ProductQTYTexts.pushBack(currentProductCountText);
+		}
+		productSpritePos.y -= 40.f;
+	}
 }
