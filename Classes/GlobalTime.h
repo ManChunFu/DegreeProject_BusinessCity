@@ -18,6 +18,7 @@ public:
 	void addMinuteEventListener(const onTimeChanges& changes);
 	void addHourEventListener(const onTimeChanges& changes);
 
+
 	onTimeChanges onEveryDayChanges;
 	onTimeChanges onEveryWeekChanges;
 

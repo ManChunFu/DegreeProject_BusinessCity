@@ -96,6 +96,7 @@ void GameScene::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::E
 
 	if (keyCode == EventKeyboard::KeyCode::KEY_0)
 		m_Player->updateCurrentCashAmout(50000);
+
 }
 
 

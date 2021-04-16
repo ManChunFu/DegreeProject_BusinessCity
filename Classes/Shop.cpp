@@ -76,7 +76,7 @@ Shop::Shop(rapidjson::Value& json)
 				auto upgradable = itr->value.GetArray();
 				for (int index = 0; index < itr->value.Size(); index++)
 				{
-					m_UpgradeableTo[index] = upgradable[index].GetInt();
+					m_UpgradeableTo.push_back(upgradable[index].GetInt());
 				}
 			}
 			break;
@@ -91,6 +91,7 @@ Shop::~Shop()
 		delete item;
 	}
 	m_Products.clear();
+	m_UpgradeableTo.clear();
 }
 
 bool Shop::isShopOpen(unsigned day, unsigned currentHour)

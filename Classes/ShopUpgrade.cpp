@@ -153,7 +153,7 @@ void ShopUpgrade::createShopUpgrade(GameScene* gameScene, Shop* shop, ui::Widget
 				}
 
 				auto button = (contentIndex == 0) ? MouseOverMenuItem::creatMouseOverMenuButton(CC_CALLBACK_1(
-					ShopUpgrade::proceedUpgradeCallback, this, m_Shop->m_UpgradeableTo[contentIndex])) : MouseOverMenuItem::creatMouseOverMenuButton(CC_CALLBACK_1(
+					ShopUpgrade::proceedUpgradeCallback, this, contentIndex)) : MouseOverMenuItem::creatMouseOverMenuButton(CC_CALLBACK_1(
 						ShopUpgrade::cancelUpgradeCallback, this));
 				if (button)
 				{
@@ -214,20 +214,22 @@ void ShopUpgrade::upgradeCallback(cocos2d::Ref* pSender, unsigned shopId)
 	if (m_ThisPanel->isVisible())
 		return;
 
-	if (m_Player->getCurrentCash() > m_ShopUpgradePrices[shopId] /*&& m_Shop->getEmployeeCount() >= m_RequiredStaffCounts.at(shopId)*/)
+	if (m_Player->getCurrentCash() > m_ShopUpgradePrices[shopId].second /*&& m_Shop->getEmployeeCount() >= m_RequiredStaffCounts.at(shopId)*/)
 		showMessage(true);
 	else
 		showMessage(false);
 }
 
-void ShopUpgrade::proceedUpgradeCallback(cocos2d::Ref* pSender, unsigned shopId)
+void ShopUpgrade::proceedUpgradeCallback(cocos2d::Ref* pSender, unsigned shopIndex)
 {
+	m_Player->updateCurrentCashAmout(-m_ShopUpgradePrices.at(shopIndex).second);
+
 	m_ShopLockWidget->setVisible(false);
-	m_ShopLockWidget->setEnabled(false);
 	m_ThisPanel->setVisible(false);
+	GameData::getInstance().notifyPopupOpen(false);
 
 	if (onUpgradeChanges)
-		onUpgradeChanges(shopId);
+		onUpgradeChanges(m_ShopUpgradePrices.at(shopIndex).first);
 }
 
 void ShopUpgrade::cancelUpgradeCallback(cocos2d::Ref* pSender)
@@ -243,11 +245,12 @@ void ShopUpgrade::onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event
 
 std::string ShopUpgrade::GetShopUpgradePrice(unsigned shopId)
 {
-	auto price = GameData::getInstance().m_Shops[shopId]->m_ShopPrice;
-	price -= m_Shop->m_ShopPrice * 2.5f;
-	m_ShopUpgradePrices.push_back(price);
+	auto salePrice = GameData::getInstance().m_Shops[shopId]->m_ShopPrice;
+	salePrice *= .75f;
+	 
+	m_ShopUpgradePrices.push_back(std::make_pair(shopId, salePrice));
 
-	return std::to_string(price);
+	return std::to_string(salePrice);
 }
 
 void ShopUpgrade::showMessage(bool success)

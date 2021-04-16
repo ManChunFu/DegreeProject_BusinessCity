@@ -25,6 +25,7 @@ public:
 	void closePanel() override;
 	std::function<void(cocos2d::Ref* pSender)> onActionCall;
 	std::function<void(unsigned shopId)> onShopChanges;
+	void removeMySelfFromParent();
 protected:	
 	void createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopId = 0) override;
 	void onOpenTabCallback(cocos2d::Ref* pSender, unsigned tabIndex);

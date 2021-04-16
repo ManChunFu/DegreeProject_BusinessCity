@@ -23,7 +23,7 @@ public:
 	std::function<void(unsigned shopId)> onUpgradeChanges;
 protected:
 	void upgradeCallback(cocos2d::Ref* pSender, unsigned shopId);
-	void proceedUpgradeCallback(cocos2d::Ref* pSender, unsigned shopId);
+	void proceedUpgradeCallback(cocos2d::Ref* pSender, unsigned shopIndex);
 	void cancelUpgradeCallback(cocos2d::Ref* pSender);
 	void onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event);
 
@@ -35,7 +35,7 @@ private:
 	};
 	Shop* m_Shop = nullptr;
 	cocos2d::ui::Widget* m_ShopLockWidget;
-	std::vector<unsigned int> m_ShopUpgradePrices;
+	std::vector<std::pair<unsigned int, unsigned int>> m_ShopUpgradePrices;
 	cocos2d::Vector<cocos2d::ui::Widget*> m_MessageWidgets;
 	std::array<std::string, 2> m_Messages = { "Upgrade Failed", "Upgrade Successful" };
 	cocos2d::Label* m_MessageText = nullptr;

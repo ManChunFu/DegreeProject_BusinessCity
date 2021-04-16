@@ -48,12 +48,11 @@ void ActionPanel::displayShop(unsigned shopId)
 	m_Elements.pushBack(menu);
 
 	auto shopButton = new MyShopSettingPanel();
-	shopButton->onShopChanges = CC_CALLBACK_1(ActionPanel::onShopChanges, this);
 	shopButton->autorelease();
 	m_ThisPanel->addChild(shopButton, 1);
 	m_MyShopList.pushBack(shopButton);
+	shopButton->onShopChanges = CC_CALLBACK_1(ActionPanel::onShopChanges, this, m_MyShopList.size() -1);
 
-	m_DisplayShopPos.x += 120.f;
 }
 
 void ActionPanel::openShopCallback(cocos2d::Ref* pSender, unsigned shopIndex, unsigned shopId)
@@ -79,13 +78,32 @@ void ActionPanel::checkShopCallback(cocos2d::Ref* pSender, unsigned shopId)
 	m_Player->m_MyShopIds.push_back(shopId);
 	m_ShopIndex++;
 	displayShop(shopId);
+	m_DisplayShopPos.x += 120.f;
 }
 
-void ActionPanel::onShopChanges(unsigned shopId)
+void ActionPanel::onShopChanges(unsigned shopId, unsigned shopListIndex)
 {
 	auto shopUpgradeSprite = Sprite::createWithSpriteFrameName(GameData::getInstance().m_Shops[shopId]->m_ShopLook_Normal);
+	auto shopReplacePos = m_MenuItems.at(shopListIndex)->getPosition();
 	if (shopUpgradeSprite)
-		GameFunctions::displaySprite(shopUpgradeSprite, m_DisplayShopPos, m_ThisPanel, 1, 0.3f, 0.3f);
+		GameFunctions::displaySprite(shopUpgradeSprite, shopReplacePos, m_GameScene, 2, 0.3f, 0.3f);
+
+	m_MyShopList.at(shopListIndex)->closePanel();
+	m_MenuItems.at(shopListIndex)->setVisible(false);
+	m_MenuItems.eraseObject(m_MenuItems.at(shopListIndex));
+	removeShop(shopListIndex);
+
+	m_Player->m_MyShopIds.push_back(shopId);
+	displayShop(shopId);
+	m_DisplayShopPos = shopReplacePos;
+	m_GameScene->removeChild(shopUpgradeSprite);
+}
+
+void ActionPanel::removeShop(unsigned shopIndex)
+{
+	m_MyShopList.at(shopIndex)->removeMySelfFromParent();
+	m_MyShopList.erase(shopIndex);
+	m_Player->m_MyShopIds.erase(m_Player->m_MyShopIds.begin() + shopIndex);
 }
 
 void ActionPanel::displayShopOptions()

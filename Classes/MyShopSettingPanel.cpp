@@ -59,15 +59,11 @@ void MyShopSettingPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint
 
 	updateShopProductData();
 	m_ThisPanel->setVisible(true);
-	//(m_DisplayWidget2) ? enableMenuItems(m_WidgetMenu, true) : enableMenuItems(m_MenuItems, true);
 }
 
 void MyShopSettingPanel::closePanel()
 {
 	m_ThisPanel->setVisible(false);
-
-	//(m_DisplayWidget2) ? enableMenuItems(m_WidgetMenu, false) : enableMenuItems(m_MenuItems, false);
-
 	m_IsPanelOpen = false;
 
 	GameData::getInstance().m_TempOpenPanel = nullptr;
@@ -674,6 +670,11 @@ void MyShopSettingPanel::updateShopProductData()
 	m_EmployeeCountText->setString(std::to_string(shop->getEmployeeCount()));
 
 	updateShopWorkingState();
+}
+
+void MyShopSettingPanel::removeMySelfFromParent()
+{
+	removeFromParent();
 }
 
 void MyShopSettingPanel::updateShopWorkingState()

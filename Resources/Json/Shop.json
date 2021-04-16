@@ -215,7 +215,7 @@
     "ShopLookNormal": "Fastfood2.png",
     "ShopLookLit": "Fastfood2_Lit.png",
     "ShopLookDisabled": "Fastfood2_Disable.png",
-    "ShopPrice": 400000,
+    "ShopPrice": 200000,
     "ElectricityCost": 800,
     "WaterCost": 300,
     "Employees": 0,
@@ -377,7 +377,7 @@
     "ShopLookNormal": "",
     "ShopLookLit": "",
     "ShopLookDisabled": "",
-    "ShopPrice": 40000,
+    "ShopPrice": 150000,
     "ElectricityCost": 1000,
     "WaterCost": 200,
     "Employees": 0,
@@ -414,7 +414,7 @@
     "ShopLookNormal": "",
     "ShopLookLit": "",
     "ShopLookDisabled": "",
-    "ShopPrice": 1000000,
+    "ShopPrice": 850000,
     "ElectricityCost": 1500,
     "WaterCost": 600,
     "Employees": 0,
@@ -451,7 +451,7 @@
     "ShopLookNormal": "",
     "ShopLookLit": "",
     "ShopLookDisabled": "",
-    "ShopPrice": 300000,
+    "ShopPrice": 150000,
     "ElectricityCost": 600,
     "WaterCost": 350,
     "Employees": 0,
@@ -488,7 +488,7 @@
     "ShopLookNormal": "",
     "ShopLookLit": "",
     "ShopLookDisabled": "",
-    "ShopPrice": 800000,
+    "ShopPrice": 650000,
     "ElectricityCost": 1000,
     "WaterCost": 450,
     "Employees": 0,
@@ -512,9 +512,6 @@
         "PurchasePrice": 3,
         "Quantity": 20
       }
-    ],
-    "UpgradableTo": [
-
     ]
   },
   {
@@ -525,7 +522,7 @@
     "ShopLookNormal": "",
     "ShopLookLit": "",
     "ShopLookDisabled": "",
-    "ShopPrice": 350000,
+    "ShopPrice": 100000,
     "ElectricityCost": 500,
     "WaterCost": 150,
     "Employees": 0,
@@ -562,7 +559,7 @@
     "ShopLookNormal": "",
     "ShopLookLit": "",
     "ShopLookDisabled": "",
-    "ShopPrice": 1500000,
+    "ShopPrice": 1000000,
     "ElectricityCost": 1000,
     "WaterCost": 400,
     "Employees": 0,
