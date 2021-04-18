@@ -823,6 +823,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\Player.h" />
     <ClInclude Include="..\Classes\ProductData.h" />
     <ClInclude Include="..\Classes\ShopAdmin.h" />
+    <ClInclude Include="..\Classes\ShopEmployeeAdmin.h" />
     <ClInclude Include="..\Classes\ShopProduct.h" />
     <ClInclude Include="..\Classes\Shop.h" />
     <ClInclude Include="..\Classes\ShopProductAdmin.h" />
@@ -851,6 +852,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\Classes\MyShopSettingPanel.cpp" />
     <ClCompile Include="..\Classes\Player.cpp" />
     <ClCompile Include="..\Classes\ShopAdmin.cpp" />
+    <ClCompile Include="..\Classes\ShopEmployeeAdmin.cpp" />
     <ClCompile Include="..\Classes\ShopProduct.cpp" />
     <ClCompile Include="..\Classes\Shop.cpp" />
     <ClCompile Include="..\Classes\ShopProductAdmin.cpp" />

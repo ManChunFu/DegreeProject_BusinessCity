@@ -8,6 +8,7 @@
 #include "GlobalTime.h"
 #include "GameTime.h"
 #include "ShopProductAdmin.h"
+#include "ShopEmployeeAdmin.h"
 
 
 USING_NS_CC;
@@ -61,7 +62,7 @@ void ShopAdmin::createAdmin(Shop* shop, ui::Widget* adminWidget, Vec2 panelMidPo
 	m_AdminTabs.at(0).first->setSelected(true);
 #pragma endregion
 
-#pragma region Work Schedule
+#pragma region Work Schedule Admin
 	// weeks
 	auto checkboxPos = Vec2(panelMidPoint.x - 140.f, panelMidPoint.y - 10.f);
 	std::array<std::string, 7> weekdays = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" };
@@ -73,7 +74,7 @@ void ShopAdmin::createAdmin(Shop* shop, ui::Widget* adminWidget, Vec2 panelMidPo
 		checkbox->addClickEventListener(CC_CALLBACK_1(ShopAdmin::checkBoxClickCallback, this, index));
 
 		m_Weekdays.push_back(checkbox);
-		m_AdminTabs.at(0).second->addChild(checkbox, 1);
+		m_AdminTabs.at(EWidgetTabs::E_ScheduleWidget).second->addChild(checkbox, 1);
 		checkboxPos.x += 55.f;
 
 		auto text = Label::createWithTTF(weekdays[index], "fonts/NirmalaB.ttf", 16);
@@ -97,7 +98,8 @@ void ShopAdmin::createAdmin(Shop* shop, ui::Widget* adminWidget, Vec2 panelMidPo
 		if (text)
 		{
 			text->enableGlow(Color4B::BLACK);
-			GameFunctions::displayLabel(text, Color4B::WHITE, textPos, m_AdminTabs.at(0).second, 1, true, TextHAlignment::LEFT);
+			GameFunctions::displayLabel(text, Color4B::WHITE, textPos, m_AdminTabs.at(EWidgetTabs::E_ScheduleWidget).second, 1, 
+				true, TextHAlignment::LEFT);
 		}
 
 		for (unsigned weekdayIndex = 0; weekdayIndex < 7; weekdayIndex++)
@@ -154,17 +156,18 @@ void ShopAdmin::createAdmin(Shop* shop, ui::Widget* adminWidget, Vec2 panelMidPo
 	enableMenuItmes(false);
 	auto menu = Menu::createWithArray(m_MenuItems);
 	menu->setPosition(Vec2::ZERO);
-	m_AdminTabs.at(0).second->addChild(menu, 1);
+	m_AdminTabs.at(EWidgetTabs::E_ScheduleWidget).second->addChild(menu, 1);
 
-#pragma region create productAdmin 
+#pragma region create Product Admin 
 	m_ShopProductAdmin = new ShopProductAdmin();
-	m_ShopProductAdmin->createShopProductAdmin(m_MyShop, m_AdminTabs.at(1).second, panelMidPoint);
+	m_ShopProductAdmin->createShopProductAdmin(m_MyShop, m_AdminTabs.at(EWidgetTabs::E_ProductWidget).second, panelMidPoint);
 #pragma endregion
 
-}
+#pragma region create Employee Admin
+	m_ShopEmployeeAdmin = new ShopEmployeeAdmin();
+	m_ShopEmployeeAdmin->createShopEmployeeAdmin(m_MyShop, m_AdminTabs.at(EWidgetTabs::E_EmployeeWidget).second, panelMidPoint);
+#pragma endregion
 
-void ShopAdmin::update()
-{
 }
 
 void ShopAdmin::onOpenTabCallback(cocos2d::Ref* pSender, unsigned tabIndex)

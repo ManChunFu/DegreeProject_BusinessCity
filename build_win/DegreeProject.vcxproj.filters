@@ -85,6 +85,9 @@
     <ClCompile Include="..\Classes\ShopUpgrade.cpp">
       <Filter>Source Files\Classes\UI</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\ShopEmployeeAdmin.cpp">
+      <Filter>Source Files\Classes\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\Users\mandy\source\repos\DegreeProject\Classes\AppDelegate.h">
@@ -199,6 +202,9 @@
       <Filter>Source Files\Classes\UI</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ShopUpgrade.h">
+      <Filter>Source Files\Classes\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ShopEmployeeAdmin.h">
       <Filter>Source Files\Classes\UI</Filter>
     </ClInclude>
   </ItemGroup>

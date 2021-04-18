@@ -26,10 +26,9 @@ MyShopSettingPanel::~MyShopSettingPanel()
 	m_ShopStateText = nullptr;
 	m_PlayerWorkHereText = nullptr;
 	m_ReplenishCountdownText = nullptr;
-	m_EmployeeCountText = nullptr;
-	m_EmployeeSalaryText = nullptr;
 	m_FromHourText = nullptr;
 	m_ToHourText = nullptr;
+	m_EmployeeCountText = nullptr;
 	m_MyShop = nullptr;
 
 	m_ProductPriceTexts.clear();
@@ -290,69 +289,7 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopI
 	}
 
 	createProductOverview(productWidget, 0, m_PanelLimit, panelMidPoint);
-//	auto productLength = m_MyShop->getProductsSize();
-//	auto productSpritePos = Vec2(panelMidPoint.x - 180.f, panelMidPoint.y - 50.f);
-//
-//	for (unsigned productIndex = 0; productIndex < productLength; productIndex++)
-//	{
-//		if (productIndex > m_PanelLimit)
-//		{
-//			auto moreButton = MouseOverMenuItem::creatMouseOverMenuButton("UIButtonMore50_PointRight.png", "UIButtonMore50_PointRight_Lit.png",
-//				"UIButtonMore50_PointRight_Disable.png", CC_CALLBACK_1(MyShopSettingPanel::openWidget2Callback, this));
-//			if (moreButton)
-//			{
-//				moreButton->itemSelectedData.type = itemTypes::BUTTON;
-//				m_MenuItems.pushBack(displayMenuButton(moreButton, CC_CALLBACK_2(MyShopSettingPanel::onMouseOver, this),
-//					Vec2(productSpritePos.x + 380.f, productSpritePos.y +100.f), itemTypes::BUTTON, 0.5f, true));
-//				createProductWidget2(panelMidPoint);
-//				//enableWidget(m_ProductWidget2, false, m_WidgetMenu, itemTypes::WIDGET_BUTTON);
-//			}
-//			break;
-//		}
-//
-//#pragma region create product pics, name, quantity and buy button
-//		// product pic
-//		auto productSprite = Sprite::createWithSpriteFrameName(m_MyShop->getProductSprite(productIndex));
-//		if (productSprite)
-//			GameFunctions::displaySprite(productSprite, productSpritePos, m_ProductWidget1, 1, 0.5f, 0.5f);
-//
-//		// product name
-//		auto productName = Label::createWithTTF(m_MyShop->getProductName(productIndex), "fonts/Nirmala.ttf", 15);
-//		if (productName)
-//		{
-//			productName->enableShadow(darkCyanColor);
-//			GameFunctions::displayLabel(productName, Color4B::WHITE, Vec2(productSpritePos.x + 50.f, productSpritePos.y - 10.f),
-//				m_ProductWidget1, 1, true, TextHAlignment::LEFT);
-//		}
-//
-//		// product sale price text
-//		auto productSalePrice = Label::createWithTTF("", "fonts/Nirmala.ttf", 15);
-//		if (productSalePrice)
-//		{
-//			productSalePrice->enableShadow(darkCyanColor);
-//			productSalePrice->setString(std::to_string(m_MyShop->getProductSalePrice(productIndex)));
-//			GameFunctions::displayLabel(productSalePrice, Color4B::WHITE, Vec2(productSpritePos.x + 250.f, productSpritePos.y),
-//				m_ProductWidget1, 1);
-//
-//			m_ProductPriceTexts.pushBack(productSalePrice);
-//		}
-//
-//		// product quantity text in shop
-//		auto currentProductCountText = Label::createWithTTF(std::to_string(m_MyShop->getProductQuantity(productIndex)),
-//			"fonts/Nirmala.ttf", 15);
-//		if (currentProductCountText)
-//		{
-//			currentProductCountText->enableShadow(darkCyanColor);
-//			GameFunctions::displayLabel(currentProductCountText, Color4B::WHITE, Vec2(productSpritePos.x + 330.f, productSpritePos.y),
-//				m_ProductWidget1, 1);
-//
-//			m_ProductQTYTexts.pushBack(currentProductCountText);
-//		}
-//		productSpritePos.y -= 40.f;
-//	}
-//#pragma endregion
-//
-//#pragma endregion Shop Products
+
 
 #pragma endregion Create overiew content
 
@@ -565,31 +502,6 @@ void MyShopSettingPanel::closeCallback(cocos2d::Ref* pSender)
 	closePanel();
 }
 
-void MyShopSettingPanel::reduceCallback(cocos2d::Ref* pSender)
-{
-	m_EmployeeCount = GameFunctions::displayLabelText_ClampValue(m_EmployeeCountText, m_EmployeeCount, -1, 0, 5);
-	m_EmployeeCountText->setString(std::to_string(m_EmployeeCount));
-}
-
-void MyShopSettingPanel::addCallback(cocos2d::Ref* pSender)
-{
-	m_EmployeeCount = GameFunctions::displayLabelText_ClampValue(m_EmployeeCountText, m_EmployeeCount, 1, 0, 5);
-	m_EmployeeCountText->setString(std::to_string(m_EmployeeCount));
-}
-
-void MyShopSettingPanel::hireCallback(cocos2d::Ref* pSender)
-{
-	//update shop data
-	m_MyShop->addEmployee(m_EmployeeCount);
-	m_EmployeeAtStoreText->setString(std::to_string(m_MyShop->getEmployeeCount()));
-	m_EmployeeCountText->setString(std::to_string(m_EmployeeCount = 0));
-}
-
-void MyShopSettingPanel::workHereCallback(cocos2d::Ref* pSender)
-{
-	m_MyShop->setPlayerWorkHere();
-}
-
 void MyShopSettingPanel::openProductWidgetCallback(cocos2d::Ref* pSender, unsigned widgetIndex)
 {
 	for (unsigned index = 0; index < m_ProductWidgets.size(); ++index)
@@ -740,7 +652,7 @@ void MyShopSettingPanel::createProductOverview(ui::Widget* productWidget, unsign
 				nextWidget->setPosition(Vec2::ZERO);
 				m_PanelTabs.at(EPanelTabs::E_Overview).second->addChild(nextWidget, 1);
 				m_ProductWidgets.push_back(nextWidget);
-				createProductOverview(nextWidget, panelLimit + 1, m_PanelLimit *= 2, panelMidPoint);
+				createProductOverview(nextWidget, panelLimit + 1, (m_PanelLimit *= 2) + 1 , panelMidPoint);
 				nextWidget->setVisible(false);
 			}
 			break;
