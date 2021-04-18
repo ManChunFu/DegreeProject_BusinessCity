@@ -15,10 +15,10 @@ public:
 	virtual void openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint) {};
 	virtual void openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint, unsigned shopId = 0) {};
 	virtual void closePanel() {};
+		
+	virtual void enableMenuItmes(bool enable) {};
 
 	bool isPanelOpen() { return m_IsPanelOpen; }
-
-	virtual void enableMenuItmes(bool enable) {};
 protected:
 	cocos2d::Vector<cocos2d::Node*> m_Elements;
 	cocos2d::Vector<cocos2d::MenuItem*> m_MenuItems;

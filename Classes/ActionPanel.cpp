@@ -32,15 +32,15 @@ void ActionPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
 	m_DisplayShopPos = Vec2(m_ThisPanel->getPosition().x * 0.5f, m_ThisPanel->getContentSize().height * 0.5f - 5.f);
 }
 
-void ActionPanel::displayShop(unsigned shopId)
+void ActionPanel::displayShop(unsigned shopId, Vec2 shopPosition)
 {
 	auto myShop = GameData::getInstance().m_Shops[shopId];
 	auto myShopButton = MouseOverMenuItem::creatMouseOverMenuButton(myShop->m_ShopLook_Normal, myShop->m_ShopLook_Lit, myShop->m_ShopLook_Disabled,
 		CC_CALLBACK_1(ActionPanel::openShopCallback, this, m_ShopIndex, shopId));
 	
 	if (myShopButton)
-		m_MenuItems.pushBack(displayMenuButton(myShopButton, CC_CALLBACK_2(ActionPanel::onMouseOver, this), m_DisplayShopPos,
-			itemTypes::DEFAULT, 0.3f));
+		displayMenuButton(myShopButton, CC_CALLBACK_2(ActionPanel::onMouseOver, this), (shopPosition == Vec2::ZERO)? 
+			m_DisplayShopPos : shopPosition, itemTypes::DEFAULT, 0.3f);
 
 	auto menu = Menu::create(myShopButton, NULL);
 	menu->setPosition(Vec2::ZERO);
@@ -51,7 +51,7 @@ void ActionPanel::displayShop(unsigned shopId)
 	shopButton->autorelease();
 	m_ThisPanel->addChild(shopButton, 1);
 	m_MyShopList.pushBack(shopButton);
-	shopButton->onShopChanges = CC_CALLBACK_1(ActionPanel::onShopChanges, this, m_MyShopList.size() -1);
+	shopButton->onShopChanges = CC_CALLBACK_1(ActionPanel::onShopChanges, this, m_MyShopList.size() -1, myShopButton->getPosition());
 
 }
 
@@ -81,22 +81,30 @@ void ActionPanel::checkShopCallback(cocos2d::Ref* pSender, unsigned shopId)
 	m_DisplayShopPos.x += 120.f;
 }
 
-void ActionPanel::onShopChanges(unsigned shopId, unsigned shopListIndex)
+void ActionPanel::onShopChanges(unsigned shopId, unsigned shopListIndex, Vec2 shopPos)
 {
+	// create a temp shop pic
 	auto shopUpgradeSprite = Sprite::createWithSpriteFrameName(GameData::getInstance().m_Shops[shopId]->m_ShopLook_Normal);
-	auto shopReplacePos = m_MenuItems.at(shopListIndex)->getPosition();
 	if (shopUpgradeSprite)
-		GameFunctions::displaySprite(shopUpgradeSprite, shopReplacePos, m_GameScene, 2, 0.3f, 0.3f);
+		GameFunctions::displaySprite(shopUpgradeSprite, shopPos, m_GameScene, 2, 0.3f, 0.3f);
 
+	// close the current one
 	m_MyShopList.at(shopListIndex)->closePanel();
-	m_MenuItems.at(shopListIndex)->setVisible(false);
-	m_MenuItems.eraseObject(m_MenuItems.at(shopListIndex));
+
+	// remove from the scene
+	m_Elements.eraseObject(m_Elements.at(shopListIndex));
+	m_GameScene->removeChild(m_Elements.at(shopListIndex));
+	
+	// delete old shop
 	removeShop(shopListIndex);
 
+	// add and create the upgrade shop
 	m_Player->m_MyShopIds.push_back(shopId);
-	displayShop(shopId);
-	m_DisplayShopPos = shopReplacePos;
+	displayShop(shopId, shopPos);
+
+	// kill the temp shop pic
 	m_GameScene->removeChild(shopUpgradeSprite);
+	delete shopUpgradeSprite;
 }
 
 void ActionPanel::removeShop(unsigned shopIndex)

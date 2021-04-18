@@ -11,14 +11,14 @@ public:
 	~ActionPanel() override;
 
 	void openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint) override;
-	void displayShop(unsigned shopId);
+	void displayShop(unsigned shopId, cocos2d::Vec2 shopPosition = cocos2d::Vec2::ZERO);
 	void displayShopOptions();
 
 protected:
 	void openShopCallback(cocos2d::Ref* pSender, unsigned shopIndex, unsigned shopId);
 	void onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event);
 	void checkShopCallback(cocos2d::Ref* pSender, unsigned shopId);
-	void onShopChanges(unsigned shopId, unsigned shopListIndex);
+	void onShopChanges(unsigned shopId, unsigned shopListIndex, cocos2d::Vec2 shopPos);
 private:
 	MyShopSettingPanel* m_ShopButton = nullptr;
 	cocos2d::Vector<MyShopSettingPanel*> m_MyShopList;
