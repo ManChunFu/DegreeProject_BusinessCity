@@ -36,13 +36,16 @@ protected:
 	void onQuantitytChanges(unsigned productId, unsigned remainQuantity);
 	void onCountDownChanges(unsigned countdown);
 	void onEveryHourChanges(GlobalTime* globalTime, unsigned hour);
-
+	std::function<void(GlobalTime*, unsigned)> m_OnHourChanges;
+	
+	
 	void onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event);
 
 	void onWorkDayChanges(unsigned weekday);
 	void onWorkHourChanges(unsigned workhour);
 	void onProductPriceChanges(unsigned productId, unsigned price);
 	void onProductAmoutChanges(unsigned productId, unsigned amout);
+	void onEmployeeCountChanges(unsigned employeeCount);
 	void onUpgradeChanges(unsigned productId);
 private:
 	enum EPanelTabs

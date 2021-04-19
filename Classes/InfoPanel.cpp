@@ -21,6 +21,8 @@ InfoPanel::~InfoPanel()
 	m_TimeMinDisplay = nullptr;
 	m_BankButton = nullptr;
 	m_Bank = nullptr;
+	GameData::getInstance().m_GlobalTime->removdMinuteEventListener(this);
+	GameData::getInstance().m_GlobalTime->removeHourEventListener(this);
 }
 
 void InfoPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
@@ -32,8 +34,8 @@ void InfoPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
 	m_Player->onCashAmoutChange = CC_CALLBACK_2(InfoPanel::onCurrentCashChange, this);
 
 	auto globalTime = GameData::getInstance().m_GlobalTime;
-	globalTime->addMinuteEventListener(CC_CALLBACK_2(InfoPanel::onEveryMinuteChanges, this));
-	globalTime->addHourEventListener(CC_CALLBACK_2(InfoPanel::onEveryHourChanges, this));
+	globalTime->addMinuteEventListener(CC_CALLBACK_2(InfoPanel::onEveryMinuteChanges, this), this);
+	globalTime->addHourEventListener(CC_CALLBACK_2(InfoPanel::onEveryHourChanges, this), this);
 	globalTime->onEveryDayChanges = CC_CALLBACK_2(InfoPanel::onEveryDayChanges, this);
 	globalTime->onEveryWeekChanges = CC_CALLBACK_2(InfoPanel::onEveryWeekChanges, this);
 

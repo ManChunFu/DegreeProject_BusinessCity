@@ -28,7 +28,9 @@ public:
 	void setPlayerWorkHere();
 	unsigned int isAnyoneAtStore();
 	unsigned getEmployeeCount() { return m_Employees; }
-	void addEmployee(unsigned person);
+	void addEmployee(unsigned person, unsigned id);
+	void fireEmployee(unsigned person);
+	bool isMyEmployee(unsigned id);
 	unsigned getTotalSalaryExpense() { return m_Employees * m_SalaryPerEmployee; }
 
 	void setShopOpenDay(unsigned weekday);
@@ -62,12 +64,13 @@ public:
 	// shop working -> monday to sunday
 	std::array<unsigned int, 7> m_SuccessProbabilityDaily = { 30, 30, 30, 30, 40, 50, 60 };
 	std::array<bool, 7> m_ShopOpenDay = { true, true, true, true, true, false, false };
-
+	//std::array<bool, 7> m_PlayerWorkHere = { true, true, true, true, true, false, false };
 	// shop working hour -> from and  to
 	std::array<std::pair<unsigned int, unsigned int>, 7> m_ShopOpenHour = {
 		std::make_pair(9, 17), std::make_pair(9, 17), std::make_pair(9, 17), std::make_pair(9, 17), std::make_pair(9, 17),
 		std::make_pair(14, 20), std::make_pair(14, 19)};
 
+	std::vector<unsigned int> m_EmployeesIds;
 	bool m_PlayerWorkHere = true;
 	bool m_IsReplenishing = false;
 	unsigned m_ReplenishingCountDown = 30;

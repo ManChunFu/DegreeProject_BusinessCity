@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 
 struct GameTime;
+class UIPanel;
 
 class GlobalTime
 {
@@ -15,9 +16,10 @@ public:
 
 	typedef std::function<void(GlobalTime*, unsigned)> onTimeChanges;
 	
-	void addMinuteEventListener(const onTimeChanges& changes);
-	void addHourEventListener(const onTimeChanges& changes);
-
+	void addMinuteEventListener(const onTimeChanges& changes, cocos2d::Node* node);
+	void addHourEventListener(const onTimeChanges& changes, cocos2d::Node* node);
+	void removdMinuteEventListener(cocos2d::Node* node);
+	void removeHourEventListener(cocos2d::Node* node);
 
 	onTimeChanges onEveryDayChanges;
 	onTimeChanges onEveryWeekChanges;
@@ -25,7 +27,7 @@ public:
 	GameTime* m_Gametime = nullptr;
 protected:
 	float m_ElapsedTime = 0.f;
-	std::vector<onTimeChanges> m_MinuteListeners;
-	std::vector<onTimeChanges> m_HourListeners;
+	std::unordered_map<cocos2d::Node*, onTimeChanges> m_MinuteListeners;
+	std::unordered_map<cocos2d::Node*, onTimeChanges> m_HourListeners;
 };
 

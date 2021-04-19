@@ -207,6 +207,9 @@
     <ClInclude Include="..\Classes\ShopEmployeeAdmin.h">
       <Filter>Source Files\Classes\UI</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\EmployeeData.h">
+      <Filter>Source Files\Classes\Data</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Users\mandy\source\repos\DegreeProject\CMakeLists.txt" />

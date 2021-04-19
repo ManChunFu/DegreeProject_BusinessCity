@@ -806,6 +806,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\BasicExpenseData.h" />
     <ClInclude Include="..\Classes\Canvas.h" />
     <ClInclude Include="..\Classes\DataManager.h" />
+    <ClInclude Include="..\Classes\EmployeeData.h" />
     <ClInclude Include="..\Classes\EPanel.h" />
     <ClInclude Include="..\Classes\GameData.h" />
     <ClInclude Include="..\Classes\GameFunctions.h" />

@@ -35,5 +35,5 @@ protected:
 		cocos2d::Vec2 parentPos = cocos2d::Vec2::ZERO);
 
 private:
-	cocos2d::Vec2 m_ParentPosition = cocos2d::Vec2(330.f, 110.f);
+	cocos2d::Vec2 m_ParentPosition = cocos2d::Vec2(340.f, 110.f);
 };

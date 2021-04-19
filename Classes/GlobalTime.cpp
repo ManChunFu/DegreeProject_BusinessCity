@@ -1,6 +1,8 @@
 #include "GlobalTime.h"
 #include "GameTime.h"
+#include "UIPanel.h"
 
+USING_NS_CC;
 
 GlobalTime::GlobalTime()
 {
@@ -58,7 +60,7 @@ void GlobalTime::update(float delta)
 		{
 			for (auto listener : m_HourListeners)
 			{
-				listener(this, m_Gametime->hour);
+				listener.second(this, m_Gametime->hour);
 			}
 		}
 	}
@@ -67,19 +69,34 @@ void GlobalTime::update(float delta)
 	{
 		for (auto listener : m_MinuteListeners)
 		{
-			listener(this, m_Gametime->minute);
+			listener.second(this, m_Gametime->minute);
 		}
 	}
 }
 
-void GlobalTime::addMinuteEventListener(const onTimeChanges& changes)
+void GlobalTime::addMinuteEventListener(const onTimeChanges& changes, Node* node)
 {
-	m_MinuteListeners.push_back(changes);
+	m_MinuteListeners[node] = changes;
 }
 
-void GlobalTime::addHourEventListener(const onTimeChanges& changes)
+void GlobalTime::addHourEventListener(const onTimeChanges& changes, Node* node)
 {
-	m_HourListeners.push_back(changes);
+	m_HourListeners[node] = changes;
+}
+
+void GlobalTime::removdMinuteEventListener(Node* node)
+{
+	auto found = m_MinuteListeners.find(node);
+	if (found != m_MinuteListeners.end())
+		m_MinuteListeners.erase(found);
+}
+
+void GlobalTime::removeHourEventListener(Node* node)
+{
+	auto found = m_HourListeners.find(node);
+	if (found != m_HourListeners.end())
+		m_HourListeners.erase(found);
+
 }
 
 

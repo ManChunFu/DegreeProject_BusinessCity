@@ -92,6 +92,7 @@ Shop::~Shop()
 	}
 	m_Products.clear();
 	m_UpgradeableTo.clear();
+	m_EmployeesIds.clear();
 }
 
 bool Shop::isShopOpen(unsigned day, unsigned currentHour)
@@ -238,9 +239,26 @@ unsigned int Shop::isAnyoneAtStore()
 	return staffs;
 }
 
-void Shop::addEmployee(unsigned person)
+void Shop::addEmployee(unsigned person, unsigned id)
 {
 	m_Employees += person;
+	m_EmployeesIds.push_back(id);
+}
+
+void Shop::fireEmployee(unsigned person)
+{
+	m_Employees -= person;
+	m_EmployeesIds.erase(m_EmployeesIds.end() -1);
+}
+
+bool Shop::isMyEmployee(unsigned id)
+{
+	for (auto ID : m_EmployeesIds)
+	{
+		if (ID == id)
+			return true;
+	}
+	return false;
 }
 
 void Shop::setShopOpenHour(unsigned weekday, unsigned fromOrTo, unsigned workingHour)

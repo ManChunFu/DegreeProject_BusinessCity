@@ -9,15 +9,15 @@
 
 USING_NS_CC;
 
-
 GameLoop::GameLoop()
 {
-	GameData::getInstance().m_GlobalTime->addMinuteEventListener(CC_CALLBACK_2(GameLoop::onEveryMinuteChanges, this));
+	GameData::getInstance().m_GlobalTime->addMinuteEventListener(CC_CALLBACK_2(GameLoop::onEveryMinuteChanges, this), this);
 	m_Player = GameData::getInstance().m_Player;
 }
 
 GameLoop::~GameLoop()
 {
+	GameData::getInstance().m_GlobalTime->removdMinuteEventListener(this);
 	m_Player = nullptr;
 }
 

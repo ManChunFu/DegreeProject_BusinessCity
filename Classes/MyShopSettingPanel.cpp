@@ -14,11 +14,13 @@
 #include "ShopAdmin.h"
 #include "ShopProductAdmin.h"
 #include "ShopUpgrade.h"
+#include "ShopEmployeeAdmin.h"
 
 USING_NS_CC;
 
 MyShopSettingPanel::~MyShopSettingPanel()
 {
+	GameData::getInstance().m_GlobalTime->removeHourEventListener(this);
 	m_GameTime = nullptr;
 	m_PanelTabs.clear();
 
@@ -67,7 +69,9 @@ void MyShopSettingPanel::closePanel()
 
 void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopId)
 {
-	GameData::getInstance().m_GlobalTime->addHourEventListener(CC_CALLBACK_2(MyShopSettingPanel::onEveryHourChanges, this));
+	//m_OnHourChanges = CC_CALLBACK_2(MyShopSettingPanel::onEveryHourChanges, this);
+	GameData::getInstance().m_GlobalTime->addHourEventListener(CC_CALLBACK_2(MyShopSettingPanel::onEveryHourChanges, this), this);
+
 	m_MyShop = GameData::getInstance().m_Shops[shopId];
 	m_MyShop->onQuantityChanges = CC_CALLBACK_2(MyShopSettingPanel::onQuantitytChanges, this);
 	m_MyShop->onCountdownChanges = CC_CALLBACK_1(MyShopSettingPanel::onCountDownChanges, this);
@@ -300,6 +304,7 @@ void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopI
 	shopAdmin->onWorkHourChanges = CC_CALLBACK_1(MyShopSettingPanel::onWorkHourChanges, this);
 	shopAdmin->m_ShopProductAdmin->onProductPriceChanges = CC_CALLBACK_2(MyShopSettingPanel::onProductPriceChanges, this);
 	shopAdmin->m_ShopProductAdmin->onProductAmoutChanges = CC_CALLBACK_2(MyShopSettingPanel::onProductAmoutChanges, this);
+	shopAdmin->m_ShopEmployeeAdmin->onEmployeeCountChanges = CC_CALLBACK_1(MyShopSettingPanel::onEmployeeCountChanges, this);
 #pragma endregion
 
 #pragma region Upgrade
@@ -540,6 +545,11 @@ void MyShopSettingPanel::onEveryHourChanges(GlobalTime* globalTime, unsigned hou
 
 void MyShopSettingPanel::onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event)
 {
+}
+
+void MyShopSettingPanel::onEmployeeCountChanges(unsigned employeeCount)
+{
+	m_EmployeeCountText->setString(std::to_string(employeeCount));
 }
 
 void MyShopSettingPanel::onWorkDayChanges(unsigned weekday)
