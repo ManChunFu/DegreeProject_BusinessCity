@@ -274,9 +274,29 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">Shops/CoffeeShop.png</key>
+            <key type="filename">Shops/CoffeeShop_Disable.png</key>
+            <key type="filename">Shops/CoffeeShop_Lit.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>70,47,140,94</rect>
+                <key>scale9Paddings</key>
+                <rect>70,47,140,94</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">Shops/Fastfood2.png</key>
             <key type="filename">Shops/Fastfood2_Disable.png</key>
             <key type="filename">Shops/Fastfood2_Lit.png</key>
+            <key type="filename">Shops/IcecreamShop.png</key>
+            <key type="filename">Shops/IcecreamShop_Disable.png</key>
+            <key type="filename">Shops/IcecreamShop_Lit.png</key>
             <key type="filename">Shops/Pizzeria.png</key>
             <key type="filename">Shops/Pizzeria_Disable.png</key>
             <key type="filename">Shops/Pizzeria_Lit.png</key>
@@ -352,6 +372,12 @@
             <filename>Shops/Lock_100.png</filename>
             <filename>Shops/Lock_100_Disable.png</filename>
             <filename>Shops/Lock_100_Lit.png</filename>
+            <filename>Shops/CoffeeShop.png</filename>
+            <filename>Shops/CoffeeShop_Disable.png</filename>
+            <filename>Shops/CoffeeShop_Lit.png</filename>
+            <filename>Shops/IcecreamShop.png</filename>
+            <filename>Shops/IcecreamShop_Disable.png</filename>
+            <filename>Shops/IcecreamShop_Lit.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

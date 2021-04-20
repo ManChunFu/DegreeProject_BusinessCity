@@ -15,14 +15,18 @@ public:
 	void displayShopOptions();
 
 protected:
-	void openShopCallback(cocos2d::Ref* pSender, unsigned shopIndex, unsigned shopId);
+	void openShopCallback(cocos2d::Ref* pSender, unsigned shopId);
+
 	void onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event);
 	void checkShopCallback(cocos2d::Ref* pSender, unsigned shopId);
-	void onShopChanges(unsigned shopId, unsigned shopListIndex, cocos2d::Vec2 shopPos);
+	//void onShopChanges(unsigned shopId, unsigned shopListIndex, cocos2d::Vec2 shopPos);
+	void onShopChanges(unsigned shopId, cocos2d::Node* menu, cocos2d::Vec2 shopPos);
+
 private:
 	MyShopSettingPanel* m_ShopButton = nullptr;
 	cocos2d::Vector<MyShopSettingPanel*> m_MyShopList;
-	unsigned m_ShopIndex = 0;
+	std::unordered_map<unsigned, MyShopSettingPanel*> m_MyShopMap;
+	unsigned m_CurrentOpenShopId = 0;
 
 	cocos2d::Vec2 m_SceneMidPoint = cocos2d::Vec2::ZERO;
 	cocos2d::Vec2 m_DisplayShopPos = cocos2d::Vec2::ZERO;

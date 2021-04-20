@@ -69,7 +69,6 @@ void MyShopSettingPanel::closePanel()
 
 void MyShopSettingPanel::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopId)
 {
-	//m_OnHourChanges = CC_CALLBACK_2(MyShopSettingPanel::onEveryHourChanges, this);
 	GameData::getInstance().m_GlobalTime->addHourEventListener(CC_CALLBACK_2(MyShopSettingPanel::onEveryHourChanges, this), this);
 
 	m_MyShop = GameData::getInstance().m_Shops[shopId];
@@ -582,22 +581,16 @@ void MyShopSettingPanel::onUpgradeChanges(unsigned productId)
 
 void MyShopSettingPanel::updateShopProductData()
 {
-	auto shop = GameData::getInstance().m_Shops[m_Player->m_MyShopIds[0]];
 	auto listSize = m_ProductPriceTexts.size();
 	for (unsigned index = 0; index < listSize; index++)
 	{
-		m_ProductPriceTexts.at(index)->setString(std::to_string(shop->getCurrentSalePrice(index)));
-		m_ProductQTYTexts.at(index)->setString(std::to_string(shop->getProductQuantity(index)));
+		m_ProductPriceTexts.at(index)->setString(std::to_string(m_MyShop->getCurrentSalePrice(index)));
+		m_ProductQTYTexts.at(index)->setString(std::to_string(m_MyShop->getProductQuantity(index)));
 	}
 
-	m_EmployeeCountText->setString(std::to_string(shop->getEmployeeCount()));
+	m_EmployeeCountText->setString(std::to_string(m_MyShop->getEmployeeCount()));
 
 	updateShopWorkingState();
-}
-
-void MyShopSettingPanel::removeMySelfFromParent()
-{
-	removeFromParent();
 }
 
 void MyShopSettingPanel::updateShopWorkingState()

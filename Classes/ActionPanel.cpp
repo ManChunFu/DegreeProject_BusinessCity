@@ -12,7 +12,7 @@ USING_NS_CC;
 ActionPanel::~ActionPanel()
 {
 	m_ShopButton = nullptr;
-	m_MyShopList.clear();
+	m_MyShopMap.clear();
 }
 
 void ActionPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
@@ -29,44 +29,49 @@ void ActionPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
 	m_GameScene->addChild(m_ThisPanel, 1);
 	m_Elements.pushBack(m_ThisPanel);
 
-	m_DisplayShopPos = Vec2(m_ThisPanel->getPosition().x * 0.5f, m_ThisPanel->getContentSize().height * 0.5f - 5.f);
+	m_DisplayShopPos = Vec2((m_ThisPanel->getContentSize().width * 0.5f) - 240.f, m_ThisPanel->getContentSize().height * 0.5f - 5.f);
 }
 
 void ActionPanel::displayShop(unsigned shopId, Vec2 shopPosition)
 {
 	auto myShop = GameData::getInstance().m_Shops[shopId];
 	auto myShopButton = MouseOverMenuItem::creatMouseOverMenuButton(myShop->m_ShopLook_Normal, myShop->m_ShopLook_Lit, myShop->m_ShopLook_Disabled,
-		CC_CALLBACK_1(ActionPanel::openShopCallback, this, m_ShopIndex, shopId));
+		CC_CALLBACK_1(ActionPanel::openShopCallback, this, shopId));
 	
 	if (myShopButton)
 		displayMenuButton(myShopButton, CC_CALLBACK_2(ActionPanel::onMouseOver, this), (shopPosition == Vec2::ZERO)? 
-			m_DisplayShopPos : shopPosition, itemTypes::DEFAULT, 0.3f);
+			m_DisplayShopPos : shopPosition, itemTypes::DEFAULT, 0.3f, true, Vec2(-240.f, 0.f));
 
 	auto menu = Menu::create(myShopButton, NULL);
 	menu->setPosition(Vec2::ZERO);
-	m_GameScene->addChild(menu, 2);
-	m_Elements.pushBack(menu);
+	m_ThisPanel->addChild(menu, 2);
 
 	auto shopButton = new MyShopSettingPanel();
 	shopButton->autorelease();
 	m_ThisPanel->addChild(shopButton, 1);
-	m_MyShopList.pushBack(shopButton);
-	shopButton->onShopChanges = CC_CALLBACK_1(ActionPanel::onShopChanges, this, m_MyShopList.size() -1, myShopButton->getPosition());
-
+	m_MyShopMap[shopId] = shopButton;
+	shopButton->onShopChanges = CC_CALLBACK_1(ActionPanel::onShopChanges, this, menu, myShopButton->getPosition());
 }
 
-void ActionPanel::openShopCallback(cocos2d::Ref* pSender, unsigned shopIndex, unsigned shopId)
+void ActionPanel::openShopCallback(cocos2d::Ref* pSender, unsigned shopId)
 {
 	if (GameData::getInstance().isPopupOpen())
 		return;
 
-	if (m_MyShopList.size() < 0)
+	if (m_MyShopMap.empty())
 		return;
 
-	if (m_MyShopList.at(shopIndex)->isPanelOpen())
-		m_MyShopList.at(shopIndex)->closePanel();
-	else
-		m_MyShopList.at(shopIndex)->openPanel(m_GameScene, m_SceneMidPoint, shopId);
+	auto foundShop = m_MyShopMap[shopId];
+	if (foundShop)
+	{
+		if (foundShop->isPanelOpen())
+			foundShop->closePanel();
+		else
+		{
+			foundShop->openPanel(m_GameScene, m_SceneMidPoint, shopId);
+			m_CurrentOpenShopId = shopId;
+		}
+	}
 }
 
 void ActionPanel::onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event)
@@ -76,12 +81,10 @@ void ActionPanel::onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event
 void ActionPanel::checkShopCallback(cocos2d::Ref* pSender, unsigned shopId)
 {
 	m_Player->m_MyShopIds.push_back(shopId);
-	m_ShopIndex++;
-	displayShop(shopId);
-	m_DisplayShopPos.x += 120.f;
+	displayShop(shopId, Vec2(m_DisplayShopPos.x += 120, m_DisplayShopPos.y));
 }
 
-void ActionPanel::onShopChanges(unsigned shopId, unsigned shopListIndex, Vec2 shopPos)
+void ActionPanel::onShopChanges(unsigned shopId, Node* menu, Vec2 shopPos)
 {
 	// create a temp shop pic
 	auto shopUpgradeSprite = Sprite::createWithSpriteFrameName(GameData::getInstance().m_Shops[shopId]->m_ShopLook_Normal);
@@ -89,14 +92,15 @@ void ActionPanel::onShopChanges(unsigned shopId, unsigned shopListIndex, Vec2 sh
 		GameFunctions::displaySprite(shopUpgradeSprite, shopPos, m_GameScene, 2, 0.3f, 0.3f);
 
 	// close the current one
-	m_MyShopList.at(shopListIndex)->closePanel();
+	auto foundShop = m_MyShopMap[m_CurrentOpenShopId];
+	if (foundShop)
+		foundShop->closePanel();
 
 	// remove from the scene
-	m_Elements.eraseObject(m_Elements.at(shopListIndex));
-	m_GameScene->removeChild(m_Elements.at(shopListIndex));
+	menu->removeFromParent();
 	
 	// delete old shop
-	removeShop(shopListIndex);
+	removeShop(m_CurrentOpenShopId);
 
 	// add and create the upgrade shop
 	m_Player->m_MyShopIds.push_back(shopId);
@@ -107,17 +111,17 @@ void ActionPanel::onShopChanges(unsigned shopId, unsigned shopListIndex, Vec2 sh
 	delete shopUpgradeSprite;
 }
 
-void ActionPanel::removeShop(unsigned shopIndex)
+void ActionPanel::removeShop(unsigned shopId)
 {
-	m_MyShopList.at(shopIndex)->removeMySelfFromParent();
-	m_MyShopList.erase(shopIndex);
-	m_Player->m_MyShopIds.erase(m_Player->m_MyShopIds.begin() + shopIndex);
+	m_MyShopMap[shopId]->removeFromParent();
+	m_MyShopMap.erase(shopId);
+	m_Player->removeShopId(shopId);
 }
 
 void ActionPanel::displayShopOptions()
 {
-	auto shopHotDogButton = MouseOverMenuItem::creatMouseOverMenuButton("Checkbox_Normal.png", GameData::getInstance().m_Shops[0]->m_ShopLook_Normal,
-		"Checkbox_Normal.png", CC_CALLBACK_1(ActionPanel::checkShopCallback, this, 0));
+	auto shopHotDogButton = MouseOverMenuItem::creatMouseOverMenuButton("Checkbox_Normal.png", GameData::getInstance().m_Shops[1]->m_ShopLook_Normal,
+		"Checkbox_Normal.png", CC_CALLBACK_1(ActionPanel::checkShopCallback, this, 1));
 	if (shopHotDogButton)
 	{
 		m_MenuItems.pushBack(displayMenuButton(shopHotDogButton, CC_CALLBACK_2(ActionPanel::onMouseOver, this),

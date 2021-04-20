@@ -11,6 +11,7 @@ public:
 	virtual ~Player();
 
 	std::vector<unsigned> m_MyShopIds;
+	void removeShopId(unsigned shopId);
 	const std::string& getName();
 	cocos2d::itemTypes getCharacter();
 	void updateCurrentCashAmout(int cashAmout);

@@ -23,7 +23,6 @@ public:
 
 	void openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint, unsigned shopId = 0) override;
 	void closePanel() override;
-	void removeMySelfFromParent();
 	std::function<void(cocos2d::Ref* pSender)> onActionCall;
 	std::function<void(unsigned shopId)> onShopChanges;
 
@@ -36,8 +35,6 @@ protected:
 	void onQuantitytChanges(unsigned productId, unsigned remainQuantity);
 	void onCountDownChanges(unsigned countdown);
 	void onEveryHourChanges(GlobalTime* globalTime, unsigned hour);
-	std::function<void(GlobalTime*, unsigned)> m_OnHourChanges;
-	
 	
 	void onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event);
 
