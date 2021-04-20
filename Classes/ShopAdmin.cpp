@@ -255,6 +255,10 @@ void ShopAdmin::enableHoursButtons(unsigned weekday, bool enable)
 	m_MenuItems.at(index + m_ToHourIncreaseStartIndex)->setEnabled(enable);
 }
 
+//void ShopEmployeeAdmin::workHereCallback(cocos2d::Ref* pSender)
+//{
+//	m_Shop->setPlayerWorkHere();
+//}
 
 
 

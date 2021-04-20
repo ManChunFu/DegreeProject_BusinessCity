@@ -35,6 +35,7 @@ protected:
 	void checkBoxClickCallback(cocos2d::Ref* pSender, unsigned week);
 	void reduceTimeCallback(cocos2d::Ref* pSender, unsigned weekday, bool fromHourButton);
 	void increaseTimeCallback(cocos2d::Ref* pSender, unsigned weekday, bool fromHourButton);
+	//void workHereCallback(cocos2d::Ref* pSender);
 
 	void onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event);
 

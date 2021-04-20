@@ -245,10 +245,17 @@ void Shop::addEmployee(unsigned person, unsigned id)
 	m_EmployeesIds.push_back(id);
 }
 
-void Shop::fireEmployee(unsigned person)
+void Shop::fireEmployee(unsigned person, unsigned id)
 {
 	m_Employees -= person;
-	m_EmployeesIds.erase(m_EmployeesIds.end() -1);
+	for (unsigned index = 0; index < m_EmployeesIds.size(); ++index)
+	{
+		if (m_EmployeesIds[index] == id)
+		{
+			m_EmployeesIds.erase(m_EmployeesIds.begin() + index);
+			return;
+		}
+	}
 }
 
 bool Shop::isMyEmployee(unsigned id)

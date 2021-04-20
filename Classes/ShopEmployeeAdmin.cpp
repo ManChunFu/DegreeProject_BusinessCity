@@ -11,7 +11,6 @@ USING_NS_CC;
 ShopEmployeeAdmin::~ShopEmployeeAdmin()
 {
 	m_Shop = nullptr;
-	m_HireButton = nullptr;
 	m_EmployeeCountText = nullptr;
 	m_EmployeeCountText = nullptr;
 	m_TotalSalaryText = nullptr;
@@ -21,6 +20,7 @@ ShopEmployeeAdmin::~ShopEmployeeAdmin()
 	}
 	m_CandidateDatas.clear();
 	m_ProfileWidgets.clear();
+	m_HiredEmployees.clear();
 }
 
 void ShopEmployeeAdmin::createShopEmployeeAdmin(Shop* shop, ui::Widget* employeeWidget, Vec2 panelMidPoint)
@@ -46,38 +46,28 @@ void ShopEmployeeAdmin::createShopEmployeeAdmin(Shop* shop, ui::Widget* employee
 			true, TextHAlignment::LEFT);
 	}
 
-	m_HireButton = MouseOverMenuItem::creatMouseOverMenuButton(CC_CALLBACK_1(ShopEmployeeAdmin::hireCallback, this));
-	if (m_HireButton)
+	for (unsigned index = 0; index < 2; ++index)
 	{
-		m_MenuItems.pushBack(displayMenuButton(m_HireButton, CC_CALLBACK_2(ShopEmployeeAdmin::onMouseOver, this), Vec2(panelMidPoint.x - 50.f, panelMidPoint.y),
-			itemTypes::BUTTON, 0.7f, true));
-
-		auto hireText = Label::createWithTTF("Hire", "fonts/NirmalaB.ttf", 20);
-		if (hireText)
+		auto button = (index == 0)? MouseOverMenuItem::creatMouseOverMenuButton(CC_CALLBACK_1(ShopEmployeeAdmin::hireCallback, this)) :
+			MouseOverMenuItem::creatMouseOverMenuButton(CC_CALLBACK_1(ShopEmployeeAdmin::fireCallback, this));
+		if (button)
 		{
-			hireText->enableGlow(Color4B::BLACK);
-			GameFunctions::displayLabel(hireText, Color4B::WHITE, m_HireButton->getContentSize() * 0.5f, m_HireButton, 1);
+			m_MenuItems.pushBack(displayMenuButton(button, CC_CALLBACK_2(ShopEmployeeAdmin::onMouseOver, this), Vec2((index == 0)? 
+				panelMidPoint.x - 50.f : panelMidPoint.x +150.f, panelMidPoint.y), itemTypes::BUTTON, 0.7f, true));
+
+			auto buttonText = Label::createWithTTF((index == 0) ? "Hire" : "Fire", "fonts/NirmalaB.ttf", 20);
+			if (buttonText)
+			{
+				buttonText->enableGlow(Color4B::BLACK);
+				GameFunctions::displayLabel(buttonText, Color4B::WHITE, button->getContentSize() * 0.5f, button, 1);
+			}
 		}
 	}
+	m_MenuItems.at(EButtons::E_Fire)->setEnabled(false);
 
-	m_FireButton = MouseOverMenuItem::creatMouseOverMenuButton(CC_CALLBACK_1(ShopEmployeeAdmin::fireCallback, this));
-	if (m_FireButton)
-	{
-		m_MenuItems.pushBack(displayMenuButton(m_FireButton, CC_CALLBACK_2(ShopEmployeeAdmin::onMouseOver, this), Vec2(panelMidPoint.x + 100.f,
-			panelMidPoint.y), itemTypes::BUTTON, 0.7f, true));
-
-		auto hireText = Label::createWithTTF("Fire", "fonts/NirmalaB.ttf", 20);
-		if (hireText)
-		{
-			hireText->enableGlow(Color4B::BLACK);
-			GameFunctions::displayLabel(hireText, Color4B::WHITE, m_FireButton->getContentSize() * 0.5f, m_FireButton, 1);
-		}
-	}
-
-
-	auto hireMenu = Menu::createWithArray(m_MenuItems);
-	hireMenu->setPosition(Vec2::ZERO);
-	employeeWidget->addChild(hireMenu, 1);
+	auto buttonMenu = Menu::createWithArray(m_MenuItems);
+	buttonMenu->setPosition(Vec2::ZERO);
+	employeeWidget->addChild(buttonMenu, 1);
 
 	// create candidate list
 	std::array<std::string, 10> candidatesLinks = { "Employee_Man1.png", "Employee_Man2.png", "Employee_Man3.png", "Employee_Man4.png", 
@@ -118,7 +108,6 @@ void ShopEmployeeAdmin::createShopEmployeeAdmin(Shop* shop, ui::Widget* employee
 	}
 
 	m_DisplayPicPos = Vec2(panelMidPoint.x - 200.f, panelMidPoint.y - 100.f);
-	m_WidgetLimitX = panelMidPoint.x + 200.f;
 }
 
 void ShopEmployeeAdmin::hireCallback(cocos2d::Ref* pSender)
@@ -134,19 +123,27 @@ void ShopEmployeeAdmin::hireCallback(cocos2d::Ref* pSender)
 	
 	auto employeeCount = m_Shop->getEmployeeCount();
 	if (employeeCount == 10)
-		m_HireButton->setEnabled(false);
+		switchButtonStates(EButtons::E_Hire, false);
 
 	m_EmployeeCountText->setString(std::to_string(employeeCount));
 	displayEmployeeProfilePic(newEmployeeId, employeeCount);
 
 	if (onEmployeeCountChanges)
 		onEmployeeCountChanges(employeeCount);
+
+	if (!m_MenuItems.at(EButtons::E_Fire)->isEnabled())
+		switchButtonStates(EButtons::E_Fire, true);
 }
 
 void ShopEmployeeAdmin::fireCallback(cocos2d::Ref* pSender)
 {
-	m_Shop->fireEmployee(1);
-	m_HireButton->setEnabled(true);
+	removeEmployee();
+
+	if (!m_MenuItems.at(EButtons::E_Hire)->isEnabled())
+		switchButtonStates(EButtons::E_Hire, true);
+	
+	if (m_Shop->getEmployeeCount() == 0)
+		switchButtonStates(EButtons::E_Fire, false);
 }
 
 void ShopEmployeeAdmin::openEmployeeProfileWidget(cocos2d::Ref* pSender, unsigned widgetIndex)
@@ -166,11 +163,6 @@ void ShopEmployeeAdmin::openEmployeeProfileWidget(cocos2d::Ref* pSender, unsigne
 		m_ProfileWidgets.at(index)->setVisible(false);
 	}
 }
-
-//void ShopEmployeeAdmin::workHereCallback(cocos2d::Ref* pSender)
-//{
-//	m_Shop->setPlayerWorkHere();
-//}
 
 void ShopEmployeeAdmin::onMouseOver(MouseOverMenuItem* menuItem, Event* event)
 {
@@ -196,6 +188,7 @@ void ShopEmployeeAdmin::displayEmployeeProfilePic(unsigned id,unsigned count)
 	auto profilePic = Sprite::createWithSpriteFrameName(m_CandidateDatas.at(id)->m_ProfileLink);
 	if (profilePic)
 	{
+		m_HiredEmployees.push_back(std::make_pair(id, profilePic));
 		GameFunctions::displaySprite(profilePic, m_DisplayPicPos, m_ProfileWidgets.at(page), 1, 0.4f, 0.4f);
 
 		auto name = Label::createWithTTF(m_CandidateDatas.at(id)->m_Name, "fonts/Nirmala.ttf", 30);
@@ -209,7 +202,7 @@ void ShopEmployeeAdmin::displayEmployeeProfilePic(unsigned id,unsigned count)
 	// set salary
 	m_TotalSalaryText->setString(std::to_string(m_Shop->getTotalSalaryExpense()));
 
-	m_DisplayPicPos.x += 100.f;
+	m_DisplayPicPos.x += m_PicDistance;
 }
 
 bool ShopEmployeeAdmin::hasCreatedNextPage(unsigned count)
@@ -251,10 +244,40 @@ bool ShopEmployeeAdmin::hasCreatedNextPage(unsigned count)
 				m_ProfileWidgets.at(EPages::E_ProfilePage2)->addChild(lessMenu, 1);
 			}
 
-			m_DisplayPicPos.x -= 500.f;
+			m_DisplayPicPos.x -= m_PicDistance * 5;
 		}
 
 		return true;
 	}
 	return false;
+}
+
+void ShopEmployeeAdmin::switchButtonStates(EButtons button, bool enable)
+{
+	m_MenuItems.at(button)->setEnabled(enable);
+}
+
+void ShopEmployeeAdmin::removeEmployee()
+{
+	if (m_HiredEmployees.empty())
+		return;
+
+	// update shop data
+	auto lastIndex = m_HiredEmployees.size() -1;
+	m_Shop->fireEmployee(1, m_HiredEmployees.at(lastIndex).first);
+
+	// remove form scene
+	m_HiredEmployees.at(lastIndex).second->removeFromParent();
+	m_HiredEmployees.erase(m_HiredEmployees.end() - 1);
+
+	// correct next pic position
+	m_DisplayPicPos.x -= m_PicDistance;
+
+	// update display data
+	auto employeeCount = m_Shop->getEmployeeCount();
+	m_EmployeeCountText->setString(std::to_string(employeeCount));
+	m_TotalSalaryText->setString(std::to_string(m_Shop->getTotalSalaryExpense()));
+
+	if (onEmployeeCountChanges)
+		onEmployeeCountChanges(employeeCount);
 }

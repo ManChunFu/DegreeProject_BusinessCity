@@ -29,7 +29,7 @@ public:
 	unsigned int isAnyoneAtStore();
 	unsigned getEmployeeCount() { return m_Employees; }
 	void addEmployee(unsigned person, unsigned id);
-	void fireEmployee(unsigned person);
+	void fireEmployee(unsigned person, unsigned id);
 	bool isMyEmployee(unsigned id);
 	unsigned getTotalSalaryExpense() { return m_Employees * m_SalaryPerEmployee; }
 
