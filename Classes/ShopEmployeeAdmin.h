@@ -23,8 +23,8 @@ public:
 protected:
 	void hireCallback(cocos2d::Ref* pSender);
 	void fireCallback(cocos2d::Ref* pSender);
-	void openEmployeeProfileWidget(cocos2d::Ref* pSender, unsigned widgetIndex);
-
+	void shiftForwardProfile(cocos2d::Ref* pSender);
+	void shiftBackwardProfile(cocos2d::Ref* pSender);
 	void onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event);
 
 private:
@@ -33,29 +33,29 @@ private:
 		E_Hire = 0,
 		E_Fire = 1
 	};
-	enum EPages
+	enum EShiftButtons
 	{
-		E_ProfilePage1 = 0,
-		E_ProfilePage2 = 1
+		E_Forward = 0,
+		E_Backward = 1
 	};
 	Shop* m_Shop = nullptr;
 	cocos2d::ui::Widget* m_SalaryWidget = nullptr;
-	std::vector<cocos2d::ui::Widget*> m_ProfileWidgets;
 	cocos2d::Label* m_EmployeeCountText = nullptr;
 	cocos2d::Label* m_TotalSalaryText = nullptr;
-	std::vector<std::pair<unsigned, cocos2d::Sprite*>>m_HiredEmployees;
-	
+	std::vector<EmployeeData*>m_HiredEmployees;
 	std::vector<EmployeeData*> m_CandidateDatas;
-	
+	std::vector<MouseOverMenuItem*> m_NextBackButtons;
+
 	cocos2d::Vec2 m_DisplayPicPos = cocos2d::Vec2::ZERO;
-	unsigned m_WidgetNextPage = 6;
-	float m_PicDistance = 100.f;
-	
+	unsigned m_WidgetLimit = 5;
+	float m_PicDistance = 102.f;
+	unsigned m_LastDisplayPicIndex = 3;
 
 	unsigned int getRandomEmployee();
 	void displayEmployeeProfilePic(unsigned id, unsigned count);
-	bool hasCreatedNextPage(unsigned count);
+	void createdShiftButtons();
 	void switchButtonStates(EButtons button, bool enable);
 	void removeEmployee();
+	void updateShiftButtonsVisibility();
 
 };
