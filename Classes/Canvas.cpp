@@ -1,4 +1,5 @@
 #include "Canvas.h"
+#include "SwitchSceneView.h"
 #include "InfoPanel.h"
 #include "ActionPanel.h"
 #include "GameStartPanel.h"
@@ -17,6 +18,7 @@ Canvas::~Canvas()
 
 	m_RemovePanels.clear();
 
+	m_SwitchSceneView = nullptr;
 	m_GameStartPanel = nullptr;
 	m_InfoPanel = nullptr;
 	m_ActionPanel = nullptr;
@@ -25,25 +27,18 @@ Canvas::~Canvas()
 	m_GameScene = nullptr;
 }
 
-void Canvas::setSpriteScale(cocos2d::Sprite* sprite, cocos2d::Vec2 scale)
-{
-	sprite->setScaleX((m_VisibleSize.width / sprite->getContentSize().width) * scale.x);
-	sprite->setScaleY((m_VisibleSize.height / sprite->getContentSize().height) * scale.y);
-}
-
 void Canvas::Init(GameScene* scene, Player* player)
 {
 	m_GameScene = scene;
-	m_VisibleSize = Director::getInstance()->getVisibleSize();
-	m_Origin = Director::getInstance()->getVisibleOrigin();
+	auto visibleSize = Director::getInstance()->getVisibleSize();
+	auto origin = Director::getInstance()->getVisibleOrigin();
 
-	auto backgroundSprite = Sprite::createWithSpriteFrameName("GameSceneCity1924x1080.png");
-	if (!backgroundSprite)
-		return;
+	m_SceneMidPoint = Point(origin.x + (visibleSize.width / 2), origin.y + (visibleSize.height / 2));
 
-	m_SceneMidPoint = Point(m_Origin.x + (m_VisibleSize.width / 2), m_Origin.y + (m_VisibleSize.height / 2));
-	GameFunctions::displaySprite(backgroundSprite, m_SceneMidPoint, m_GameScene, 0);
-	setSpriteScale(backgroundSprite, Vec2::ONE);
+	m_SwitchSceneView = new SwitchSceneView();
+	m_SwitchSceneView->autorelease();
+	m_SwitchSceneView->runInit(m_GameScene, visibleSize, origin, m_SceneMidPoint);
+	m_UIPanels.pushBack(m_SwitchSceneView);
 
 	m_InfoPanel = new InfoPanel();
 	m_InfoPanel->autorelease();
@@ -70,10 +65,6 @@ void Canvas::update(float deltaTime)
 	}
 	m_AddPanels.clear();
 
-	//for (auto panel : m_UIPanels)
-	//{
-	//	panel->update(deltaTime);
-	//}
 
 	for (int index = 0; index < m_UIPanels.size(); index++)
 	{

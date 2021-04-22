@@ -6,6 +6,7 @@
 
 
 class GameScene;
+class SwitchSceneView;
 class UIPanel;
 class InfoPanel;
 class ActionPanel;
@@ -29,13 +30,12 @@ private:
 	cocos2d::Vector<UIPanel*> m_AddPanels;
 	cocos2d::Vector<UIPanel*> m_RemovePanels;
 	GameScene* m_GameScene = nullptr;
+	SwitchSceneView* m_SwitchSceneView = nullptr;
 	InfoPanel* m_InfoPanel = nullptr;
 	ActionPanel* m_ActionPanel = nullptr;
 	GameStartPanel* m_GameStartPanel = nullptr;
 	GameOverPanel* m_GameoverPanel = nullptr;
 
-	cocos2d::Size m_VisibleSize;
-	cocos2d::Vec2 m_Origin;
 	cocos2d::Vec2 m_SceneMidPoint;
 	
 	void destroyPanel(UIPanel* panel, unsigned shopId, EPanels uiPanel);

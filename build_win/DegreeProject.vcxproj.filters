@@ -88,6 +88,9 @@
     <ClCompile Include="..\Classes\ShopEmployeeAdmin.cpp">
       <Filter>Source Files\Classes\UI</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\SwitchSceneView.cpp">
+      <Filter>Source Files\Classes\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\Users\mandy\source\repos\DegreeProject\Classes\AppDelegate.h">
@@ -209,6 +212,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\EmployeeData.h">
       <Filter>Source Files\Classes\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SwitchSceneView.h">
+      <Filter>Source Files\Classes\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

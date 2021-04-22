@@ -271,7 +271,7 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">GameSceneCity1924x1080.png</key>
+            <key type="filename">SceneViews/GameSceneCityView_Main.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -280,9 +280,9 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>481,270,962,540</rect>
+                <rect>440,226,881,453</rect>
                 <key>scale9Paddings</key>
-                <rect>481,270,962,540</rect>
+                <rect>440,226,881,453</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -506,7 +506,6 @@
             <filename>../X/CloseButton_Normal.png</filename>
             <filename>../X/Bank_Panel_420_SquareCorner.png</filename>
             <filename>../X/LongPanelBlack80.png</filename>
-            <filename>GameSceneCity1924x1080.png</filename>
             <filename>CheckBoxes/WidgetBG_Brown.png</filename>
             <filename>../X/Brown_Panel_600x500.png</filename>
             <filename>CheckBoxes/PanelBG_SquareLineBlue.png</filename>
@@ -522,6 +521,7 @@
             <filename>CheckBoxes/ButtonBlueNormal50_30.png</filename>
             <filename>CheckBoxes/ButtonBlueLit50_30.png</filename>
             <filename>CheckBoxes/ButtonBlueDisable50_30.png</filename>
+            <filename>SceneViews/GameSceneCityView_Main.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

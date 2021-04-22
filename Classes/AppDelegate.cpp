@@ -116,6 +116,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     spritecache->addSpriteFramesWithFile("Sprites/MainMenu.plist");
     spritecache->addSpriteFramesWithFile("Sprites/Characters.plist");
     spritecache->addSpriteFramesWithFile("Sprites/GameScene.plist");
+    spritecache->addSpriteFramesWithFile("Sprites/Scenes.plist");
     spritecache->addSpriteFramesWithFile("Sprites/ShopProducts.plist");
     spritecache->addSpriteFramesWithFile("Sprites/EmployeeCollection.plist");
 
