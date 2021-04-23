@@ -12,12 +12,6 @@ SwitchSceneView::~SwitchSceneView()
 	m_CurrentView = nullptr;
 }
 
-void SwitchSceneView::setSpriteScale(Sprite* sprite, Vec2 scale)
-{
-	sprite->setScaleX((m_VisibleSize.width / sprite->getContentSize().width) * scale.x);
-	sprite->setScaleY((m_VisibleSize.height / sprite->getContentSize().height) * scale.y);
-}
-
 void SwitchSceneView::runInit(GameScene* gameScene, Size visibleSize, Vec2 origin, cocos2d::Vec2 sceneMidPoint)
 {
 	createSceneViewMaps();
@@ -31,12 +25,12 @@ void SwitchSceneView::runInit(GameScene* gameScene, Size visibleSize, Vec2 origi
 	setSpriteScale(m_SceneViewMaps.at(EViews::E_Main), Vec2::ONE);
 
 #pragma region create Hotel View Button
-	auto viewHover = MouseOverMenuItem::creatMouseOverMenuButton("IconMap_Test.png", "IconMap_Small_Lit.png", "IconMap_Small.png",
+	auto viewHover = MouseOverMenuItem::creatMouseOverMenuButton("IconMap_Small.png", "IconMap_Small_Lit.png", "IconMap_Small.png",
 		CC_CALLBACK_1(SwitchSceneView::clickIconCallback, this, EViews::E_Hotel));
 	if (viewHover)
 		m_MenuItems.pushBack(displayMenuButton(viewHover, CC_CALLBACK_2(SwitchSceneView::onMouseOver, this), Vec2(m_SceneMidPoint.x - 100.f,
 			m_SceneMidPoint.y + 250.f), itemTypes::BUTTON, 1, true, Vec2(10.f, -100.f)));
-
+	
 	auto hoverPosition = viewHover->getPosition();
 	auto moveUp = MoveTo::create(m_MovingDuration, Vec2(hoverPosition.x, hoverPosition.y + 3.f));
 	auto moveDown = MoveTo::create(m_MovingDuration, Vec2(hoverPosition.x, hoverPosition.y - 3.f));
@@ -58,7 +52,7 @@ void SwitchSceneView::switchView(unsigned id)
 
 	m_CurrentView = m_SceneViewMaps.at(id);
 	fadeEffect(m_CurrentView, true);
-	m_BackMainButtons.at(EViews::E_Main)->setVisible(true);
+	enableBackMainButtons(true);
 }
 
 void SwitchSceneView::clickIconCallback(cocos2d::Ref* pSender, unsigned viewId)
@@ -71,11 +65,18 @@ void SwitchSceneView::onBackMainCallback(cocos2d::Ref* pSender)
 {
 	fadeEffect(m_CurrentView, false);
 	m_MenuItems.at(EViews::E_Main)->resume();
-	m_BackMainButtons.at(EViews::E_Main)->setVisible(false);
+	enableBackMainButtons(false);
 }
 
 void SwitchSceneView::onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event)
 {
+	if (menuItem->itemSelectedData.type == itemTypes::WIDGET_BUTTON)
+		menuItem->setScale(1.f);
+}
+
+void SwitchSceneView::onMouseLeave(MouseOverMenuItem* menuItem, cocos2d::Event* event)
+{
+	menuItem->setScale(0.8f);
 }
 
 void SwitchSceneView::createOrderedView(unsigned id)
@@ -120,17 +121,48 @@ void SwitchSceneView::createSceneViewMaps()
 
 void SwitchSceneView::createBackMainButton()
 {
-	auto backButton = MouseOverMenuItem::creatMouseOverMenuButton("BackButton_Normal.png", "BackButton_Lit.png",
-		"BackButton_Disable.png", CC_CALLBACK_1(SwitchSceneView::onBackMainCallback, this));
+	for (unsigned index = 0; index < 2; ++index)
+	{
+		auto backButton = (index == 0) ? MouseOverMenuItem::creatMouseOverMenuButton("BackButton_Normal.png", "BackButton_Lit.png",
+			"BackButton_Disable.png", CC_CALLBACK_1(SwitchSceneView::onBackMainCallback, this)) : MouseOverMenuItem::creatMouseOverMenuButton(
+				"MapMain.png", "MapMain_Lit.png", "MapMain.png", CC_CALLBACK_1(SwitchSceneView::onBackMainCallback, this));
 
-	if (backButton)
-		m_BackMainButtons.pushBack(displayMenuButton(backButton, CC_CALLBACK_2(SwitchSceneView::onMouseOver, this), Vec2(m_SceneMidPoint.x - 420.f,
-			m_SceneMidPoint.y + 230.f), itemTypes::BUTTON, 1, true, Vec2(5.f, 0.f)));
+		if (backButton)
+		{
+			if (index == 0)
+			{
+				m_BackMainButtons.pushBack(displayMenuButton(backButton, CC_CALLBACK_2(SwitchSceneView::onMouseOver, this), 
+					Vec2(m_SceneMidPoint.x - 420.f, m_SceneMidPoint.y + 230.f), itemTypes::BUTTON, 1, true, Vec2(5.f, 0.f)));
+			}
+			else
+			{
+				m_BackMainButtons.pushBack(displayMenuButton(backButton, CC_CALLBACK_2(SwitchSceneView::onMouseOver, this), 
+					Vec2(m_SceneMidPoint.x + 390.f, m_SceneMidPoint.y - 315.f), itemTypes::WIDGET_BUTTON, 0.8f, true, Vec2(5.f, 0.f)));
+				
+				backButton->m_OnMouseLeave = CC_CALLBACK_2(SwitchSceneView::onMouseLeave, this);
+			}
 
-	backButton->setVisible(false);
+			backButton->setVisible(false);
+		}
+	}
 
 	auto backMainMenu = Menu::createWithArray(m_BackMainButtons);
 	backMainMenu->setPosition(Vec2::ZERO);
-	m_GameScene->addChild(backMainMenu, 1);
+	m_GameScene->addChild(backMainMenu, 2);
 	m_Elements.pushBack(backMainMenu);
 }
+
+void SwitchSceneView::enableBackMainButtons(bool enable)
+{
+	for (auto button : m_BackMainButtons)
+	{
+		button->setVisible(enable);
+	}
+}
+
+void SwitchSceneView::setSpriteScale(Sprite* sprite, Vec2 scale)
+{
+	sprite->setScaleX((m_VisibleSize.width / sprite->getContentSize().width) * scale.x);
+	sprite->setScaleY((m_VisibleSize.height / sprite->getContentSize().height) * scale.y);
+}
+

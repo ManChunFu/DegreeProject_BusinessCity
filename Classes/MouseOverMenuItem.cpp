@@ -20,7 +20,7 @@ MouseOverMenuItem* MouseOverMenuItem::createUpperButton(const cocos2d::ccMenuCal
 
 MouseOverMenuItem* MouseOverMenuItem::createLowerButton(const cocos2d::ccMenuCallback& callback)
 {
-	auto spriteNormal = Sprite::createWithSpriteFrameName("UIButtonCorner40.png"); 
+	auto spriteNormal = Sprite::createWithSpriteFrameName("UIButtonCorner40.png");
 	auto spriteSelected = Sprite::createWithSpriteFrameName("UIButtonCorner40_Lit.png");
 	auto spriteDisabled = Sprite::createWithSpriteFrameName("UIButtonCorner40_Disabled.png");
 
@@ -56,10 +56,10 @@ MouseOverMenuItem* MouseOverMenuItem::creatMouseOverMenuButton(const std::string
 	auto spriteNormal = Sprite::createWithSpriteFrameName(normalPath);
 	auto spriteSelected = Sprite::createWithSpriteFrameName(selectedPath);
 	auto spriteDisabled = Sprite::createWithSpriteFrameName(disabledPath);
-	
+
 	if (spriteNormal && spriteSelected && spriteDisabled)
 		return create(spriteNormal, spriteSelected, spriteDisabled, callback);
-	
+
 	return nullptr;
 }
 
@@ -115,7 +115,7 @@ void MouseOverMenuItem::setItemRect(Vec2& pos, float scale, Vec2 parentPos)
 		y += parentPos.y;
 	}
 	m_ItemRect = Rect(x, y, getContentSize().width * scale, getContentSize().height * scale);
-	
+
 }
 
 void MouseOverMenuItem::onMouseMove(Event* event)
@@ -135,12 +135,14 @@ void MouseOverMenuItem::onMouseMove(Event* event)
 			m_IsHovering = true;
 			m_OnMouseOver(this, event);
 		}
+		return;
 	}
-	else
-	{
-		m_IsHovering = false;
-		unselected();
-	}
+
+	unselected();
+	if (m_IsHovering && m_OnMouseLeave)
+		m_OnMouseLeave(this, event);
+
+	m_IsHovering = false;
 }
 
 void MouseOverMenuItem::setMouseListener()

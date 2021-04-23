@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cocos2d.h"
+#include "UIPanel.h"
 
 NS_CC_BEGIN;
 namespace ui
@@ -16,7 +16,7 @@ namespace base
 class MouseOverMenuItem;
 class MainMenuScene;
 
-class MainMenuPlayerSetting 
+class MainMenuPlayerSetting : public UIPanel
 {
 public:
 	~MainMenuPlayerSetting();
@@ -26,7 +26,7 @@ public:
 
 private:
 	MainMenuScene* m_MainMenu;
-	cocos2d::Vector<cocos2d::MenuItem*> m_MenuItems;
+	//cocos2d::Vector<cocos2d::MenuItem*> m_MenuItems;
 	cocos2d::Sprite* m_PlayerSettingPanel = nullptr;
 	cocos2d::ui::TextField* m_TextField = nullptr;
 	bool m_HasSelected = false;

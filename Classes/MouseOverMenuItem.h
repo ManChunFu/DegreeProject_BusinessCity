@@ -26,6 +26,7 @@ public:
 
 	typedef std::function<void(MouseOverMenuItem*, cocos2d::Event*)> onMouseOver;
 	onMouseOver m_OnMouseOver;
+	onMouseOver m_OnMouseLeave;
 	void setItemRect(cocos2d::Vec2& pos, float scale = 1.f, cocos2d::Vec2 parentPos = cocos2d::Vec2::ZERO);
 protected:
 	cocos2d::EventListenerMouse* m_MouseListener;
@@ -36,5 +37,6 @@ private :
 	bool m_IsSelected = false;
 	void onMouseMove(cocos2d::Event* event);
 	void setMouseListener();
+
 };
 #endif

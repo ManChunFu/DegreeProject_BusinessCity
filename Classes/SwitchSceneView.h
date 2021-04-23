@@ -15,7 +15,7 @@ protected:
 	void clickIconCallback(cocos2d::Ref* pSender, unsigned viewId);
 	void onBackMainCallback(cocos2d::Ref* pSender);
 	void onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event);
-
+	void onMouseLeave(MouseOverMenuItem* menuItem, cocos2d::Event* event);
 private:
 	enum EViews
 	{
@@ -36,5 +36,6 @@ private:
 	void fadeEffect(cocos2d::Sprite* viewSprite, bool fadeIn);
 	void createSceneViewMaps();
 	void createBackMainButton();
+	void enableBackMainButtons(bool enable);
 	void setSpriteScale(cocos2d::Sprite* sprite, cocos2d::Vec2 scale);
 };
