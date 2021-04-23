@@ -59,12 +59,14 @@ void Canvas::Init(GameScene* scene, Player* player)
 
 void Canvas::update(float deltaTime)
 {
+	if (m_AddPanels.empty() && m_RemovePanels.empty())
+		return;
+
 	for (auto panel : m_AddPanels)
 	{
 		m_UIPanels.pushBack(panel);
 	}
 	m_AddPanels.clear();
-
 
 	for (int index = 0; index < m_UIPanels.size(); index++)
 	{
@@ -107,7 +109,7 @@ void Canvas::activePanel(EPanels uiPanel, unsigned shopId)
 	{
 	case EPanels::ACTION_PANEL:
 		m_ActionPanel->displayShop(shopId);
-		m_ActionPanel->displayShopOptions();
+		//m_ActionPanel->displayShopOptions();
 		m_InfoPanel->enableBankButton(true);
 		break;
 	case EPanels::GAMEOVER_PANEL:

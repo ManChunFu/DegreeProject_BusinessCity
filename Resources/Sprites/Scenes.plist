@@ -4,6 +4,51 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>BackButton_Disable.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{40,40}</string>
+                <key>spriteSourceSize</key>
+                <string>{40,40}</string>
+                <key>textureRect</key>
+                <string>{{135,1303},{40,40}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>BackButton_Lit.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{40,40}</string>
+                <key>spriteSourceSize</key>
+                <string>{40,40}</string>
+                <key>textureRect</key>
+                <string>{{177,1303},{40,40}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>BackButton_Normal.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{40,40}</string>
+                <key>spriteSourceSize</key>
+                <string>{40,40}</string>
+                <key>textureRect</key>
+                <string>{{219,1303},{40,40}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
             <key>Hotel_View.png</key>
             <dict>
                 <key>aliases</key>
@@ -11,11 +56,26 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{1761,905}</string>
+                <string>{1300,906}</string>
                 <key>spriteSourceSize</key>
-                <string>{1761,905}</string>
+                <string>{1300,906}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{1761,905}}</string>
+                <string>{{1,1},{1300,906}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>IconMap_50.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{34,50}</string>
+                <key>spriteSourceSize</key>
+                <string>{50,50}</string>
+                <key>textureRect</key>
+                <string>{{53,1303},{34,50}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -30,7 +90,7 @@
                 <key>spriteSourceSize</key>
                 <string>{440,440}</string>
                 <key>textureRect</key>
-                <string>{{1764,47},{3,3}}</string>
+                <string>{{89,1349},{3,3}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -45,7 +105,37 @@
                 <key>spriteSourceSize</key>
                 <string>{50,50}</string>
                 <key>textureRect</key>
-                <string>{{1764,1},{44,44}}</string>
+                <string>{{89,1303},{44,44}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>IconMap_Small_Lit.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,5}</string>
+                <key>spriteSize</key>
+                <string>{26,40}</string>
+                <key>spriteSourceSize</key>
+                <string>{50,50}</string>
+                <key>textureRect</key>
+                <string>{{261,1303},{26,40}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>IconMap_Test.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{50,50}</string>
+                <key>spriteSourceSize</key>
+                <string>{50,50}</string>
+                <key>textureRect</key>
+                <string>{{1,1303},{50,50}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -61,9 +151,9 @@
             <key>realTextureFileName</key>
             <string>Scenes.png</string>
             <key>size</key>
-            <string>{1809,907}</string>
+            <string>{908,1354}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:c58c1880500d45a281641cdfb49ccea2:a9a3e9e87b23d59f092ab3299a6d070d:6c6a83ad1561a22577d4a9d0ffa7b4ac$</string>
+            <string>$TexturePacker:SmartUpdate:996aa14c13b6d8150a66f62a16e016d1:c19d3836d416cdd17ea2d8793e0f1c19:6c6a83ad1561a22577d4a9d0ffa7b4ac$</string>
             <key>textureFileName</key>
             <string>Scenes.png</string>
         </dict>

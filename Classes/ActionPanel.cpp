@@ -29,7 +29,7 @@ void ActionPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
 	m_GameScene->addChild(m_ThisPanel, 1);
 	m_Elements.pushBack(m_ThisPanel);
 
-	m_DisplayShopPos = Vec2((m_ThisPanel->getContentSize().width * 0.5f) - 240.f, m_ThisPanel->getContentSize().height * 0.5f - 5.f);
+	m_DisplayShopPos = Vec2((m_ThisPanel->getContentSize().width * 0.5f) - 240.f, m_ThisPanel->getContentSize().height * 0.5f);
 }
 
 void ActionPanel::displayShop(unsigned shopId, Vec2 shopPosition)
@@ -132,4 +132,7 @@ void ActionPanel::displayShopOptions()
 	shopButton->setPosition(Vec2::ZERO);
 	m_GameScene->addChild(shopButton, 2);
 }
+
+
+
 

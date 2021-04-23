@@ -72,7 +72,8 @@ void GameScene::update(float delta)
 
 	m_GlobalTime->update(delta);
 
-	m_Canvas->update(delta);
+	if (m_Canvas)
+		m_Canvas->update(delta);
 
 }
 

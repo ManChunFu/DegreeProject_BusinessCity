@@ -35,7 +35,7 @@ void GameStartPanel::openPanel(GameScene* scene, Vec2 sceneMidPoint)
 	if (goButton)
 	{
 		m_MenuItems.pushBack(displayMenuButton(goButton, CC_CALLBACK_2(GameStartPanel::onMouseOver, this),
-			sceneMidPoint, itemTypes::BUTTON, 1.5f));
+			sceneMidPoint, itemTypes::BUTTON, 1.5f, true, Vec2(5.f, 0.f)));
 
 		goButton->setVisible(false);
 		goButton->setEnabled(false);
@@ -61,7 +61,7 @@ void GameStartPanel::openPanel(GameScene* scene, Vec2 sceneMidPoint)
 		
 		m_MenuItems.pushBack(displayMenuButton(buttonItem, CC_CALLBACK_2(GameStartPanel::onMouseOver, this),
 			Vec2(sceneMidPoint.x + (item.first % 2 == 0 ? -145.f : 145.f), sceneMidPoint.y + (item.first > 1 ? -90.f : 80.f)),
-			itemTypes::DEFAULT, 0.8f));
+			itemTypes::DEFAULT, 0.8f, true, Vec2(5.f, 0.f)));
 		auto buttonMidPoint = Vec2(buttonItem->getContentSize().width * 0.5f, buttonItem->getContentSize().height * 0.5f);
 
 		auto buttonLabel = Label::createWithTTF(item.second->m_ShopType, "fonts/NirmalaB.ttf", 20);
