@@ -29,6 +29,9 @@ Shop::Shop(rapidjson::Value& json)
 		case stringToInt("Name"):
 			m_Name = itr->value.GetString();
 			break;
+		case stringToInt("ShopInSceneSmall"):
+			m_ShopInSceneSmall = itr->value.GetString();
+			break;
 		case stringToInt("ShopLookNormal"):
 			m_ShopLook_Normal = itr->value.GetString();
 			break;

@@ -45,6 +45,7 @@ public:
 	std::string m_ShopType = "";
 	std::string m_Name = "";
 	ownerTypes m_Owner = ownerTypes::player;
+	std::string m_ShopInSceneSmall = "";
 	std::string m_ShopLook_Normal = "";
 	std::string m_ShopLook_Lit = "";
 	std::string m_ShopLook_Disabled = "";

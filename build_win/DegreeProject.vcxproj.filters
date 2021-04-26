@@ -216,6 +216,9 @@
     <ClInclude Include="..\Classes\SwitchSceneView.h">
       <Filter>Source Files\Classes\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Car.h">
+      <Filter>Source Files\Classes\AI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Users\mandy\source\repos\DegreeProject\CMakeLists.txt" />

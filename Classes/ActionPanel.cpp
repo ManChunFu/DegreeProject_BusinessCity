@@ -6,11 +6,13 @@
 #include "GameScene.h"
 #include "Shop.h"
 #include "MyShopSettingPanel.h"
+#include "SwitchSceneView.h"
 
 USING_NS_CC;
 
 ActionPanel::~ActionPanel()
 {
+	m_MainScene = nullptr;
 	m_ShopButton = nullptr;
 	m_MyShopMap.clear();
 }
@@ -51,6 +53,9 @@ void ActionPanel::displayShop(unsigned shopId, Vec2 shopPosition)
 	m_ThisPanel->addChild(shopButton, 1);
 	m_MyShopMap[shopId] = shopButton;
 	shopButton->onShopChanges = CC_CALLBACK_1(ActionPanel::onShopChanges, this, menu, myShopButton->getPosition());
+
+	// create shop and display in scene
+	m_MainScene->displayShopInMainScene(shopId);
 }
 
 void ActionPanel::openShopCallback(cocos2d::Ref* pSender, unsigned shopId)

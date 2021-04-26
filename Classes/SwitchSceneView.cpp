@@ -1,7 +1,10 @@
 #include "SwitchSceneView.h"
 #include "GameFunctions.h"
+#include "GameData.h"
 #include "GameScene.h"
 #include "MouseOverMenuItem.h"
+#include "Player.h"
+#include "Shop.h"
 
 USING_NS_CC;
 
@@ -14,6 +17,7 @@ SwitchSceneView::~SwitchSceneView()
 
 void SwitchSceneView::runInit(GameScene* gameScene, Size visibleSize, Vec2 origin, cocos2d::Vec2 sceneMidPoint)
 {
+	m_Player = GameData::getInstance().m_Player;
 	createSceneViewMaps();
 	m_GameScene = gameScene;
 
@@ -24,25 +28,28 @@ void SwitchSceneView::runInit(GameScene* gameScene, Size visibleSize, Vec2 origi
 	GameFunctions::displaySprite(m_SceneViewMaps.at(EViews::E_Main), m_SceneMidPoint, m_GameScene, 0);
 	setSpriteScale(m_SceneViewMaps.at(EViews::E_Main), Vec2::ONE);
 
-#pragma region create Hotel View Button
-	auto viewHover = MouseOverMenuItem::creatMouseOverMenuButton("IconMap_Small.png", "IconMap_Small_Lit.png", "IconMap_Small.png",
-		CC_CALLBACK_1(SwitchSceneView::clickIconCallback, this, EViews::E_Hotel));
-	if (viewHover)
-		m_MenuItems.pushBack(displayMenuButton(viewHover, CC_CALLBACK_2(SwitchSceneView::onMouseOver, this), Vec2(m_SceneMidPoint.x - 100.f,
-			m_SceneMidPoint.y + 250.f), itemTypes::BUTTON, 1, true, Vec2(10.f, -100.f)));
-	
-	auto hoverPosition = viewHover->getPosition();
-	auto moveUp = MoveTo::create(m_MovingDuration, Vec2(hoverPosition.x, hoverPosition.y + 3.f));
-	auto moveDown = MoveTo::create(m_MovingDuration, Vec2(hoverPosition.x, hoverPosition.y - 3.f));
-	auto sequence = Sequence::create(moveUp, moveDown, nullptr);
-	viewHover->runAction(RepeatForever::create(sequence));
-#pragma endregion
-
-	auto iconButtons = Menu::createWithArray(m_MenuItems);
-	iconButtons->setPosition(Vec2::ZERO);
-	m_SceneViewMaps.at(EViews::E_Main)->addChild(iconButtons, 1);
+	// create hotel icon
+	createMapIcon("IconMap_Small.png", "IconMap_Small_Lit.png", "IconMap_Small.png", Vec2(m_SceneMidPoint.x - 100.f, m_SceneMidPoint.y + 250.f),
+		EViews::E_Hotel);
 
 	createBackMainButton();
+
+	//auto car_Left = Sprite::createWithSpriteFrameName("Car_Left.png");
+	//car_Left->setScale(0.7f);
+	//car_Left->setPosition(m_SceneMidPoint.x, m_SceneMidPoint.y - 200.f);
+	//auto moveLeft = MoveTo::create(7, Vec2(car_Left->getPosition().x - 450.f, car_Left->getPosition().y));
+	//sequence = Sequence::create(moveLeft, nullptr);
+	//car_Left->runAction(sequence);
+	//m_GameScene->addChild(car_Left, 3);
+
+	//auto car_Right = Sprite::createWithSpriteFrameName("Car_Right.png");
+	//car_Right->setScale(1.f);
+	//car_Right->setPosition(m_SceneMidPoint.x -450.f, m_SceneMidPoint.y - 230.f);
+	//auto moveRight = MoveTo::create(7, Vec2(car_Right->getPosition().x + 350.f, car_Right->getPosition().y));
+	//sequence = Sequence::create(moveRight, nullptr);
+	//car_Right->runAction(sequence);
+	//m_GameScene->addChild(car_Right, 3);
+
 }
 
 void SwitchSceneView::switchView(unsigned id)
@@ -53,6 +60,19 @@ void SwitchSceneView::switchView(unsigned id)
 	m_CurrentView = m_SceneViewMaps.at(id);
 	fadeEffect(m_CurrentView, true);
 	enableBackMainButtons(true);
+}
+
+void SwitchSceneView::displayShopInMainScene(unsigned shopId)
+{
+	auto shop = GameData::getInstance().m_Shops[shopId];
+	
+	auto shopSprite = Sprite::createWithSpriteFrameName(shop->m_ShopInSceneSmall);
+	if (shopSprite)
+		GameFunctions::displaySprite(shopSprite, Vec2(m_SceneMidPoint.x - 200.f, m_SceneMidPoint.y - 80.f),
+			m_SceneViewMaps.at(EViews::E_Main), 1, 0.3f, 0.3f);
+
+	createMapIcon("IconMap_Small.png", "IconMap_Small_Lit.png", "IconMap_Small.png", Vec2(m_SceneMidPoint.x - 200.f, m_SceneMidPoint.y - 40.f),
+		EViews::E_Playground);
 }
 
 void SwitchSceneView::clickIconCallback(cocos2d::Ref* pSender, unsigned viewId)
@@ -89,7 +109,7 @@ void SwitchSceneView::createOrderedView(unsigned id)
 	}
 }
 
-void SwitchSceneView::fadeEffect(cocos2d::Sprite* viewSprite, bool fadeIn)
+void SwitchSceneView::fadeEffect(Sprite* viewSprite, bool fadeIn)
 {
 	if (fadeIn)
 	{
@@ -105,10 +125,32 @@ void SwitchSceneView::fadeEffect(cocos2d::Sprite* viewSprite, bool fadeIn)
 	viewSprite->setOpacity(0);
 }
 
+void SwitchSceneView::createMapIcon(const std::string& normal, const std::string& mouseOver, const std::string& disable, Vec2 displayPos, unsigned viewId, float iconScale)
+{
+	auto icon = MouseOverMenuItem::creatMouseOverMenuButton(normal, mouseOver, disable, CC_CALLBACK_1(
+		SwitchSceneView::clickIconCallback, this, viewId));
+
+	if (icon)
+	{
+		m_MenuItems.pushBack(displayMenuButton(icon, CC_CALLBACK_2(SwitchSceneView::onMouseOver, this), displayPos, itemTypes::BUTTON, iconScale,
+			true, Vec2(10.f, -100.f)));
+
+		auto hoverPosition = icon->getPosition();
+		auto moveUp = MoveTo::create(m_MovingDuration, Vec2(hoverPosition.x, hoverPosition.y + m_MoveUp));
+		auto moveDown = MoveTo::create(m_MovingDuration, Vec2(hoverPosition.x, hoverPosition.y - m_MoveUp));
+		auto sequence = Sequence::create(moveUp, moveDown, nullptr);
+		icon->runAction(RepeatForever::create(sequence));
+	}
+
+	auto iconMenu = Menu::create(icon, NULL);
+	iconMenu->setPosition(Vec2::ZERO);
+	m_SceneViewMaps.at(EViews::E_Main)->addChild(iconMenu, 1);
+}
+
 void SwitchSceneView::createSceneViewMaps()
 {
-	std::array<std::string, 2> viewSource = { "GameSceneCityView_Main1300.png",  "Hotel_View.png" };
-	std::array<unsigned int, 2> viewKeys = { 0, 1 };
+	std::array<std::string, 3> viewSource = { "GameSceneCityView_Main1300.png",  "Hotel_View.png", "Playground_View.png" };
+	std::array<unsigned int, 3> viewKeys = { 0, 1, 2 };
 	auto viewsCount = viewSource.size();
 
 	for (unsigned index = 0; index < viewsCount; ++index)
@@ -131,14 +173,14 @@ void SwitchSceneView::createBackMainButton()
 		{
 			if (index == 0)
 			{
-				m_BackMainButtons.pushBack(displayMenuButton(backButton, CC_CALLBACK_2(SwitchSceneView::onMouseOver, this), 
+				m_BackMainButtons.pushBack(displayMenuButton(backButton, CC_CALLBACK_2(SwitchSceneView::onMouseOver, this),
 					Vec2(m_SceneMidPoint.x - 420.f, m_SceneMidPoint.y + 230.f), itemTypes::BUTTON, 1, true, Vec2(5.f, 0.f)));
 			}
 			else
 			{
-				m_BackMainButtons.pushBack(displayMenuButton(backButton, CC_CALLBACK_2(SwitchSceneView::onMouseOver, this), 
+				m_BackMainButtons.pushBack(displayMenuButton(backButton, CC_CALLBACK_2(SwitchSceneView::onMouseOver, this),
 					Vec2(m_SceneMidPoint.x + 390.f, m_SceneMidPoint.y - 315.f), itemTypes::WIDGET_BUTTON, 0.8f, true, Vec2(5.f, 0.f)));
-				
+
 				backButton->m_OnMouseLeave = CC_CALLBACK_2(SwitchSceneView::onMouseLeave, this);
 			}
 

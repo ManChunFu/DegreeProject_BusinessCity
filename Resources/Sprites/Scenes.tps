@@ -187,7 +187,9 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">SceneViews/Hotel_Icon_50.png</key>
+            <key type="filename">SceneViews/BackButton_Disable.png</key>
+            <key type="filename">SceneViews/BackButton_Lit.png</key>
+            <key type="filename">SceneViews/BackButton_Normal.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -196,9 +198,24 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>13,13,25,25</rect>
+                <rect>10,10,20,20</rect>
                 <key>scale9Paddings</key>
-                <rect>13,13,25,25</rect>
+                <rect>10,10,20,20</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">SceneViews/Car.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>24,10,47,20</rect>
+                <key>scale9Paddings</key>
+                <rect>24,10,47,20</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -211,17 +228,92 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>440,226,881,453</rect>
+                <rect>325,227,650,453</rect>
                 <key>scale9Paddings</key>
-                <rect>440,226,881,453</rect>
+                <rect>325,227,650,453</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">SceneViews/IconMap_50.png</key>
+            <key type="filename">SceneViews/IconMap_Small.png</key>
+            <key type="filename">SceneViews/IconMap_Small_Lit.png</key>
+            <key type="filename">SceneViews/IconMap_Test.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>13,13,25,25</rect>
+                <key>scale9Paddings</key>
+                <rect>13,13,25,25</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">SceneViews/IconMap_Big.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>110,110,220,220</rect>
+                <key>scale9Paddings</key>
+                <rect>110,110,220,220</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">SceneViews/MapMain.png</key>
+            <key type="filename">SceneViews/MapMain_Lit.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>25,13,50,27</rect>
+                <key>scale9Paddings</key>
+                <rect>25,13,50,27</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">SceneViews/Playground_View.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>325,226,651,453</rect>
+                <key>scale9Paddings</key>
+                <rect>325,226,651,453</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
         </map>
         <key>fileList</key>
         <array>
+            <filename>SceneViews/IconMap_Big.png</filename>
+            <filename>SceneViews/IconMap_Small.png</filename>
             <filename>SceneViews/Hotel_View.png</filename>
-            <filename>SceneViews/Hotel_Icon_50.png</filename>
+            <filename>SceneViews/BackButton_Disable.png</filename>
+            <filename>SceneViews/BackButton_Lit.png</filename>
+            <filename>SceneViews/BackButton_Normal.png</filename>
+            <filename>SceneViews/IconMap_Small_Lit.png</filename>
+            <filename>SceneViews/IconMap_Test.png</filename>
+            <filename>SceneViews/IconMap_50.png</filename>
+            <filename>SceneViews/MapMain.png</filename>
+            <filename>SceneViews/MapMain_Lit.png</filename>
+            <filename>SceneViews/Playground_View.png</filename>
+            <filename>SceneViews/Car.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

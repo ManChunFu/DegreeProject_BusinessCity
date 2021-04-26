@@ -48,6 +48,8 @@ void Canvas::Init(GameScene* scene, Player* player)
 	m_ActionPanel = new ActionPanel;
 	m_ActionPanel->autorelease();
 	m_ActionPanel->openPanel(m_GameScene, m_SceneMidPoint);
+	m_ActionPanel->setMainScenePointer(m_SwitchSceneView);
+	
 	m_UIPanels.pushBack(m_ActionPanel);
 
 	m_GameStartPanel = new GameStartPanel;
@@ -107,14 +109,12 @@ void Canvas::activePanel(EPanels uiPanel, unsigned shopId)
 {
 	switch (uiPanel)
 	{
+	case EPanels::SWITCHSCENEVIEW_PANEL:
+		break;
 	case EPanels::ACTION_PANEL:
 		m_ActionPanel->displayShop(shopId);
 		//m_ActionPanel->displayShopOptions();
 		m_InfoPanel->enableBankButton(true);
-		break;
-	case EPanels::GAMEOVER_PANEL:
-		break;
-	case EPanels::MYSHOPSETTING_PANEL:
 		break;
 	}
 }
