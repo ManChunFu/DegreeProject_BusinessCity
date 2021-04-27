@@ -37,7 +37,7 @@ public:
 	/* from = first, to = second */
 	void setShopOpenHour(unsigned weekday, unsigned fromOrTo, unsigned workingHour);
 
-
+	std::function<void(unsigned shopId, unsigned productId, unsigned saleQuantity)> onSaleHappens;
 	std::function<void(unsigned productId, unsigned remainQuantity)> onQuantityChanges;
 	std::function<void(unsigned countdown)> onCountdownChanges;
 	std::function<void(unsigned shopId, unsigned totalSales)> onSalesIncomeChanges;
@@ -46,6 +46,7 @@ public:
 	std::string m_Name = "";
 	ownerTypes m_Owner = ownerTypes::player;
 	std::string m_ShopInSceneSmall = "";
+	std::string m_ShopInSceneBig = "";
 	std::string m_ShopLook_Normal = "";
 	std::string m_ShopLook_Lit = "";
 	std::string m_ShopLook_Disabled = "";

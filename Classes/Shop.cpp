@@ -32,6 +32,9 @@ Shop::Shop(rapidjson::Value& json)
 		case stringToInt("ShopInSceneSmall"):
 			m_ShopInSceneSmall = itr->value.GetString();
 			break;
+		case stringToInt("ShopInSceneBig"):
+			m_ShopInSceneBig = itr->value.GetString();
+			break;
 		case stringToInt("ShopLookNormal"):
 			m_ShopLook_Normal = itr->value.GetString();
 			break;
@@ -138,6 +141,9 @@ unsigned Shop::runTrade(unsigned day, Shop* shop)
 	// make sure the shop still have enough stock
 	if (tradeQuantity < m_Products[tradeProduct]->getProductQuantity())
 	{
+		if (onSaleHappens)
+			onSaleHappens(m_ShopId, m_Products[tradeProduct]->getProductId(), tradeQuantity);
+
 		// update shop product qty
 		m_Products[tradeProduct]->increaseProductQuantity(-tradeQuantity);
 		if (onQuantityChanges)

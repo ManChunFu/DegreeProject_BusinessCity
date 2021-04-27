@@ -809,6 +809,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\DataManager.h" />
     <ClInclude Include="..\Classes\EmployeeData.h" />
     <ClInclude Include="..\Classes\EPanel.h" />
+    <ClInclude Include="..\Classes\EViews.h" />
     <ClInclude Include="..\Classes\GameData.h" />
     <ClInclude Include="..\Classes\GameFunctions.h" />
     <ClInclude Include="..\Classes\GameLoop.h" />
@@ -822,6 +823,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\MainMenuPlayerSetting.h" />
     <ClInclude Include="..\Classes\MouseOverMenuItem.h" />
     <ClInclude Include="..\Classes\MyShopSettingPanel.h" />
+    <ClInclude Include="..\Classes\People.h" />
     <ClInclude Include="..\Classes\Player.h" />
     <ClInclude Include="..\Classes\ProductData.h" />
     <ClInclude Include="..\Classes\ShopAdmin.h" />
@@ -853,6 +855,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\Classes\MainMenuPlayerSetting.cpp" />
     <ClCompile Include="..\Classes\MouseOverMenuItem.cpp" />
     <ClCompile Include="..\Classes\MyShopSettingPanel.cpp" />
+    <ClCompile Include="..\Classes\People.cpp" />
     <ClCompile Include="..\Classes\Player.cpp" />
     <ClCompile Include="..\Classes\ShopAdmin.cpp" />
     <ClCompile Include="..\Classes\ShopEmployeeAdmin.cpp" />
