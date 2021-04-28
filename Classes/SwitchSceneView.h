@@ -5,6 +5,10 @@
 class GameScene;
 class Shop;
 class People;
+namespace CocosDenshion
+{
+	class SimpleAudioEngine;
+}
 
 class SwitchSceneView : public UIPanel
 {
@@ -26,11 +30,14 @@ protected:
 	void onSaleHappens(unsigned shopId, unsigned productId, unsigned saleQuantity);
 
 private:
+	CocosDenshion::SimpleAudioEngine* m_Audio;
 	cocos2d::Map<unsigned int, cocos2d::Sprite*> m_SceneViewMaps;
 	cocos2d::Vector<cocos2d::MenuItem*> m_BackMainButtons;
 	cocos2d::Sprite* m_CurrentView = nullptr;
+	cocos2d::Sprite* m_MoneyIcon = nullptr;
 	Shop* m_PlayerShop = nullptr;
 	People* m_People = nullptr;
+
 
 	cocos2d::Size m_VisibleSize = cocos2d::Size::ZERO;
 	cocos2d::Vec2 m_Origin = cocos2d::Vec2::ZERO;

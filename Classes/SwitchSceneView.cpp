@@ -7,6 +7,8 @@
 #include "Shop.h"
 #include "EViews.h"
 #include "People.h"
+#include "cocostudio/SimpleAudioEngine.h"
+using namespace CocosDenshion;
 
 USING_NS_CC;
 
@@ -17,6 +19,10 @@ SwitchSceneView::~SwitchSceneView()
 	m_CurrentView = nullptr;
 	m_PlayerShop = nullptr;
 	m_People = nullptr;
+	m_MoneyIcon = nullptr;
+	
+	m_Audio->end();
+	m_Audio = nullptr;
 }
 
 void SwitchSceneView::runInit(GameScene* gameScene, Size visibleSize, Vec2 origin, cocos2d::Vec2 sceneMidPoint)
@@ -62,6 +68,8 @@ void SwitchSceneView::runInit(GameScene* gameScene, Size visibleSize, Vec2 origi
 		auto sequence2 = Sequence::create(moveRight, nullptr);
 		car_Right->runAction(sequence2);
 	}
+
+	m_Audio = SimpleAudioEngine::getInstance();
 }
 
 void SwitchSceneView::switchView(unsigned id)
@@ -86,6 +94,14 @@ void SwitchSceneView::displayShopInMainScene(unsigned shopId)
 
 	createMapIcon(m_MapIcons[0], m_MapIcons[1], m_MapIcons[2], Vec2(m_SceneMidPoint.x - 200.f, m_SceneMidPoint.y - 40.f),
 		EViews::E_Playground, 1.f, Vec2(50.f, -50.f));
+
+	m_MoneyIcon = Sprite::createWithSpriteFrameName("$.png");
+	if (m_MoneyIcon)
+	{
+		GameFunctions::displaySprite(m_MoneyIcon, Vec2(m_SceneMidPoint.x - 200.f, m_SceneMidPoint.y + 10.f), 
+			m_SceneViewMaps.at(EViews::E_Main), 1);
+		m_MoneyIcon->setOpacity(0);
+	}
 }
 
 Sprite* SwitchSceneView::getSceneView(unsigned viewId)
@@ -115,6 +131,10 @@ void SwitchSceneView::onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* e
 {
 	if (menuItem->itemSelectedData.type == itemTypes::WIDGET_BUTTON)
 		menuItem->setScale(1.f);
+
+	if (m_Audio)
+		m_Audio->playEffect("Sounds/SelectedSound.mp3", false, 1.f, 1.f, 1.f);
+
 }
 
 void SwitchSceneView::onMouseLeave(MouseOverMenuItem* menuItem, cocos2d::Event* event)
@@ -128,6 +148,21 @@ void SwitchSceneView::onSaleHappens(unsigned shopId, unsigned productId, unsigne
 	{
 		if (m_SaleHappensNotify)
 			m_SaleHappensNotify(shopId, productId, saleQuantity);
+		return;
+	}
+
+	auto textPos = m_MoneyIcon->getPosition();
+	auto fadeIn = FadeIn::create(0.5f);
+	auto moveFadeOut = Sequence::create(MoveTo::create(1.f, Vec2(textPos.x, textPos.y + 20.f)), FadeOut::create(0.5f), nullptr);
+	auto moveBack = MoveTo::create(0.1f, Vec2(textPos.x, m_SceneMidPoint.y +10.f));
+	auto sequence = Sequence::create(fadeIn, moveFadeOut, moveBack, nullptr);
+
+	m_MoneyIcon->runAction(sequence);
+
+	if (m_Audio)
+	{
+		m_Audio->setEffectsVolume(0.5f);
+		m_Audio->playEffect("Sounds/MoneyPop.mp3", false, 0.8f, 0.8f, 0.8f);
 	}
 }
 

@@ -4,6 +4,21 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>$.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{30,31}</string>
+                <key>spriteSourceSize</key>
+                <string>{30,31}</string>
+                <key>textureRect</key>
+                <string>{{1540,449},{30,31}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
             <key>BackButton_Disable.png</key>
             <dict>
                 <key>aliases</key>
@@ -60,9 +75,9 @@
                 <key>spriteSourceSize</key>
                 <string>{77,32}</string>
                 <key>textureRect</key>
-                <string>{{1540,449},{77,32}}</string>
+                <string>{{1411,467},{77,32}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>Car_Right.png</key>
             <dict>
@@ -274,36 +289,6 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>WhiteCar_Left.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{80,35}</string>
-                <key>spriteSourceSize</key>
-                <string>{80,35}</string>
-                <key>textureRect</key>
-                <string>{{1411,467},{80,35}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>WhiteCar_Right.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{64,30}</string>
-                <key>spriteSourceSize</key>
-                <string>{64,30}</string>
-                <key>textureRect</key>
-                <string>{{1493,470},{64,30}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -318,7 +303,7 @@
             <key>size</key>
             <string>{1604,1816}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:1f4160dbe9742f57f7c0c593f02610b4:880afa337823dbe3a51682182f1dc929:6c6a83ad1561a22577d4a9d0ffa7b4ac$</string>
+            <string>$TexturePacker:SmartUpdate:81d3ad9782b6f30294ce8d90454f014d:ddeaa46f985c85cb75358ffb1a629aaa:6c6a83ad1561a22577d4a9d0ffa7b4ac$</string>
             <key>textureFileName</key>
             <string>Scenes.png</string>
         </dict>
