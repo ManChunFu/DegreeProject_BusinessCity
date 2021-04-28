@@ -92,7 +92,7 @@
       <Filter>Source Files\Classes\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\People.cpp">
-      <Filter>Source Files\Classes\AI</Filter>
+      <Filter>Source Files\Classes\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -222,11 +222,11 @@
     <ClInclude Include="..\Classes\Car.h">
       <Filter>Source Files\Classes\AI</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\People.h">
-      <Filter>Source Files\Classes\AI</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\EViews.h">
       <Filter>Source Files\Classes\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\People.h">
+      <Filter>Source Files\Classes\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

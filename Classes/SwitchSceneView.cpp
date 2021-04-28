@@ -106,6 +106,9 @@ void SwitchSceneView::onBackMainCallback(cocos2d::Ref* pSender)
 	m_MenuItems.at(EViews::E_Main)->resume();
 	m_MenuItems.at(EViews::E_Main)->setEnabled(true);
 	enableBackMainButtons(false);
+	m_CurrentView = m_SceneViewMaps.at(EViews::E_Main);
+	
+	m_People->detachFromParent();
 }
 
 void SwitchSceneView::onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event)
@@ -121,8 +124,11 @@ void SwitchSceneView::onMouseLeave(MouseOverMenuItem* menuItem, cocos2d::Event* 
 
 void SwitchSceneView::onSaleHappens(unsigned shopId, unsigned productId, unsigned saleQuantity)
 {
-	if (m_SaleHappensNotify)
-		m_SaleHappensNotify(shopId, productId, saleQuantity);
+	if (m_CurrentView == m_SceneViewMaps.at(EViews::E_Playground))
+	{
+		if (m_SaleHappensNotify)
+			m_SaleHappensNotify(shopId, productId, saleQuantity);
+	}
 }
 
 void SwitchSceneView::createOrderedView(unsigned id)
