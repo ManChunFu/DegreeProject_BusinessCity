@@ -19,19 +19,22 @@ public:
 
 	void detachFromParent();
 protected:
-	void onSaleHappens(unsigned shopId, unsigned productId, unsigned saleQuantity);
+	void onSaleHappens(unsigned sceneId, unsigned shopId, unsigned productId);
 
 private:
 	SwitchSceneView* m_SceneViews = nullptr;
-	cocos2d::Vector<cocos2d::Sprite*> m_PeopleList;
+	cocos2d::Vector<cocos2d::Sprite*> m_HotdogPeopleList;
+	cocos2d::Vector<cocos2d::Sprite*> m_IcecreamPeopleList;
 	cocos2d::Map<unsigned int, cocos2d::Sprite*> m_ProductList;
 	
 	cocos2d::Vec2 m_SceneMidPoint = cocos2d::Vec2::ZERO;
 	bool m_SequenceIsDone = true;
 	bool m_ProductDisplayIsDone = true;
-	
-	void displayPeopleInScene(unsigned listIndex);
-	void displaySaleProductInScene(unsigned shopId, unsigned productId, unsigned saleQuantity);
+	int m_HotdogPeopleMax = 0;
+	int m_IcePeopleMax = 0;
+
+	void displayPeopleInScene(cocos2d::Vector<cocos2d::Sprite*> peopleList, unsigned sceneId, unsigned listIndex, unsigned shopId, unsigned productId);
+	void displaySaleProductInScene(unsigned sceneId, unsigned shopId, unsigned productId);
 	void createPeopleList();
 
 };

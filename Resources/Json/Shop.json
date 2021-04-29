@@ -45,7 +45,7 @@
     "Type": "Ice Cream Stand",
     "Name": "Sweety Ice Cream",
     "ShopInSceneSmall": "Hotdog_Stand_100.png",
-    "ShopInSceneBig": "Hotdog_Stand_500.png",
+    "ShopInSceneBig": "IceCream_Stand1.png",
     "ShopLookNormal": "Icecream.png",
     "ShopLookLit": "Icecream_Lit.png",
     "ShopLookDisabled": "Icecream_Disabled.png",

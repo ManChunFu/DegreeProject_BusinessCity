@@ -21,13 +21,14 @@ People::~People()
 {
 	m_SceneViews = nullptr;
 
-	m_PeopleList.clear();
-	m_ProductList.clear();
+	m_HotdogPeopleList.clear();
+	m_HotdogPeopleList.clear();
+	m_IcecreamPeopleList.clear();
 }
 
 void People::detachFromParent()
 {
-	for (auto people : m_PeopleList)
+	for (auto people : m_HotdogPeopleList)
 	{
 		people->removeFromParentAndCleanup(false);
 	}
@@ -36,27 +37,38 @@ void People::detachFromParent()
 	{
 		product.second->removeFromParentAndCleanup(false);
 	}
+
+	for (auto people : m_IcecreamPeopleList)
+	{
+		people->removeFromParentAndCleanup(false);
+	}
 }
 
-void People::onSaleHappens(unsigned shopId, unsigned productId, unsigned saleQuantity)
+void People::onSaleHappens(unsigned sceneId,unsigned shopId, unsigned productId)
 {
-	auto randNo = random(0, 1);
-	displayPeopleInScene(randNo);
-
-	displaySaleProductInScene(shopId, productId, saleQuantity);
+	if (shopId == 0)
+	{
+		auto randNo = random(0, m_HotdogPeopleMax);
+		displayPeopleInScene(m_HotdogPeopleList, sceneId, randNo, shopId, productId);
+	}
+	else
+	{
+		auto randNo = random(0, m_IcePeopleMax);
+		displayPeopleInScene(m_IcecreamPeopleList, sceneId, randNo, shopId, productId);
+	}
 }
 
-void People::displayPeopleInScene(unsigned listIndex)
+void People::displayPeopleInScene(Vector<Sprite*> peopleList, unsigned sceneId, unsigned listIndex, unsigned shopId, unsigned productId)
 {
 	if (!m_SequenceIsDone)
 		return;
 
-	if (!m_PeopleList.at(listIndex)->getParent())
+	if (!peopleList.at(listIndex)->getParent())
 	{
-		GameFunctions::displaySprite(m_PeopleList.at(listIndex), Vec2(m_SceneMidPoint.x - 70.f, m_SceneMidPoint.y - 120.f),
-			m_SceneViews->getSceneView(EViews::E_Playground), 1, 0.8f, 0.8f);
+		GameFunctions::displaySprite(peopleList.at(listIndex), (shopId == 0)? Vec2(m_SceneMidPoint.x - 70.f, m_SceneMidPoint.y - 90.f) :
+			Vec2(m_SceneMidPoint.x - 400.f, m_SceneMidPoint.y -140.f), m_SceneViews->getSceneView(sceneId), 1, 0.8f, 0.8f);
 
-		m_PeopleList.at(listIndex)->setOpacity(0);
+		peopleList.at(listIndex)->setOpacity(0);
 	}
 
 	auto fadeIn = FadeIn::create(0.5f);
@@ -66,22 +78,12 @@ void People::displayPeopleInScene(unsigned listIndex)
 	m_SequenceIsDone = false;
 
 	auto sequence = Sequence::create(fadeIn, delay, fadeOut, callback, nullptr);
-	m_PeopleList.at(listIndex)->runAction(sequence);
+	peopleList.at(listIndex)->runAction(sequence);
+
+	displaySaleProductInScene(sceneId, shopId, productId);
 }
 
-void People::createPeopleList()
-{
-	std::array<std::string, 2> peoplePaths = { "Girl1_Shadow.png", "Girl1_Shadow_Far.png" };
-
-	for (unsigned index = 0; index < peoplePaths.size(); ++index)
-	{
-		auto peopleSprite = Sprite::createWithSpriteFrameName(peoplePaths[index]);
-		if (peopleSprite)
-			m_PeopleList.pushBack(peopleSprite);
-	}
-}
-
-void People::displaySaleProductInScene(unsigned shopId, unsigned productId, unsigned saleQuantity)
+void People::displaySaleProductInScene(unsigned sceneId, unsigned shopId, unsigned productId)
 {
 	if (!m_ProductDisplayIsDone)
 		return;
@@ -96,8 +98,8 @@ void People::displaySaleProductInScene(unsigned shopId, unsigned productId, unsi
 
 	if (!m_ProductList.at(productId)->getParent())
 	{
-		GameFunctions::displaySprite(m_ProductList.at(productId), Vec2(m_SceneMidPoint.x - 100.f, m_SceneMidPoint.y),
-			m_SceneViews->getSceneView(EViews::E_Playground), 1, 0.4f, 0.4f);
+		GameFunctions::displaySprite(m_ProductList.at(productId), (shopId == 0)?  Vec2(m_SceneMidPoint.x - 100.f, m_SceneMidPoint.y) 
+			: Vec2(m_SceneMidPoint.x - 400.f, m_SceneMidPoint.y + 50.f), m_SceneViews->getSceneView(sceneId), 1, 0.4f, 0.4f);
 
 		m_ProductList.at(productId)->setOpacity(0);
 	}
@@ -106,10 +108,40 @@ void People::displaySaleProductInScene(unsigned shopId, unsigned productId, unsi
 	auto spritePos = m_ProductList.at(productId)->getPosition();
 	auto fadeIn = FadeIn::create(0.5f);
 	auto moveFadeOut = Sequence::create(MoveTo::create(1.f, Vec2(spritePos.x, spritePos.y + 20.f)), FadeOut::create(0.5f), nullptr);
-	auto moveBack = MoveTo::create(0.1f, Vec2(spritePos.x, m_SceneMidPoint.y));
+	auto moveBack = MoveTo::create(0.1f, Vec2(spritePos.x, (shopId == 0)? m_SceneMidPoint.y : m_SceneMidPoint.y + 50.f));
 	auto callback = CallFunc::create([=] {m_ProductDisplayIsDone = true; });
 
 	auto sequence = Sequence::create(delay, fadeIn, moveFadeOut, moveBack, callback, nullptr);
 	m_ProductList.at(productId)->runAction(sequence);
 }
+
+void People::createPeopleList()
+{
+	std::array<std::string, 7> peoplePaths = { "Girl1_Shadow.png", "Girl1_Shadow_Far.png", "Girl2_Shadow.png", "Girl3_Shadow.png", 
+		"Boy1_Shadow.png", "Boy2_Shadow.png", "Boy3_Shadow.png" };
+
+	m_HotdogPeopleMax = peoplePaths.size();
+
+	for (unsigned index = 0; index < m_HotdogPeopleMax; ++index)
+	{
+		auto peopleSprite = Sprite::createWithSpriteFrameName(peoplePaths[index]);
+		if (peopleSprite)
+			m_HotdogPeopleList.pushBack(peopleSprite);
+	}
+
+	std::array<std::string, 6> icecreamPeoplePaths = { "IceGirl1_Shadow.png", "IceBoy1_Shadow.png", "IceBoy2_Shadow.png", "IceGirl2_Shadow.png",
+		"IceGirl3_Shadow.png", "IceBoy3_Shadow.png" };
+	m_IcePeopleMax = icecreamPeoplePaths.size();
+	for (unsigned index = 0; index < m_IcePeopleMax; ++index)
+	{
+		auto sprite = Sprite::createWithSpriteFrameName(icecreamPeoplePaths[index]);
+		if (sprite)
+			m_IcecreamPeopleList.pushBack(sprite);
+	}
+	
+	// for later use in random max
+	m_HotdogPeopleMax--;
+	m_IcePeopleMax--;
+}
+
 

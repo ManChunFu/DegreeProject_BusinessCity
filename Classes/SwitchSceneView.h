@@ -27,7 +27,7 @@ protected:
 	void onBackMainCallback(cocos2d::Ref* pSender);
 	void onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event);
 	void onMouseLeave(MouseOverMenuItem* menuItem, cocos2d::Event* event);
-	void onSaleHappens(unsigned shopId, unsigned productId, unsigned saleQuantity);
+	void onSaleHappens(unsigned sceneId, unsigned shopId, unsigned productId);
 
 private:
 	CocosDenshion::SimpleAudioEngine* m_Audio;
@@ -38,6 +38,7 @@ private:
 	Shop* m_PlayerShop = nullptr;
 	People* m_People = nullptr;
 
+	unsigned m_ShopSceneId = 0;
 
 	cocos2d::Size m_VisibleSize = cocos2d::Size::ZERO;
 	cocos2d::Vec2 m_Origin = cocos2d::Vec2::ZERO;
@@ -52,6 +53,7 @@ private:
 	void createMapIcon(const std::string& normal, const std::string& mouseOver, const std::string& disable, cocos2d::Vec2 displayPos, 
 		unsigned viewId, float iconScale = 1.f, cocos2d::Vec2 parentPos = cocos2d::Vec2(10.f, -100.f));
 	void createSceneViewMaps();
+	void createShopInCloseSceneView(unsigned sceneId);
 	void createBackMainButton();
 	void enableBackMainButtons(bool enable);
 	void setSpriteScale(cocos2d::Sprite* sprite, cocos2d::Vec2 scale);

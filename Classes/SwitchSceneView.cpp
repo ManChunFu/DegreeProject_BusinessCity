@@ -20,7 +20,7 @@ SwitchSceneView::~SwitchSceneView()
 	m_PlayerShop = nullptr;
 	m_People = nullptr;
 	m_MoneyIcon = nullptr;
-	
+
 	m_Audio->end();
 	m_Audio = nullptr;
 }
@@ -70,6 +70,9 @@ void SwitchSceneView::runInit(GameScene* gameScene, Size visibleSize, Vec2 origi
 	}
 
 	m_Audio = SimpleAudioEngine::getInstance();
+	m_Audio->playBackgroundMusic("Sounds/GameSceneBackground.mp3", true);
+	m_Audio->setBackgroundMusicVolume(0.5f);
+
 }
 
 void SwitchSceneView::switchView(unsigned id)
@@ -80,6 +83,7 @@ void SwitchSceneView::switchView(unsigned id)
 	m_CurrentView = m_SceneViewMaps.at(id);
 	fadeEffect(m_CurrentView, true);
 	enableBackMainButtons(true);
+	
 }
 
 void SwitchSceneView::displayShopInMainScene(unsigned shopId)
@@ -98,7 +102,7 @@ void SwitchSceneView::displayShopInMainScene(unsigned shopId)
 	m_MoneyIcon = Sprite::createWithSpriteFrameName("$.png");
 	if (m_MoneyIcon)
 	{
-		GameFunctions::displaySprite(m_MoneyIcon, Vec2(m_SceneMidPoint.x - 200.f, m_SceneMidPoint.y + 10.f), 
+		GameFunctions::displaySprite(m_MoneyIcon, Vec2(m_SceneMidPoint.x - 200.f, m_SceneMidPoint.y + 10.f),
 			m_SceneViewMaps.at(EViews::E_Main), 1);
 		m_MoneyIcon->setOpacity(0);
 	}
@@ -118,12 +122,12 @@ void SwitchSceneView::clickIconCallback(cocos2d::Ref* pSender, unsigned viewId)
 
 void SwitchSceneView::onBackMainCallback(cocos2d::Ref* pSender)
 {
-	fadeEffect(m_CurrentView, false); 
+	fadeEffect(m_CurrentView, false);
 	m_MenuItems.at(EViews::E_Main)->resume();
 	m_MenuItems.at(EViews::E_Main)->setEnabled(true);
 	enableBackMainButtons(false);
 	m_CurrentView = m_SceneViewMaps.at(EViews::E_Main);
-	
+
 	m_People->detachFromParent();
 }
 
@@ -144,25 +148,26 @@ void SwitchSceneView::onMouseLeave(MouseOverMenuItem* menuItem, cocos2d::Event* 
 
 void SwitchSceneView::onSaleHappens(unsigned shopId, unsigned productId, unsigned saleQuantity)
 {
-	if (m_CurrentView == m_SceneViewMaps.at(EViews::E_Playground))
+	if (m_CurrentView == m_SceneViewMaps.at(m_ShopSceneId))
 	{
 		if (m_SaleHappensNotify)
-			m_SaleHappensNotify(shopId, productId, saleQuantity);
+			m_SaleHappensNotify(m_ShopSceneId, shopId, productId);
+		
 		return;
 	}
 
 	auto textPos = m_MoneyIcon->getPosition();
 	auto fadeIn = FadeIn::create(0.5f);
 	auto moveFadeOut = Sequence::create(MoveTo::create(1.f, Vec2(textPos.x, textPos.y + 20.f)), FadeOut::create(0.5f), nullptr);
-	auto moveBack = MoveTo::create(0.1f, Vec2(textPos.x, m_SceneMidPoint.y +10.f));
+	auto moveBack = MoveTo::create(0.1f, Vec2(textPos.x, m_SceneMidPoint.y + 10.f));
 	auto sequence = Sequence::create(fadeIn, moveFadeOut, moveBack, nullptr);
 
 	m_MoneyIcon->runAction(sequence);
 
 	if (m_Audio)
 	{
-		m_Audio->setEffectsVolume(0.5f);
 		m_Audio->playEffect("Sounds/MoneyPop.mp3", false, 0.8f, 0.8f, 0.8f);
+		m_Audio->setEffectsVolume(0.5f);
 	}
 }
 
@@ -174,17 +179,19 @@ void SwitchSceneView::createOrderedView(unsigned id)
 		GameFunctions::displaySprite(newView, m_SceneMidPoint, m_GameScene, 0);
 		setSpriteScale(newView, Vec2::ONE);
 	}
-	if (id == EViews::E_Playground)
-	{
-		auto playerIcon = Sprite::createWithSpriteFrameName(GameData::getInstance().getPlayerCharacter(m_Player->getCharacter()));
-		if (playerIcon)
-			GameFunctions::displaySprite(playerIcon, Vec2(m_SceneMidPoint.x - 140.f, m_SceneMidPoint.y + 20.f), 
-				m_SceneViewMaps.at(EViews::E_Playground), 1.f, 0.4f, 0.4f);
 
-		auto shopSprite = Sprite::createWithSpriteFrameName(m_PlayerShop->m_ShopInSceneBig);
-		if (shopSprite)
-			GameFunctions::displaySprite(shopSprite, Vec2(m_SceneMidPoint.x - 200.f, m_SceneMidPoint.y - 60.f),
-				m_SceneViewMaps.at(EViews::E_Playground), 1);
+	// hotdog
+	if (m_PlayerShop->m_ShopId == 0 && id == EViews::E_Playground)
+	{
+		createShopInCloseSceneView(id);
+		m_ShopSceneId = id;
+		return;
+	}
+
+	if (m_PlayerShop->m_ShopId == 1 && id == EViews::E_Hotel)
+	{
+		createShopInCloseSceneView(id);
+		m_ShopSceneId = id;
 	}
 }
 
@@ -255,6 +262,27 @@ void SwitchSceneView::createSceneViewMaps()
 		auto viewSprite = Sprite::createWithSpriteFrameName(viewSource[index]);
 		if (viewSprite)
 			m_SceneViewMaps.insert(viewKeys[index], viewSprite);
+	}
+
+}
+
+void SwitchSceneView::createShopInCloseSceneView(unsigned sceneId)
+{
+	auto playerIcon = Sprite::createWithSpriteFrameName(GameData::getInstance().getPlayerCharacter(m_Player->getCharacter()));
+	auto shopSprite = Sprite::createWithSpriteFrameName(m_PlayerShop->m_ShopInSceneBig);
+
+	switch (sceneId)
+	{
+	case EViews::E_Hotel:
+		GameFunctions::displaySprite(playerIcon, Vec2(m_SceneMidPoint.x - 330.f, m_SceneMidPoint.y + 60.f), m_SceneViewMaps.at(sceneId), 1,
+			0.4f, 0.4f);
+		GameFunctions::displaySprite(shopSprite, Vec2(m_SceneMidPoint.x - 400.f, m_SceneMidPoint.y - 70.f), m_SceneViewMaps.at(sceneId), 1);
+		break;
+	case EViews::E_Playground:
+		GameFunctions::displaySprite(playerIcon, Vec2(m_SceneMidPoint.x - 140.f, m_SceneMidPoint.y + 20.f), m_SceneViewMaps.at(sceneId), 1,
+			0.4f, 0.4f);
+		GameFunctions::displaySprite(shopSprite, Vec2(m_SceneMidPoint.x - 200.f, m_SceneMidPoint.y - 60.f), m_SceneViewMaps.at(sceneId), 1);
+		break;
 	}
 }
 
