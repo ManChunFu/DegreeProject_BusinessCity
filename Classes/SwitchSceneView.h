@@ -5,6 +5,7 @@
 class GameScene;
 class Shop;
 class People;
+struct SceneViewData;
 namespace CocosDenshion
 {
 	class SimpleAudioEngine;
@@ -19,6 +20,7 @@ public:
 	void switchView(unsigned id);
 	void displayShopInMainScene(unsigned shopId);
 	cocos2d::Sprite* getSceneView(unsigned viewId);
+	void removeShopFromScene();
 
 	std::function<void(unsigned shopId, unsigned productId, unsigned saleQuantity)> m_SaleHappensNotify;
 
@@ -31,6 +33,7 @@ protected:
 
 private:
 	CocosDenshion::SimpleAudioEngine* m_Audio;
+	SceneViewData* m_SceneViewData;
 	cocos2d::Map<unsigned int, cocos2d::Sprite*> m_SceneViewMaps;
 	cocos2d::Vector<cocos2d::MenuItem*> m_BackMainButtons;
 	cocos2d::Sprite* m_CurrentView = nullptr;

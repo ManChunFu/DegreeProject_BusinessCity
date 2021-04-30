@@ -121,6 +121,7 @@ void ActionPanel::removeShop(unsigned shopId)
 	m_MyShopMap[shopId]->removeFromParent();
 	m_MyShopMap.erase(shopId);
 	m_Player->removeShopId(shopId);
+	m_MainScene->removeShopFromScene();
 }
 
 void ActionPanel::displayShopOptions()

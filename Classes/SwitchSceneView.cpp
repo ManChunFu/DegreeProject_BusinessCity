@@ -1,4 +1,6 @@
 #include "SwitchSceneView.h"
+#include "SceneViewData.h"
+#include "SceneLocationData.h"
 #include "GameFunctions.h"
 #include "GameData.h"
 #include "GameScene.h"
@@ -14,6 +16,9 @@ USING_NS_CC;
 
 SwitchSceneView::~SwitchSceneView()
 {
+	delete m_SceneViewData;
+	m_SceneViewData = nullptr;
+
 	m_SceneViewMaps.clear();
 	m_BackMainButtons.clear();
 	m_CurrentView = nullptr;
@@ -93,24 +98,24 @@ void SwitchSceneView::displayShopInMainScene(unsigned shopId)
 
 	auto shopSprite = Sprite::createWithSpriteFrameName(m_PlayerShop->m_ShopInSceneSmall);
 	if (shopSprite)
-		GameFunctions::displaySprite(shopSprite, Vec2(m_SceneMidPoint.x - 200.f, m_SceneMidPoint.y - 80.f),
+		GameFunctions::displaySprite(shopSprite, m_SceneViewData->m_SceneLocations.at(EViews::E_Main)->m_ShopLocation,
 			m_SceneViewMaps.at(EViews::E_Main), 1, 0.3f, 0.3f);
 
-	createMapIcon(m_MapIcons[0], m_MapIcons[1], m_MapIcons[2], Vec2(m_SceneMidPoint.x - 200.f, m_SceneMidPoint.y - 40.f),
+	createMapIcon(m_MapIcons[0], m_MapIcons[1], m_MapIcons[2], m_SceneViewData->m_SceneLocations.at(EViews::E_Main)->m_MapIconLocation,
 		EViews::E_Playground, 1.f, Vec2(50.f, -50.f));
 
-	m_MoneyIcon = Sprite::createWithSpriteFrameName("$.png");
+	m_MoneyIcon = Sprite::createWithSpriteFrameName(m_SceneViewData->m_MoneyIcon);
 	if (m_MoneyIcon)
 	{
-		GameFunctions::displaySprite(m_MoneyIcon, Vec2(m_SceneMidPoint.x - 200.f, m_SceneMidPoint.y + 10.f),
+		GameFunctions::displaySprite(m_MoneyIcon, m_SceneViewData->m_SceneLocations.at(EViews::E_Main)->m_MoneyIconLocation,
 			m_SceneViewMaps.at(EViews::E_Main), 1);
 		m_MoneyIcon->setOpacity(0);
 	}
 }
 
-Sprite* SwitchSceneView::getSceneView(unsigned viewId)
+void SwitchSceneView::removeShopFromScene()
 {
-	return m_SceneViewMaps.at(viewId);
+	m_SceneViewMaps.at(EViews::E_Playground)->removeAllChildren();
 }
 
 void SwitchSceneView::clickIconCallback(cocos2d::Ref* pSender, unsigned viewId)
@@ -129,6 +134,11 @@ void SwitchSceneView::onBackMainCallback(cocos2d::Ref* pSender)
 	m_CurrentView = m_SceneViewMaps.at(EViews::E_Main);
 
 	m_People->detachFromParent();
+}
+
+Sprite* SwitchSceneView::getSceneView(unsigned viewId)
+{
+	return m_SceneViewMaps.at(viewId);
 }
 
 void SwitchSceneView::onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event)
@@ -253,13 +263,13 @@ void SwitchSceneView::createMapIcon(const std::string& normal, const std::string
 
 void SwitchSceneView::createSceneViewMaps()
 {
-	std::array<std::string, 3> viewSource = { "GameSceneCityView_Main1300.png",  "Hotel_View.png", "Playground_View.png" };
+	m_SceneViewData = new SceneViewData();
 	std::array<unsigned int, 3> viewKeys = { 0, 1, 2 };
-	auto viewsCount = viewSource.size();
+	auto viewsCount = m_SceneViewData->m_SceneLocations.size();
 
 	for (unsigned index = 0; index < viewsCount; ++index)
 	{
-		auto viewSprite = Sprite::createWithSpriteFrameName(viewSource[index]);
+		auto viewSprite = Sprite::createWithSpriteFrameName(m_SceneViewData->m_SceneViewPaths[index]);
 		if (viewSprite)
 			m_SceneViewMaps.insert(viewKeys[index], viewSprite);
 	}

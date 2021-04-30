@@ -94,6 +94,12 @@
     <ClCompile Include="..\Classes\People.cpp">
       <Filter>Source Files\Classes\UI</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\SceneViewData.cpp">
+      <Filter>Source Files\Classes\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SceneLocationData.cpp">
+      <Filter>Source Files\Classes\Data</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\Users\mandy\source\repos\DegreeProject\Classes\AppDelegate.h">
@@ -227,6 +233,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\People.h">
       <Filter>Source Files\Classes\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SceneViewData.h">
+      <Filter>Source Files\Classes\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SceneLocationData.h">
+      <Filter>Source Files\Classes\Data</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -221,7 +221,7 @@
     "Type": "Fastfood Restaurant",
     "Name": "Food Away",
     "ShopInSceneSmall": "Hotdog_Stand_100.png",
-    "ShopInSceneBig": "Hotdog_Stand_500.png",
+    "ShopInSceneBig": "Fastfood_Restaurant.png",
     "ShopLookNormal": "Fastfood2.png",
     "ShopLookLit": "Fastfood2_Lit.png",
     "ShopLookDisabled": "Fastfood2_Disable.png",
