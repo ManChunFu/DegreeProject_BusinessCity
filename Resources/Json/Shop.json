@@ -4,8 +4,13 @@
     "Startup": true,
     "Type": "Hot Dog Stand",
     "Name": "Super Hotdog",
+    "ShopInSceneId": 2,
+    "ShopSceneLocation": [
+      440.0,
+      300.0
+    ],
     "ShopInSceneSmall": "Hotdog_Stand_100.png",
-    "ShopInSceneBig" : "Hotdog_Stand_300_Shadow.png",
+    "ShopInSceneBig": "Hotdog_Stand_300_Shadow.png",
     "ShopLookNormal": "HotdogStand.png",
     "ShopLookLit": "HotdogStand_Lit.png",
     "ShopLookDisabled": "HotdogStand_Disabled.png",
@@ -44,6 +49,11 @@
     "Startup": true,
     "Type": "Ice Cream Stand",
     "Name": "Sweety Ice Cream",
+    "ShopInSceneId": 1,
+    "ShopSceneLocation": [
+      240.0,
+      290.0
+    ],
     "ShopInSceneSmall": "Hotdog_Stand_100.png",
     "ShopInSceneBig": "IceCream_Stand1.png",
     "ShopLookNormal": "Icecream.png",
@@ -100,6 +110,11 @@
     "Startup": true,
     "Type": "Fruit Stand",
     "Name": "Fresh Fruits",
+    "ShopInSceneId": 2,
+    "ShopSceneLocation": [
+      440.0,
+      300.0
+    ],
     "ShopInSceneSmall": "Hotdog_Stand_100.png",
     "ShopInSceneBig": "Hotdog_Stand_500.png",
     "ShopLookNormal": "FruitStand.png",
@@ -164,6 +179,11 @@
     "Startup": true,
     "Type": "Handicraft Stand",
     "Name": "Decor",
+    "ShopInSceneId": 2,
+    "ShopSceneLocation": [
+      440.0,
+      300.0
+    ],
     "ShopInSceneSmall": "Hotdog_Stand_100.png",
     "ShopInSceneBig": "Hotdog_Stand_500.png",
     "ShopLookNormal": "Handicrafts.png",
@@ -220,6 +240,11 @@
     "Startup": false,
     "Type": "Fastfood Restaurant",
     "Name": "Food Away",
+    "ShopInSceneId": 2,
+    "ShopSceneLocation": [
+      650.0,
+      400.0
+    ],
     "ShopInSceneSmall": "Hotdog_Stand_100.png",
     "ShopInSceneBig": "Fastfood_Restaurant.png",
     "ShopLookNormal": "Fastfood2.png",
@@ -291,6 +316,11 @@
     "Startup": false,
     "Type": "Pizzeria",
     "Name": "Rosa Bella",
+    "ShopInSceneId": 2,
+    "ShopSceneLocation": [
+      300.0,
+      100.0
+    ],
     "ShopInSceneSmall": "Hotdog_Stand_100.png",
     "ShopInSceneBig": "Hotdog_Stand_500.png",
     "ShopLookNormal": "Pizzeria.png",
@@ -386,6 +416,11 @@
     "Startup": false,
     "Type": "Ice Cream Shop",
     "Name": "Gelato",
+    "ShopInSceneId": 1,
+    "ShopSceneLocation": [
+      300.0,
+      100.0
+    ],
     "ShopInSceneSmall": "Hotdog_Stand_100.png",
     "ShopInSceneBig": "Hotdog_Stand_500.png",
     "ShopLookNormal": "IcecreamShop.png",
@@ -425,6 +460,11 @@
     "Startup": false,
     "Type": "Coffee Shop",
     "Name": "Expresso",
+    "ShopInSceneId": 1,
+    "ShopSceneLocation": [
+      300.0,
+      100.0
+    ],
     "ShopInSceneSmall": "Hotdog_Stand_100.png",
     "ShopInSceneBig": "Hotdog_Stand_500.png",
     "ShopLookNormal": "CoffeeShop.png",
@@ -464,6 +504,11 @@
     "Startup": false,
     "Type": "Fruit & Veg Shop",
     "Name": "Fresh Corner",
+    "ShopInSceneId": 2,
+    "ShopSceneLocation": [
+      300.0,
+      100.0
+    ],
     "ShopInSceneSmall": "Hotdog_Stand_100.png",
     "ShopInSceneBig": "Hotdog_Stand_500.png",
     "ShopLookNormal": "",
@@ -503,6 +548,11 @@
     "Startup": false,
     "Type": "Grocery store",
     "Name": "i Market",
+    "ShopInSceneId": 2,
+    "ShopSceneLocation": [
+      300.0,
+      100.0
+    ],
     "ShopInSceneSmall": "Hotdog_Stand_100.png",
     "ShopInSceneBig": "Hotdog_Stand_500.png",
     "ShopLookNormal": "",
@@ -539,6 +589,11 @@
     "Startup": false,
     "Type": "Tourist boutique",
     "Name": "Souvenir",
+    "ShopInSceneId": 1,
+    "ShopSceneLocation": [
+      300.0,
+      100.0
+    ],
     "ShopInSceneSmall": "Hotdog_Stand_100.png",
     "ShopInSceneBig": "Hotdog_Stand_500.png",
     "ShopLookNormal": "",
@@ -578,6 +633,11 @@
     "Startup": false,
     "Type": "Design & Deco boutique",
     "Name": "Comfort",
+    "ShopInSceneId": 1,
+    "ShopSceneLocation": [
+      300.0,
+      100.0
+    ],
     "ShopInSceneSmall": "Hotdog_Stand_100.png",
     "ShopInSceneBig": "Hotdog_Stand_500.png",
     "ShopLookNormal": "",

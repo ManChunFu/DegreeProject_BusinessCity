@@ -47,7 +47,6 @@ private:
 	cocos2d::Vec2 m_Origin = cocos2d::Vec2::ZERO;
 	cocos2d::Vec2 m_SceneMidPoint = cocos2d::Vec2::ZERO;
 
-	std::array<std::string, 3> m_MapIcons = { "IconMap_Small.png", "IconMap_Small_Lit.png", "IconMap_Small.png" };
 	float m_MovingDuration = 1.f;
 	float m_MoveUp = 3.f;
 

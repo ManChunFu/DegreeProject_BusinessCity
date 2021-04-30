@@ -47,8 +47,8 @@ void SwitchSceneView::runInit(GameScene* gameScene, Size visibleSize, Vec2 origi
 	m_People = new People(this, m_SceneMidPoint);
 
 	// create hotel icon
-	createMapIcon(m_MapIcons[0], m_MapIcons[1], m_MapIcons[2], Vec2(m_SceneMidPoint.x - 100.f, m_SceneMidPoint.y + 250.f),
-		EViews::E_Hotel, 1.f, Vec2(0.f, -120.f));
+	createMapIcon(m_SceneViewData->m_MapIconPaths[0], m_SceneViewData->m_MapIconPaths[1], m_SceneViewData->m_MapIconPaths[2],
+		Vec2(m_SceneMidPoint.x - 100.f, m_SceneMidPoint.y + 250.f), EViews::E_Hotel, 1.f, Vec2(0.f, -120.f));
 
 	createBackMainButton();
 
@@ -88,7 +88,7 @@ void SwitchSceneView::switchView(unsigned id)
 	m_CurrentView = m_SceneViewMaps.at(id);
 	fadeEffect(m_CurrentView, true);
 	enableBackMainButtons(true);
-	
+
 }
 
 void SwitchSceneView::displayShopInMainScene(unsigned shopId)
@@ -101,8 +101,8 @@ void SwitchSceneView::displayShopInMainScene(unsigned shopId)
 		GameFunctions::displaySprite(shopSprite, m_SceneViewData->m_SceneLocations.at(EViews::E_Main)->m_ShopLocation,
 			m_SceneViewMaps.at(EViews::E_Main), 1, 0.3f, 0.3f);
 
-	createMapIcon(m_MapIcons[0], m_MapIcons[1], m_MapIcons[2], m_SceneViewData->m_SceneLocations.at(EViews::E_Main)->m_MapIconLocation,
-		EViews::E_Playground, 1.f, Vec2(50.f, -50.f));
+	createMapIcon(m_SceneViewData->m_MapIconPaths[0], m_SceneViewData->m_MapIconPaths[1], m_SceneViewData->m_MapIconPaths[1],
+		m_SceneViewData->m_SceneLocations.at(EViews::E_Main)->m_MapIconLocation, EViews::E_Playground, 1.f, Vec2(50.f, -50.f));
 
 	m_MoneyIcon = Sprite::createWithSpriteFrameName(m_SceneViewData->m_MoneyIcon);
 	if (m_MoneyIcon)
@@ -115,21 +115,31 @@ void SwitchSceneView::displayShopInMainScene(unsigned shopId)
 
 void SwitchSceneView::removeShopFromScene()
 {
-	m_SceneViewMaps.at(EViews::E_Playground)->removeAllChildren();
+	if (m_ShopSceneId == 0)
+		return;
+
+	m_SceneViewMaps.at(m_ShopSceneId)->removeAllChildren();
+	m_SceneViewMaps.at(m_ShopSceneId)->removeFromParentAndCleanup(false);
 }
 
 void SwitchSceneView::clickIconCallback(cocos2d::Ref* pSender, unsigned viewId)
 {
-	m_MenuItems.at(EViews::E_Main)->pause();
-	m_MenuItems.at(EViews::E_Main)->setEnabled(false);
+	for (auto item : m_MenuItems)
+	{
+		item->pause();
+		item->setEnabled(false);
+	}
 	switchView(viewId);
 }
 
 void SwitchSceneView::onBackMainCallback(cocos2d::Ref* pSender)
 {
 	fadeEffect(m_CurrentView, false);
-	m_MenuItems.at(EViews::E_Main)->resume();
-	m_MenuItems.at(EViews::E_Main)->setEnabled(true);
+	for (auto item : m_MenuItems)
+	{
+		item->resume();
+		item->setEnabled(true);
+	}
 	enableBackMainButtons(false);
 	m_CurrentView = m_SceneViewMaps.at(EViews::E_Main);
 
@@ -162,7 +172,7 @@ void SwitchSceneView::onSaleHappens(unsigned shopId, unsigned productId, unsigne
 	{
 		if (m_SaleHappensNotify)
 			m_SaleHappensNotify(m_ShopSceneId, shopId, productId);
-		
+
 		return;
 	}
 
@@ -178,30 +188,6 @@ void SwitchSceneView::onSaleHappens(unsigned shopId, unsigned productId, unsigne
 	{
 		m_Audio->playEffect("Sounds/MoneyPop.mp3", false, 0.8f, 0.8f, 0.8f);
 		m_Audio->setEffectsVolume(0.5f);
-	}
-}
-
-void SwitchSceneView::createOrderedView(unsigned id)
-{
-	auto newView = m_SceneViewMaps.at(id);
-	if (newView)
-	{
-		GameFunctions::displaySprite(newView, m_SceneMidPoint, m_GameScene, 0);
-		setSpriteScale(newView, Vec2::ONE);
-	}
-
-	// hotdog
-	if (m_PlayerShop->m_ShopId == 0 && id == EViews::E_Playground)
-	{
-		createShopInCloseSceneView(id);
-		m_ShopSceneId = id;
-		return;
-	}
-
-	if (m_PlayerShop->m_ShopId == 1 && id == EViews::E_Hotel)
-	{
-		createShopInCloseSceneView(id);
-		m_ShopSceneId = id;
 	}
 }
 
@@ -261,6 +247,32 @@ void SwitchSceneView::createMapIcon(const std::string& normal, const std::string
 	m_SceneViewMaps.at(EViews::E_Main)->addChild(iconMenu, 1);
 }
 
+void SwitchSceneView::createOrderedView(unsigned id)
+{
+	auto newView = m_SceneViewMaps.at(id);
+	if (newView)
+	{
+		GameFunctions::displaySprite(newView, m_SceneMidPoint, m_GameScene, 0);
+		setSpriteScale(newView, Vec2::ONE);
+	}
+
+	if (id == m_PlayerShop->m_ShopInSceneId)
+	{
+		createShopInCloseSceneView(id);
+		m_ShopSceneId = id;
+	}
+}
+
+void SwitchSceneView::createShopInCloseSceneView(unsigned sceneId)
+{
+	auto playerIcon = Sprite::createWithSpriteFrameName(GameData::getInstance().getPlayerCharacter(m_Player->getCharacter()));
+	auto shopSprite = Sprite::createWithSpriteFrameName(m_PlayerShop->m_ShopInSceneBig);
+
+	GameFunctions::displaySprite(playerIcon, m_SceneViewData->m_SceneLocations.at(sceneId)->m_EmployeeLocation,
+		m_SceneViewMaps.at(sceneId), 1, 0.4f, 0.4f);
+	GameFunctions::displaySprite(shopSprite, m_PlayerShop->m_ShopSceneLocation, m_SceneViewMaps.at(sceneId), 1);
+}
+
 void SwitchSceneView::createSceneViewMaps()
 {
 	m_SceneViewData = new SceneViewData();
@@ -272,27 +284,6 @@ void SwitchSceneView::createSceneViewMaps()
 		auto viewSprite = Sprite::createWithSpriteFrameName(m_SceneViewData->m_SceneViewPaths[index]);
 		if (viewSprite)
 			m_SceneViewMaps.insert(viewKeys[index], viewSprite);
-	}
-
-}
-
-void SwitchSceneView::createShopInCloseSceneView(unsigned sceneId)
-{
-	auto playerIcon = Sprite::createWithSpriteFrameName(GameData::getInstance().getPlayerCharacter(m_Player->getCharacter()));
-	auto shopSprite = Sprite::createWithSpriteFrameName(m_PlayerShop->m_ShopInSceneBig);
-
-	switch (sceneId)
-	{
-	case EViews::E_Hotel:
-		GameFunctions::displaySprite(playerIcon, Vec2(m_SceneMidPoint.x - 330.f, m_SceneMidPoint.y + 60.f), m_SceneViewMaps.at(sceneId), 1,
-			0.4f, 0.4f);
-		GameFunctions::displaySprite(shopSprite, Vec2(m_SceneMidPoint.x - 400.f, m_SceneMidPoint.y - 70.f), m_SceneViewMaps.at(sceneId), 1);
-		break;
-	case EViews::E_Playground:
-		GameFunctions::displaySprite(playerIcon, Vec2(m_SceneMidPoint.x - 140.f, m_SceneMidPoint.y + 20.f), m_SceneViewMaps.at(sceneId), 1,
-			0.4f, 0.4f);
-		GameFunctions::displaySprite(shopSprite, Vec2(m_SceneMidPoint.x - 200.f, m_SceneMidPoint.y - 60.f), m_SceneViewMaps.at(sceneId), 1);
-		break;
 	}
 }
 

@@ -29,6 +29,17 @@ Shop::Shop(rapidjson::Value& json)
 		case stringToInt("Name"):
 			m_Name = itr->value.GetString();
 			break;
+		case stringToInt("ShopInSceneId"):
+			m_ShopInSceneId = itr->value.GetInt();
+			break;
+		case stringToInt("ShopSceneLocation"):
+			if (itr->value.IsArray())
+			{
+				auto location = itr->value.GetArray();
+				m_ShopSceneLocation.x = location[0].GetFloat();
+				m_ShopSceneLocation.y = location[1].GetFloat();
+			}
+			break;
 		case stringToInt("ShopInSceneSmall"):
 			m_ShopInSceneSmall = itr->value.GetString();
 			break;
