@@ -16,15 +16,13 @@ USING_NS_CC;
 
 SwitchSceneView::~SwitchSceneView()
 {
-	delete m_SceneViewData;
-	m_SceneViewData = nullptr;
-
 	m_SceneViewMaps.clear();
 	m_BackMainButtons.clear();
 	m_CurrentView = nullptr;
 	m_PlayerShop = nullptr;
 	m_People = nullptr;
 	m_MoneyIcon = nullptr;
+	m_PlayerShopsInScene.clear();
 
 	m_Audio->end();
 	m_Audio = nullptr;
@@ -47,8 +45,16 @@ void SwitchSceneView::runInit(GameScene* gameScene, Size visibleSize, Vec2 origi
 	m_People = new People(this, m_SceneMidPoint);
 
 	// create hotel icon
-	createMapIcon(m_SceneViewData->m_MapIconPaths[0], m_SceneViewData->m_MapIconPaths[1], m_SceneViewData->m_MapIconPaths[2],
+	createMapIcon(m_MapIconPaths[0], m_MapIconPaths[1], m_MapIconPaths[2],
 		Vec2(m_SceneMidPoint.x - 100.f, m_SceneMidPoint.y + 250.f), EViews::E_Hotel, 1.f, Vec2(0.f, -120.f));
+
+	// create playground icon
+	createMapIcon(m_MapIconPaths[0], m_MapIconPaths[1], m_MapIconPaths[1],
+		Vec2(m_SceneMidPoint.x -200.f, m_SceneMidPoint.y), EViews::E_Playground, 1.f, Vec2(50.f, -50.f));
+
+	auto iconMenu = Menu::createWithArray(m_MenuItems);
+	iconMenu->setPosition(Vec2::ZERO);
+	m_SceneViewMaps.at(EViews::E_Main)->addChild(iconMenu, 1);
 
 	createBackMainButton();
 
@@ -74,7 +80,7 @@ void SwitchSceneView::runInit(GameScene* gameScene, Size visibleSize, Vec2 origi
 		car_Right->runAction(sequence2);
 	}
 
-	m_Audio = SimpleAudioEngine::getInstance();
+	m_Audio = GameData::getInstance().m_Audio;
 	m_Audio->playBackgroundMusic("Sounds/GameSceneBackground.mp3", true);
 	m_Audio->setBackgroundMusicVolume(0.5f);
 
@@ -98,28 +104,34 @@ void SwitchSceneView::displayShopInMainScene(unsigned shopId)
 
 	auto shopSprite = Sprite::createWithSpriteFrameName(m_PlayerShop->m_ShopInSceneSmall);
 	if (shopSprite)
-		GameFunctions::displaySprite(shopSprite, m_SceneViewData->m_SceneLocations.at(EViews::E_Main)->m_ShopLocation,
+		GameFunctions::displaySprite(shopSprite, Vec2(m_SceneMidPoint.x - 200.f, m_SceneMidPoint.y -70.f),
 			m_SceneViewMaps.at(EViews::E_Main), 1, 0.3f, 0.3f);
 
-	createMapIcon(m_SceneViewData->m_MapIconPaths[0], m_SceneViewData->m_MapIconPaths[1], m_SceneViewData->m_MapIconPaths[1],
-		m_SceneViewData->m_SceneLocations.at(EViews::E_Main)->m_MapIconLocation, EViews::E_Playground, 1.f, Vec2(50.f, -50.f));
-
-	m_MoneyIcon = Sprite::createWithSpriteFrameName(m_SceneViewData->m_MoneyIcon);
+	m_MoneyIcon = Sprite::createWithSpriteFrameName("$.png");
 	if (m_MoneyIcon)
 	{
-		GameFunctions::displaySprite(m_MoneyIcon, m_SceneViewData->m_SceneLocations.at(EViews::E_Main)->m_MoneyIconLocation,
+		GameFunctions::displaySprite(m_MoneyIcon, Vec2(m_SceneMidPoint.x - 200.f, m_SceneMidPoint.y -10.f),
 			m_SceneViewMaps.at(EViews::E_Main), 1);
 		m_MoneyIcon->setOpacity(0);
 	}
+	
+	m_PlayerShopsInScene[shopId] = { shopSprite, m_MoneyIcon };
 }
 
-void SwitchSceneView::removeShopFromScene()
+void SwitchSceneView::removeShopFromScene(unsigned shopId)
 {
 	if (m_ShopSceneId == 0)
 		return;
 
+	if (m_CurrentView == m_SceneViewMaps.at(m_ShopSceneId))
+		onBackMainCallback(this);
+
 	m_SceneViewMaps.at(m_ShopSceneId)->removeAllChildren();
 	m_SceneViewMaps.at(m_ShopSceneId)->removeFromParentAndCleanup(false);
+	for (auto item : m_PlayerShopsInScene.at(shopId))
+	{
+		item->removeFromParent();
+	}
 }
 
 void SwitchSceneView::clickIconCallback(cocos2d::Ref* pSender, unsigned viewId)
@@ -179,7 +191,7 @@ void SwitchSceneView::onSaleHappens(unsigned shopId, unsigned productId, unsigne
 	auto textPos = m_MoneyIcon->getPosition();
 	auto fadeIn = FadeIn::create(0.5f);
 	auto moveFadeOut = Sequence::create(MoveTo::create(1.f, Vec2(textPos.x, textPos.y + 20.f)), FadeOut::create(0.5f), nullptr);
-	auto moveBack = MoveTo::create(0.1f, Vec2(textPos.x, m_SceneMidPoint.y + 10.f));
+	auto moveBack = MoveTo::create(0.1f, Vec2(textPos.x, m_SceneMidPoint.y -10.f));
 	auto sequence = Sequence::create(fadeIn, moveFadeOut, moveBack, nullptr);
 
 	m_MoneyIcon->runAction(sequence);
@@ -241,10 +253,6 @@ void SwitchSceneView::createMapIcon(const std::string& normal, const std::string
 		auto sequence = Sequence::create(moveUp, moveDown, nullptr);
 		icon->runAction(RepeatForever::create(sequence));
 	}
-
-	auto iconMenu = Menu::create(icon, NULL);
-	iconMenu->setPosition(Vec2::ZERO);
-	m_SceneViewMaps.at(EViews::E_Main)->addChild(iconMenu, 1);
 }
 
 void SwitchSceneView::createOrderedView(unsigned id)
@@ -268,20 +276,18 @@ void SwitchSceneView::createShopInCloseSceneView(unsigned sceneId)
 	auto playerIcon = Sprite::createWithSpriteFrameName(GameData::getInstance().getPlayerCharacter(m_Player->getCharacter()));
 	auto shopSprite = Sprite::createWithSpriteFrameName(m_PlayerShop->m_ShopInSceneBig);
 
-	GameFunctions::displaySprite(playerIcon, m_SceneViewData->m_SceneLocations.at(sceneId)->m_EmployeeLocation,
-		m_SceneViewMaps.at(sceneId), 1, 0.4f, 0.4f);
+	GameFunctions::displaySprite(playerIcon, m_PlayerShop->m_EmployeeLocation, m_SceneViewMaps.at(sceneId), 1, 0.4f, 0.4f);
 	GameFunctions::displaySprite(shopSprite, m_PlayerShop->m_ShopSceneLocation, m_SceneViewMaps.at(sceneId), 1);
 }
 
 void SwitchSceneView::createSceneViewMaps()
 {
-	m_SceneViewData = new SceneViewData();
 	std::array<unsigned int, 3> viewKeys = { 0, 1, 2 };
-	auto viewsCount = m_SceneViewData->m_SceneLocations.size();
+	auto viewsCount = m_SceneViewPaths.size();
 
 	for (unsigned index = 0; index < viewsCount; ++index)
 	{
-		auto viewSprite = Sprite::createWithSpriteFrameName(m_SceneViewData->m_SceneViewPaths[index]);
+		auto viewSprite = Sprite::createWithSpriteFrameName(m_SceneViewPaths[index]);
 		if (viewSprite)
 			m_SceneViewMaps.insert(viewKeys[index], viewSprite);
 	}

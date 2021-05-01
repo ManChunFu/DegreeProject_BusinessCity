@@ -11,6 +11,7 @@ namespace CocosDenshion
 	class SimpleAudioEngine;
 }
 
+
 class SwitchSceneView : public UIPanel
 {
 public:
@@ -20,7 +21,7 @@ public:
 	void switchView(unsigned id);
 	void displayShopInMainScene(unsigned shopId);
 	cocos2d::Sprite* getSceneView(unsigned viewId);
-	void removeShopFromScene();
+	void removeShopFromScene(unsigned shopId);
 
 	std::function<void(unsigned shopId, unsigned productId, unsigned saleQuantity)> m_SaleHappensNotify;
 
@@ -33,15 +34,19 @@ protected:
 
 private:
 	CocosDenshion::SimpleAudioEngine* m_Audio;
-	SceneViewData* m_SceneViewData;
+
 	cocos2d::Map<unsigned int, cocos2d::Sprite*> m_SceneViewMaps;
 	cocos2d::Vector<cocos2d::MenuItem*> m_BackMainButtons;
 	cocos2d::Sprite* m_CurrentView = nullptr;
 	cocos2d::Sprite* m_MoneyIcon = nullptr;
+	std::unordered_map<unsigned int, cocos2d::Vector<cocos2d::Sprite*>> m_PlayerShopsInScene;
 	Shop* m_PlayerShop = nullptr;
 	People* m_People = nullptr;
 
 	unsigned m_ShopSceneId = 0;
+
+	std::array<std::string, 3> m_SceneViewPaths = { "GameSceneCityView_Main1300.png",  "Hotel_View.png", "Playground_View1.png" };
+	std::array<std::string, 3> m_MapIconPaths = { "IconMap_Small.png", "IconMap_Small_Lit.png", "IconMap_Small.png" };
 
 	cocos2d::Size m_VisibleSize = cocos2d::Size::ZERO;
 	cocos2d::Vec2 m_Origin = cocos2d::Vec2::ZERO;

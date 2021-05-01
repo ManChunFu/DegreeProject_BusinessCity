@@ -18,6 +18,10 @@
     "ElectricityCost": 200,
     "WaterCost": 50,
     "Employees": 0,
+    "EmployeeLocation": [
+      500.0,
+      380.0
+    ],
     "RequiredEmployees": 0,
     "SalaryPerEmployee": 500,
     "CommercialCost": 0,
@@ -63,6 +67,10 @@
     "ElectricityCost": 400,
     "WaterCost": 50,
     "Employees": 0,
+    "EmployeeLocation": [
+      310.0,
+      420.0
+    ],
     "RequiredEmployees": 0,
     "SalaryPerEmployee": 500,
     "CommercialCost": 0,
@@ -124,6 +132,10 @@
     "ElectricityCost": 100,
     "WaterCost": 100,
     "Employees": 0,
+    "EmployeeLocation": [
+      500.0,
+      380.0
+    ],
     "RequiredEmployees": 0,
     "SalaryPerEmployee": 500,
     "CommercialCost": 0,
@@ -193,6 +205,10 @@
     "ElectricityCost": 100,
     "WaterCost": 50,
     "Employees": 0,
+    "EmployeeLocation": [
+      500.0,
+      380.0
+    ],
     "RequiredEmployees": 0,
     "SalaryPerEmployee": 500,
     "CommercialCost": 0,
@@ -242,10 +258,10 @@
     "Name": "Food Away",
     "ShopInSceneId": 2,
     "ShopSceneLocation": [
-      650.0,
+      600.0,
       400.0
     ],
-    "ShopInSceneSmall": "Hotdog_Stand_100.png",
+    "ShopInSceneSmall": "Fastfood_Restaurant_Small.png",
     "ShopInSceneBig": "Fastfood_Restaurant.png",
     "ShopLookNormal": "Fastfood2.png",
     "ShopLookLit": "Fastfood2_Lit.png",
@@ -254,6 +270,10 @@
     "ElectricityCost": 800,
     "WaterCost": 300,
     "Employees": 0,
+    "EmployeeLocation": [
+      500.0,
+      380.0
+    ],
     "RequiredEmployees": 2,
     "SalaryPerEmployee": 700,
     "CommercialCost": 0,
@@ -330,6 +350,10 @@
     "ElectricityCost": 1200,
     "WaterCost": 600,
     "Employees": 0,
+    "EmployeeLocation": [
+      500.0,
+      380.0
+    ],
     "RequiredEmployees": 4,
     "SalaryPerEmployee": 1300,
     "CommercialCost": 0,
@@ -430,6 +454,10 @@
     "ElectricityCost": 1000,
     "WaterCost": 200,
     "Employees": 0,
+    "EmployeeLocation": [
+      310.0,
+      420.0
+    ],
     "RequiredEmployees": 2,
     "SalaryPerEmployee": 650,
     "CommercialCost": 0,
@@ -474,6 +502,10 @@
     "ElectricityCost": 1500,
     "WaterCost": 600,
     "Employees": 0,
+    "EmployeeLocation": [
+      310.0,
+      420.0
+    ],
     "RequiredEmployees": 4,
     "SalaryPerEmployee": 1300,
     "CommercialCost": 0,
@@ -518,6 +550,10 @@
     "ElectricityCost": 600,
     "WaterCost": 350,
     "Employees": 0,
+    "EmployeeLocation": [
+      500.0,
+      380.0
+    ],
     "RequiredEmployees": 2,
     "SalaryPerEmployee": 600,
     "CommercialCost": 0,
@@ -562,6 +598,10 @@
     "ElectricityCost": 1000,
     "WaterCost": 450,
     "Employees": 0,
+    "EmployeeLocation": [
+      500.0,
+      380.0
+    ],
     "RequiredEmployees": 4,
     "SalaryPerEmployee": 750,
     "CommercialCost": 0,
@@ -603,6 +643,10 @@
     "ElectricityCost": 500,
     "WaterCost": 150,
     "Employees": 0,
+    "EmployeeLocation": [
+      310.0,
+      420.0
+    ],
     "RequiredEmployees": 2,
     "SalaryPerEmployee": 650,
     "CommercialCost": 0,
@@ -647,6 +691,10 @@
     "ElectricityCost": 1000,
     "WaterCost": 400,
     "Employees": 0,
+    "EmployeeLocation": [
+      310.0,
+      420.0
+    ],
     "RequiredEmployees": 4,
     "SalaryPerEmployee": 1100,
     "CommercialCost": 0,

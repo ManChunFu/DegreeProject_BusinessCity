@@ -67,6 +67,14 @@ Shop::Shop(rapidjson::Value& json)
 		case stringToInt("Employees"):
 			m_Employees = itr->value.GetInt();
 			break;
+		case stringToInt("EmployeeLocation"):
+			if (itr->value.IsArray())
+			{
+				auto location = itr->value.GetArray();
+				m_EmployeeLocation.x = location[0].GetFloat();
+				m_EmployeeLocation.y = location[1].GetFloat();
+			}
+			break;
 		case stringToInt("RequiredEmployees"):
 			m_RequiredEmployees = itr->value.GetInt();
 			break;

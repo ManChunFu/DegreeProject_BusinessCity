@@ -5,6 +5,11 @@ class Player;
 class Shop;
 class GlobalTime;
 class UIPanel;
+namespace CocosDenshion
+{
+	class SimpleAudioEngine;
+}
+
 
 class GameData
 {
@@ -44,6 +49,8 @@ public:
 #pragma endregion
 
 	std::map<unsigned, Shop*> m_Shops;
+	
+	CocosDenshion::SimpleAudioEngine* m_Audio;
 
 #pragma region Panel
 	void setTempOpenPanel(UIPanel* panel);

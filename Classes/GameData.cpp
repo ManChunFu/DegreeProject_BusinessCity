@@ -5,6 +5,9 @@
 #include "ShopProduct.h"
 #include "GlobalTime.h"
 #include "UIPanel.h"
+#include "cocostudio/SimpleAudioEngine.h"
+using namespace CocosDenshion;
+
 
 USING_NS_CC;
 
@@ -15,9 +18,12 @@ GameData::~GameData()
 
 void GameData::init()
 {
+	m_Audio = SimpleAudioEngine::getInstance();
+
 	m_Shops = DataManager::getShops();
 
 	m_GlobalTime = new GlobalTime();
+
 }
 
 void GameData::registerCharacter(cocos2d::itemTypes type, std::string path)
@@ -65,5 +71,9 @@ void GameData::reset(bool all)
 	m_GlobalTime = nullptr;
 
 	m_TempOpenPanel = nullptr;
+
+	m_Audio->end();
+	m_Audio = nullptr;
+
 }
 
