@@ -7,6 +7,8 @@
 #include "GameData.h"
 #include "GlobalTime.h"
 #include "GameTime.h"
+#include "cocostudio/SimpleAudioEngine.h"
+using namespace CocosDenshion;
 
 
 USING_NS_CC;
@@ -213,6 +215,7 @@ void InfoPanel::checkBalanceCallback(cocos2d::Ref* pSender, GameScene* scene)
 
 void InfoPanel::onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event)
 {
+	GameData::getInstance().m_Audio->playEffect("Sounds/SelectedSound.mp3", false, 1.f, 1.f, 1.f);
 }
 
 void InfoPanel::onCurrentCashChange(Player* player, int currentCashAmout)

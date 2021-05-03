@@ -132,7 +132,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>Scenes.plist</filename>
+                <filename>PeopleInScene.plist</filename>
             </struct>
             <key>header</key>
             <key>source</key>
@@ -187,7 +187,7 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">SceneViews/$.png</key>
+            <key type="filename">CharacterInScene/Boy1_Shadow.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -196,15 +196,13 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>8,8,15,15</rect>
+                <rect>47,80,95,160</rect>
                 <key>scale9Paddings</key>
-                <rect>8,8,15,15</rect>
+                <rect>47,80,95,160</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">SceneViews/BackButton_Disable.png</key>
-            <key type="filename">SceneViews/BackButton_Lit.png</key>
-            <key type="filename">SceneViews/BackButton_Normal.png</key>
+            <key type="filename">CharacterInScene/Boy2_Shadow.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -213,13 +211,13 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>10,10,20,20</rect>
+                <rect>62,87,125,173</rect>
                 <key>scale9Paddings</key>
-                <rect>10,10,20,20</rect>
+                <rect>62,87,125,173</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">SceneViews/Car_Left.png</key>
+            <key type="filename">CharacterInScene/Boy3_Shadow.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -228,13 +226,13 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>19,8,39,16</rect>
+                <rect>47,79,94,159</rect>
                 <key>scale9Paddings</key>
-                <rect>19,8,39,16</rect>
+                <rect>47,79,94,159</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">SceneViews/Car_Right.png</key>
+            <key type="filename">CharacterInScene/FastBoy1.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -243,13 +241,13 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>21,9,43,19</rect>
+                <rect>26,42,51,83</rect>
                 <key>scale9Paddings</key>
-                <rect>21,9,43,19</rect>
+                <rect>26,42,51,83</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">SceneViews/Fastfood_Restaurant.png</key>
+            <key type="filename">CharacterInScene/FastBoy2.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -258,13 +256,13 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>141,137,281,273</rect>
+                <rect>33,47,65,93</rect>
                 <key>scale9Paddings</key>
-                <rect>141,137,281,273</rect>
+                <rect>33,47,65,93</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">SceneViews/Fastfood_Restaurant_Small.png</key>
+            <key type="filename">CharacterInScene/FastBoy3.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -273,13 +271,13 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>50,49,100,97</rect>
+                <rect>32,40,65,81</rect>
                 <key>scale9Paddings</key>
-                <rect>50,49,100,97</rect>
+                <rect>32,40,65,81</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">SceneViews/Hotdog_Stand_100.png</key>
+            <key type="filename">CharacterInScene/FastGirl1.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -288,13 +286,13 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>25,26,50,53</rect>
+                <rect>29,40,57,80</rect>
                 <key>scale9Paddings</key>
-                <rect>25,26,50,53</rect>
+                <rect>29,40,57,80</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">SceneViews/Hotdog_Stand_300_Shadow.png</key>
+            <key type="filename">CharacterInScene/FastGirl2.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -303,13 +301,13 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>75,88,150,176</rect>
+                <rect>34,48,67,97</rect>
                 <key>scale9Paddings</key>
-                <rect>75,88,150,176</rect>
+                <rect>34,48,67,97</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">SceneViews/Hotel_View.png</key>
+            <key type="filename">CharacterInScene/FastGirl3.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -318,13 +316,13 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>325,227,650,453</rect>
+                <rect>28,40,57,80</rect>
                 <key>scale9Paddings</key>
-                <rect>325,227,650,453</rect>
+                <rect>28,40,57,80</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">SceneViews/IceCream_Stand1.png</key>
+            <key type="filename">CharacterInScene/Girl1_Shadow.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -333,13 +331,13 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>69,66,137,133</rect>
+                <rect>26,61,51,123</rect>
                 <key>scale9Paddings</key>
-                <rect>69,66,137,133</rect>
+                <rect>26,61,51,123</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">SceneViews/IceCream_Stand80.png</key>
+            <key type="filename">CharacterInScene/Girl2_Shadow.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -348,13 +346,13 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>20,17,40,34</rect>
+                <rect>36,75,72,151</rect>
                 <key>scale9Paddings</key>
-                <rect>20,17,40,34</rect>
+                <rect>36,75,72,151</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">SceneViews/IceCream_StandSmall.png</key>
+            <key type="filename">CharacterInScene/Girl3_Shadow.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -363,16 +361,13 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>25,30,50,60</rect>
+                <rect>48,75,97,150</rect>
                 <key>scale9Paddings</key>
-                <rect>25,30,50,60</rect>
+                <rect>48,75,97,150</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">SceneViews/IconMap_50.png</key>
-            <key type="filename">SceneViews/IconMap_Small.png</key>
-            <key type="filename">SceneViews/IconMap_Small_Lit.png</key>
-            <key type="filename">SceneViews/IconMap_Test.png</key>
+            <key type="filename">CharacterInScene/IceBoy1_Shadow.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -381,13 +376,13 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>13,13,25,25</rect>
+                <rect>40,87,79,175</rect>
                 <key>scale9Paddings</key>
-                <rect>13,13,25,25</rect>
+                <rect>40,87,79,175</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">SceneViews/IconMap_Big.png</key>
+            <key type="filename">CharacterInScene/IceBoy2_Shadow.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -396,14 +391,13 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>110,110,220,220</rect>
+                <rect>40,89,80,179</rect>
                 <key>scale9Paddings</key>
-                <rect>110,110,220,220</rect>
+                <rect>40,89,80,179</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">SceneViews/MapMain.png</key>
-            <key type="filename">SceneViews/MapMain_Lit.png</key>
+            <key type="filename">CharacterInScene/IceBoy3_Shadow.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -412,13 +406,13 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>25,13,50,27</rect>
+                <rect>36,78,71,156</rect>
                 <key>scale9Paddings</key>
-                <rect>25,13,50,27</rect>
+                <rect>36,78,71,156</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">SceneViews/Pizzeria_Scene.png</key>
+            <key type="filename">CharacterInScene/IceGirl1_Shadow.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -427,13 +421,13 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>192,136,383,273</rect>
+                <rect>29,81,58,163</rect>
                 <key>scale9Paddings</key>
-                <rect>192,136,383,273</rect>
+                <rect>29,81,58,163</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">SceneViews/Playground_View1.png</key>
+            <key type="filename">CharacterInScene/IceGirl2_Shadow.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -442,38 +436,48 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>325,226,651,453</rect>
+                <rect>24,76,47,153</rect>
                 <key>scale9Paddings</key>
-                <rect>325,226,651,453</rect>
+                <rect>24,76,47,153</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">CharacterInScene/IceGirl3_Shadow.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>27,81,55,161</rect>
+                <key>scale9Paddings</key>
+                <rect>27,81,55,161</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
         </map>
         <key>fileList</key>
         <array>
-            <filename>SceneViews/IconMap_Big.png</filename>
-            <filename>SceneViews/IconMap_Small.png</filename>
-            <filename>SceneViews/Hotel_View.png</filename>
-            <filename>SceneViews/BackButton_Disable.png</filename>
-            <filename>SceneViews/BackButton_Lit.png</filename>
-            <filename>SceneViews/BackButton_Normal.png</filename>
-            <filename>SceneViews/IconMap_Small_Lit.png</filename>
-            <filename>SceneViews/IconMap_Test.png</filename>
-            <filename>SceneViews/IconMap_50.png</filename>
-            <filename>SceneViews/MapMain.png</filename>
-            <filename>SceneViews/MapMain_Lit.png</filename>
-            <filename>SceneViews/Fastfood_Restaurant_Small.png</filename>
-            <filename>SceneViews/Fastfood_Restaurant.png</filename>
-            <filename>SceneViews/Playground_View1.png</filename>
-            <filename>SceneViews/Hotdog_Stand_100.png</filename>
-            <filename>SceneViews/Hotdog_Stand_300_Shadow.png</filename>
-            <filename>SceneViews/IceCream_Stand1.png</filename>
-            <filename>SceneViews/$.png</filename>
-            <filename>SceneViews/Car_Right.png</filename>
-            <filename>SceneViews/Car_Left.png</filename>
-            <filename>SceneViews/IceCream_Stand80.png</filename>
-            <filename>SceneViews/IceCream_StandSmall.png</filename>
-            <filename>SceneViews/Pizzeria_Scene.png</filename>
+            <filename>CharacterInScene/IceGirl1_Shadow.png</filename>
+            <filename>CharacterInScene/IceGirl2_Shadow.png</filename>
+            <filename>CharacterInScene/IceGirl3_Shadow.png</filename>
+            <filename>CharacterInScene/IceBoy1_Shadow.png</filename>
+            <filename>CharacterInScene/IceBoy2_Shadow.png</filename>
+            <filename>CharacterInScene/IceBoy3_Shadow.png</filename>
+            <filename>CharacterInScene/Girl1_Shadow.png</filename>
+            <filename>CharacterInScene/Girl2_Shadow.png</filename>
+            <filename>CharacterInScene/Girl3_Shadow.png</filename>
+            <filename>CharacterInScene/Boy1_Shadow.png</filename>
+            <filename>CharacterInScene/Boy2_Shadow.png</filename>
+            <filename>CharacterInScene/Boy3_Shadow.png</filename>
+            <filename>CharacterInScene/FastGirl1.png</filename>
+            <filename>CharacterInScene/FastGirl2.png</filename>
+            <filename>CharacterInScene/FastGirl3.png</filename>
+            <filename>CharacterInScene/FastBoy1.png</filename>
+            <filename>CharacterInScene/FastBoy2.png</filename>
+            <filename>CharacterInScene/FastBoy3.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

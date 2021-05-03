@@ -7,6 +7,9 @@
 #include "Shop.h"
 #include "MyShopSettingPanel.h"
 #include "SwitchSceneView.h"
+#include "cocostudio/SimpleAudioEngine.h"
+using namespace CocosDenshion;
+
 
 USING_NS_CC;
 
@@ -81,6 +84,7 @@ void ActionPanel::openShopCallback(cocos2d::Ref* pSender, unsigned shopId)
 
 void ActionPanel::onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event)
 {
+	GameData::getInstance().m_Audio->playEffect("Sounds/SelectedSound.mp3", false, 1.f, 1.f, 1.f);
 }
 
 void ActionPanel::checkShopCallback(cocos2d::Ref* pSender, unsigned shopId)

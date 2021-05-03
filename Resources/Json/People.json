@@ -1,0 +1,126 @@
+[
+  {
+    "SceneId": 1,
+    "Locations": [
+      {
+        "ShopId": 1,
+        "People": [
+          "IceGirl1_Shadow.png",
+          "IceBoy1_Shadow.png",
+          "IceBoy2_Shadow.png",
+          "IceGirl2_Shadow.png",
+          "IceGirl3_Shadow.png",
+          "IceBoy3_Shadow.png"
+        ],
+        "PeopleLocation": [
+          240.0,
+          220.0
+        ],
+        "ProductLocation": [
+          240.0,
+          410.0
+        ]
+      },
+      {
+        "ShopId": 6,
+        "People": [
+          "IceGirl1_Shadow.png",
+          "IceBoy1_Shadow.png",
+          "IceBoy2_Shadow.png",
+          "IceGirl2_Shadow.png",
+          "IceGirl3_Shadow.png",
+          "IceBoy3_Shadow.png"
+        ],
+        "PeopleLocation": [
+          240.0,
+          220.0
+        ],
+        "ProductLocation": [
+          240.0,
+          410.0
+        ]
+      },
+      {
+        "ShopId": 7,
+        "People": [
+          "IceGirl1_Shadow.png",
+          "IceBoy1_Shadow.png",
+          "IceBoy2_Shadow.png",
+          "IceGirl2_Shadow.png",
+          "IceGirl3_Shadow.png",
+          "IceBoy3_Shadow.png"
+        ],
+        "PeopleLocation": [
+          240.0,
+          220.0
+        ],
+        "ProductLocation": [
+          240.0,
+          410.0
+        ]
+      }
+    ]
+  },
+  {
+    "SceneId": 2,
+    "Locations": [
+      {
+        "ShopId": 0,
+        "People": [
+          "Girl1_Shadow.png",
+          "Girl2_Shadow.png",
+          "Girl3_Shadow.png",
+          "Boy1_Shadow.png",
+          "Boy2_Shadow.png",
+          "Boy3_Shadow.png"
+        ],
+        "PeopleLocation": [
+          570.0,
+          270.0
+        ],
+        "ProductLocation": [
+          540.0,
+          360.0
+        ]
+      },
+      {
+        "ShopId": 4,
+        "People": [
+          "FastGirl1.png",
+          "FastGirl2.png",
+          "FastGirl3.png",
+          "FastBoy1.png",
+          "FastBoy2.png",
+          "FastBoy3.png"
+        ],
+        "PeopleLocation": [
+          720.0,
+          250.0
+        ],
+        "ProductLocation": [
+          750.0,
+          410.0
+        ]
+      },
+      {
+        "ShopId": 5,
+        "People": [
+          "PizzaGirl1.png",
+          "PizzaGirl2.png",
+          "PizzaGirl3.png",
+          "PizzaBoy1.png",
+          "PizzaBoy2.png",
+          "PizzaBoy3.png"
+        ],
+        "PeopleLocation": [
+          400.0,
+          290.0
+        ],
+        "ProductLocation": [
+          420.0,
+          450.0
+        ]
+      }
+    ]
+  }
+]

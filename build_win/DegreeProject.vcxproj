@@ -824,10 +824,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\MouseOverMenuItem.h" />
     <ClInclude Include="..\Classes\MyShopSettingPanel.h" />
     <ClInclude Include="..\Classes\People.h" />
+    <ClInclude Include="..\Classes\PeopleData.h" />
+    <ClInclude Include="..\Classes\PeopleLocationData.h" />
     <ClInclude Include="..\Classes\Player.h" />
     <ClInclude Include="..\Classes\ProductData.h" />
-    <ClInclude Include="..\Classes\SceneLocationData.h" />
-    <ClInclude Include="..\Classes\SceneViewData.h" />
     <ClInclude Include="..\Classes\ShopAdmin.h" />
     <ClInclude Include="..\Classes\ShopEmployeeAdmin.h" />
     <ClInclude Include="..\Classes\ShopProduct.h" />
@@ -858,9 +858,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\Classes\MouseOverMenuItem.cpp" />
     <ClCompile Include="..\Classes\MyShopSettingPanel.cpp" />
     <ClCompile Include="..\Classes\People.cpp" />
+    <ClCompile Include="..\Classes\PeopleData.cpp" />
+    <ClCompile Include="..\Classes\PeopleLocationData.cpp" />
     <ClCompile Include="..\Classes\Player.cpp" />
-    <ClCompile Include="..\Classes\SceneLocationData.cpp" />
-    <ClCompile Include="..\Classes\SceneViewData.cpp" />
     <ClCompile Include="..\Classes\ShopAdmin.cpp" />
     <ClCompile Include="..\Classes\ShopEmployeeAdmin.cpp" />
     <ClCompile Include="..\Classes\ShopProduct.cpp" />
@@ -945,6 +945,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Resources\Json\People.json" />
     <None Include="..\Resources\Json\Shop.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -94,10 +94,10 @@
     <ClCompile Include="..\Classes\People.cpp">
       <Filter>Source Files\Classes\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\SceneViewData.cpp">
+    <ClCompile Include="..\Classes\PeopleData.cpp">
       <Filter>Source Files\Classes\Data</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\SceneLocationData.cpp">
+    <ClCompile Include="..\Classes\PeopleLocationData.cpp">
       <Filter>Source Files\Classes\Data</Filter>
     </ClCompile>
   </ItemGroup>
@@ -234,10 +234,10 @@
     <ClInclude Include="..\Classes\People.h">
       <Filter>Source Files\Classes\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\SceneViewData.h">
+    <ClInclude Include="..\Classes\PeopleData.h">
       <Filter>Source Files\Classes\Data</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\SceneLocationData.h">
+    <ClInclude Include="..\Classes\PeopleLocationData.h">
       <Filter>Source Files\Classes\Data</Filter>
     </ClInclude>
   </ItemGroup>
@@ -286,6 +286,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Resources\Json\Shop.json">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\Resources\Json\People.json">
       <Filter>Resources</Filter>
     </None>
   </ItemGroup>

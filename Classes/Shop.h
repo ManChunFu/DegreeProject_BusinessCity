@@ -47,6 +47,7 @@ public:
 	std::string m_Name = "";
 	unsigned m_ShopInSceneId = 0;
 	cocos2d::Vec2 m_ShopSceneLocation = cocos2d::Vec2::ZERO;
+	cocos2d::Vec2 m_ShopMainSceneLocation = cocos2d::Vec2::ZERO;
 	ownerTypes m_Owner = ownerTypes::player;
 	std::string m_ShopInSceneSmall = "";
 	std::string m_ShopInSceneBig = "";

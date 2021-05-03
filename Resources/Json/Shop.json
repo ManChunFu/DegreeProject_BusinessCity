@@ -9,6 +9,10 @@
       440.0,
       300.0
     ],
+    "ShopMainSceneLocation": [
+      440.0,
+      290.0
+    ],
     "ShopInSceneSmall": "Hotdog_Stand_100.png",
     "ShopInSceneBig": "Hotdog_Stand_300_Shadow.png",
     "ShopLookNormal": "HotdogStand.png",
@@ -58,7 +62,11 @@
       240.0,
       290.0
     ],
-    "ShopInSceneSmall": "Hotdog_Stand_100.png",
+    "ShopMainSceneLocation": [
+      590.0,
+      560.0
+    ],
+    "ShopInSceneSmall": "IceCream_StandSmall.png",
     "ShopInSceneBig": "IceCream_Stand1.png",
     "ShopLookNormal": "Icecream.png",
     "ShopLookLit": "Icecream_Lit.png",
@@ -122,6 +130,10 @@
     "ShopSceneLocation": [
       440.0,
       300.0
+    ],
+    "ShopMainSceneLocation": [
+      440.0,
+      290.0
     ],
     "ShopInSceneSmall": "Hotdog_Stand_100.png",
     "ShopInSceneBig": "Hotdog_Stand_500.png",
@@ -196,6 +208,10 @@
       440.0,
       300.0
     ],
+    "ShopMainSceneLocation": [
+      440.0,
+      290.0
+    ],
     "ShopInSceneSmall": "Hotdog_Stand_100.png",
     "ShopInSceneBig": "Hotdog_Stand_500.png",
     "ShopLookNormal": "Handicrafts.png",
@@ -260,6 +276,10 @@
     "ShopSceneLocation": [
       600.0,
       400.0
+    ],
+    "ShopMainSceneLocation": [
+      440.0,
+      290.0
     ],
     "ShopInSceneSmall": "Fastfood_Restaurant_Small.png",
     "ShopInSceneBig": "Fastfood_Restaurant.png",
@@ -338,11 +358,15 @@
     "Name": "Rosa Bella",
     "ShopInSceneId": 2,
     "ShopSceneLocation": [
-      300.0,
-      100.0
+      550.0,
+      500.0
+    ],
+    "ShopMainSceneLocation": [
+      440.0,
+      290.0
     ],
     "ShopInSceneSmall": "Hotdog_Stand_100.png",
-    "ShopInSceneBig": "Hotdog_Stand_500.png",
+    "ShopInSceneBig": "Pizzeria_Scene.png",
     "ShopLookNormal": "Pizzeria.png",
     "ShopLookLit": "Pizzeria_Lit.png",
     "ShopLookDisabled": "Pizzeria_Disable.png",
@@ -445,6 +469,10 @@
       300.0,
       100.0
     ],
+    "ShopMainSceneLocation": [
+      440.0,
+      290.0
+    ],
     "ShopInSceneSmall": "Hotdog_Stand_100.png",
     "ShopInSceneBig": "Hotdog_Stand_500.png",
     "ShopLookNormal": "IcecreamShop.png",
@@ -492,6 +520,10 @@
     "ShopSceneLocation": [
       300.0,
       100.0
+    ],
+    "ShopMainSceneLocation": [
+      440.0,
+      290.0
     ],
     "ShopInSceneSmall": "Hotdog_Stand_100.png",
     "ShopInSceneBig": "Hotdog_Stand_500.png",
@@ -541,6 +573,10 @@
       300.0,
       100.0
     ],
+    "ShopMainSceneLocation": [
+      440.0,
+      290.0
+    ],
     "ShopInSceneSmall": "Hotdog_Stand_100.png",
     "ShopInSceneBig": "Hotdog_Stand_500.png",
     "ShopLookNormal": "",
@@ -589,6 +625,10 @@
       300.0,
       100.0
     ],
+    "ShopMainSceneLocation": [
+      440.0,
+      290.0
+    ],
     "ShopInSceneSmall": "Hotdog_Stand_100.png",
     "ShopInSceneBig": "Hotdog_Stand_500.png",
     "ShopLookNormal": "",
@@ -633,6 +673,10 @@
     "ShopSceneLocation": [
       300.0,
       100.0
+    ],
+    "ShopMainSceneLocation": [
+      440.0,
+      290.0
     ],
     "ShopInSceneSmall": "Hotdog_Stand_100.png",
     "ShopInSceneBig": "Hotdog_Stand_500.png",
@@ -681,6 +725,10 @@
     "ShopSceneLocation": [
       300.0,
       100.0
+    ],
+    "ShopMainSceneLocation": [
+      440.0,
+      290.0
     ],
     "ShopInSceneSmall": "Hotdog_Stand_100.png",
     "ShopInSceneBig": "Hotdog_Stand_500.png",

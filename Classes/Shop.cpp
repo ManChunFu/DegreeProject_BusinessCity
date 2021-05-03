@@ -40,6 +40,14 @@ Shop::Shop(rapidjson::Value& json)
 				m_ShopSceneLocation.y = location[1].GetFloat();
 			}
 			break;
+		case stringToInt("ShopMainSceneLocation"):
+			if (itr->value.IsArray())
+			{
+				auto location = itr->value.GetArray();
+				m_ShopMainSceneLocation.x = location[0].GetFloat();
+				m_ShopMainSceneLocation.y = location[1].GetFloat();
+			}
+			break;
 		case stringToInt("ShopInSceneSmall"):
 			m_ShopInSceneSmall = itr->value.GetString();
 			break;
@@ -160,6 +168,8 @@ unsigned Shop::runTrade(unsigned day, Shop* shop)
 	// make sure the shop still have enough stock
 	if (tradeQuantity < m_Products[tradeProduct]->getProductQuantity())
 	{
+		m_SalesIncome = 0;
+
 		if (onSaleHappens)
 			onSaleHappens(m_ShopId, m_Products[tradeProduct]->getProductId(), tradeQuantity);
 
