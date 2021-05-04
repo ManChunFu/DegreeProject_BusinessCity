@@ -125,7 +125,8 @@ void ActionPanel::removeShop(unsigned shopId)
 	m_MyShopMap[shopId]->removeFromParent();
 	m_MyShopMap.erase(shopId);
 	m_Player->removeShopId(shopId);
-	m_MainScene->removeShopFromScene(shopId);
+	auto sceneId = GameData::getInstance().m_Shops.at(shopId)->m_ShopInSceneId;
+	m_MainScene->removeShopFromScene(shopId, sceneId);
 }
 
 void ActionPanel::displayShopOptions()

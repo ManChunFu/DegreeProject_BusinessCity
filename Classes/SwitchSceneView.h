@@ -6,6 +6,7 @@ class GameScene;
 class Shop;
 class People;
 class Car;
+class GameStartPanel;
 struct SceneViewData;
 namespace CocosDenshion
 {
@@ -18,11 +19,11 @@ class SwitchSceneView : public UIPanel
 public:
 	virtual ~SwitchSceneView();
 
-	void runInit(GameScene* gameScene, cocos2d::Size visibleSize, cocos2d::Vec2 origin, cocos2d::Vec2 sceneMidPoint);
+	void runInit(GameScene* gameScene, GameStartPanel* startPanel, cocos2d::Size visibleSize, cocos2d::Vec2 origin, cocos2d::Vec2 sceneMidPoint);
 	void switchView(unsigned id);
 	void displayShopInMainScene(unsigned shopId);
 	cocos2d::Sprite* getSceneView(unsigned viewId);
-	void removeShopFromScene(unsigned shopId);
+	void removeShopFromScene(unsigned shopId, unsigned sceneId);
 
 	std::function<void(unsigned shopId, unsigned productId, unsigned saleQuantity)> m_SaleHappensNotify;
 
@@ -38,14 +39,16 @@ private:
 
 	cocos2d::Map<unsigned int, cocos2d::Sprite*> m_SceneViewMaps;
 	cocos2d::Vector<cocos2d::MenuItem*> m_BackMainButtons;
-	cocos2d::Sprite* m_CurrentView = nullptr;
+	std::pair<unsigned, cocos2d::Sprite*> m_CurrentView;
 	cocos2d::Sprite* m_MoneyIcon = nullptr;
 	std::unordered_map<unsigned int, cocos2d::Vector<cocos2d::Sprite*>> m_PlayerShopsInScene;
-	Shop* m_PlayerShop = nullptr;
+	GameStartPanel* m_StartPanel = nullptr;
+	std::unordered_map<unsigned, Shop*> m_PlayerShops;
+	std::unordered_map<unsigned, unsigned> m_SceneShopMatchIds;
 	People* m_People = nullptr;
 	Car* m_Car = nullptr;
 
-	unsigned m_ShopSceneId = 0;
+	//unsigned m_ShopSceneId = 0;
 
 	std::array<std::string, 3> m_SceneViewPaths = { "GameSceneCityView_Main1300.png",  "Hotel_View.png", "Playground_View1.png" };
 	std::array<std::string, 3> m_MapIconPaths = { "IconMap_Small.png", "IconMap_Small_Lit.png", "IconMap_Small.png" };
@@ -59,6 +62,7 @@ private:
 
 	void createOrderedView(unsigned id);
 	void fadeEffect(cocos2d::Sprite* viewSprite, bool fadeIn);
+	void openShopChoice();
 	void createMapIcon(const std::string& normal, const std::string& mouseOver, const std::string& disable, cocos2d::Vec2 displayPos, 
 		unsigned viewId, float iconScale = 1.f, cocos2d::Vec2 parentPos = cocos2d::Vec2(10.f, -100.f));
 	void createSceneViewMaps();
