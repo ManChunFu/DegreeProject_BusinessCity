@@ -253,6 +253,21 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">SceneViews/GreenCar_Backward.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>10,15,20,30</rect>
+                <key>scale9Paddings</key>
+                <rect>10,15,20,30</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">SceneViews/Hotel_View.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -382,6 +397,7 @@
             <filename>SceneViews/GreenCar_Right.png</filename>
             <filename>SceneViews/PurpleCar_Right.png</filename>
             <filename>SceneViews/YellowCar_Forward.png</filename>
+            <filename>SceneViews/GreenCar_Backward.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

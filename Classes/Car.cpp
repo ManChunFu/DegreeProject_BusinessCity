@@ -11,11 +11,18 @@ Car::Car(SwitchSceneView* sceneView, cocos2d::Vec2 sceneMidPoint)
 	m_SceneMidPoint = sceneMidPoint;
 	createCarSpriteList();
 	// car goes left
-	runFrontSceneCar(m_SpawnCarList.at(EDirections::E_Left), Vec2(m_SceneMidPoint.x, m_SceneMidPoint.y - 260.f), 18.f, Vec2(-700.f, 0.f), 1.f, 0.1f);
+	runFrontSceneCar(m_SpawnCarList.at(EDirections::E_Left), Vec2(m_SceneMidPoint.x, m_SceneMidPoint.y - 260.f), 18.f, 
+		Vec2(-700.f, 0.f), 1.f, 0.1f);
 	// car goes right
-	runFrontSceneCar(m_SpawnCarList.at(EDirections::E_Right), Vec2(m_SceneMidPoint.x - 700.f, m_SceneMidPoint.y - 291.f), 16.f, Vec2(550.f, 0.f), 1.f, 0.1f);
+	runFrontSceneCar(m_SpawnCarList.at(EDirections::E_Right), Vec2(m_SceneMidPoint.x - 700.f, m_SceneMidPoint.y - 291.f), 16.f, 
+		Vec2(550.f, 0.f), 1.f, 0.1f);
 	// car goes up
-	runForwardSceneCar(m_SpawnCarList.at(EDirections::E_Forward), Vec2(m_SceneMidPoint.x - 68.f, m_SceneMidPoint.y - 190.f), 0.f, Vec2(7.5f, 50.f), 1.f, 1.f);
+	runForwardSceneCar(m_SpawnCarList.at(EDirections::E_Forward), Vec2(m_SceneMidPoint.x - 68.f, m_SceneMidPoint.y - 190.f),  
+		Vec2(7.5f, 50.f), 0.6f, 0.85f, 1.f, 1.f);
+	// car goes down
+	runForwardSceneCar(m_SpawnCarList.at(EDirections::E_Backward), Vec2(m_SceneMidPoint.x -5.f, m_SceneMidPoint.y + 180.f),
+		Vec2(-3.8f, -45.f), 0.1f, 1.3f, 1.f, 1.f);
+
 }
 
 Car::~Car()
@@ -54,28 +61,28 @@ void Car::runFrontSceneCar(Vector<Sprite*> spriteList, Vec2 displayPos, float di
 	}
 }
 
-void Car::runForwardSceneCar(Vector<Sprite*> spriteList, Vec2 displayPos, float distanceRange, Vec2 moveDirection, float fadeInSpeed, float fadeOutSpeed)
+void Car::runForwardSceneCar(Vector<Sprite*> spriteList, Vec2 displayPos, Vec2 moveDirection, float originScale, float scaleby,  float fadeInSpeed, float fadeOutSpeed)
 {
 	float delayRate = 1.f;
 	auto size = spriteList.size();
 	for (unsigned index = 0; index < size; ++index)
 	{
-		GameFunctions::displaySprite(spriteList.at(index), displayPos, m_SceneView->getSceneView(EViews::E_Main), 1.f, 0.6f, 0.6f);
+		GameFunctions::displaySprite(spriteList.at(index), displayPos, m_SceneView->getSceneView(EViews::E_Main), 1.f, originScale, originScale);
 		spriteList.at(index)->setOpacity(0);
 
 		auto delay = DelayTime::create(delayRate);
 		auto fadeIn = FadeIn::create(fadeInSpeed);
 		auto move = MoveBy::create(1.f, moveDirection);
-		auto scaleTo = ScaleBy::create(1.f, 0.85f);
+		auto scaleTo = ScaleBy::create(1.f, scaleby);
 		auto spawn = Spawn::create(fadeIn, move, scaleTo, nullptr);
 		auto repeat = Repeat::create(spawn, 7);
 		auto fadeOut = FadeOut::create(fadeOutSpeed);
 		auto repeat1 = Repeat::create(Spawn::create(move, scaleTo, fadeOut, nullptr), 1);
-		auto callFunc = CallFunc::create([=] {spriteList.at(index)->setPosition(displayPos); spriteList.at(index)->setScale(0.6); });
+		auto callFunc = CallFunc::create([=] {spriteList.at(index)->setPosition(displayPos); spriteList.at(index)->setScale(originScale); });
 		auto sequence = Sequence::create(delay, repeat, repeat1, callFunc, nullptr);
 		spriteList.at(index)->runAction(RepeatForever::create(sequence));
 
-		delayRate += 2.f;
+		delayRate += random(2, 3);
 	}
 }
 
@@ -105,15 +112,27 @@ void Car::createCarSpriteList()
 	m_SpawnCarList[EDirections::E_Right] = tempSprites;
 	tempSprites.clear();
 
-	std::array<std::string, 2> frontSceneCarForward = {"WhiteCar_Forward.png", "YellowCar_Forward.png" };
-	auto upSize = frontSceneCarForward.size();
+	std::array<std::string, 3> middleSceneCarForward = {"WhiteCar_Forward.png", "YellowCar_Forward.png", "YellowCar_Forward.png" };
+	auto upSize = middleSceneCarForward.size();
 	for (unsigned index = 0; index < upSize; ++index)
 	{
-		auto sprite = Sprite::createWithSpriteFrameName(frontSceneCarForward[index]);
+		auto sprite = Sprite::createWithSpriteFrameName(middleSceneCarForward[index]);
 		if (sprite)
 			tempSprites.pushBack(sprite);
 	}
 	m_SpawnCarList[EDirections::E_Forward] = tempSprites;
+	tempSprites.clear();
+
+	std::array<std::string, 3> middleSceneCarBackward = { "WhiteCar_Backward.png", "GreenCar_Backward.png", "WhiteCar_Backward.png" };
+	auto downSize = middleSceneCarBackward.size();
+	for (unsigned index = 0; index < downSize; ++index)
+	{
+		auto sprite = Sprite::createWithSpriteFrameName(middleSceneCarBackward[index]);
+		if (sprite)
+			tempSprites.pushBack(sprite);
+	}
+	m_SpawnCarList[EDirections::E_Backward] = tempSprites;
+
 
 
 }
