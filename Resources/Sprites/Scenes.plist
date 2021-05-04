@@ -15,7 +15,7 @@
                 <key>spriteSourceSize</key>
                 <string>{30,31}</string>
                 <key>textureRect</key>
-                <string>{{1303,1780},{30,31}}</string>
+                <string>{{1103,1815},{30,31}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -30,7 +30,7 @@
                 <key>spriteSourceSize</key>
                 <string>{40,40}</string>
                 <key>textureRect</key>
-                <string>{{1806,368},{40,40}}</string>
+                <string>{{479,1815},{40,40}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -45,7 +45,7 @@
                 <key>spriteSourceSize</key>
                 <string>{40,40}</string>
                 <key>textureRect</key>
-                <string>{{1514,1698},{40,40}}</string>
+                <string>{{521,1815},{40,40}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -60,7 +60,22 @@
                 <key>spriteSourceSize</key>
                 <string>{40,40}</string>
                 <key>textureRect</key>
-                <string>{{1556,1698},{40,40}}</string>
+                <string>{{563,1815},{40,40}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>BlueCar_Left.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{77,32}</string>
+                <key>spriteSourceSize</key>
+                <string>{77,32}</string>
+                <key>textureRect</key>
+                <string>{{866,1815},{77,32}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -75,7 +90,7 @@
                 <key>spriteSourceSize</key>
                 <string>{77,32}</string>
                 <key>textureRect</key>
-                <string>{{1770,334},{77,32}}</string>
+                <string>{{945,1815},{77,32}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -90,67 +105,22 @@
                 <key>spriteSourceSize</key>
                 <string>{85,37}</string>
                 <key>textureRect</key>
-                <string>{{1807,1620},{85,37}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>Fastfood_Restaurant.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-4}</string>
-                <key>spriteSize</key>
-                <string>{563,539}</string>
-                <key>spriteSourceSize</key>
-                <string>{563,547}</string>
-                <key>textureRect</key>
-                <string>{{1304,803},{563,539}}</string>
+                <string>{{605,1815},{85,37}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Fastfood_Restaurant_Small.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-1}</string>
-                <key>spriteSize</key>
-                <string>{200,192}</string>
-                <key>spriteSourceSize</key>
-                <string>{200,194}</string>
-                <key>textureRect</key>
-                <string>{{1605,1620},{200,192}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>Hotdog_Stand_100.png</key>
+            <key>GreenCar_Right.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{100,105}</string>
+                <string>{85,37}</string>
                 <key>spriteSourceSize</key>
-                <string>{100,105}</string>
+                <string>{85,37}</string>
                 <key>textureRect</key>
-                <string>{{1770,117},{100,105}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>Hotdog_Stand_300_Shadow.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{300,352}</string>
-                <key>spriteSourceSize</key>
-                <string>{300,352}</string>
-                <key>textureRect</key>
-                <string>{{1303,1344},{300,352}}</string>
+                <string>{{692,1815},{85,37}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -169,81 +139,6 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>IceCream_Stand1.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{274,265}</string>
-                <key>spriteSourceSize</key>
-                <string>{274,265}</string>
-                <key>textureRect</key>
-                <string>{{1605,1344},{274,265}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>IceCream_Stand80.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-3}</string>
-                <key>spriteSize</key>
-                <string>{80,121}</string>
-                <key>spriteSourceSize</key>
-                <string>{80,133}</string>
-                <key>textureRect</key>
-                <string>{{1303,1698},{80,121}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>IceCream_StandSmall.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,2}</string>
-                <key>spriteSize</key>
-                <string>{100,114}</string>
-                <key>spriteSourceSize</key>
-                <string>{100,120}</string>
-                <key>textureRect</key>
-                <string>{{1770,1},{100,114}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>IconMap_50.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{34,50}</string>
-                <key>spriteSourceSize</key>
-                <string>{50,50}</string>
-                <key>textureRect</key>
-                <string>{{1807,1707},{34,50}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>IconMap_Big.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{-218.5,218.5}</string>
-                <key>spriteSize</key>
-                <string>{3,3}</string>
-                <key>spriteSourceSize</key>
-                <string>{440,440}</string>
-                <key>textureRect</key>
-                <string>{{1846,1620},{3,3}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
             <key>IconMap_Small.png</key>
             <dict>
                 <key>aliases</key>
@@ -255,7 +150,7 @@
                 <key>spriteSourceSize</key>
                 <string>{50,50}</string>
                 <key>textureRect</key>
-                <string>{{1770,368},{34,50}}</string>
+                <string>{{205,1815},{34,50}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -270,22 +165,7 @@
                 <key>spriteSourceSize</key>
                 <string>{50,50}</string>
                 <key>textureRect</key>
-                <string>{{1478,1698},{34,50}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>IconMap_Test.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{50,50}</string>
-                <key>spriteSourceSize</key>
-                <string>{50,50}</string>
-                <key>textureRect</key>
-                <string>{{1426,1698},{50,50}}</string>
+                <string>{{241,1815},{34,50}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -300,7 +180,7 @@
                 <key>spriteSourceSize</key>
                 <string>{100,53}</string>
                 <key>textureRect</key>
-                <string>{{1770,224},{100,53}}</string>
+                <string>{{1,1815},{100,53}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -315,24 +195,9 @@
                 <key>spriteSourceSize</key>
                 <string>{100,53}</string>
                 <key>textureRect</key>
-                <string>{{1770,279},{100,53}}</string>
+                <string>{{103,1815},{100,53}}</string>
                 <key>textureRotated</key>
                 <false/>
-            </dict>
-            <key>Pizzeria_Scene.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-14}</string>
-                <key>spriteSize</key>
-                <string>{800,464}</string>
-                <key>spriteSourceSize</key>
-                <string>{800,492}</string>
-                <key>textureRect</key>
-                <string>{{1304,1},{800,464}}</string>
-                <key>textureRotated</key>
-                <true/>
             </dict>
             <key>Playground_View1.png</key>
             <dict>
@@ -349,6 +214,81 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
+            <key>PurpleCar_Right.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{85,37}</string>
+                <key>spriteSourceSize</key>
+                <string>{85,37}</string>
+                <key>textureRect</key>
+                <string>{{779,1815},{85,37}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>RedCar_Left.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{77,32}</string>
+                <key>spriteSourceSize</key>
+                <string>{77,32}</string>
+                <key>textureRect</key>
+                <string>{{1024,1815},{77,32}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>WhiteCar_Backward.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{40,66}</string>
+                <key>spriteSourceSize</key>
+                <string>{40,66}</string>
+                <key>textureRect</key>
+                <string>{{277,1815},{40,66}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>WhiteCar_Forward.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{40,65}</string>
+                <key>spriteSourceSize</key>
+                <string>{40,65}</string>
+                <key>textureRect</key>
+                <string>{{345,1815},{40,65}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>YellowCar_Forward.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{40,65}</string>
+                <key>spriteSourceSize</key>
+                <string>{40,65}</string>
+                <key>textureRect</key>
+                <string>{{412,1815},{40,65}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -361,9 +301,9 @@
             <key>realTextureFileName</key>
             <string>Scenes.png</string>
             <key>size</key>
-            <string>{1871,1814}</string>
+            <string>{1303,1869}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:2a634ebcf42d75b0b35aafa298600860:59d2bbb57a077dab793b48cc8e5887aa:6c6a83ad1561a22577d4a9d0ffa7b4ac$</string>
+            <string>$TexturePacker:SmartUpdate:051474ed3367baf39c0d63648a3ab715:9c6bdce316f3af2143175ff0fd0a27e0:6c6a83ad1561a22577d4a9d0ffa7b4ac$</string>
             <key>textureFileName</key>
             <string>Scenes.png</string>
         </dict>

@@ -100,6 +100,9 @@
     <ClCompile Include="..\Classes\PeopleLocationData.cpp">
       <Filter>Source Files\Classes\Data</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Car.cpp">
+      <Filter>Source Files\Classes\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\Users\mandy\source\repos\DegreeProject\Classes\AppDelegate.h">
@@ -225,9 +228,6 @@
     <ClInclude Include="..\Classes\SwitchSceneView.h">
       <Filter>Source Files\Classes\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Car.h">
-      <Filter>Source Files\Classes\AI</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\EViews.h">
       <Filter>Source Files\Classes\Data</Filter>
     </ClInclude>
@@ -239,6 +239,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\PeopleLocationData.h">
       <Filter>Source Files\Classes\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Car.h">
+      <Filter>Source Files\Classes\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

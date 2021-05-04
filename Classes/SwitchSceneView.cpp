@@ -7,6 +7,7 @@
 #include "Shop.h"
 #include "EViews.h"
 #include "People.h"
+#include "Car.h"
 #include "cocostudio/SimpleAudioEngine.h"
 using namespace CocosDenshion;
 
@@ -18,7 +19,10 @@ SwitchSceneView::~SwitchSceneView()
 	m_BackMainButtons.clear();
 	m_CurrentView = nullptr;
 	m_PlayerShop = nullptr;
+	delete m_People;
 	m_People = nullptr;
+	delete m_Car;
+	m_Car = nullptr;
 	m_MoneyIcon = nullptr;
 	m_PlayerShopsInScene.clear();
 
@@ -56,28 +60,10 @@ void SwitchSceneView::runInit(GameScene* gameScene, Size visibleSize, Vec2 origi
 
 	createBackMainButton();
 
-	// TODO : move to its own class
+	// create car running in the main scene
 	auto mainSceneMidPoint = Vec2(m_SceneViewMaps.at(EViews::E_Main)->getContentSize() * 0.5f);
-	auto car_Left = Sprite::createWithSpriteFrameName("Car_Left.png");
-	if (car_Left)
-	{
-		GameFunctions::displaySprite(car_Left, Vec2(mainSceneMidPoint.x, mainSceneMidPoint.y - 255.f), m_SceneViewMaps.at(EViews::E_Main), 1.f,
-			0.7f, 0.7f);
-		auto moveLeft = MoveTo::create(7, Vec2(car_Left->getPosition().x - 600.f, car_Left->getPosition().y));
-		auto sequence1 = Sequence::create(moveLeft, nullptr);
-		car_Left->runAction(sequence1);
-	}
-
-	auto car_Right = Sprite::createWithSpriteFrameName("Car_Right.png");
-	if (car_Right)
-	{
-		GameFunctions::displaySprite(car_Right, Vec2(mainSceneMidPoint.x - 600.f, mainSceneMidPoint.y - 285.f), m_SceneViewMaps.at(EViews::E_Main),
-			1.f, 0.7f, 0.7f);
-		auto moveRight = MoveTo::create(7, Vec2(car_Right->getPosition().x + 400.f, car_Right->getPosition().y));
-		auto sequence2 = Sequence::create(moveRight, nullptr);
-		car_Right->runAction(sequence2);
-	}
-
+	m_Car = new Car(this, mainSceneMidPoint);
+	
 	m_Audio = GameData::getInstance().m_Audio;
 	m_Audio->playBackgroundMusic("Sounds/GameSceneBackground.mp3", true);
 	m_Audio->setBackgroundMusicVolume(0.5f);
@@ -141,7 +127,7 @@ void SwitchSceneView::removeShopFromScene(unsigned shopId)
 	// remove from GameScene
 	m_SceneViewMaps.at(m_ShopSceneId)->removeFromParent();
 
-	// clean main scene
+	// clean main scene`
 	for (auto item : m_PlayerShopsInScene.at(shopId))
 	{
 		item->removeFromParent();

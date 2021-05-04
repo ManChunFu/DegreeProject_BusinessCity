@@ -412,6 +412,96 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">CharacterInScene/IceCreamShop/IceShopBoy1.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>26,52,51,103</rect>
+                <key>scale9Paddings</key>
+                <rect>26,52,51,103</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">CharacterInScene/IceCreamShop/IceShopBoy2.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>26,53,52,107</rect>
+                <key>scale9Paddings</key>
+                <rect>26,53,52,107</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">CharacterInScene/IceCreamShop/IceShopBoy3.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>24,51,48,103</rect>
+                <key>scale9Paddings</key>
+                <rect>24,51,48,103</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">CharacterInScene/IceCreamShop/IceShopGirl1.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>20,51,39,101</rect>
+                <key>scale9Paddings</key>
+                <rect>20,51,39,101</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">CharacterInScene/IceCreamShop/IceShopGirl2.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>17,48,34,95</rect>
+                <key>scale9Paddings</key>
+                <rect>17,48,34,95</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">CharacterInScene/IceCreamShop/IceShopGirl3.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>16,46,31,91</rect>
+                <key>scale9Paddings</key>
+                <rect>16,46,31,91</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">CharacterInScene/IceGirl1_Shadow.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -457,6 +547,96 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">CharacterInScene/PizzaBoy1.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>27,78,53,155</rect>
+                <key>scale9Paddings</key>
+                <rect>27,78,53,155</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">CharacterInScene/PizzaBoy2.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>39,96,77,192</rect>
+                <key>scale9Paddings</key>
+                <rect>39,96,77,192</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">CharacterInScene/PizzaBoy3.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>34,77,68,153</rect>
+                <key>scale9Paddings</key>
+                <rect>34,77,68,153</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">CharacterInScene/PizzaGirl1.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>29,76,57,151</rect>
+                <key>scale9Paddings</key>
+                <rect>29,76,57,151</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">CharacterInScene/PizzaGirl2.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>32,95,64,189</rect>
+                <key>scale9Paddings</key>
+                <rect>32,95,64,189</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">CharacterInScene/PizzaGirl3.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>31,77,61,153</rect>
+                <key>scale9Paddings</key>
+                <rect>31,77,61,153</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
         </map>
         <key>fileList</key>
         <array>
@@ -478,6 +658,18 @@
             <filename>CharacterInScene/FastBoy1.png</filename>
             <filename>CharacterInScene/FastBoy2.png</filename>
             <filename>CharacterInScene/FastBoy3.png</filename>
+            <filename>CharacterInScene/PizzaBoy1.png</filename>
+            <filename>CharacterInScene/PizzaBoy2.png</filename>
+            <filename>CharacterInScene/PizzaBoy3.png</filename>
+            <filename>CharacterInScene/PizzaGirl1.png</filename>
+            <filename>CharacterInScene/PizzaGirl2.png</filename>
+            <filename>CharacterInScene/PizzaGirl3.png</filename>
+            <filename>CharacterInScene/IceCreamShop/IceShopBoy1.png</filename>
+            <filename>CharacterInScene/IceCreamShop/IceShopBoy2.png</filename>
+            <filename>CharacterInScene/IceCreamShop/IceShopBoy3.png</filename>
+            <filename>CharacterInScene/IceCreamShop/IceShopGirl1.png</filename>
+            <filename>CharacterInScene/IceCreamShop/IceShopGirl2.png</filename>
+            <filename>CharacterInScene/IceCreamShop/IceShopGirl3.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

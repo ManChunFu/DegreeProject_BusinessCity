@@ -14,6 +14,7 @@ GameStartPanel::~GameStartPanel()
 
 void GameStartPanel::openPanel(GameScene* scene, Vec2 sceneMidPoint)
 {
+	return;
 	m_GameScene = scene;
 	m_Player = GameData::getInstance().m_Player;
 

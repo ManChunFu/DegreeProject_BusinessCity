@@ -362,10 +362,10 @@
       500.0
     ],
     "ShopMainSceneLocation": [
-      440.0,
+      460.0,
       290.0
     ],
-    "ShopInSceneSmall": "Hotdog_Stand_100.png",
+    "ShopInSceneSmall": "Pizzeria_Scene_Small.png",
     "ShopInSceneBig": "Pizzeria_Scene.png",
     "ShopLookNormal": "Pizzeria.png",
     "ShopLookLit": "Pizzeria_Lit.png",
@@ -466,15 +466,15 @@
     "Name": "Gelato",
     "ShopInSceneId": 1,
     "ShopSceneLocation": [
-      300.0,
-      100.0
+      280.0,
+      390.0
     ],
     "ShopMainSceneLocation": [
-      440.0,
-      290.0
+      590.0,
+      550.0
     ],
-    "ShopInSceneSmall": "Hotdog_Stand_100.png",
-    "ShopInSceneBig": "Hotdog_Stand_500.png",
+    "ShopInSceneSmall": "IceCreamShopMainScene.png",
+    "ShopInSceneBig": "IcecreamShop_Big.png",
     "ShopLookNormal": "IcecreamShop.png",
     "ShopLookLit": "IcecreamShop_Lit.png",
     "ShopLookDisabled": "IcecreamShop_Disable.png",
@@ -492,20 +492,61 @@
     "Products": [
       {
         "ProductId": 0,
-        "Name": "",
-        "ProductLook": "",
-        "Price": 20,
-        "PurchasePrice": 4,
+        "Name": "Moca",
+        "ProductLook": "Moca.png",
+        "Price": 50,
+        "PurchasePrice": 10,
         "Quantity": 20
       },
       {
         "ProductId": 1,
-        "Name": "",
-        "ProductLook": "",
-        "Price": 18,
-        "PurchasePrice": 3,
+        "Name": "Hazelnut Chocolate",
+        "ProductLook": "Hazelnut_Chocolate.png",
+        "Price": 60,
+        "PurchasePrice": 20,
+        "Quantity": 20
+      },
+      {
+        "ProductId": 2,
+        "Name": "Chocolate Mint",
+        "ProductLook": "Chocolate_Mint.png",
+        "Price": 60,
+        "PurchasePrice": 20,
+        "Quantity": 20
+      },
+      {
+        "ProductId": 3,
+        "Name": "Orange Mango",
+        "ProductLook": "Orange_Mango.png",
+        "Price": 80,
+        "PurchasePrice": 40,
+        "Quantity": 20
+      },
+      {
+        "ProductId": 4,
+        "Name": "Soda Candy",
+        "ProductLook": "Soda_Candy.png",
+        "Price": 80,
+        "PurchasePrice": 40,
+        "Quantity": 20
+      },
+      {
+        "ProductId": 5,
+        "Name": "Rainbow",
+        "ProductLook": "Rainbow.png",
+        "Price": 80,
+        "PurchasePrice": 40,
+        "Quantity": 20
+      },
+      {
+        "ProductId": 6,
+        "Name": "Blueberry Cherry",
+        "ProductLook": "Blueberry_Cherry.png",
+        "Price": 80,
+        "PurchasePrice": 40,
         "Quantity": 20
       }
+
     ],
     "UpgradableTo": [
       7

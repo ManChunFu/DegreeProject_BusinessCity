@@ -132,7 +132,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>ShopProducts.plist</filename>
+                <filename>ShopViews.plist</filename>
             </struct>
             <key>header</key>
             <key>source</key>
@@ -187,7 +187,7 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">Products/Apple_100.png</key>
+            <key type="filename">SceneViews/Fastfood_Restaurant.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -196,47 +196,13 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>25,18,50,35</rect>
+                <rect>141,137,281,273</rect>
                 <key>scale9Paddings</key>
-                <rect>25,18,50,35</rect>
+                <rect>141,137,281,273</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">Products/BaconBurger.png</key>
-            <key type="filename">Products/Banana_100.png</key>
-            <key type="filename">Products/BiffBurger.png</key>
-            <key type="filename">Products/Bolognese.png</key>
-            <key type="filename">Products/Carbonara.png</key>
-            <key type="filename">Products/ChickenBurger.png</key>
-            <key type="filename">Products/Chocolate_IceCream_100.png</key>
-            <key type="filename">Products/Coke.png</key>
-            <key type="filename">Products/FrenchHotDog_100.png</key>
-            <key type="filename">Products/Fries.png</key>
-            <key type="filename">Products/GrillHotDog_100.png</key>
-            <key type="filename">Products/Hawaiian.png</key>
-            <key type="filename">Products/IceCreamShopProducts/Blueberry_Cherry.png</key>
-            <key type="filename">Products/IceCreamShopProducts/Chocolate_Mint.png</key>
-            <key type="filename">Products/IceCreamShopProducts/Hazelnut_Chocolate.png</key>
-            <key type="filename">Products/IceCreamShopProducts/Moca.png</key>
-            <key type="filename">Products/IceCreamShopProducts/Orange_Mango.png</key>
-            <key type="filename">Products/IceCreamShopProducts/Rainbow.png</key>
-            <key type="filename">Products/IceCreamShopProducts/Soda_Candy.png</key>
-            <key type="filename">Products/Magerita.png</key>
-            <key type="filename">Products/Mango_IceCream_100.png</key>
-            <key type="filename">Products/MeatFeast.png</key>
-            <key type="filename">Products/Mug_100.png</key>
-            <key type="filename">Products/Mushroom.png</key>
-            <key type="filename">Products/Orange_100.png</key>
-            <key type="filename">Products/Pear_100.png</key>
-            <key type="filename">Products/Pepperoni.png</key>
-            <key type="filename">Products/PictureFrame_100.png</key>
-            <key type="filename">Products/SalamiBurger.png</key>
-            <key type="filename">Products/Seafood.png</key>
-            <key type="filename">Products/Strawberry_100.png</key>
-            <key type="filename">Products/Strawberry_IceCream_100.png</key>
-            <key type="filename">Products/Vanilla_IceCream_100.png</key>
-            <key type="filename">Products/Vegetarian.png</key>
-            <key type="filename">Shops/Lock_100.png</key>
+            <key type="filename">SceneViews/Fastfood_Restaurant_Small.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -245,13 +211,13 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>25,25,50,50</rect>
+                <rect>50,49,100,97</rect>
                 <key>scale9Paddings</key>
-                <rect>25,25,50,50</rect>
+                <rect>50,49,100,97</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">Products/Postcard_100.png</key>
+            <key type="filename">SceneViews/Hotdog_Stand_100.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -260,13 +226,13 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>25,15,50,31</rect>
+                <rect>25,26,50,53</rect>
                 <key>scale9Paddings</key>
-                <rect>25,15,50,31</rect>
+                <rect>25,26,50,53</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">Products/Scarf_100.png</key>
+            <key type="filename">SceneViews/Hotdog_Stand_300_Shadow.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -275,15 +241,13 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>25,20,50,39</rect>
+                <rect>75,88,150,176</rect>
                 <key>scale9Paddings</key>
-                <rect>25,20,50,39</rect>
+                <rect>75,88,150,176</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">Shops/CoffeeShop.png</key>
-            <key type="filename">Shops/CoffeeShop_Disable.png</key>
-            <key type="filename">Shops/CoffeeShop_Lit.png</key>
+            <key type="filename">SceneViews/IceCream_Stand1.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -292,21 +256,13 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>70,47,140,94</rect>
+                <rect>69,66,137,133</rect>
                 <key>scale9Paddings</key>
-                <rect>70,47,140,94</rect>
+                <rect>69,66,137,133</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">Shops/Fastfood2.png</key>
-            <key type="filename">Shops/Fastfood2_Disable.png</key>
-            <key type="filename">Shops/Fastfood2_Lit.png</key>
-            <key type="filename">Shops/IcecreamShop.png</key>
-            <key type="filename">Shops/IcecreamShop_Disable.png</key>
-            <key type="filename">Shops/IcecreamShop_Lit.png</key>
-            <key type="filename">Shops/Pizzeria.png</key>
-            <key type="filename">Shops/Pizzeria_Disable.png</key>
-            <key type="filename">Shops/Pizzeria_Lit.png</key>
+            <key type="filename">SceneViews/IceCream_StandSmall.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -315,14 +271,13 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>73,47,146,94</rect>
+                <rect>25,30,50,60</rect>
                 <key>scale9Paddings</key>
-                <rect>73,47,146,94</rect>
+                <rect>25,30,50,60</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">Shops/Lock_100_Disable.png</key>
-            <key type="filename">Shops/Lock_100_Lit.png</key>
+            <key type="filename">SceneViews/IcecreamShop_Big.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -331,67 +286,54 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>25,34,50,68</rect>
+                <rect>172,131,344,262</rect>
                 <key>scale9Paddings</key>
-                <rect>25,34,50,68</rect>
+                <rect>172,131,344,262</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">SceneViews/Pizzeria_Scene.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>200,123,400,246</rect>
+                <key>scale9Paddings</key>
+                <rect>200,123,400,246</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">SceneViews/Pizzeria_Scene_Small.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>75,53,150,105</rect>
+                <key>scale9Paddings</key>
+                <rect>75,53,150,105</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
         </map>
         <key>fileList</key>
         <array>
-            <filename>Products/Chocolate_IceCream_100.png</filename>
-            <filename>Products/FrenchHotDog_100.png</filename>
-            <filename>Products/GrillHotDog_100.png</filename>
-            <filename>Products/Vanilla_IceCream_100.png</filename>
-            <filename>Products/Mango_IceCream_100.png</filename>
-            <filename>Products/Strawberry_IceCream_100.png</filename>
-            <filename>Products/Banana_100.png</filename>
-            <filename>Products/Apple_100.png</filename>
-            <filename>Products/Pear_100.png</filename>
-            <filename>Products/Orange_100.png</filename>
-            <filename>Products/Strawberry_100.png</filename>
-            <filename>Products/PictureFrame_100.png</filename>
-            <filename>Products/Scarf_100.png</filename>
-            <filename>Products/Mug_100.png</filename>
-            <filename>Products/Postcard_100.png</filename>
-            <filename>Products/BaconBurger.png</filename>
-            <filename>Products/BiffBurger.png</filename>
-            <filename>Products/ChickenBurger.png</filename>
-            <filename>Products/SalamiBurger.png</filename>
-            <filename>Products/Bolognese.png</filename>
-            <filename>Products/Carbonara.png</filename>
-            <filename>Products/Hawaiian.png</filename>
-            <filename>Products/Magerita.png</filename>
-            <filename>Products/Mushroom.png</filename>
-            <filename>Products/Pepperoni.png</filename>
-            <filename>Products/Seafood.png</filename>
-            <filename>Products/Vegetarian.png</filename>
-            <filename>Products/MeatFeast.png</filename>
-            <filename>Products/Coke.png</filename>
-            <filename>Products/Fries.png</filename>
-            <filename>Shops/Fastfood2.png</filename>
-            <filename>Shops/Fastfood2_Disable.png</filename>
-            <filename>Shops/Fastfood2_Lit.png</filename>
-            <filename>Shops/Pizzeria.png</filename>
-            <filename>Shops/Pizzeria_Disable.png</filename>
-            <filename>Shops/Pizzeria_Lit.png</filename>
-            <filename>Shops/Lock_100.png</filename>
-            <filename>Shops/Lock_100_Disable.png</filename>
-            <filename>Shops/Lock_100_Lit.png</filename>
-            <filename>Shops/CoffeeShop.png</filename>
-            <filename>Shops/CoffeeShop_Disable.png</filename>
-            <filename>Shops/CoffeeShop_Lit.png</filename>
-            <filename>Shops/IcecreamShop.png</filename>
-            <filename>Shops/IcecreamShop_Disable.png</filename>
-            <filename>Shops/IcecreamShop_Lit.png</filename>
-            <filename>Products/IceCreamShopProducts/Moca.png</filename>
-            <filename>Products/IceCreamShopProducts/Rainbow.png</filename>
-            <filename>Products/IceCreamShopProducts/Blueberry_Cherry.png</filename>
-            <filename>Products/IceCreamShopProducts/Chocolate_Mint.png</filename>
-            <filename>Products/IceCreamShopProducts/Hazelnut_Chocolate.png</filename>
-            <filename>Products/IceCreamShopProducts/Orange_Mango.png</filename>
-            <filename>Products/IceCreamShopProducts/Soda_Candy.png</filename>
+            <filename>SceneViews/Fastfood_Restaurant.png</filename>
+            <filename>SceneViews/Fastfood_Restaurant_Small.png</filename>
+            <filename>SceneViews/Hotdog_Stand_100.png</filename>
+            <filename>SceneViews/Hotdog_Stand_300_Shadow.png</filename>
+            <filename>SceneViews/IceCream_Stand1.png</filename>
+            <filename>SceneViews/IceCream_StandSmall.png</filename>
+            <filename>SceneViews/Pizzeria_Scene.png</filename>
+            <filename>SceneViews/Pizzeria_Scene_Small.png</filename>
+            <filename>SceneViews/IcecreamShop_Big.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

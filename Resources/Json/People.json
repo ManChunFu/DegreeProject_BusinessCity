@@ -24,20 +24,20 @@
       {
         "ShopId": 6,
         "People": [
-          "IceGirl1_Shadow.png",
-          "IceBoy1_Shadow.png",
-          "IceBoy2_Shadow.png",
-          "IceGirl2_Shadow.png",
-          "IceGirl3_Shadow.png",
-          "IceBoy3_Shadow.png"
+          "IceShopBoy1.png",
+          "IceShopBoy2.png",
+          "IceShopBoy3.png",
+          "IceShopGirl1.png",
+          "IceShopGirl2.png",
+          "IceShopGirl3.png"
         ],
         "PeopleLocation": [
-          240.0,
-          220.0
+          300.0,
+          260.0
         ],
         "ProductLocation": [
-          240.0,
-          410.0
+          300.0,
+          370.0
         ]
       },
       {

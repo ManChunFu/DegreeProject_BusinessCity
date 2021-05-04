@@ -5,6 +5,7 @@
 class GameScene;
 class Shop;
 class People;
+class Car;
 struct SceneViewData;
 namespace CocosDenshion
 {
@@ -42,6 +43,7 @@ private:
 	std::unordered_map<unsigned int, cocos2d::Vector<cocos2d::Sprite*>> m_PlayerShopsInScene;
 	Shop* m_PlayerShop = nullptr;
 	People* m_People = nullptr;
+	Car* m_Car = nullptr;
 
 	unsigned m_ShopSceneId = 0;
 

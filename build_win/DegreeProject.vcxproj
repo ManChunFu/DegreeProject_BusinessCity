@@ -845,6 +845,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\Classes\Bank.cpp" />
     <ClCompile Include="..\Classes\BasicExpenseData.cpp" />
     <ClCompile Include="..\Classes\Canvas.cpp" />
+    <ClCompile Include="..\Classes\Car.cpp" />
     <ClCompile Include="..\Classes\DataManager.cpp" />
     <ClCompile Include="..\Classes\GameData.cpp" />
     <ClCompile Include="..\Classes\GameFunctions.cpp" />

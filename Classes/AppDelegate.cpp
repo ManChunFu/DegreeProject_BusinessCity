@@ -120,6 +120,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     spritecache->addSpriteFramesWithFile("Sprites/ShopProducts.plist");
     spritecache->addSpriteFramesWithFile("Sprites/EmployeeCollection.plist");
     spritecache->addSpriteFramesWithFile("Sprites/PeopleInScene.plist");
+    spritecache->addSpriteFramesWithFile("Sprites/ShopViews.plist");
 
     // create a scene. it's an autorelease object
     auto scene = MainMenuScene::createScene();
