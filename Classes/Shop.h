@@ -37,7 +37,7 @@ public:
 	/* from = first, to = second */
 	void setShopOpenHour(unsigned weekday, unsigned fromOrTo, unsigned workingHour);
 
-	std::function<void(unsigned shopId, unsigned productId, unsigned saleQuantity)> onSaleHappens;
+	std::function<void(unsigned sceneId, unsigned shopId, unsigned productId)> onSaleHappens;
 	std::function<void(unsigned productId, unsigned remainQuantity)> onQuantityChanges;
 	std::function<void(unsigned countdown)> onCountdownChanges;
 	std::function<void(unsigned shopId, unsigned totalSales)> onSalesIncomeChanges;

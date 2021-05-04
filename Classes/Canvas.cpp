@@ -53,9 +53,10 @@ void Canvas::Init(GameScene* scene, Player* player)
 
 	m_ActionPanel = new ActionPanel;
 	m_ActionPanel->autorelease();
-	m_ActionPanel->openPanel(m_GameScene, m_SceneMidPoint);
 	m_ActionPanel->setMainScenePointer(m_SwitchSceneView);
+	m_ActionPanel->openPanel(m_GameScene, m_SceneMidPoint);
 	m_UIPanels.pushBack(m_ActionPanel);
+	
 
 }
 

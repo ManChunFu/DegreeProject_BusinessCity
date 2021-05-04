@@ -35,7 +35,7 @@ private:
 	std::map<unsigned, PeopleData*> m_PeopleData;
 	SwitchSceneView* m_SceneViews = nullptr;
 	std::unordered_map<unsigned int, cocos2d::Vector<cocos2d::Sprite*>> m_PeopleShoppingList;
-	cocos2d::Map<unsigned int, cocos2d::Sprite*> m_ProductList;
+	std::map<unsigned int, cocos2d::Map<unsigned int, cocos2d::Sprite*>> m_ProductList;
 	
 	cocos2d::Vec2 m_SceneMidPoint = cocos2d::Vec2::ZERO;
 	bool m_SequenceIsDone = true;

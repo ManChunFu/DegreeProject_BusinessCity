@@ -171,7 +171,7 @@ unsigned Shop::runTrade(unsigned day, Shop* shop)
 		m_SalesIncome = 0;
 
 		if (onSaleHappens)
-			onSaleHappens(m_ShopId, m_Products[tradeProduct]->getProductId(), tradeQuantity);
+			onSaleHappens(m_ShopInSceneId, m_ShopId, m_Products[tradeProduct]->getProductId());
 
 		// update shop product qty
 		m_Products[tradeProduct]->increaseProductQuantity(-tradeQuantity);

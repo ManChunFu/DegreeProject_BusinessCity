@@ -35,6 +35,9 @@ void ActionPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
 	m_Elements.pushBack(m_ThisPanel);
 
 	m_DisplayShopPos = Vec2((m_ThisPanel->getContentSize().width * 0.5f) - 240.f, m_ThisPanel->getContentSize().height * 0.5f);
+
+	if (m_MainScene)
+		m_MainScene->m_OpenShopChoiceNotify = CC_CALLBACK_1(ActionPanel::openShopChoiceNotify, this);
 }
 
 void ActionPanel::displayShop(unsigned shopId, Vec2 shopPosition)
@@ -118,6 +121,13 @@ void ActionPanel::onShopChanges(unsigned shopId, Node* menu, Vec2 shopPos)
 	// kill the temp shop pic
 	m_GameScene->removeChild(shopUpgradeSprite);
 	delete shopUpgradeSprite;
+}
+
+void ActionPanel::openShopChoiceNotify(unsigned shopId)
+{
+	m_Player->m_MyShopIds.push_back(shopId);
+	displayShop(shopId, Vec2(m_DisplayShopPos.x += 120, m_DisplayShopPos.y));
+
 }
 
 void ActionPanel::removeShop(unsigned shopId)

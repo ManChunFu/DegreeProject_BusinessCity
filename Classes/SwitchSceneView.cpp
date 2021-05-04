@@ -71,7 +71,7 @@ void SwitchSceneView::runInit(GameScene* gameScene, GameStartPanel* startPanel, 
 	m_Audio->playBackgroundMusic("Sounds/GameSceneBackground.mp3", true);
 	m_Audio->setBackgroundMusicVolume(0.5f);
 
-	m_CurrentView = std::make_pair(EViews::E_Main,m_SceneViewMaps.at(EViews::E_Main));
+	m_CurrentView = std::make_pair(EViews::E_Main, m_SceneViewMaps.at(EViews::E_Main));
 
 }
 
@@ -195,7 +195,7 @@ void SwitchSceneView::onMouseLeave(MouseOverMenuItem* menuItem, cocos2d::Event* 
 	menuItem->setScale(0.8f);
 }
 
-void SwitchSceneView::onSaleHappens(unsigned shopId, unsigned productId, unsigned saleQuantity)
+void SwitchSceneView::onSaleHappens(unsigned sceneId, unsigned shopId, unsigned productId)
 {
 	if (m_CurrentView.second == m_SceneViewMaps.at(EViews::E_Main))
 	{
@@ -217,12 +217,34 @@ void SwitchSceneView::onSaleHappens(unsigned shopId, unsigned productId, unsigne
 		return;
 	}
 
-	auto foundScene = m_SceneShopMatchIds.find(m_CurrentView.first);
-	if (foundScene != m_SceneShopMatchIds.end())
+	if (m_CurrentView.first == sceneId)
 	{
 		if (m_SaleHappensNotify)
-			m_SaleHappensNotify(m_CurrentView.first, shopId, productId);
+			m_SaleHappensNotify(sceneId, shopId, productId);
 	}
+}
+
+void SwitchSceneView::shopOptionCallback(cocos2d::Ref* pSender)
+{
+	if (m_OpenShopChoiceNotify)
+		m_OpenShopChoiceNotify(0);
+}
+
+void SwitchSceneView::createOrderedView(unsigned id)
+{
+	auto newView = m_SceneViewMaps.at(id);
+	if (newView)
+	{
+		GameFunctions::displaySprite(newView, m_SceneMidPoint, m_GameScene, 0);
+		setSpriteScale(newView, Vec2::ONE);
+	}
+
+	auto foundSceneId = m_SceneShopMatchIds.find(id);
+	if (foundSceneId != m_SceneShopMatchIds.end())
+		createShopInCloseSceneView(id);
+	else
+		openShopChoice(id);
+
 }
 
 void SwitchSceneView::fadeEffect(Sprite* viewSprite, bool fadeIn)
@@ -259,8 +281,21 @@ void SwitchSceneView::fadeEffect(Sprite* viewSprite, bool fadeIn)
 	}
 }
 
-void SwitchSceneView::openShopChoice()
+void SwitchSceneView::openShopChoice(unsigned sceneId)
 {
+	auto question = MouseOverMenuItem::creatMouseOverMenuButton("question100.png", "question100_Lit.png", "question100.png", 
+		CC_CALLBACK_1(SwitchSceneView::shopOptionCallback, this));
+	if (question)
+	{
+		displayMenuButton(question, CC_CALLBACK_2(SwitchSceneView::onMouseOver, this), (sceneId == EViews::E_Hotel) ?
+			Vec2(240, 290) : Vec2(550.f, 400.f), itemTypes::DEFAULT, 1.f, true, (sceneId == EViews::E_Hotel)? Vec2(100.f, -50.f) : Vec2(25.f, -60.f));
+		
+		createIconSequence(question, 10.f, 1.f);
+	}
+	
+	auto questionMenu = Menu::create(question, NULL);
+	questionMenu->setPosition(Vec2::ZERO);
+	m_SceneViewMaps.at(sceneId)->addChild(questionMenu, 1);
 }
 
 void SwitchSceneView::createMapIcon(const std::string& normal, const std::string& mouseOver, const std::string& disable, Vec2 displayPos, unsigned viewId, float iconScale, Vec2 parentPos)
@@ -273,29 +308,17 @@ void SwitchSceneView::createMapIcon(const std::string& normal, const std::string
 		m_MenuItems.pushBack(displayMenuButton(icon, CC_CALLBACK_2(SwitchSceneView::onMouseOver, this), displayPos, itemTypes::BUTTON, iconScale,
 			true, parentPos));
 
-		auto hoverPosition = icon->getPosition();
-		auto moveUp = MoveTo::create(m_MovingDuration, Vec2(hoverPosition.x, hoverPosition.y + m_MoveUp));
-		auto moveDown = MoveTo::create(m_MovingDuration, Vec2(hoverPosition.x, hoverPosition.y - m_MoveUp));
-		auto sequence = Sequence::create(moveUp, moveDown, nullptr);
-		icon->runAction(RepeatForever::create(sequence));
+		createIconSequence(icon, 3.f, 1.f);
 	}
 }
 
-void SwitchSceneView::createOrderedView(unsigned id)
+void SwitchSceneView::createIconSequence(MouseOverMenuItem* icon, float moveDirection, float moveDuration)
 {
-	auto newView = m_SceneViewMaps.at(id);
-	if (newView)
-	{
-		GameFunctions::displaySprite(newView, m_SceneMidPoint, m_GameScene, 0);
-		setSpriteScale(newView, Vec2::ONE);
-	}
-
-	auto foundSceneId = m_SceneShopMatchIds.find(id);
-	if (foundSceneId != m_SceneShopMatchIds.end())
-		createShopInCloseSceneView(id);
-	else
-		openShopChoice();
-
+	auto hoverPosition = icon->getPosition();
+	auto moveUp = MoveTo::create(moveDuration, Vec2(hoverPosition.x, hoverPosition.y + moveDirection));
+	auto moveDown = MoveTo::create(moveDuration, Vec2(hoverPosition.x, hoverPosition.y - moveDirection));
+	auto sequence = Sequence::create(moveUp, moveDown, nullptr);
+	icon->runAction(RepeatForever::create(sequence));
 }
 
 void SwitchSceneView::createShopInCloseSceneView(unsigned sceneId)

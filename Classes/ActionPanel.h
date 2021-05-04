@@ -21,7 +21,7 @@ protected:
 	void onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event);
 	void checkShopCallback(cocos2d::Ref* pSender, unsigned shopId);
 	void onShopChanges(unsigned shopId, cocos2d::Node* menu, cocos2d::Vec2 shopPos);
-
+	void openShopChoiceNotify(unsigned shopId);
 private:
 	SwitchSceneView* m_MainScene = nullptr;
 	MyShopSettingPanel* m_ShopButton = nullptr;

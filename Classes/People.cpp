@@ -39,18 +39,25 @@ People::~People()
 
 void People::detachFromParent(unsigned currentSceneId, bool cleanUp)
 {
-	for (auto people : m_PeopleShoppingList.at(currentSceneId))
+	auto foundList = m_PeopleShoppingList.find(currentSceneId);
+	if (foundList != m_PeopleShoppingList.end())
 	{
-		people->setOpacity(0);
-		people->stopAllActions();
-		people->removeFromParentAndCleanup(cleanUp);
+		for (auto people : m_PeopleShoppingList.at(currentSceneId))
+		{
+			people->setOpacity(0);
+			people->stopAllActions();
+			people->removeFromParentAndCleanup(cleanUp);
+		}
 	}
 
 	for (auto product : m_ProductList)
 	{
-		product.second->setOpacity(0);
-		product.second->stopAllActions();
-		product.second->removeFromParentAndCleanup(cleanUp);
+		for (auto sprite : product.second)
+		{
+			sprite.second->setOpacity(0);
+			sprite.second->stopAllActions();
+			sprite.second->removeFromParentAndCleanup(cleanUp);
+		}
 	}
 
 	m_SequenceIsDone = true;
@@ -58,8 +65,8 @@ void People::detachFromParent(unsigned currentSceneId, bool cleanUp)
 
 	if (cleanUp)
 	{
-		m_PeopleShoppingList.clear();
-		m_ProductList.clear();
+		m_PeopleShoppingList.at(currentSceneId).clear();
+		m_ProductList.at(currentSceneId).clear();
 	}
 }
 
@@ -100,31 +107,39 @@ void People::displaySaleProductInScene(unsigned sceneId, unsigned shopId, unsign
 	if (!m_ProductDisplayIsDone)
 		return;
 
+	auto foundScene = m_ProductList.find(sceneId);
+	Sprite* product = nullptr;
 
-	if (!m_ProductList.at(productId))
+	if (foundScene != m_ProductList.end())
+		product = m_ProductList.at(sceneId).at(productId);
+	
+	if (!product)
 	{
 		auto shop = GameData::getInstance().m_Shops[shopId];
 		auto productSprite = Sprite::createWithSpriteFrameName(shop->getProductSprite(productId));
-		m_ProductList.insert(productId, productSprite);
+		m_ProductList[sceneId].insert(productId, productSprite);
+		auto  map= m_ProductList.at(sceneId);
+		product = map.at(productId);
+		//m_ProductList.insert(sceneId, productId, productSprite));
 	}
 
-	if (!m_ProductList.at(productId)->getParent())
+	if (!product->getParent())
 	{
-		GameFunctions::displaySprite(m_ProductList.at(productId), m_PeopleData.at(sceneId)->m_PeopleLocations.at(shopId)->m_ProductLocation,
+		GameFunctions::displaySprite(product, m_PeopleData.at(sceneId)->m_PeopleLocations.at(shopId)->m_ProductLocation,
 			m_SceneViews->getSceneView(sceneId), 1, 0.4f, 0.4f);
 
-		m_ProductList.at(productId)->setOpacity(0);
+		product->setOpacity(0);
 	}
 
 	auto delay = DelayTime::create(0.5f);
-	auto spritePos = m_ProductList.at(productId)->getPosition();
+	auto spritePos = product->getPosition();
 	auto fadeIn = FadeIn::create(0.5f);
 	auto moveFadeOut = Sequence::create(MoveTo::create(1.f, Vec2(spritePos.x, spritePos.y + 20.f)), FadeOut::create(0.5f), nullptr);
 	auto moveBack = MoveTo::create(0.1f, Vec2(spritePos.x, m_PeopleData.at(sceneId)->m_PeopleLocations.at(shopId)->m_ProductLocation.y));
 	auto callback = CallFunc::create([=] {m_ProductDisplayIsDone = true; });
 
 	auto sequence = Sequence::create(delay, fadeIn, moveFadeOut, moveBack, callback, nullptr);
-	m_ProductList.at(productId)->runAction(sequence);
+	product->runAction(sequence);
 
 	// play money sound
 	m_Audio->playEffect("Sounds/MoneyPop.mp3", false, 0.8f, 0.8f, 0.8f);
