@@ -13,7 +13,7 @@ struct BasicExpenseData
 	unsigned m_WaterCost = 0;
 	unsigned m_SalaryCost = 0;
 	unsigned m_ADCost = 0;
-	unsigned m_SalesIncome = 0;
+	int m_SalesIncome = 0;
 
 	cocos2d::Label* m_ElLabel = nullptr;
 	cocos2d::Label* m_WaterLabel = nullptr;

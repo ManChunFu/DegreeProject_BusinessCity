@@ -102,6 +102,15 @@ void ShopEmployeeAdmin::createShopEmployeeAdmin(Shop* shop, ui::Widget* employee
 	}
 
 	m_DisplayPicPos = Vec2(panelMidPoint.x - 155.f, panelMidPoint.y - 110.f);
+
+	if (m_Shop->getEmployeeCount() > 0)
+	{
+		for (unsigned index = 0; index <m_Shop->m_EmployeesIds.size(); ++index)
+		{
+			displayEmployeeProfilePic(m_Shop->m_EmployeesIds.at(index), index + 1);
+		}
+		switchButtonStates(EButtons::E_Fire, true);
+	}
 }
 
 void ShopEmployeeAdmin::hireCallback(cocos2d::Ref* pSender)

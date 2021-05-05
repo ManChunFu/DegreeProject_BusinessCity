@@ -20,6 +20,7 @@ ActionPanel::~ActionPanel()
 	m_ShopButton = nullptr;
 	m_ShopChoicePanel = nullptr;
 	m_MyShopMap.clear();
+	m_TempEmployeeIds.clear();
 }
 
 void ActionPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
@@ -112,14 +113,17 @@ void ActionPanel::onShopChanges(unsigned shopId, Node* menu, Vec2 shopPos)
 
 	// add and create the upgrade shop
 	m_Player->m_MyShopIds.push_back(shopId);
+	if (!m_TempEmployeeIds.empty())
+		GameData::getInstance().m_Shops.at(shopId)->m_EmployeesIds = m_TempEmployeeIds;
 	displayShop(shopId, shopPos);
 
 	// kill the temp shop pic
 	m_GameScene->removeChild(shopUpgradeSprite);
 	delete shopUpgradeSprite;
 
-	if (m_OnUpgradeShopCalls)
-		m_OnUpgradeShopCalls(m_CurrentOpenShopId, shopId);
+	//ToDo:: fix shop upgrade bank display
+	//if (m_OnUpgradeShopCalls)
+	//	m_OnUpgradeShopCalls(m_CurrentOpenShopId, shopId);
 }
 
 void ActionPanel::openShopChoiceNotify(unsigned sceneId, unsigned startupId)
@@ -155,6 +159,9 @@ void ActionPanel::removeShop(unsigned shopId)
 {
 	m_MyShopMap[shopId]->removeFromParent();
 	m_MyShopMap.erase(shopId);
+
+	m_TempEmployeeIds = GameData::getInstance().m_Shops.at(shopId)->m_EmployeesIds;
+
 	m_Player->removeShopId(shopId);
 	auto sceneId = GameData::getInstance().m_Shops.at(shopId)->m_ShopInSceneId;
 	m_MainScene->removeShopFromScene(shopId, sceneId);

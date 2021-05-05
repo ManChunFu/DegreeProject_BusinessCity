@@ -29,6 +29,7 @@ private:
 	BuyShopChoicePanel* m_ShopChoicePanel = nullptr;
 	cocos2d::Vector<MyShopSettingPanel*> m_MyShopList;
 	std::unordered_map<unsigned, MyShopSettingPanel*> m_MyShopMap;
+	std::vector<unsigned int> m_TempEmployeeIds;
 	unsigned m_CurrentOpenShopId = 0;
 
 	cocos2d::Vec2 m_SceneMidPoint = cocos2d::Vec2::ZERO;

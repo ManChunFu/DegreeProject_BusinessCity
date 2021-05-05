@@ -289,7 +289,7 @@
     "ShopPrice": 200000,
     "ElectricityCost": 800,
     "WaterCost": 300,
-    "Employees": 0,
+    "Employees": 2,
     "EmployeeLocation": [
       500.0,
       380.0
@@ -373,7 +373,7 @@
     "ShopPrice": 900000,
     "ElectricityCost": 1200,
     "WaterCost": 600,
-    "Employees": 0,
+    "Employees": 4,
     "EmployeeLocation": [
       500.0,
       380.0
@@ -481,7 +481,7 @@
     "ShopPrice": 150000,
     "ElectricityCost": 1000,
     "WaterCost": 200,
-    "Employees": 0,
+    "Employees": 2,
     "EmployeeLocation": [
       310.0,
       420.0
@@ -574,7 +574,7 @@
     "ShopPrice": 850000,
     "ElectricityCost": 1500,
     "WaterCost": 600,
-    "Employees": 0,
+    "Employees": 4,
     "EmployeeLocation": [
       310.0,
       420.0
@@ -626,7 +626,7 @@
     "ShopPrice": 150000,
     "ElectricityCost": 600,
     "WaterCost": 350,
-    "Employees": 0,
+    "Employees": 2,
     "EmployeeLocation": [
       500.0,
       380.0
@@ -678,7 +678,7 @@
     "ShopPrice": 650000,
     "ElectricityCost": 1000,
     "WaterCost": 450,
-    "Employees": 0,
+    "Employees": 4,
     "EmployeeLocation": [
       500.0,
       380.0
@@ -727,7 +727,7 @@
     "ShopPrice": 100000,
     "ElectricityCost": 500,
     "WaterCost": 150,
-    "Employees": 0,
+    "Employees": 2,
     "EmployeeLocation": [
       310.0,
       420.0
@@ -779,7 +779,7 @@
     "ShopPrice": 1000000,
     "ElectricityCost": 1000,
     "WaterCost": 400,
-    "Employees": 0,
+    "Employees": 4,
     "EmployeeLocation": [
       310.0,
       420.0

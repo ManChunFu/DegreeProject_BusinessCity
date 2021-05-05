@@ -615,10 +615,10 @@ void Bank::onOpenBalanceCallback(cocos2d::Ref* pSender, unsigned shopWidgetIndex
 
 int Bank::calculateTotalAmoutWeekly(bool removeSalesIncome)
 {
-	auto amout = removeSalesIncome ? m_TotalShopExpense->getTotalCosts() : m_TotalShopExpense->getTotalBalance();
+	int amout = removeSalesIncome ? m_TotalShopExpense->getTotalCosts() : m_TotalShopExpense->getTotalBalance();
 
 	if (m_HasDebt)
-		amout += m_Repayments;
+		amout -= m_Repayments;
 
 	return amout;
 }
@@ -697,7 +697,7 @@ void Bank::onSalesIncomeChanges(unsigned shopId, unsigned totalSales)
 		}
 	}
 	GameFunctions::updateLabelText_MoneyFormat(m_Sales, m_TotalShopExpense->getTotalSalesIncome());
-	updateOverviewAmout(m_Total, m_TotalShopExpense->getTotalBalance());
+	updateOverviewAmout(m_Total, calculateTotalAmoutWeekly());
 }
 
 void Bank::calculateWeeklyRepayments()
@@ -713,6 +713,7 @@ void Bank::calculateWeeklyRepayments()
 void Bank::updateDebtDisplay(int amout, unsigned remainWeeks)
 {
 	m_Debt += amout;
+	// ignore small amout so it doesn't rechange again
 	if (m_Debt < 10)
 		m_Debt = 0;
 

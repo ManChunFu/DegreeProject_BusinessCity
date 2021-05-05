@@ -21,7 +21,7 @@ Car::Car(SwitchSceneView* sceneView, cocos2d::Vec2 sceneMidPoint)
 		Vec2(7.5f, 50.f), 0.6f, 0.85f, 1.f, 1.f);
 	// car goes down
 	runForwardSceneCar(m_SpawnCarList.at(EDirections::E_Backward), Vec2(m_SceneMidPoint.x -5.f, m_SceneMidPoint.y + 180.f),
-		Vec2(-3.8f, -45.f), 0.1f, 1.3f, 1.f, 1.f);
+		Vec2(-3.8f, -45.f), 0.1f, 1.26f, 1.f, 1.f);
 
 }
 

@@ -214,7 +214,7 @@ void ShopUpgrade::upgradeCallback(cocos2d::Ref* pSender, unsigned shopId)
 	if (m_ThisPanel->isVisible())
 		return;
 
-	if (m_Player->getCurrentCash() > m_ShopUpgradePrices[shopId].second /*&& m_Shop->getEmployeeCount() >= m_RequiredStaffCounts.at(shopId)*/)
+	if (m_Player->getCurrentCash() > m_ShopUpgradePrices[shopId].second && m_Shop->getEmployeeCount() >= m_RequiredStaffCounts.at(shopId))
 		showMessage(true);
 	else
 		showMessage(false);
