@@ -20,14 +20,15 @@ SwitchSceneView::~SwitchSceneView()
 	m_BackMainButtons.clear();
 	m_CurrentView.second = nullptr;
 	m_PlayerShops.clear();
+
 	delete m_People;
 	m_People = nullptr;
 	delete m_Car;
 	m_Car = nullptr;
+
+	m_Question = nullptr;
 	m_MoneyIcon = nullptr;
 	m_PlayerShopsInScene.clear();
-
-	m_Audio->end();
 	m_Audio = nullptr;
 }
 
@@ -73,6 +74,11 @@ void SwitchSceneView::runInit(GameScene* gameScene, Size visibleSize, Vec2 origi
 
 }
 
+void SwitchSceneView::closePanel()
+{
+	onBackMainCallback(this);
+}
+
 void SwitchSceneView::displayShopInMainScene(unsigned shopId)
 {
 	m_PlayerShops[shopId] = GameData::getInstance().m_Shops[shopId];
@@ -96,6 +102,14 @@ void SwitchSceneView::displayShopInMainScene(unsigned shopId)
 	m_People->createPeopleList(shopSceneId, shopId);
 
 	m_SceneShopMatchIds[shopSceneId] = shopId;
+
+	// for extra shopping use
+	m_StartupShopId = shopId;
+
+	auto foundSceneId = m_SceneShopMatchIds.find(m_CurrentView.first);
+	if (foundSceneId != m_SceneShopMatchIds.end())
+		createShopInCloseSceneView(m_CurrentView.first);
+
 }
 
 void SwitchSceneView::removeShopFromScene(unsigned shopId, unsigned sceneId)
@@ -129,12 +143,27 @@ void SwitchSceneView::removeShopFromScene(unsigned shopId, unsigned sceneId)
 	m_PlayerShops.at(shopId) = nullptr;
 }
 
+void SwitchSceneView::removeQuestionAndChildPanel(unsigned sceneId)
+{
+	auto foundScene = m_SceneViewMaps.find(sceneId);
+	if (foundScene != m_SceneViewMaps.end())
+	{
+		auto children = m_SceneViewMaps.at(sceneId)->getChildren();
+		for (auto child : children)
+		{
+			child->removeFromParent();
+		}
+	}
+
+}
+
 void SwitchSceneView::switchView(unsigned id)
 {
 	if (!m_SceneViewMaps.at(id)->getParent())
 		createOrderedView(id);
 
 	m_CurrentView = std::make_pair(id, m_SceneViewMaps.at(id));
+
 	fadeEffect(m_CurrentView.second, true);
 	enableBackMainButtons(true);
 }
@@ -222,10 +251,13 @@ void SwitchSceneView::onSaleHappens(unsigned sceneId, unsigned shopId, unsigned 
 	}
 }
 
-void SwitchSceneView::shopOptionCallback(cocos2d::Ref* pSender)
+void SwitchSceneView::shopOptionCallback(cocos2d::Ref* pSender, unsigned sceneId)
 {
 	if (m_OpenShopChoiceNotify)
-		m_OpenShopChoiceNotify(0);
+	{
+		m_OpenShopChoiceNotify(sceneId, m_StartupShopId);
+		m_Question->setVisible(false);
+	}
 }
 
 void SwitchSceneView::createOrderedView(unsigned id)
@@ -281,17 +313,18 @@ void SwitchSceneView::fadeEffect(Sprite* viewSprite, bool fadeIn)
 
 void SwitchSceneView::openShopChoice(unsigned sceneId)
 {
-	auto question = MouseOverMenuItem::creatMouseOverMenuButton("question100.png", "question100_Lit.png", "question100.png", 
-		CC_CALLBACK_1(SwitchSceneView::shopOptionCallback, this));
-	if (question)
+	m_Question = MouseOverMenuItem::creatMouseOverMenuButton("question100.png", "question100_Lit.png", "question100.png", 
+		CC_CALLBACK_1(SwitchSceneView::shopOptionCallback, this, sceneId));
+	if (m_Question)
 	{
-		displayMenuButton(question, CC_CALLBACK_2(SwitchSceneView::onMouseOver, this), (sceneId == EViews::E_Hotel) ?
-			Vec2(240, 290) : Vec2(550.f, 400.f), itemTypes::DEFAULT, 1.f, true, (sceneId == EViews::E_Hotel)? Vec2(100.f, -50.f) : Vec2(25.f, -60.f));
+		displayMenuButton(m_Question, CC_CALLBACK_2(SwitchSceneView::onMouseOver, this), (sceneId == EViews::E_Hotel) ?
+			Vec2(240, 290) : Vec2(550.f, 400.f), itemTypes::DEFAULT, 1.f, true, (sceneId == EViews::E_Hotel)? Vec2(100.f, -50.f) : 
+			Vec2(25.f, -60.f));
 		
-		createIconSequence(question, 10.f, 1.f);
+		createIconSequence(m_Question, 10.f, 1.f);
 	}
 	
-	auto questionMenu = Menu::create(question, NULL);
+	auto questionMenu = Menu::create(m_Question, NULL);
 	questionMenu->setPosition(Vec2::ZERO);
 	m_SceneViewMaps.at(sceneId)->addChild(questionMenu, 1);
 }

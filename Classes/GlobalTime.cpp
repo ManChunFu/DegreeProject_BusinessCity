@@ -24,7 +24,7 @@ void GlobalTime::update(float delta)
 	m_ElapsedTime += delta;
 
 	// update minute
-	if (m_ElapsedTime < 3)
+	if (m_ElapsedTime < m_DeltaCount)
 		return;
 
 	m_Gametime->minute++;
@@ -72,6 +72,8 @@ void GlobalTime::update(float delta)
 			listener.second(this, m_Gametime->minute);
 		}
 	}
+
+	m_DeltaCount = 3.f;
 }
 
 void GlobalTime::addMinuteEventListener(const onTimeChanges& changes, Node* node)
@@ -86,6 +88,9 @@ void GlobalTime::addHourEventListener(const onTimeChanges& changes, Node* node)
 
 void GlobalTime::removdMinuteEventListener(Node* node)
 {
+	if (node == nullptr)
+		return;
+
 	auto found = m_MinuteListeners.find(node);
 	if (found != m_MinuteListeners.end())
 		m_MinuteListeners.erase(found);
@@ -93,9 +98,40 @@ void GlobalTime::removdMinuteEventListener(Node* node)
 
 void GlobalTime::removeHourEventListener(Node* node)
 {
+	if (node == nullptr)
+		return;
+
 	auto found = m_HourListeners.find(node);
 	if (found != m_HourListeners.end())
 		m_HourListeners.erase(found);
+
+}
+
+void GlobalTime::speedUp()
+{
+	m_DeltaCount = 0.f;
+
+	m_Gametime->minute = 59;
+	m_Gametime->hour = 23;
+	
+	if (m_MinuteListeners.size() > 0)
+	{
+		for (auto listener : m_MinuteListeners)
+		{
+			listener.second(this, m_Gametime->minute);
+		}
+	}
+
+	if (m_HourListeners.size() > 0)
+	{
+		for (auto listener : m_HourListeners)
+		{
+			listener.second(this, m_Gametime->hour);
+		}
+	}
+
+	if (onEveryDayChanges)
+		onEveryDayChanges(this, m_Gametime->day);
 
 }
 

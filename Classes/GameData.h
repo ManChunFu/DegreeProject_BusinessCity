@@ -34,8 +34,9 @@ public:
 	GameData& operator=(const GameData& arg) = delete; // Assignment operator
 	GameData& operator=(const GameData&& arg) = delete; // Move operator
 
+	CocosDenshion::SimpleAudioEngine* GetAudio();
 	void init();
-	void reset(bool all = false);
+	void reset(bool all = false, bool killAudio = false);
 	void notifyPopupOpen(bool isOpen) { m_IsPopupOpen = isOpen; }
 	bool isPopupOpen() { return m_IsPopupOpen; }
 	GlobalTime* m_GlobalTime = nullptr;

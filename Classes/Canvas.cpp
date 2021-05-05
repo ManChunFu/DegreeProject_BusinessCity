@@ -18,12 +18,12 @@ Canvas::~Canvas()
 
 	m_RemovePanels.clear();
 
-	m_SwitchSceneView = nullptr;
 	m_GameStartPanel = nullptr;
 	m_InfoPanel = nullptr;
 	m_ActionPanel = nullptr;
 
 	m_GameoverPanel = nullptr;
+	m_SwitchSceneView = nullptr;
 	m_GameScene = nullptr;
 }
 
@@ -45,17 +45,16 @@ void Canvas::Init(GameScene* scene, Player* player)
 	m_GameStartPanel->onDestroyCall = CC_CALLBACK_3(Canvas::destroyPanel, this);
 	m_UIPanels.pushBack(m_GameStartPanel);
 
-	m_InfoPanel = new InfoPanel();
-	m_InfoPanel->autorelease();
-	m_InfoPanel->openPanel(m_GameScene, m_SceneMidPoint);
-	m_UIPanels.pushBack(m_InfoPanel);
-
 	m_ActionPanel = new ActionPanel;
 	m_ActionPanel->autorelease();
 	m_ActionPanel->setMainScenePointer(m_SwitchSceneView);
 	m_ActionPanel->openPanel(m_GameScene, m_SceneMidPoint);
 	m_UIPanels.pushBack(m_ActionPanel);
 	
+	m_InfoPanel = new InfoPanel(m_ActionPanel);
+	m_InfoPanel->autorelease();
+	m_InfoPanel->openPanel(m_GameScene, m_SceneMidPoint);
+	m_UIPanels.pushBack(m_InfoPanel);
 
 }
 
@@ -113,7 +112,6 @@ void Canvas::activePanel(EPanels uiPanel, unsigned shopId)
 		break;
 	case EPanels::ACTION_PANEL:
 		m_ActionPanel->displayShop(shopId);
-		//m_ActionPanel->displayShopOptions();
 		m_InfoPanel->enableBankButton(true);
 		break;
 	}

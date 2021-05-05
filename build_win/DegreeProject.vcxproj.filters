@@ -103,6 +103,9 @@
     <ClCompile Include="..\Classes\Car.cpp">
       <Filter>Source Files\Classes\UI</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\BuyShopChoicePanel.cpp">
+      <Filter>Source Files\Classes\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\Users\mandy\source\repos\DegreeProject\Classes\AppDelegate.h">
@@ -241,6 +244,9 @@
       <Filter>Source Files\Classes\Data</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Car.h">
+      <Filter>Source Files\Classes\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BuyShopChoicePanel.h">
       <Filter>Source Files\Classes\UI</Filter>
     </ClInclude>
   </ItemGroup>

@@ -804,6 +804,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\ActionPanel.h" />
     <ClInclude Include="..\Classes\Bank.h" />
     <ClInclude Include="..\Classes\BasicExpenseData.h" />
+    <ClInclude Include="..\Classes\BuyShopChoicePanel.h" />
     <ClInclude Include="..\Classes\Canvas.h" />
     <ClInclude Include="..\Classes\Car.h" />
     <ClInclude Include="..\Classes\DataManager.h" />
@@ -844,6 +845,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\Classes\ActionPanel.cpp" />
     <ClCompile Include="..\Classes\Bank.cpp" />
     <ClCompile Include="..\Classes\BasicExpenseData.cpp" />
+    <ClCompile Include="..\Classes\BuyShopChoicePanel.cpp" />
     <ClCompile Include="..\Classes\Canvas.cpp" />
     <ClCompile Include="..\Classes\Car.cpp" />
     <ClCompile Include="..\Classes\DataManager.cpp" />

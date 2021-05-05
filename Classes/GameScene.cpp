@@ -2,6 +2,7 @@
 #include "2d/CCLayer.h"
 #include "GameData.h"
 #include "GlobalTime.h"
+#include "GameTime.h"
 #include "GameLoop.h"
 #include "Player.h"
 #include "Canvas.h"
@@ -98,6 +99,11 @@ void GameScene::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::E
 	if (keyCode == EventKeyboard::KeyCode::KEY_0)
 		m_Player->updateCurrentCashAmout(50000);
 
+	if (keyCode == EventKeyboard::KeyCode::KEY_9)
+		m_Player->updateCurrentCashAmout(-50000);
+
+	if (keyCode == EventKeyboard::KeyCode::KEY_T)
+		m_GlobalTime->speedUp();
 }
 
 

@@ -22,7 +22,7 @@ protected:
 	void onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event);
 
 private:
-	SwitchSceneView* m_MainSceneView;
+	SwitchSceneView* m_MainSceneView = nullptr;
 	unsigned m_SelectedShopId = 0;
 	void selectedItemCallback(cocos2d::Ref* pSender, unsigned shopId);
 	void goButtonCallback(cocos2d::Ref* pSender);

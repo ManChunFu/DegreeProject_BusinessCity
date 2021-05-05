@@ -6,6 +6,7 @@
 #include "GameScene.h"
 #include "Shop.h"
 #include "MyShopSettingPanel.h"
+#include "BuyShopChoicePanel.h"
 #include "SwitchSceneView.h"
 #include "cocostudio/SimpleAudioEngine.h"
 using namespace CocosDenshion;
@@ -17,6 +18,7 @@ ActionPanel::~ActionPanel()
 {
 	m_MainScene = nullptr;
 	m_ShopButton = nullptr;
+	m_ShopChoicePanel = nullptr;
 	m_MyShopMap.clear();
 }
 
@@ -37,7 +39,7 @@ void ActionPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
 	m_DisplayShopPos = Vec2((m_ThisPanel->getContentSize().width * 0.5f) - 240.f, m_ThisPanel->getContentSize().height * 0.5f);
 
 	if (m_MainScene)
-		m_MainScene->m_OpenShopChoiceNotify = CC_CALLBACK_1(ActionPanel::openShopChoiceNotify, this);
+		m_MainScene->m_OpenShopChoiceNotify = CC_CALLBACK_2(ActionPanel::openShopChoiceNotify, this);
 }
 
 void ActionPanel::displayShop(unsigned shopId, Vec2 shopPosition)
@@ -115,13 +117,38 @@ void ActionPanel::onShopChanges(unsigned shopId, Node* menu, Vec2 shopPos)
 	// kill the temp shop pic
 	m_GameScene->removeChild(shopUpgradeSprite);
 	delete shopUpgradeSprite;
+
+	if (m_OnUpgradeShopCalls)
+		m_OnUpgradeShopCalls(m_CurrentOpenShopId, shopId);
 }
 
-void ActionPanel::openShopChoiceNotify(unsigned shopId)
+void ActionPanel::openShopChoiceNotify(unsigned sceneId, unsigned startupId)
 {
-	m_Player->m_MyShopIds.push_back(shopId);
-	displayShop(shopId, Vec2(m_DisplayShopPos.x += 120, m_DisplayShopPos.y));
+	auto parent = m_MainScene->getSceneView(sceneId);
+	if (m_ShopChoicePanel != nullptr && m_ShopChoicePanel->getParent() == parent)
+	{
+		if (!m_ShopChoicePanel->isPanelOpen())
+			m_ShopChoicePanel->openPanel(m_MainScene, m_SceneMidPoint, sceneId, startupId);
+		else
+			m_ShopChoicePanel->closePanel();
+	}
+	else
+	{
+		m_ShopChoicePanel = new BuyShopChoicePanel();
+		m_ShopChoicePanel->autorelease();
+		m_ThisPanel->addChild(m_ShopChoicePanel, 2);
+		m_ShopChoicePanel->m_OnPlayerPurchase = CC_CALLBACK_2(ActionPanel::onPlayerPurchase, this);
+		m_ShopChoicePanel->openPanel(m_MainScene, m_SceneMidPoint, sceneId, startupId);
+	}
+}
 
+void ActionPanel::onPlayerPurchase(unsigned shopId, unsigned sceneId)
+{
+	// remove question and choice
+	m_MainScene->removeQuestionAndChildPanel(sceneId);
+	m_ShopChoicePanel->removeFromParent();
+	
+	displayShop(shopId, Vec2(m_DisplayShopPos.x += 120, m_DisplayShopPos.y));
 }
 
 void ActionPanel::removeShop(unsigned shopId)
@@ -133,10 +160,6 @@ void ActionPanel::removeShop(unsigned shopId)
 	m_MainScene->removeShopFromScene(shopId, sceneId);
 }
 
-void ActionPanel::displayShopOptions()
-{
-	
-}
 
 
 

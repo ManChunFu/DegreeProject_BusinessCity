@@ -5,11 +5,13 @@
 class GlobalTime;
 class Bank;
 class GameScene;
+class ActionPanel;
 class MouseOverMenuItem;
 
 class InfoPanel : public UIPanel
 {
 public:
+	InfoPanel(ActionPanel* actionPanel);
 	 ~InfoPanel() override;
 
 	void openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint) override;
@@ -23,6 +25,7 @@ protected:
 	void onEveryWeekChanges(GlobalTime* globalTime, unsigned week);
 
 private:
+	cocos2d::ParticleFlower* m_Emitter = nullptr;
 	cocos2d::Label* m_Saving = nullptr;
 	cocos2d::Label* m_WeekCount = nullptr;
 	cocos2d::Label* m_WeekDay = nullptr;
@@ -30,6 +33,7 @@ private:
 	cocos2d::Label* m_TimeMinDisplay = nullptr;
 	Bank* m_Bank = nullptr;
 	MouseOverMenuItem* m_BankButton = nullptr;
+	ActionPanel* m_ActionPanel = nullptr;
 
 	cocos2d::Vec2 m_SceneMidPoint = cocos2d::Vec2::ZERO;
 	std::array<std::string, 7> m_WeekDays = { "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY" };

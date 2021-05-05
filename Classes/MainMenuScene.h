@@ -51,7 +51,7 @@ public:
     void setSpriteScale(cocos2d::Sprite* sprite, float scale);
     bool isOpeningSubWindow = false;
     void setMenuItemVisible(bool value);
-    void StopAudio(bool deleteAudio = false);
+    void StopAudio();
 
 private:
     cocos2d::Size m_VisibleSize = cocos2d::Size::ZERO;

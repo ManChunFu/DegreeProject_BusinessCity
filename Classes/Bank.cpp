@@ -1,4 +1,5 @@
 #include "Bank.h"
+#include "ActionPanel.h"
 #include "GameScene.h"
 #include "GameData.h"
 #include "GameFunctions.h"
@@ -15,8 +16,9 @@
 
 USING_NS_CC;
 
-Bank::Bank() 
+Bank::Bank(ActionPanel* actionPanel)
 { 
+	//actionPanel->m_OnUpgradeShopCalls = CC_CALLBACK_2(Bank::onUpgradeShopCalls, this);
 	m_Player = GameData::getInstance().m_Player; 
 	m_TotalShopExpense = new TotalExpense();
 }
@@ -98,10 +100,13 @@ void Bank::update()
 	if (!m_Player->m_MyShopIds.size() < 0)
 		return;
 
+	if (!m_ThisPanel)
+		return;
+
 	updatePlayerCurrentShopInfo();
 
 	auto amout = calculateTotalAmoutWeekly(true);
-	GameData::getInstance().m_Player->updateCurrentCashAmout(amout);
+	GameData::getInstance().m_Player->updateCurrentCashAmout(-amout);
 
 	if (m_Player->getCurrentCash() < 0)
 	{
@@ -289,14 +294,13 @@ void Bank::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopId)
 		}
 	}
 
+#pragma endregion
 	// create new shop balance
 	m_NewShopPos = Vec2(panelMidPoint.x + 245.f, panelMidPoint.y + 118.f);
 	for (unsigned index = 0; index < m_TotalShopExpense->m_ShopsBasicExpense.size(); index++)
 	{
 		createNewShopBalance(index, panelMidPoint);
 	}
-
-#pragma endregion
 
 #pragma region Create Loan Button
 	m_LoanWidget = ui::Widget::create();
@@ -614,7 +618,7 @@ int Bank::calculateTotalAmoutWeekly(bool removeSalesIncome)
 	auto amout = removeSalesIncome ? m_TotalShopExpense->getTotalCosts() : m_TotalShopExpense->getTotalBalance();
 
 	if (m_HasDebt)
-		amout -= m_Repayments;
+		amout += m_Repayments;
 
 	return amout;
 }
@@ -732,7 +736,7 @@ void Bank::updatePlayerCurrentShopInfo()
 	auto shops = GameData::getInstance().m_Shops;
 	auto shopsExpenseSize = m_TotalShopExpense->m_ShopsBasicExpense.size();
 	auto shopIndex = 0;
-	if (myShopsSize > shopsExpenseSize)
+	if (myShopsSize > shopsExpenseSize && shopsExpenseSize > 0)
 		shopIndex = shopsExpenseSize - 1;
 	else
 		shopIndex = myShopsSize;
@@ -780,6 +784,46 @@ void Bank::updatePlayerCurrentShopInfo()
 
 void Bank::onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event)
 {}
+
+// TODO : fix shop upgrade display
+//void Bank::onUpgradeShopCalls(unsigned removeShopId, unsigned upgradeShopId)
+//{
+//	if (!m_ThisPanel)
+//		return;
+//
+//	for (unsigned index = 0; index< m_TotalShopExpense->m_ShopsBasicExpense.size(); ++index)
+//	{
+//		if (m_TotalShopExpense->m_ShopsBasicExpense.at(index)->m_ShopId == removeShopId)
+//		{
+//			m_TotalShopExpense->m_ShopsBasicExpense.at(index)->~BasicExpenseData();
+//			m_TotalShopExpense->m_ShopsBasicExpense.erase(m_TotalShopExpense->m_ShopsBasicExpense.begin() + index);
+//		}
+//	}
+//
+//	if (m_TotalShopExpense->m_ShopsBasicExpense.empty())
+//	{
+//		auto shops = GameData::getInstance().m_Shops;
+//		auto shopsCount = m_Player->m_MyShopIds.size();
+//		auto shopIds = m_Player->m_MyShopIds;
+//		for (unsigned index = 0; index < shopsCount; index++)
+//		{
+//			auto shop = shops[shopIds[index]];
+//			m_TotalShopExpense->m_ShopsBasicExpense.push_back(new BasicExpenseData(shop->m_ShopId, shop->m_Electricity, shop->m_Water,
+//				shop->getTotalSalaryExpense(), shop->m_CommercialCost, shop->m_SalesIncome));
+//			shop->onSalesIncomeChanges = CC_CALLBACK_2(Bank::onSalesIncomeChanges, this);
+//		}
+//
+//		auto panelMidPoint = Vec2(m_ThisPanel->getContentSize() * 0.5f);
+//		m_NewShopPos = Vec2(panelMidPoint.x + 245.f, panelMidPoint.y + 118.f);
+//		for (unsigned index = 0; index < m_TotalShopExpense->m_ShopsBasicExpense.size(); index++)
+//		{
+//			createNewShopBalance(index, panelMidPoint);
+//		}
+//	}
+//	else
+//		updatePlayerCurrentShopInfo();
+//
+//}
 
 void Bank::setMenuItemsVisible(bool visible, bool runAll, itemTypes Type)
 {

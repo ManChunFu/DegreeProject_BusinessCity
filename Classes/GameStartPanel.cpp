@@ -20,7 +20,8 @@ GameStartPanel::GameStartPanel(SwitchSceneView* mainScene, GameScene* scene, Vec
 
 GameStartPanel::~GameStartPanel()
 {
-	m_MainSceneView->m_StartupNotify = nullptr;
+	if (m_ThisPanel)
+		m_MainSceneView->m_StartupNotify = nullptr;
 	m_MainSceneView = nullptr;
 }
 

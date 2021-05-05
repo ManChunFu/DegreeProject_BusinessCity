@@ -13,14 +13,28 @@ USING_NS_CC;
 
 GameData::~GameData()
 {
-	reset(true);
+	reset(true, true);
+	delete m_GlobalTime;
+	m_GlobalTime = nullptr;
+}
+
+CocosDenshion::SimpleAudioEngine* GameData::GetAudio()
+{
+	if (m_Audio == nullptr)
+		m_Audio = m_Audio = SimpleAudioEngine::getInstance();
+
+	return m_Audio;
 }
 
 void GameData::init()
 {
-	m_Audio = SimpleAudioEngine::getInstance();
-
 	m_Shops = DataManager::getShops();
+
+	if (m_GlobalTime != nullptr)
+	{
+		delete m_GlobalTime;
+		m_GlobalTime = nullptr;
+	}
 
 	m_GlobalTime = new GlobalTime();
 
@@ -53,13 +67,15 @@ void GameData::setTempOpenPanel(UIPanel* panel)
 	m_TempOpenPanel = panel;
 }
 
-void GameData::reset(bool all)
+void GameData::reset(bool all, bool killAudio)
 {
 	if (all)
 	{
 		delete m_Player;
 		m_Player = nullptr;
 	}
+	else
+		m_Player->restart();
 
 	for (auto item : m_Shops)
 	{
@@ -67,13 +83,18 @@ void GameData::reset(bool all)
 	}
 	m_Shops.clear();
 
-	delete m_GlobalTime;
-	m_GlobalTime = nullptr;
-
 	m_TempOpenPanel = nullptr;
 
-	m_Audio->end();
-	m_Audio = nullptr;
+	if (killAudio)
+	{
+		m_Audio->end();
+		m_Audio = nullptr;
+	}
+	else
+	{
+		m_Audio->stopBackgroundMusic(true);
+		m_Audio->stopAllEffects();
+	}
 
 }
 

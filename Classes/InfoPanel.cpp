@@ -1,4 +1,5 @@
 #include "InfoPanel.h"
+#include "ActionPanel.h"
 #include "Player.h"
 #include "MouseOverMenuItem.h"
 #include "GameScene.h"
@@ -14,8 +15,16 @@ using namespace CocosDenshion;
 USING_NS_CC;
 
 
+InfoPanel::InfoPanel(ActionPanel* actionPanel)
+{
+	m_ActionPanel = actionPanel;
+}
+
 InfoPanel::~InfoPanel()
 {
+	GameData::getInstance().m_GlobalTime->removdMinuteEventListener(this);
+	GameData::getInstance().m_GlobalTime->removeHourEventListener(this);
+	m_Emitter = nullptr;
 	m_Saving = nullptr;
 	m_WeekCount = nullptr;
 	m_WeekDay = nullptr;
@@ -23,8 +32,7 @@ InfoPanel::~InfoPanel()
 	m_TimeMinDisplay = nullptr;
 	m_BankButton = nullptr;
 	m_Bank = nullptr;
-	GameData::getInstance().m_GlobalTime->removdMinuteEventListener(this);
-	GameData::getInstance().m_GlobalTime->removeHourEventListener(this);
+	m_ActionPanel = nullptr;
 }
 
 void InfoPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
@@ -113,7 +121,7 @@ void InfoPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
 
 		m_MenuItems.pushBack(m_BankButton);
 
-		m_Bank = new Bank();
+		m_Bank = new Bank(m_ActionPanel);
 		m_Bank->autorelease();
 		m_ThisPanel->addChild(m_Bank, 1);
 	}
@@ -181,6 +189,11 @@ void InfoPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
 
 void InfoPanel::enableBankButton(bool value)
 {
+	m_Emitter = ParticleFlower::create();
+	m_Emitter->setPosition(m_ThisPanel->getContentSize().width - 250.f, m_ThisPanel->getContentSize().height * 0.5f);
+	m_Emitter->setEmissionRate(5.f);
+	m_ThisPanel->addChild(m_Emitter, 10);
+
 	m_BankButton->setEnabled(value);
 }
 
@@ -209,6 +222,12 @@ void InfoPanel::checkBalanceCallback(cocos2d::Ref* pSender, GameScene* scene)
 {
 	if (GameData::getInstance().isPopupOpen())
 		return;
+
+	if (m_Emitter)
+	{
+		m_Emitter->removeFromParent();
+		m_Emitter = nullptr;
+	}
 
 	(m_Bank->isPanelOpen()) ? m_Bank->closePanel() : m_Bank->openPanel(scene, m_SceneMidPoint);
 }

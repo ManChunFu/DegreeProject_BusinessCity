@@ -19,21 +19,25 @@ public:
 	virtual ~SwitchSceneView();
 
 	void runInit(GameScene* gameScene, cocos2d::Size visibleSize, cocos2d::Vec2 origin, cocos2d::Vec2 sceneMidPoint);
+	void closePanel() override;
 	void switchView(unsigned id);
 	void displayShopInMainScene(unsigned shopId);
 	cocos2d::Sprite* getSceneView(unsigned viewId);
 	void removeShopFromScene(unsigned shopId, unsigned sceneId);
+	void removeQuestionAndChildPanel(unsigned sceneId);
 
 	std::function<void()> m_StartupNotify;
 	std::function<void(unsigned sceneId, unsigned shopId, unsigned productId)> m_SaleHappensNotify;
-	std::function<void(unsigned shopId)> m_OpenShopChoiceNotify;
+	std::function<void(unsigned sceneId, unsigned startupId)> m_OpenShopChoiceNotify;
+	MouseOverMenuItem* m_Question = nullptr;
+
 protected:
 	void clickIconCallback(cocos2d::Ref* pSender, unsigned viewId);
 	void onBackMainCallback(cocos2d::Ref* pSender);
 	void onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event);
 	void onMouseLeave(MouseOverMenuItem* menuItem, cocos2d::Event* event);
 	void onSaleHappens(unsigned sceneId, unsigned shopId, unsigned productId);
-	void shopOptionCallback(cocos2d::Ref* pSender);
+	void shopOptionCallback(cocos2d::Ref* pSender, unsigned sceneId);
 
 private:
 	CocosDenshion::SimpleAudioEngine* m_Audio;
@@ -56,6 +60,8 @@ private:
 	cocos2d::Size m_VisibleSize = cocos2d::Size::ZERO;
 	cocos2d::Vec2 m_Origin = cocos2d::Vec2::ZERO;
 	cocos2d::Vec2 m_SceneMidPoint = cocos2d::Vec2::ZERO;
+
+	unsigned m_StartupShopId = 0;
 
 	void createOrderedView(unsigned id);
 	void fadeEffect(cocos2d::Sprite* viewSprite, bool fadeIn);

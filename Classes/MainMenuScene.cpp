@@ -126,7 +126,7 @@ bool MainMenuScene::init()
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(m_Listener, this);
 
 	// set music
-	m_Audio = SimpleAudioEngine::getInstance();
+	m_Audio = GameData::getInstance().GetAudio();
 	m_Audio->playBackgroundMusic("Sounds/market-song.mp3", true);
 
 	m_PlayerSetting = new MainMenuPlayerSetting();
@@ -144,7 +144,7 @@ void MainMenuScene::menuStartCallback(Ref* pSender)
 void MainMenuScene::menuCloseCallback(Ref* pSender)
 {
 	//Close the cocos2d-x game scene and quit the application
-	StopAudio(true);
+	StopAudio();
 	delete m_PlayerSetting;
 	m_PlayerSetting = nullptr;
 	_eventDispatcher->removeEventListener(m_Listener);
@@ -192,15 +192,12 @@ void MainMenuScene::onMouseOver(MouseOverMenuItem* overItem, Event* event)
 		m_Audio->playEffect("Sounds/SelectedSound.mp3", false, 1.f, 1.f, 1.f);
 }
 
-void MainMenuScene::StopAudio(bool deleteAudio)
+void MainMenuScene::StopAudio()
 {
 	if (!m_Audio)
 		return;
 
-	m_Audio->stopBackgroundMusic(true);
-	if (deleteAudio)
-	{
-		m_Audio->end();
-		m_Audio = nullptr;
-	}
+	m_Audio->stopBackgroundMusic();
+	m_Audio->stopAllEffects();
+	
 }

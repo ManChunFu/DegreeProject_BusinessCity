@@ -34,6 +34,12 @@ void Player::updateCurrentCashAmout(int cashAmout)
 		onCashAmoutChange(this, m_CurrentCashAmout);
 }
 
+void Player::restart()
+{
+	reset();
+	m_CurrentCashAmout = 50000;
+}
+
 void Player::reset()
 {
 	m_MyShopIds.clear();

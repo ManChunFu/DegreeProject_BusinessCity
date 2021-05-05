@@ -16,6 +16,7 @@ public:
 	cocos2d::itemTypes getCharacter();
 	void updateCurrentCashAmout(int cashAmout);
 	int getCurrentCash() { return m_CurrentCashAmout; }
+	void restart();
 
 	std::function<void(Player* player, int cashAmout)> onCashAmoutChange;
 	void reset();

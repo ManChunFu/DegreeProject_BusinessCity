@@ -6,6 +6,8 @@
 #include "MainMenuScene.h"
 #include "Player.h"
 #include "EPanel.h"
+#include "cocostudio/SimpleAudioEngine.h"
+using namespace CocosDenshion;
 
 USING_NS_CC;
 
@@ -51,7 +53,7 @@ void GameOverPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
 			return;
 
 		m_MenuItems.pushBack(displayMenuButton(buttonItem, CC_CALLBACK_2(GameOverPanel::onMouseOver, this),
-			Vec2(sceneMidPoint.x, sceneMidPoint.y - (index % 2 == 0 ? 50.f : 150.f)), itemTypes::DEFAULT, 1.2f));
+			Vec2(panelMidPoint.x, panelMidPoint.y - (index % 2 == 0 ? 50.f : 150.f)), itemTypes::DEFAULT, 1.2f, true, Vec2(440.f, 70.f)));
 
 		auto buttonLabel = Label::createWithTTF((index % 2 == 0)? "PLAY AGAIN" : "BACK TO MENU", "fonts/NirmalaB.ttf", 12);
 		if (buttonLabel)
@@ -61,8 +63,7 @@ void GameOverPanel::openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint)
 
 	auto menu = Menu::createWithArray(m_MenuItems);
 	menu->setPosition(Vec2::ZERO);
-	m_GameScene->addChild(menu, 4);
-	m_Elements.pushBack(menu);
+	m_ThisPanel->addChild(menu, 1);
 }
 
 void GameOverPanel::restart(cocos2d::Ref* pSender)
@@ -86,6 +87,7 @@ void GameOverPanel::backToMenu(cocos2d::Ref* pSender)
 
 void GameOverPanel::onMouseOver(MouseOverMenuItem* item, cocos2d::Event* event)
 {
+	GameData::getInstance().m_Audio->playEffect("Sounds/SelectedSound.mp3", false, 1.f, 1.f, 1.f);
 }
 
 void GameOverPanel::destroyPanel()

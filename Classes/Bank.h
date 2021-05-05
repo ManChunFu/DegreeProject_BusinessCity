@@ -11,18 +11,18 @@ namespace ui
 NS_CC_END;
 
 struct TotalExpense;
+class ActionPanel;
 
 class Bank : public UIPanel
 {
 public:
-	Bank();
+	Bank(ActionPanel* actionPanel);
 	~Bank() override;
 
 	void openPanel(GameScene* scene, cocos2d::Vec2 sceneMidPoint) override;
 	void closePanel() override;
 
 	void update();
-	
 protected:
 	void createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopId = 0) override;
 	void closeCallback(cocos2d::Ref* pSedner);
@@ -34,6 +34,9 @@ protected:
 	void takeLoan(cocos2d::Ref* pSender);
 	void onSalesIncomeChanges(unsigned shopId, unsigned totalSales);
 	void onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event);
+
+	//TODO:: fix shop upgrade display
+	//void onUpgradeShopCalls(unsigned removeShopId, unsigned upgradeShopId);
 
 private:
 	struct TotalExpense* m_TotalShopExpense = nullptr;
