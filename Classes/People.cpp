@@ -39,8 +39,8 @@ People::~People()
 
 void People::detachFromParent(unsigned currentSceneId, bool cleanUp)
 {
-	auto foundList = m_PeopleShoppingList.find(currentSceneId);
-	if (foundList != m_PeopleShoppingList.end())
+	auto foundPeople = m_PeopleShoppingList.find(currentSceneId);
+	if (foundPeople != m_PeopleShoppingList.end())
 	{
 		for (auto people : m_PeopleShoppingList.at(currentSceneId))
 		{
@@ -48,26 +48,29 @@ void People::detachFromParent(unsigned currentSceneId, bool cleanUp)
 			people->stopAllActions();
 			people->removeFromParentAndCleanup(cleanUp);
 		}
+		if (cleanUp)
+			m_PeopleShoppingList.at(currentSceneId).clear();
 	}
 
-	for (auto product : m_ProductList)
+	auto foundProduct = m_ProductList.find(currentSceneId);
+	if (foundProduct != m_ProductList.end())
 	{
-		for (auto sprite : product.second)
+		for (auto product : m_ProductList)
 		{
-			sprite.second->setOpacity(0);
-			sprite.second->stopAllActions();
-			sprite.second->removeFromParentAndCleanup(cleanUp);
+			for (auto sprite : product.second)
+			{
+				sprite.second->setOpacity(0);
+				sprite.second->stopAllActions();
+				sprite.second->removeFromParentAndCleanup(cleanUp);
+			}
 		}
+		if (cleanUp)
+			m_ProductList.at(currentSceneId).clear();
 	}
 
 	m_SequenceIsDone = true;
 	m_ProductDisplayIsDone = true;
 
-	if (cleanUp)
-	{
-		m_PeopleShoppingList.at(currentSceneId).clear();
-		m_ProductList.at(currentSceneId).clear();
-	}
 }
 
 void People::onSaleHappens(unsigned sceneId, unsigned shopId, unsigned productId)

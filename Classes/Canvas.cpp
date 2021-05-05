@@ -35,16 +35,15 @@ void Canvas::Init(GameScene* scene, Player* player)
 
 	m_SceneMidPoint = Point(origin.x + (visibleSize.width / 2), origin.y + (visibleSize.height / 2));
 
-	m_GameStartPanel = new GameStartPanel;
-	m_GameStartPanel->autorelease();
-	//m_GameStartPanel->openPanel(m_GameScene, m_SceneMidPoint);
-	m_GameStartPanel->onDestroyCall = CC_CALLBACK_3(Canvas::destroyPanel, this);
-	m_UIPanels.pushBack(m_GameStartPanel);
-
 	m_SwitchSceneView = new SwitchSceneView();
 	m_SwitchSceneView->autorelease();
-	m_SwitchSceneView->runInit(m_GameScene, m_GameStartPanel, visibleSize, origin, m_SceneMidPoint);
+	m_SwitchSceneView->runInit(m_GameScene, visibleSize, origin, m_SceneMidPoint);
 	m_UIPanels.pushBack(m_SwitchSceneView);
+
+	m_GameStartPanel = new GameStartPanel(m_SwitchSceneView, m_GameScene, m_SceneMidPoint);
+	m_GameStartPanel->autorelease();
+	m_GameStartPanel->onDestroyCall = CC_CALLBACK_3(Canvas::destroyPanel, this);
+	m_UIPanels.pushBack(m_GameStartPanel);
 
 	m_InfoPanel = new InfoPanel();
 	m_InfoPanel->autorelease();

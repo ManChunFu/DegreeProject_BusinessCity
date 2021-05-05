@@ -90,12 +90,6 @@ void ActionPanel::onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event
 	GameData::getInstance().m_Audio->playEffect("Sounds/SelectedSound.mp3", false, 1.f, 1.f, 1.f);
 }
 
-void ActionPanel::checkShopCallback(cocos2d::Ref* pSender, unsigned shopId)
-{
-	m_Player->m_MyShopIds.push_back(shopId);
-	displayShop(shopId, Vec2(m_DisplayShopPos.x += 120, m_DisplayShopPos.y));
-}
-
 void ActionPanel::onShopChanges(unsigned shopId, Node* menu, Vec2 shopPos)
 {
 	// create a temp shop pic
@@ -141,17 +135,7 @@ void ActionPanel::removeShop(unsigned shopId)
 
 void ActionPanel::displayShopOptions()
 {
-	auto shopHotDogButton = MouseOverMenuItem::creatMouseOverMenuButton("Checkbox_Normal.png", GameData::getInstance().m_Shops[1]->m_ShopLook_Normal,
-		"Checkbox_Normal.png", CC_CALLBACK_1(ActionPanel::checkShopCallback, this, 1));
-	if (shopHotDogButton)
-	{
-		m_MenuItems.pushBack(displayMenuButton(shopHotDogButton, CC_CALLBACK_2(ActionPanel::onMouseOver, this),
-			Vec2(m_SceneMidPoint.x + 150.f, m_SceneMidPoint.y - 250.f), itemTypes::DEFAULT, 0.5f));
-	}
-
-	auto shopButton = Menu::create(shopHotDogButton, NULL);
-	shopButton->setPosition(Vec2::ZERO);
-	m_GameScene->addChild(shopButton, 2);
+	
 }
 
 

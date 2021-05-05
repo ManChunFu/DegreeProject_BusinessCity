@@ -6,7 +6,6 @@ class GameScene;
 class Shop;
 class People;
 class Car;
-class GameStartPanel;
 struct SceneViewData;
 namespace CocosDenshion
 {
@@ -19,12 +18,13 @@ class SwitchSceneView : public UIPanel
 public:
 	virtual ~SwitchSceneView();
 
-	void runInit(GameScene* gameScene, GameStartPanel* startPanel, cocos2d::Size visibleSize, cocos2d::Vec2 origin, cocos2d::Vec2 sceneMidPoint);
+	void runInit(GameScene* gameScene, cocos2d::Size visibleSize, cocos2d::Vec2 origin, cocos2d::Vec2 sceneMidPoint);
 	void switchView(unsigned id);
 	void displayShopInMainScene(unsigned shopId);
 	cocos2d::Sprite* getSceneView(unsigned viewId);
 	void removeShopFromScene(unsigned shopId, unsigned sceneId);
 
+	std::function<void()> m_StartupNotify;
 	std::function<void(unsigned sceneId, unsigned shopId, unsigned productId)> m_SaleHappensNotify;
 	std::function<void(unsigned shopId)> m_OpenShopChoiceNotify;
 protected:
@@ -43,7 +43,6 @@ private:
 	std::pair<unsigned, cocos2d::Sprite*> m_CurrentView;
 	cocos2d::Sprite* m_MoneyIcon = nullptr;
 	std::unordered_map<unsigned int, cocos2d::Vector<cocos2d::Sprite*>> m_PlayerShopsInScene;
-	GameStartPanel* m_StartPanel = nullptr;
 	std::unordered_map<unsigned, Shop*> m_PlayerShops;
 	std::unordered_map<unsigned, unsigned> m_SceneShopMatchIds;
 	People* m_People = nullptr;

@@ -24,7 +24,6 @@ SwitchSceneView::~SwitchSceneView()
 	m_People = nullptr;
 	delete m_Car;
 	m_Car = nullptr;
-	m_StartPanel = nullptr;
 	m_MoneyIcon = nullptr;
 	m_PlayerShopsInScene.clear();
 
@@ -32,12 +31,11 @@ SwitchSceneView::~SwitchSceneView()
 	m_Audio = nullptr;
 }
 
-void SwitchSceneView::runInit(GameScene* gameScene, GameStartPanel* startPanel, Size visibleSize, Vec2 origin, cocos2d::Vec2 sceneMidPoint)
+void SwitchSceneView::runInit(GameScene* gameScene, Size visibleSize, Vec2 origin, cocos2d::Vec2 sceneMidPoint)
 {
 	m_Player = GameData::getInstance().m_Player;
 	createSceneViewMaps();
 	m_GameScene = gameScene;
-	m_StartPanel = startPanel;
 
 	m_VisibleSize = visibleSize;
 	m_Origin = origin;
@@ -143,12 +141,12 @@ void SwitchSceneView::switchView(unsigned id)
 
 void SwitchSceneView::clickIconCallback(cocos2d::Ref* pSender, unsigned viewId)
 {
-	if (m_StartPanel)
+	if (m_StartupNotify)
 	{
-		m_StartPanel->openPanel(m_GameScene, m_SceneMidPoint);
-		m_StartPanel = nullptr;
+		m_StartupNotify();
 		return;
 	}
+
 	for (auto item : m_MenuItems)
 	{
 		item->pause();

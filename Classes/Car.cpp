@@ -89,7 +89,7 @@ void Car::runForwardSceneCar(Vector<Sprite*> spriteList, Vec2 displayPos, Vec2 m
 void Car::createCarSpriteList()
 {
 	// 0 = front car left, 1 = front car right, 2 = forward car
-	std::array<std::string, 5> frontSceneCarLeft = { "RedCar_Left.png", "BlueCar_Left.png", "Car_Left.png", "RedCar_Left.png", "Car_Left.png" };
+	std::array<std::string, 3> frontSceneCarLeft = { "RedCar_Left.png", "BlueCar_Left.png", "Car_Left.png" };
 	auto leftSize = frontSceneCarLeft.size();
 	Vector<Sprite*> tempSprites;
 	for (unsigned index = 0; index < leftSize; ++index)
@@ -101,7 +101,7 @@ void Car::createCarSpriteList()
 	m_SpawnCarList[EDirections::E_Left] = tempSprites;
 	tempSprites.clear();
 
-	std::array<std::string, 4> frontSceneCarRight = { "Car_Right.png", "GreenCar_Right.png", "PurpleCar_Right.png", "Car_Right.png" };
+	std::array<std::string, 3> frontSceneCarRight = { "Car_Right.png", "GreenCar_Right.png", "PurpleCar_Right.png" };
 	auto rightSize = frontSceneCarRight.size();
 	for (unsigned index = 0; index < rightSize; ++index)
 	{
