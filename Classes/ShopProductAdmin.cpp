@@ -7,6 +7,8 @@
 #include "MouseOverMenuItem.h"
 #include "ProductData.h"
 #include "Player.h"
+#include "cocostudio/SimpleAudioEngine.h"
+using namespace CocosDenshion;
 
 USING_NS_CC;
 
@@ -140,13 +142,11 @@ void ShopProductAdmin::buyProductCallback(cocos2d::Ref* pSender, unsigned produc
 
 void ShopProductAdmin::onCountDownChanges(unsigned countdown)
 {
-	if (countdown == 0)
-	{
-	}
 }
 
 void ShopProductAdmin::onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event)
 {
+	GameData::getInstance().m_Audio->playEffect("Sounds/SelectedSound.mp3", false, 1.f, 1.f, 1.f);
 }
 
 void ShopProductAdmin::createProductWidget(cocos2d::ui::Widget* parentWidget, cocos2d::ui::Widget* productWidget, unsigned startIndex, unsigned panelLimit, cocos2d::Vector<cocos2d::MenuItem*> buttonList, cocos2d::Vec2 panelMidPoint, bool moreButton)

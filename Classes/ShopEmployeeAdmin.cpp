@@ -5,6 +5,8 @@
 #include "GameFunctions.h"
 #include "MouseOverMenuItem.h"
 #include "EmployeeData.h"
+#include "cocostudio/SimpleAudioEngine.h"
+using namespace CocosDenshion;
 
 USING_NS_CC;
 
@@ -196,6 +198,7 @@ void ShopEmployeeAdmin::shiftBackwardProfile(cocos2d::Ref* pSender)
 
 void ShopEmployeeAdmin::onMouseOver(MouseOverMenuItem* menuItem, Event* event)
 {
+	GameData::getInstance().m_Audio->playEffect("Sounds/SelectedSound.mp3", false, 1.f, 1.f, 1.f);
 }
 
 unsigned int ShopEmployeeAdmin::getRandomEmployee()
