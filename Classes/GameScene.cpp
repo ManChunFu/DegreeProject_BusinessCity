@@ -104,6 +104,7 @@ void GameScene::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::E
 
 	if (keyCode == EventKeyboard::KeyCode::KEY_T)
 		m_GlobalTime->speedUp();
+
 }
 
 
