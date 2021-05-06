@@ -13,6 +13,8 @@
 #include "GameTime.h"
 #include "TotalExpense.h"
 #include "BasicExpenseData.h"
+#include "cocostudio/SimpleAudioEngine.h"
+using namespace CocosDenshion;
 
 USING_NS_CC;
 
@@ -331,14 +333,14 @@ void Bank::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopId)
 	if (reduceAmoutButton)
 	{
 		m_MenuItems.pushBack(displayMenuButton(reduceAmoutButton, CC_CALLBACK_2(Bank::onMouseOver, this),
-			Vec2(sceneMidPoint.x - 175.f, sceneMidPoint.y - 180.f), itemTypes::BUTTON, 0.5f));
+			Vec2(sceneMidPoint.x - 175.f, sceneMidPoint.y - 180.f), itemTypes::BUTTON, 0.5f, true, Vec2(0.f, 1.f)));
 	}
 
 	auto addAmoutButton = MouseOverMenuItem::createUpperButton(CC_CALLBACK_1(Bank::addAmoutCallback, this));
 	if (addAmoutButton)
 	{
 		m_MenuItems.pushBack(displayMenuButton(addAmoutButton, CC_CALLBACK_2(Bank::onMouseOver, this),
-			Vec2(sceneMidPoint.x - 255.f, sceneMidPoint.y - 160.f), itemTypes::BUTTON, 0.5f));
+			Vec2(sceneMidPoint.x - 255.f, sceneMidPoint.y - 160.f), itemTypes::BUTTON, 0.5f, true, Vec2(0.f, 1.f)));
 	}
 
 	// payback schedule
@@ -365,14 +367,14 @@ void Bank::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopId)
 	if (reduceWeekButton)
 	{
 		m_MenuItems.pushBack(displayMenuButton(reduceWeekButton, CC_CALLBACK_2(Bank::onMouseOver, this),
-			Vec2(sceneMidPoint.x - 85.f, sceneMidPoint.y - 180.f), itemTypes::BUTTON, 0.5f));
+			Vec2(sceneMidPoint.x - 85.f, sceneMidPoint.y - 180.f), itemTypes::BUTTON, 0.5f, true, Vec2(0.f, 1.f)));
 	}
 
 	auto addWeekButton = MouseOverMenuItem::createUpperButton(CC_CALLBACK_1(Bank::addWeekCallback, this));
 	if (addWeekButton)
 	{
 		m_MenuItems.pushBack(displayMenuButton(addWeekButton, CC_CALLBACK_2(Bank::onMouseOver, this),
-			Vec2(sceneMidPoint.x - 115.f, sceneMidPoint.y - 160.f), itemTypes::BUTTON, 0.5f));
+			Vec2(sceneMidPoint.x - 115.f, sceneMidPoint.y - 160.f), itemTypes::BUTTON, 0.5f, true, Vec2(0.f, 1.f)));
 	}
 
 	auto totalWeeksLabel = Label::createWithTTF("Weeks", "fonts/Nirmala.ttf", 20);
@@ -409,7 +411,7 @@ void Bank::createPanel(cocos2d::Vec2 sceneMidPoint, unsigned shopId)
 	if (applyLoanButton)
 	{
 		m_MenuItems.pushBack(displayMenuButton(applyLoanButton, CC_CALLBACK_2(Bank::onMouseOver, this),
-			Vec2(sceneMidPoint.x + 220.f, sceneMidPoint.y - 170.f), itemTypes::BUTTON));
+			Vec2(sceneMidPoint.x + 220.f, sceneMidPoint.y - 170.f), itemTypes::BUTTON, 1.f, true, Vec2(0.f, 1.f)));
 
 		auto takeLoanText = Label::createWithTTF("TAKE LOAN", "fonts/NirmalaB.ttf", 14);
 		if (takeLoanText)
@@ -784,7 +786,9 @@ void Bank::updatePlayerCurrentShopInfo()
 }
 
 void Bank::onMouseOver(MouseOverMenuItem* overItem, cocos2d::Event* event)
-{}
+{
+	GameData::getInstance().m_Audio->playEffect("Sounds/SelectedSound.mp3", false, 1.f, 1.f, 1.f);
+}
 
 // TODO : fix shop upgrade display
 //void Bank::onUpgradeShopCalls(unsigned removeShopId, unsigned upgradeShopId)

@@ -32,6 +32,7 @@ private:
 	Canvas* m_Canvas = nullptr;
 	Player* m_Player = nullptr;
 	EGameStates m_EGameState;
+	float m_BackgroundMusicVolume = 0.5f;
 
 	void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
 };
