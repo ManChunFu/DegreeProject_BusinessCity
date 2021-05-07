@@ -135,5 +135,32 @@ void GlobalTime::speedUp()
 
 }
 
+void GlobalTime::reset()
+{
+	m_DeltaCount = 0.f;
+
+	m_Gametime->minute = 59;
+	m_Gametime->hour = 9;
+
+	if (m_MinuteListeners.size() > 0)
+	{
+		for (auto listener : m_MinuteListeners)
+		{
+			listener.second(this, m_Gametime->minute);
+		}
+	}
+
+	if (m_HourListeners.size() > 0)
+	{
+		for (auto listener : m_HourListeners)
+		{
+			listener.second(this, m_Gametime->hour);
+		}
+	}
+
+	if (onEveryDayChanges)
+		onEveryDayChanges(this, m_Gametime->day);
+}
+
 
 

@@ -26,6 +26,7 @@ public:
 	GameTime* m_Gametime = nullptr;
 
 	void speedUp();
+	void reset();
 protected:
 	float m_ElapsedTime = 0.f;
 	float m_DeltaCount = 3.f;

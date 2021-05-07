@@ -7,8 +7,6 @@
 #include "GameData.h"
 #include "GameFunctions.h"
 #include "GameScene.h"
-#include "cocostudio/SimpleAudioEngine.h"
-using namespace CocosDenshion;
 
 USING_NS_CC;
 
@@ -243,7 +241,6 @@ void ShopUpgrade::cancelUpgradeCallback(cocos2d::Ref* pSender)
 
 void ShopUpgrade::onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event)
 {
-	GameData::getInstance().m_Audio->playEffect("Sounds/SelectedSound.mp3", false, 1.f, 1.f, 1.f);
 }
 
 std::string ShopUpgrade::GetShopUpgradePrice(unsigned shopId)

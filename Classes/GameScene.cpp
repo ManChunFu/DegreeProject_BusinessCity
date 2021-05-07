@@ -105,6 +105,9 @@ void GameScene::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::E
 	if (keyCode == EventKeyboard::KeyCode::KEY_T)
 		m_GlobalTime->speedUp();
 
+	if (keyCode == EventKeyboard::KeyCode::KEY_G)
+		m_GlobalTime->reset();
+
 	if (keyCode == EventKeyboard::KeyCode::KEY_S)
 	{
 		m_BackgroundMusicVolume -= 0.05f;

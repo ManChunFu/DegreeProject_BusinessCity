@@ -15,8 +15,6 @@
 #include "ShopProductAdmin.h"
 #include "ShopUpgrade.h"
 #include "ShopEmployeeAdmin.h"
-#include "cocostudio/SimpleAudioEngine.h"
-using namespace CocosDenshion;
 
 USING_NS_CC;
 
@@ -386,7 +384,6 @@ void MyShopSettingPanel::onEveryHourChanges(GlobalTime* globalTime, unsigned hou
 
 void MyShopSettingPanel::onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event)
 {
-	GameData::getInstance().m_Audio->playEffect("Sounds/SelectedSound.mp3", false, 1.f, 1.f, 1.f);
 }
 
 void MyShopSettingPanel::onEmployeeCountChanges(unsigned employeeCount)

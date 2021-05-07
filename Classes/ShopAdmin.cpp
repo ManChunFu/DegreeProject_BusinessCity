@@ -9,8 +9,6 @@
 #include "GameTime.h"
 #include "ShopProductAdmin.h"
 #include "ShopEmployeeAdmin.h"
-#include "cocostudio/SimpleAudioEngine.h"
-using namespace CocosDenshion;
 
 
 USING_NS_CC;
@@ -243,7 +241,6 @@ void ShopAdmin::increaseTimeCallback(cocos2d::Ref* pSender, unsigned weekday, bo
 
 void ShopAdmin::onMouseOver(MouseOverMenuItem* menuItem, cocos2d::Event* event)
 {
-	GameData::getInstance().m_Audio->playEffect("Sounds/SelectedSound.mp3", false, 1.f, 1.f, 1.f);
 }
 
 void ShopAdmin::enableHoursButtons(unsigned weekday, bool enable)
